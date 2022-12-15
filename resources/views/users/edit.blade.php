@@ -81,7 +81,7 @@
                                     {{ $role->id }}
                                     <input type="checkbox" name="roles[]" value="{{$role->id}}"
                                         {{ (in_array($role->id, old('roles', [])) || isset($user) && $user->roles()->pluck('name', 'roles.id')->contains($role->name)) ? 'checked' : '' }}>&nbsp {{$role->name}}
-                                    {{-- @elsecan('user.show')
+                                    {{-- @elsecan('users.show')
                                         <input type="checkbox" name="roles[]" value="{{$rol->id}}" class="d-none"
                                             {{ (in_array($rol->id, old('roles', [])) || isset($user) && $user->roles()->pluck('name', 'roles.id')->contains($rol->name)) ? 'checked' : '' }}> &nbsp {{$rol->name}}  --}}
                                 </div>

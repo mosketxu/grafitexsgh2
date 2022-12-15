@@ -14,7 +14,7 @@ class PermissionsTableSeeder extends Seeder
     {
         //Users
         // Permission::create(['name'=>'Usuarios Navegar','slug'=>'user.index','description'=>'Lista todos los usuarios del sistema',]);
-        // Permission::create(['name'=>'Usuarios Ver detalle','slug'=>'user.show','description'=>'Ver en detalle cada usuario del sistema',]);
+        // Permission::create(['name'=>'Usuarios Ver detalle','slug'=>'users.show','description'=>'Ver en detalle cada usuario del sistema',]);
         // Permission::create(['name'=>'Usuarios Crear','slug'=>'user.create','description'=>'Crea un usuario en el sistema',]);
         // Permission::create(['name'=>'Usuarios Editar','slug'=>'user.edit','description'=>'Edita cada usuario del sistema',]);
         // Permission::create(['name'=>'Usuarios Eliminar','slug'=>'user.destroy','description'=>'Elimina el usuario del sistema',]);
@@ -102,6 +102,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name'=>'tiendas Crear','slug'=>'tiendas.create','description'=>'Crea una tiendas en el sistema',]);
         Permission::create(['name'=>'tiendas Editar','slug'=>'tiendas.edit','description'=>'Edita cada tiendas del sistema',]);
         Permission::create(['name'=>'tiendas Eliminar','slug'=>'tiendas.destroy','description'=>'Elimina la tienda del sistema',]);
-        
+
     }
 }
