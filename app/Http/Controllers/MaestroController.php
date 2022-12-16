@@ -39,7 +39,7 @@ class MaestroController extends Controller
         ->mat($request->mat)
         ->med($request->med)
         ->propx($request->propx)
-        ->paginate(10);
+        ->paginate(30);
 
         return view('maestro.index',compact('maestros','sto','nam','coun','are','seg','cha','clu','conce','fur','ubi','mob','cart','mat','med','propx'));
     }
@@ -132,23 +132,18 @@ class MaestroController extends Controller
 
         Maestro::insertStoresSGH();
         Maestro::insertElementosSGH();
-
         // Maestro::insertStoreElementos();
 
-        // dd('finalizado');
         $notification = array(
             'message' => '¡Tablas principales actualizadas satisfactoriamente!',
             'alert-type' => 'success'
         );
 
         return redirect()->route('maestro.index')->with($notification);
-
     }
 
     public function actualizastoreelementos(){
         DB::table('store_elementos')->delete();
-
-        // dd(Maestro::get()->count());
         Maestro::chunk(100, function ($maestros) {
             $dataSet = [];
             foreach ($maestros as $elemento) {
@@ -167,8 +162,5 @@ class MaestroController extends Controller
         );
 
         return redirect()->route('maestro.index')->with($notification);
-
-
     }
-
 }
