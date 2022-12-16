@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 class MaestroController extends Controller
 {
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $sto=$request->get('sto');
         $nam=$request->get('nam');
         $coun=$request->get('coun');
@@ -45,9 +44,7 @@ class MaestroController extends Controller
         return view('maestro.index',compact('maestros','sto','nam','coun','are','seg','cha','clu','conce','fur','ubi','mob','cart','mat','med','propx'));
     }
 
-
-    public function import(Request $request,$origen)
-    {
+    public function import(Request $request,$origen){
         $request->validate([
             'maestro' => 'required|mimes:xls,xlsx',
             ]);
@@ -74,8 +71,7 @@ class MaestroController extends Controller
 
     }
 
-    public function actualizarTablas($origen)
-    {
+    public function actualizarTablas($origen){
         //elimino los elementos de las stores para volver a añadirlos
         DB::table('store_elementos')->delete();
         DB::table('elementos')->delete(); // si no los elimino es muy lento y salta
@@ -83,62 +79,48 @@ class MaestroController extends Controller
         //Inserto actualizo Ubicaciones
         $ubicaciones=Maestro::select('ubicacion')->distinct('ubicacion')->get()->toArray();
         foreach ($ubicaciones as $ubicacion){
-            Ubicacion::firstOrCreate($ubicacion);
-        }
+            Ubicacion::firstOrCreate($ubicacion);}
         //Inserto actualizo Areas
         $areas=Maestro::select('area')->distinct('area')->get()->toArray();
         foreach ($areas as $area){
-            Area::firstOrCreate($area);
-        }
+            Area::firstOrCreate($area);}
         //Cartelerias
         $cartelerias=Maestro::select('carteleria')->distinct('carteleria')->get()->toArray();
         foreach ($cartelerias as $carteleria){
-            Carteleria::firstOrCreate($carteleria);
-        }
+            Carteleria::firstOrCreate($carteleria);}
         //Medidas
         $medidas=Maestro::select('medida')->distinct('medida')->get()->toArray();
         foreach ($medidas as $medida){
-            Medida::firstOrCreate($medida);
-        }
+            Medida::firstOrCreate($medida);}
         //Mobiliarios
         $mobiliarios=Maestro::select('mobiliario')->distinct('mobiliario')->get()->toArray();
         foreach ($mobiliarios as $mobiliario){
-            Mobiliario::firstOrCreate($mobiliario);
-        }
+            Mobiliario::firstOrCreate($mobiliario);}
         //Propxelemento
         $propxelementos=Maestro::select('propxelemento')->distinct('propxelemento')->get()->toArray();
         foreach ($propxelementos as $propxelemento){
-            Propxelemento::firstOrCreate($propxelemento);
-        }
+            Propxelemento::firstOrCreate($propxelemento);}
         //Segmentos
         $segmentos=Maestro::select('segmento')->distinct('segmento')->get()->toArray();
         foreach ($segmentos as $segmento){
-            Segmento::firstOrCreate($segmento);
-        }
+            Segmento::firstOrCreate($segmento);}
         //Furnitures solo si es SGH
         if($origen=="SGH"){
             DB::table('furnitures')->delete();
             $furnitures=Maestro::select('furniture_type')->distinct('furniture_type')->get()->toArray();
-            // foreach ($furnitures as $furniture){
-            //     Furniture::firstOrCreate($furnitures);
-            // }
-            Furniture::insert(Maestro::select('furniture_type')->distinct('furniture_type')->get()->toArray());
-        }
+            Furniture::insert(Maestro::select('furniture_type')->distinct('furniture_type')->get()->toArray());}
         // Storeconcepts
         $storeconcepts=Maestro::select('storeconcept')->distinct('storeconcept')->get()->toArray();
         foreach ($storeconcepts as $storeconcept){
-            Storeconcept::firstOrCreate($storeconcept);
-        }
+            Storeconcept::firstOrCreate($storeconcept);}
         // Materiales
         $materials=Maestro::select('material')->distinct('material')->get()->toArray();
         foreach ($materials as $material){
-            Material::firstOrCreate($material);
-        }
+            Material::firstOrCreate($material);}
         // Tarifa familias
         $tarifafamilias=Maestro::select('material','medida','matmed')
         ->groupBy('material','medida','matmed')
         ->get();
-
         foreach ($tarifafamilias as $tf){
             TarifaFamilia::firstOrCreate(
                 ['matmed'=>$tf->matmed],
@@ -150,6 +132,7 @@ class MaestroController extends Controller
 
         Maestro::insertStoresSGH();
         Maestro::insertElementosSGH();
+
         // Maestro::insertStoreElementos();
 
         // dd('finalizado');
@@ -162,8 +145,7 @@ class MaestroController extends Controller
 
     }
 
-    public function actualizastoreelementos()
-    {
+    public function actualizastoreelementos(){
         DB::table('store_elementos')->delete();
 
         // dd(Maestro::get()->count());
@@ -179,16 +161,13 @@ class MaestroController extends Controller
             DB::table('store_elementos')->insert($dataSet);
         });
 
-        dd('finalizado');
-
         $notification = array(
             'message' => '¡Proceso finalizado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
-        dd('finalizado');
+        return redirect()->route('maestro.index')->with($notification);
 
-        return redirect('/maestro')->with($notification);
 
     }
 

@@ -3,7 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Storedata;
+
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class StoredataImport implements ToModel,WithHeadingRow

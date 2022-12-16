@@ -27,17 +27,17 @@ class StoredataController extends Controller
             if(!is_null($store)){
                 Store::where('id',$storedata->id)
                     ->update([
-                       'luxotica'=>$storedata->luxotica,
-                       'address'=>$storedata->address,
-                       'city'=>$storedata->city,
-                       'province'=>$storedata->province,
-                       'cp'=>$storedata->cp,
-                       'phone'=>$storedata->phone,
-                       'email'=>$storedata->email,
-                       'winterschedule'=>$storedata->winterschedule,
-                       'summerschedule'=>$storedata->summerschedule,
-                       'deliverytime'=>$storedata->deliverytime,
-                       'observaciones'=>$storedata->observaciones
+                        'luxotica'=>$storedata->luxotica,
+                        'address'=>$storedata->address,
+                        'city'=>$storedata->city,
+                        'province'=>$storedata->province,
+                        'cp'=>$storedata->cp,
+                        'phone'=>$storedata->phone,
+                        'email'=>$storedata->email,
+                        'winterschedule'=>$storedata->winterschedule,
+                        'summerschedule'=>$storedata->summerschedule,
+                        'deliverytime'=>$storedata->deliverytime,
+                        'observaciones'=>$storedata->observaciones
                     ]
                 );
             }
@@ -47,6 +47,6 @@ class StoredataController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect('/store/index')->with($notification);
+        return redirect()->route('maestro.index')->with($notification);
     }
 }
