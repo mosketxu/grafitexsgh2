@@ -7,9 +7,9 @@
 @section('title','Nuevo '.ucfirst($campo))
 @section('titlePag','Nuevo '.ucfirst($campo))
 
-@section('content')
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+
+
+<div class="">
         {{-- content header --}}
         <div class="content-header">
             <div class="container">

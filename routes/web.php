@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 // Route::get('/home','HomeController@index')->name('home');
-Route::get('/home', function () {return view('dashoboard');})->name('home');
+Route::get('/home', function () {return view('dashboard');})->name('home');
 
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
@@ -64,9 +64,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //Maestro
     // require __DIR__ .'/maestro.php';
-    Route::post('/maestro/import/{origen}', 'MaestroController@import')->name('maestro.import')->middleware('can:maestro.create');
-    Route::get('maestro/actualizatablas/{origen}','MaestroController@actualizartablas')->name('maestro.actualizatablas')->middleware('can:maestro.edit');;
-    Route::get('maestro/actualizaStoreElementos','MaestroController@actualizastoreelementos')->name('maestro.actualizastoreelementos')->middleware('can:maestro.edit');;
+    Route::post('/maestro/import/{origen}', [MaestroController::class,'import'])->name('maestro.import')->middleware('can:maestro.create');
+    Route::get('maestro/actualizatablas/{origen}',[MaestroController::class,'actualizartablas'])->name('maestro.actualizatablas')->middleware('can:maestro.edit');;
+    Route::get('maestro/actualizaStoreElementos',[MaestroController::class,'actualizastoreelementos'])->name('maestro.actualizastoreelementos')->middleware('can:maestro.edit');;
     Route::resource('maestro', MaestroController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //campaign.php

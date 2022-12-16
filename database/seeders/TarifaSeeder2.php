@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tarifa;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class TarifaSeeder extends Seeder
+
+class TarifaSeeder2 extends Seeder
 {
     /**
      * Run the database seeds.
@@ -40,5 +43,6 @@ class TarifaSeeder extends Seeder
             ['zona'=>'CN','familia'=>'Transporte','tipo'=>2,'tramo1'=>1,'tarifa1'=>6,'tramo2'=>0,'tarifa2'=>0,'tramo3'=>0,'tarifa3'=>0],
             ['zona'=>'PT','familia'=>'Transporte','tipo'=>2,'tramo1'=>1,'tarifa1'=>7,'tramo2'=>0,'tarifa2'=>0,'tramo3'=>0,'tarifa3'=>0],
         ]);
+
     }
 }

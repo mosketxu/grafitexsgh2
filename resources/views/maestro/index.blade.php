@@ -7,7 +7,9 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
-                {{-- <x-button.button  class="py-1" onclick="location.href = '{{ route('presupuesto.nuevo',[$tipo,'i']) }}'" color="blue" >{{ __('Nuevo') }}</x-button.button> --}}
+                @can('maestro.create')
+                    @include('maestro.menu_maestro')
+                @endcan
             </div>
         </div>
     </x-slot>

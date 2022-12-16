@@ -85,37 +85,37 @@ class MaestroController extends Controller
         foreach ($ubicaciones as $ubicacion){
             Ubicacion::firstOrCreate($ubicacion);
         }
-        // Ubicacion::insert(Maestro::select('ubicacion')->distinct('ubicacion')->get()->toArray());
+        //Inserto actualizo Areas
         $areas=Maestro::select('area')->distinct('area')->get()->toArray();
         foreach ($areas as $area){
             Area::firstOrCreate($area);
         }
-        // Area::insert(Maestro::select('area')->distinct('area')->get()->toArray());
+        //Cartelerias
         $cartelerias=Maestro::select('carteleria')->distinct('carteleria')->get()->toArray();
         foreach ($cartelerias as $carteleria){
             Carteleria::firstOrCreate($carteleria);
         }
-        // Carteleria::insert(Maestro::select('carteleria')->distinct('carteleria')->get()->toArray());
+        //Medidas
         $medidas=Maestro::select('medida')->distinct('medida')->get()->toArray();
         foreach ($medidas as $medida){
             Medida::firstOrCreate($medida);
         }
-        // Medida::insert(Maestro::select('medida')->distinct('medida')->get()->toArray());
+        //Mobiliarios
         $mobiliarios=Maestro::select('mobiliario')->distinct('mobiliario')->get()->toArray();
         foreach ($mobiliarios as $mobiliario){
             Mobiliario::firstOrCreate($mobiliario);
         }
-        // Mobiliario::insert(Maestro::select('mobiliario')->distinct('mobiliario')->get()->toArray());
+        //Propxelemento
         $propxelementos=Maestro::select('propxelemento')->distinct('propxelemento')->get()->toArray();
         foreach ($propxelementos as $propxelemento){
             Propxelemento::firstOrCreate($propxelemento);
         }
-        // Propxelemento::insert(Maestro::select('propxelemento')->distinct('propxelemento')->get()->toArray());
+        //Segmentos
         $segmentos=Maestro::select('segmento')->distinct('segmento')->get()->toArray();
         foreach ($segmentos as $segmento){
             Segmento::firstOrCreate($segmento);
         }
-        // Segmento::insert(Maestro::select('segmento')->distinct('segmento')->get()->toArray());
+        //Furnitures solo si es SGH
         if($origen=="SGH"){
             DB::table('furnitures')->delete();
             $furnitures=Maestro::select('furniture_type')->distinct('furniture_type')->get()->toArray();
@@ -124,24 +124,27 @@ class MaestroController extends Controller
             // }
             Furniture::insert(Maestro::select('furniture_type')->distinct('furniture_type')->get()->toArray());
         }
+        // Storeconcepts
         $storeconcepts=Maestro::select('storeconcept')->distinct('storeconcept')->get()->toArray();
         foreach ($storeconcepts as $storeconcept){
             Storeconcept::firstOrCreate($storeconcept);
         }
-        // Storeconcept::insert(Maestro::select('storeconcept')->distinct('storeconcept')->get()->toArray());
+        // Materiales
         $materials=Maestro::select('material')->distinct('material')->get()->toArray();
         foreach ($materials as $material){
             Material::firstOrCreate($material);
         }
-
+        // Tarifa familias
         $tarifafamilias=Maestro::select('material','medida','matmed')
         ->groupBy('material','medida','matmed')
         ->get();
+
         foreach ($tarifafamilias as $tf){
             TarifaFamilia::firstOrCreate(
                 ['matmed'=>$tf->matmed],
                 ['material'=>$tf->material,
-                'medida'=>$tf->medida]
+                'medida'=>$tf->medida],
+                ['tarifa_id'=>'1'],
             );
         }
 
@@ -149,13 +152,13 @@ class MaestroController extends Controller
         Maestro::insertElementosSGH();
         // Maestro::insertStoreElementos();
 
-        dd('finalizado');
+        // dd('finalizado');
         $notification = array(
             'message' => '¡Tablas principales actualizadas satisfactoriamente!',
             'alert-type' => 'success'
         );
 
-        return view('home')->with($notification);
+        return redirect()->route('maestro.index')->with($notification);
 
     }
 

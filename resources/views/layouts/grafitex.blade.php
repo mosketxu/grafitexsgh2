@@ -26,7 +26,7 @@
             @yield('navbar')
             <!-- Main Sidebar Container -->
             @include('_partials._sidebar')
-            <!-- Content Wrapper. Contains page content -->
+
             {{-- @include('_partials._content') --}}
             @yield('content')
             <!-- Footer -->

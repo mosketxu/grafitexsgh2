@@ -6,9 +6,9 @@
 @section('title','Grafitex-Elementos')
 @section('titlePag','Elementos')
 
-@section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+
+
+    <div class="">
         {{-- content header --}}
         <div class="content-header">
             <div class="container-fluid">

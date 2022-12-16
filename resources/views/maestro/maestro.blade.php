@@ -1,11 +1,10 @@
 <div class="">
-    asda
-</div>
-
-
-@section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="h-full p-1 mx-2">
+        <div class="py-1 space-y-2">
+            <div class="">
+                @include('errores')
+            </div>
+        </div>
         {{-- content header --}}
         <div class="content-header">
             <div class="container-fluid">
@@ -15,20 +14,6 @@
                     </div>
                     <div class="col-auto mr-auto">
                         @can('maestro.create')
-                        {{-- <a href="" role="button" data-toggle="modal" data-target="#importMaestro" data-backdrop="static" data-keyboard="false">
-                            <i class="mt-2 fas fa-plus-circle fa-2x text-primary"></i>
-                            <span class="badge badge-primary">Fichero Grafitex</span>
-                        </a>
-                        &nbsp;&nbsp;
-                        <a href="" role="button" data-toggle="modal" data-target="#actualizaTablas" data-backdrop="static" data-keyboard="false">
-                            <i class="mt-2 fas fa-sync-alt fa-2x text-primary"></i>
-                            <span class="badge badge-primary">Actualizar tablas Grafitex</span>
-                        </a> --}}
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" role="button" data-toggle="modal" data-target="#importMaestroSHG" data-backdrop="static" data-keyboard="false">
-                            <i class="mt-2 fas fa-plus-circle fa-2x text-success"></i>
-                            <span class="badge badge-success">Fichero SGH</span>
-                        </a>
                         &nbsp;&nbsp;
                         <a href="" role="button" data-toggle="modal" data-target="#actualizaTablasSGH" data-backdrop="static" data-keyboard="false">
                             <i class="mt-2 fas fa-sync-alt fa-2x text-success"></i>
@@ -149,62 +134,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal Maestro Grafitex-->
-            <div class="modal fade" id="importMaestro" tabindex="-1" role="dialog" aria-labelledby="importMaestroLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="importMaestroLabel">Nueva importacion de maestro modificado Grafitex</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form id="formulario" role="form" method="post" action="{{ route('maestro.import','Grafitex') }}" enctype="multipart/form-data" >
-                                @csrf
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <label for="campaign_initdate">Fichero</label>
-                                        <input type="file" class="form-control form-control-sm" id="maestro" name="maestro" value=""/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary modalSubir" data-dismiss="modal">Cerrar</button>
-                                    @can('maestro.create')
-                                    <button type="button" class="btn btn-primary modalSubir" name="Guardar" onclick="subirfichero('#formulario')">Subir Maestro Grafitex</button>
-                                    @endcan
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Maestro SGH-->
-            <div class="modal fade" id="importMaestroSHG" tabindex="-1" role="dialog" aria-labelledby="importMaestroSHGLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="importMaestroSHGLabel">Nueva importacion de maestro original SGH</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form id="formularioSGH" role="form" method="post" action="{{ route('maestro.import','SGH') }}" enctype="multipart/form-data" >
-                                @csrf
-                                <div class="row">
-                                    <div class="form-group col">
-                                        <label for="campaign_initdate">Fichero</label>
-                                        <input type="file" class="form-control form-control-sm" id="maestro" name="maestro" value=""/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary modalSubir" data-dismiss="modal">Cerrar</button>
-                                    @can('maestro.create')
-                                    <button type="button" class="btn btn-success modalSubir" name="Guardar" onclick="subirfichero('#formularioSGH')">Subir Maestro SGH</button>
-                                    @endcan
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Modal Actualiza tablas-->
             <div class="modal fade" id="actualizaTablas" tabindex="-1" role="dialog" aria-labelledby="actualizaTablasLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -291,8 +220,7 @@
 
         </section>
     </div>
-@endsection
-
+</div>
 @push('scriptchosen')
 
 <script>
