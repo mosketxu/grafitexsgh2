@@ -13,13 +13,18 @@ use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:store.index')->only('index');
+        $this->middleware('can:store.edit')->only('adresses','store','edit','update','updateimagenindex','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $lux=$request->get('lux');
         $sto=$request->get('sto');
         $nam=$request->get('nam');
@@ -43,23 +48,24 @@ class StoreController extends Controller
             ->fur($fur)
             ->orderBy('id')
             ->paginate('10')->onEachSide(1);
-        $countries=Country::get();
-        $areas=Area::orderBy('area')->get();
-        $segmentos=Segmento::orderBy('segmento')->get();
-        $conceptos=Storeconcept::orderBy('storeconcept')->get();
-        $furnitures=Furniture::orderBy('furniture_type')->get();
+        // $countries=Country::get();
+        // $areas=Area::orderBy('area')->get();
+        // $segmentos=Segmento::orderBy('segmento')->get();
+        // $conceptos=Storeconcept::orderBy('storeconcept')->get();
+        // $furnitures=Furniture::orderBy('furniture_type')->get();
 
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
         else
+            // return view('stores.index',
+            //         compact('stores','countries','areas','segmentos','conceptos','furnitures',
+            //         'lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
             return view('stores.index',
-                    compact('stores','countries','areas','segmentos','conceptos','furnitures',
-                    'lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
+                    compact('lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
 
     }
 
-    public function adresses(Request $request)
-    {
+    public function adresses(Request $request){
         $sto=$request->get('sto');
         $nam=$request->get('nam');
 
@@ -72,25 +78,14 @@ class StoreController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
-            'id'=>'required|unique:stores',
+            'id'=>'required|numeric|unique:stores',
             'name'=>'required',
             'country'=>'required',
             'area_id'=>'required',
@@ -135,24 +130,12 @@ class StoreController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
-    {
+    public function edit(Store $store){
         // $store = Store::find($id);
 
         $countries=Country::get();
@@ -172,8 +155,7 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $request->validate([
             'name'=>'required',
             'country'=>'required',
@@ -237,8 +219,7 @@ class StoreController extends Controller
 
     }
 
-    public function updateimagenindex(Request $request)
-    {
+    public function updateimagenindex(Request $request){
         $request->validate([
             'imagen' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
         ]);
@@ -257,8 +238,7 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(request $request,$id)
-    {
+    public function destroy(request $request,$id){
         try{
             Store::destroy($id);;
         }catch(\ErrorException $ex){

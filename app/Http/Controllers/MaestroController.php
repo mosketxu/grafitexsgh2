@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 class MaestroController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:maestro.index')->only('index');
+        $this->middleware('can:maestro.edit')->only('import','actualizarTablas','actualizastoreelementos');
+    }
+
     public function index(Request $request){
         $sto=$request->get('sto');
         $nam=$request->get('nam');

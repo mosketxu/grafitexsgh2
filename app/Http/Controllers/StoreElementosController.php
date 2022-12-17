@@ -9,13 +9,19 @@ use Illuminate\Support\Facades\DB;
 
 class StoreElementosController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:storeelementos.index')->only('index');
+        $this->middleware('can:storeelementos.edit')->only('store','edit','destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($storeId, Request $request)
-    {
+    public function index($storeId, Request $request){
         if ($request->busca) {
             $busqueda = $request->busca;
         } else {
@@ -33,23 +39,12 @@ class StoreElementosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$store_id)
-    {
+    public function store(Request $request,$store_id){
         $request->validate([
             'elemento_id'=>'required'
         ]);
@@ -72,16 +67,6 @@ class StoreElementosController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -89,8 +74,7 @@ class StoreElementosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($storeId, Request $request)
-    {
+    public function edit($storeId, Request $request){
 
         $store=Store::find($storeId);
 
@@ -120,24 +104,12 @@ class StoreElementosController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($store_id,$elemento_id, Request $request)
-    {
+    public function destroy($store_id,$elemento_id, Request $request){
         // dd($store_id.'-'.$elemento_id);
         $s=StoreElemento::where('store_id',$store_id)
         ->where('elemento_id',$elemento_id)

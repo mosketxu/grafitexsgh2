@@ -4,7 +4,7 @@
         <div class="flex justify-between ">
             <div class="flex text-xs">
                 <div class="hidden space-x-2 sm:-my-px sm:m-2 sm:flex">
-                    @livewire('maestro.modalficherosgh')
+                    @livewire('stores.modalstores')
                 </div>
             </div>
         </div>

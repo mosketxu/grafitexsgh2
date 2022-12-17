@@ -148,7 +148,7 @@ class CampaignElementoController extends Controller
         $extension=$request->file('photo')->getClientOriginalExtension();
         $tipo=$request->file('photo')->getClientMimeType();
         $nombre=$request->file('photo')->getClientOriginalName();
-        $tamanyo=$request->file('photo')->getClientSize();
+        $tamanyo=$request->file('photo')->getSize();
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$nombre;

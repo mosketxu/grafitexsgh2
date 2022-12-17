@@ -132,7 +132,7 @@ class Store extends Model
         $extension=$imagen->getClientOriginalExtension();
         $tipo=$imagen->getClientMimeType();
         $nombre=$imagen->getClientOriginalName();
-        $tamayo=$imagen->getClientSize();
+        $tamayo=$imagen->getSize();
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$storeId.'.jpg';

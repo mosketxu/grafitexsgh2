@@ -128,7 +128,7 @@ class CampaignGaleriaController extends Controller
         $extension=$request->file('photo')->getClientOriginalExtension();
         $tipo=$request->file('photo')->getClientMimeType();
         $nombre=$request->file('photo')->getClientOriginalName();
-        $tamayo=$request->file('photo')->getClientSize();
+        $tamayo=$request->file('photo')->getSize();
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$campGal->elemento.'-'.$campGal->campaign_id.'.'.$extension;
@@ -181,7 +181,7 @@ class CampaignGaleriaController extends Controller
         $extension=$request->file('photo')->getClientOriginalExtension();
         $tipo=$request->file('photo')->getClientMimeType();
         $nombre=$request->file('photo')->getClientOriginalName();
-        $tamayo=$request->file('photo')->getClientSize();
+        $tamayo=$request->file('photo')->getSize();
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$campGal->elemento.'.jpg';

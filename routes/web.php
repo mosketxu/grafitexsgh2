@@ -2,20 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, ElementoController, MaestroController, RoleController, StoreController, StoredataController,TarifaController, UserController};
+use App\Http\Controllers\{CampaignController, ElementoController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, UserController};
+use Spatie\Permission\Models\Role;
 
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -217,7 +206,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('store/adresses',[StoreController::class,'adresses'])->name('store.adresses')->middleware('can:store.index');
     Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('store.updatetiendas')->middleware('can:store.edit');
     Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('store.updateimagenindex')->middleware('can:store.create');
-    Route::resource('store', StoreController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
+    Route::resource('store', StoreController::class)->except('create','show'); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
+
+    //store elementos
+    Route::resource('storeelementos', StoreElementosController::class)->except('show','create','update');; //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //elemento.php
     Route::resource('elemento', ElementoController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
