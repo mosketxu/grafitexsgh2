@@ -2,21 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, ElementoController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, UserController};
-use Spatie\Permission\Models\Role;
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController,  CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, UserController};
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/home','HomeController@index')->name('home');
 Route::get('/home', function () {return view('dashboard');})->name('home');
 
-
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-
-    // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
     Route::get('/dashboard', function () {
         if (Auth::user()->hasRole('admin')) {
@@ -62,101 +57,101 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::resource('campaign', CampaignController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
         //Generar Campaña
     Route::group(['prefix' => 'campaign'], function () {
-        Route::post('/asociar', 'CampaignController@asociar')->name('campaign.asociar')
+        Route::post('/asociar', [CampaignController::class,'asociar'])->name('campaign.asociar')
             ->middleware('can:campaign.edit');
 
-        Route::post('/asociarstore', 'CampaignController@asociarstore')->name('campaign.asociarstore')
+        Route::post('/asociarstore', [CampaignController::class,'asociarstore'])->name('campaign.asociarstore')
             ->middleware('can:campaign.edit');
 
-        Route::post('generarcampaign/{tipo}/{campaign}', 'CampaignController@generarcampaign')->name('campaign.generar')
+        Route::post('generarcampaign/{tipo}/{campaign}', [CampaignController::class,'generarcampaign'])->name('campaign.generar')
             ->middleware('can:campaign.create');
 
-        Route::get('/{campaign}/filtro', 'CampaignController@filtrar')->name('campaign.filtrar')
+        Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')
             ->middleware('can:campaign.edit');
 
-        Route::get('/{campaign}/address', 'CampaignController@addresses')->name('campaign.addresses')
+        Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')
             ->middleware('can:campaign.index');
 
-        Route::get('/{campaign}/exportaddresses', 'CampaignController@exportadresses')->name('campaign.exportaddresses')
+        Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportadresses'])->name('campaign.exportaddresses')
             ->middleware('can:campaign.index');
 
-        Route::delete('/delete/{campaign}', 'CampaignController@destroy')->name('campaign.delete')
+        Route::delete('/delete/{campaign}', [CampaignController::class,'destroy'])->name('campaign.delete')
             ->middleware('can:campaign.destroy');
 
         // Estadisticas campaña
-        Route::get('/{campaign}/conteo', 'CampaignController@conteo')->name('campaign.conteo')
+        Route::get('/{campaign}/conteo', [CampaignController::class,'conteo'])->name('campaign.conteo')
             ->middleware('can:campaign.index');
 
         //Elementos de la campaña
         Route::group(['prefix' => 'elementos'], function () {
-            Route::get('/{campaignlemento}', 'CampaignElementoController@index')->name('campaign.elementos')
+            Route::get('/{campaignlemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')
                 ->middleware('can:campaign.index');
 
-            Route::get('/{campaign}/{campaigngaleria}/edit', 'CampaignElementoController@editelemento')->name('campaign.elemento.editelemento')
+            Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignElementoController::class,'editelemento'])->name('campaign.elemento.editelemento')
                 ->middleware('can:campaign.edit');
 
-            Route::post('/update', 'CampaignElementoController@update')->name('campaign.elemento.update')
+            Route::post('/update', [CampaignElementoController::class,'update'])->name('campaign.elemento.update')
                 ->middleware('can:campaign.edit');
 
-            Route::post('/updateimagenindex', 'CampaignElementoController@updateimagenindex')->name('campaign.elementos.updateimagenindex')
+            Route::post('/updateimagenindex', [CampaignElementoController::class,'updateimagenindex'])->name('campaign.elementos.updateimagenindex')
                 ->middleware('can:campaign.edit');
 
-            Route::get('/export/conteoidimatmedmob/{campaign}', 'CampaignElementoController@exportConteoIdiomaMatMedMob')->name('campaign.conteo.export')
+            Route::get('/export/conteoidimatmedmob/{campaign}', [CampaignElementoController::class,'exportConteoIdiomaMatMedMob'])->name('campaign.conteo.export')
                 ->middleware('can:campaign.index');
 
-            Route::get('/export/campaignelementos/{campaign}', 'CampaignElementoController@exportCampaignElementos')->name('campaign.elementos.export')
+            Route::get('/export/campaignelementos/{campaign}', [CampaignElementoController::class,'exportCampaignElementos'])->name('campaign.elementos.export')
                 ->middleware('can:campaign.index');
 
-            Route::get('/export/campaignelementosmat/{campaign}', 'CampaignElementoController@exportCampaignElementosMat')->name('campaign.elementosmat.export')
+            Route::get('/export/campaignelementosmat/{campaign}', [CampaignElementoController::class,'exportCampaignElementosMat'])->name('campaign.elementosmat.export')
                 ->middleware('can:campaign.index');
 
-            Route::get('/export/campaignelementosmatmed/{campaign}', 'CampaignElementoController@exportCampaignElementosMatMed')->name('campaign.elementosmatmed.export')
+            Route::get('/export/campaignelementosmatmed/{campaign}', [CampaignElementoController::class,'exportCampaignElementosMatMed'])->name('campaign.elementosmatmed.export')
                 ->middleware('can:campaign.index');
         });
         // galeria
         Route::group(['prefix' => 'galeria'], function () {
-            Route::get('/{campaign}', 'CampaignGaleriaController@index')->name('campaign.galeria')
+            Route::get('/{campaign}', [CampaignGaleriaController::class,'index'])->name('campaign.galeria')
                 ->middleware('can:campaign.index');
 
-            Route::get('/{campaigngaleria}', 'CampaignGaleriaController@edit')->name('campaign.galeria.edit')
+            Route::get('/{campaigngaleria}', [CampaignGaleriaController::class,'edit'])->name('campaign.galeria.edit')
                 ->middleware('can:campaign.edit');
 
-            Route::get('/{campaign}/{campaigngaleria}/edit', 'CampaignGaleriaController@editgaleria')->name('campaign.galeria.editgaleria')
+            Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignGaleriaController::class,'editgaleria'])->name('campaign.galeria.editgaleria')
                 ->middleware('can:campaign.edit');
 
-            Route::post('/update', 'CampaignGaleriaController@update')->name('campaign.galeria.update')
+            Route::post('/update', [CampaignGaleriaController::class,'update'])->name('campaign.galeria.update')
                 ->middleware('can:campaign.edit');
 
-            Route::post('/updateimagenindex', 'CampaignGaleriaController@updateimagenindex')->name('campaign.galeria.updateimagenindex')
+            Route::post('/updateimagenindex', [CampaignGaleriaController::class,'updateimagenindex'])->name('campaign.galeria.updateimagenindex')
                 ->middleware('can:campaign.edit');
         });
         // presupuesto
         Route::group(['prefix' => 'presupuesto'], function () {
-            Route::get('/{campaign}', 'CampaignPresupuestoController@index')->name('campaign.presupuesto')
+            Route::get('/{campaign}', [CampaignPresupuestoController::class,'index'])->name('campaign.presupuesto')
                 ->middleware('can:presupuesto.index');
 
-            Route::get('/edit/{campaignpresupuesto}', 'CampaignPresupuestoController@edit')->name('campaign.presupuesto.edit')
+            Route::get('/edit/{campaignpresupuesto}', [CampaignPresupuestoController::class,'edit'])->name('campaign.presupuesto.edit')
                 ->middleware('can:presupuesto.edit');
 
-            Route::get('/cotizacion/{campaignpresupuesto}', 'CampaignPresupuestoController@cotizacion')->name('campaign.presupuesto.cotizacion')
+            Route::get('/cotizacion/{campaignpresupuesto}', [CampaignPresupuestoController::class,'cotizacion'])->name('campaign.presupuesto.cotizacion')
                 ->middleware('can:presupuesto.index');
 
-            Route::get('/cotizacion/elementos/{campaignid}/{familiaid}/{presupuestoid}', 'CampaignPresupuestoController@elementosfamilia')->name('campaign.presupuesto.elementosfamilia')
+            Route::get('/cotizacion/elementos/{campaignid}/{familiaid}/{presupuestoid}', [CampaignPresupuestoController::class,'elementosfamilia'])->name('campaign.presupuesto.elementosfamilia')
                 ->middleware('can:presupuesto.index');
 
-            Route::post('/update/{campaignpresupuesto}', 'CampaignPresupuestoController@update')->name('campaign.presupuesto.update')
+            Route::post('/update/{campaignpresupuesto}', [CampaignPresupuestoController::class,'update'])->name('campaign.presupuesto.update')
                 ->middleware('can:presupuesto.edit');
 
-            Route::put('/updateelemento', 'CampaignPresupuestoController@updateelemento')->name('campaign.presupuesto.updateelemento')
+            Route::put('/updateelemento', [CampaignPresupuestoController::class,'updateelemento'])->name('campaign.presupuesto.updateelemento')
                 ->middleware('can:presupuesto.edit');
 
-            Route::get('/refresh/{campaign}/{campaignpresupuesto}', 'CampaignPresupuestoController@refresh')->name('campaign.presupuesto.refresh')
+            Route::get('/refresh/{campaign}/{campaignpresupuesto}', [CampaignPresupuestoController::class,'refresh'])->name('campaign.presupuesto.refresh')
                 ->middleware('can:presupuesto.edit');
 
-            Route::post('/store', 'CampaignPresupuestoController@store')->name('campaign.presupuesto.store')
+            Route::post('/store', [CampaignPresupuestoController::class,'store'])->name('campaign.presupuesto.store')
                 ->middleware('can:presupuesto.create');
 
-            Route::delete('/delete/{campaignpresupuesto}', 'CampaignPresupuestoController@destroy')->name('campaign.presupuesto.delete')
+            Route::delete('/delete/{campaignpresupuesto}', [CampaignPresupuestoController::class,'destroy'])->name('campaign.presupuesto.delete')
                 ->middleware('can:presupuesto.destroy');
 
             //presupuesto detalles
@@ -173,13 +168,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
             //presupuesto extras
             Route::group(['prefix' => 'extra'], function () {
-                Route::post('/update/{campaignpresupuestoextra}', 'CampaignPresupuestoExtraController@update')->name('campaign.presupuesto.extra.update')
+                Route::post('/update/{campaignpresupuestoextra}', [CampaignPresupuestoExtraController::class,'update'])->name('campaign.presupuesto.extra.update')
                     ->middleware('can:prespuesto.edit');
 
-                Route::post('/store', 'CampaignPresupuestoExtraController@store')->name('campaign.presupuesto.extra.store')
+                Route::post('/store', [CampaignPresupuestoExtraController::class,'store'])->name('campaign.presupuesto.extra.store')
                     ->middleware('can:presupuesto.create');
 
-                Route::delete('/delete/{campaignpresupuestoextra}', 'CampaignPresupuestoExtraController@destroy')->name('campaign.presupuesto.extra.delete')
+                Route::delete('/delete/{campaignpresupuestoextra}', [CampaignPresupuestoExtraController::class,'destroy'])->name('campaign.presupuesto.extra.delete')
                     ->middleware('can:presupuesto.destroy');
             });
         });
@@ -187,24 +182,27 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         // Reporting
         Route::group(['prefix' => 'reporting'], function () {
             // etiquetas
-            Route::get('/etiquetas/pdf/{campaign}', 'CampaignReportingController@pdf')->name('campaign.etiquetas.pdf')
+            Route::get('/etiquetas/pdf/{campaign}', [CampaignReportingController::class,'pdf'])->name('campaign.etiquetas.pdf')
                 ->middleware('can:campaign.index');
 
-            Route::get('/etiquetas/{campaign}', 'CampaignReportingController@index')->name('campaign.etiquetas.index')
+            Route::get('/etiquetas/{campaign}', [CampaignReportingController::class,'index'])->name('campaign.etiquetas.index')
             ->middleware('can:campaign.index');
 
             // presupuesto
-            Route::get('/presupuesto/pdf/{campaignreportingcontroller}', 'CampaignReportingController@pdfPresupuesto')->name('campaign.presupuesto.pdfPresupuesto')
+            Route::get('/presupuesto/pdf/{campaignreportingcontroller}', [CampaignReportingController::class,'pdfPresupuesto'])->name('campaign.presupuesto.pdfPresupuesto')
                 ->middleware('can:campaign.index');
 
-            Route::get('/presupuesto/preview/{campaignreportingcontroller}', 'CampaignReportingController@previewPresupuesto')->name('campaign.presupuesto.previewPresupuesto')
+            Route::get('/presupuesto/preview/{campaignreportingcontroller}', [CampaignReportingController::class,'previewPresupuesto'])->name('campaign.presupuesto.previewPresupuesto')
                 ->middleware('can:campaign.index');
         });
     });
 
     //store.php
-    Route::get('store/adresses',[StoreController::class,'adresses'])->name('store.adresses')->middleware('can:store.index');
     Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('store.updatetiendas')->middleware('can:store.edit');
+
+    Route::get('store/adresses',[StoreController::class,'adresses'])->name('store.addresses')->middleware('can:store.index');
+    Route::post('store/{store}',[StoreController::class,'updates'])->name('store.updates')->middleware('can:store.edit');
+
     Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('store.updateimagenindex')->middleware('can:store.create');
     Route::resource('store', StoreController::class)->except('create','show'); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
@@ -220,7 +218,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //auxiliares
     Route::group(['prefix'=>'auxiliares'],function(){
-        Route::get('/', 'AuxiliaresController@index')->name('auxiliares.index')->middleware('can:auxiliares.index');
+        Route::get('/', [AuxiliaresController::class,'index'])->name('auxiliares.index')->middleware('can:auxiliares.index');
 
         require __DIR__ .'/country.php';
         require __DIR__ .'/area.php';

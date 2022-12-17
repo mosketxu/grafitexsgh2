@@ -7,7 +7,7 @@
         </button>
         @endcan
         @can('store.index')
-            <x-button.button  class="py-1" onclick="location.href = '{{ route('store.adresses') }}'" color="green" >{{ __('Direcciones') }}</x-button.button>
+            <x-button.button  class="py-1" onclick="location.href = '{{ route('store.addresses') }}'" color="green" >{{ __('Direcciones') }}</x-button.button>
         @endcan
     </div>
     {{-- Modal fichero stores --}}

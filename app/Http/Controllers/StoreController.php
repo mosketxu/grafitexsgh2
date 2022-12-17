@@ -136,17 +136,19 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Store $store){
-        // $store = Store::find($id);
+
 
         $countries=Country::get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
-        // dd($furnitures);
 
         return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures'));
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -155,14 +157,14 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, Store $store){
         $request->validate([
             'name'=>'required',
             'country'=>'required',
             'area_id'=>'required',
             'segmento'=>'required',
             'concepto_id'=>'required',
-            'email'=>'email',
+            'email'=>'nullable|email',
             'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:12288',
             ]);
 
@@ -179,7 +181,7 @@ class StoreController extends Controller
         if($request->file('photo'))
             $imagen = Store::subirImagen($request->id,$request->file('photo'));
 
-        DB::table('stores')->where('id',$id)->update([
+        DB::table('stores')->where('id',$store->id)->update([
             'luxotica'=>$request->luxotica,
             'name'=>$request->name,
             'country'=>$request->country,
@@ -214,8 +216,7 @@ class StoreController extends Controller
             'alert-type' => 'success'
         );
 
-
-        return redirect('store/index')->with($notification);
+        return redirect()->route('store.edit',$store)->with($notification);
 
     }
 

@@ -32,7 +32,7 @@
                         &nbsp;&nbsp;
                         @endcan
                         @can('store.index')
-                        <a href="{{route('store.adresses')}}" role="button" title="Direcciones de las tiendas">
+                        <a href="{{route('store.addresses')}}" role="button" title="Direcciones de las tiendas">
                             <i class="fas fa-map-marker-alt fa-2x text-success mt-2"></i>
                         </a>
                         @endcan
