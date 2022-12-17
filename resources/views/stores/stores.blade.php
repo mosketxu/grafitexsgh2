@@ -1,12 +1,80 @@
 <div class="">
     <div class="h-full p-1 mx-2">
         <div class="py-1 space-y-2">
-            {{-- <div class="">
+            <div class="">
                 @include('errores')
-            </div> --}}
+            </div>
         </div>
         <div class="">
             @include('stores.storesfilters')
         </div>
+        <div class="space-y-1 border rounded-md">
+            <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
+                <div class="w-1/12 text-left">Luxotica</div>
+                <div class="w-1/12 text-left">Code</div>
+                <div class="w-1/12 text-left">Store</div>
+                <div class="w-1/12 text-left">Country</div>
+                <div class="w-1/12 text-left">Area</div>
+                <div class="w-1/12 text-left">Segmento</div>
+                <div class="w-1/12 text-left">Channel</div>
+                <div class="w-1/12 text-left">Cluster</div>
+                <div class="w-1/12 text-left">Concepto</div>
+                <div class="w-1/12 text-left">Furniture Type</div>
+                <div class="w-1/12 text-left"></div>
+            </div>
+            @foreach ($stores as $store)
+            <form id="form{{$store->id}}" role="form" method="post" action="javascript:void(0)" enctype="multipart/form-data">
+            @csrf
+                <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y ">
+                    <input type="hidden" name="id" value="{{$store->id}}">
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->luxotica}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->id}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->name}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->country}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->are->area}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->segmento}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->channel}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->store_cluster}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->concep->storeconcept}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->furniture_type}}</div>
+                    <div class="flex w-1/12 my-2 space-x-2 text-left">
+                        @can('store.edit')
+                        <a href="{{ route('store.edit',$store) }}" title="Editar tienda"><x-icon.edit class="w-6 text-blue-600"/></a>
+                        @endcan
+                        @can('storeelementos.index')
+                        <a href="{{ route('storeelementos.index',$store) }}" title="Elementos"><x-icon.cubes class="w-6 text-green-600"/></a>
+                        @endcan
+                        @can('store.delete')
+                            @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
+                        @endcan
+                    </div>
+                </div>
+            </form>
+            @endforeach
+            <div class="col-10 row">
+                {{ $stores->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+            </div>
+        </div>
     </div>
 </div>
+
+@push('scriptchosen')
+
+<script>
+    function borrarFiltros(form){
+        $("#lux").html('');
+        $("#sto").html('');
+        $("#nam").html('');
+        $("#coun").html('');
+        $("#idi").html('');
+        $("#are").html('');
+        $("#segmen").html('');
+        $("#cha").html('');
+        $("#clu").html('');
+        $("#conce").html('');
+        $("#fur").html('');
+    }
+
+</script>
+
+@endpush

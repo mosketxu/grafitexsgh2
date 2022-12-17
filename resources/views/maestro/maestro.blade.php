@@ -8,58 +8,49 @@
         <div class="">
             @include('maestro.maestrofilters')
         </div>
-        <div class="flex-col space-y-4">
-            <div class="">
-                <table class="ml-2 text-xs tracking-tighter table-auto" width=100%>
-                    <thead>
-                        <tr>
-                            <th class="text-left">Store</th>
-                            <th class="text-left">Name</th>
-                            <th class="text-left">Country</th>
-                            <th class="text-left">Area</th>
-                            <th class="text-left">Segmento</th>
-                            <th class="text-left">Channel</th>
-                            <th class="text-left">Cluster</th>
-                            <th class="text-left">Storeconcept</th>
-                            <th class="text-left">Furniture Type</th>
-                            <th class="text-left">Ubicacion</th>
-                            <th class="text-left">Mobiliario</th>
-                            <th class="text-left">Propxelemento</th>
-                            <th class="text-left">Carteleria</th>
-                            <th class="text-left">Medida</th>
-                            <th class="text-left">Material</th>
-                            <th class="text-left">Unitxprop</th>
-                            <th class="text-left">Obs.</th>
-                        </tr>
-                    </thead>
-                    <tbody class="">
-                        @foreach ($maestros as $maestro)
-                        <tr class="border-b border-1">
-                            <td>{{$maestro->store}}</td>
-                            <td>{{$maestro->name}}</td>
-                            <td>{{$maestro->country}}</td>
-                            <td>{{$maestro->area}}</td>
-                            <td>{{$maestro->segmento}}</td>
-                            <td>{{$maestro->channel}}</td>
-                            <td>{{$maestro->store_cluster}}</td>
-                            <td>{{$maestro->storeconcept}}</td>
-                            <td>{{$maestro->furniture_type}}</td>
-                            <td>{{$maestro->ubicacion}}</td>
-                            <td>{{$maestro->mobiliario}}</td>
-                            <td>{{$maestro->propxmaestro}}</td>
-                            <td>{{$maestro->carteleria}}</td>
-                            <td>{{$maestro->medida}}</td>
-                            <td>{{$maestro->material}}</td>
-                            <td>{{$maestro->unitxprop}}</td>
-                            <td>{{$maestro->observaciones}}</td>
-                        </tr>
-                        </form>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="mt-2 ml-2">
-                    {{$maestros->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                </div>
+        <div class="mx-2 space-y-1 border rounded-md">
+            <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
+                <div class="w-1/12 text-left">Store</div>
+                <div class="w-1/12 text-left">Name</div>
+                <div class="w-1/12 text-left">Country</div>
+                <div class="w-1/12 text-left">Area</div>
+                <div class="w-1/12 text-left">Segmento</div>
+                <div class="w-1/12 text-left">Channel</div>
+                <div class="w-1/12 text-left">Cluster</div>
+                <div class="w-1/12 text-left">Storeconcept</div>
+                <div class="w-1/12 text-left">Furniture Type</div>
+                <div class="w-1/12 text-left">Ubicacion</div>
+                <div class="w-1/12 text-left">Mobiliario</div>
+                <div class="w-1/12 text-left">Propxelemento</div>
+                <div class="w-1/12 text-left">Carteleria</div>
+                <div class="w-1/12 text-left">Medida</div>
+                <div class="w-1/12 text-left">Material</div>
+                <div class="w-1/12 text-left">Unitxprop</div>
+                <div class="w-1/12 text-left">Obs.</div>
+            </div>
+            @foreach ($maestros as $maestro)
+            <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y " wire:loading.class.delay="opacity-50">
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->store}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->name}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->country}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->area}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->segmento}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->channel}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->store_cluster}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->storeconcept}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->furniture_type}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->ubicacion}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->mobiliario}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->propxmaestro}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->carteleria}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->medida}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->material}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->unitxprop}}</div>
+                <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->observaciones}}</div>
+            </div>
+            @endforeach
+            <div class="mt-2 ml-2">
+                {{$maestros->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
             </div>
         </div>
     </div>
