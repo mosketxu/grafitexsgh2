@@ -15,8 +15,8 @@ class StoreController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:store.index')->only('index');
-        $this->middleware('can:store.edit')->only('adresses','store','edit','update','updateimagenindex','destroy');
+        $this->middleware('can:store.index')->only('index','adresses');
+        $this->middleware('can:store.edit')->only('store','edit','update','updateimagenindex','destroy');
     }
 
     /**
@@ -72,9 +72,9 @@ class StoreController extends Controller
         $stores=Store::sto($sto)
             ->nam($nam)
             ->orderBy('id')
-            ->paginate('10')->onEachSide(1);
+            ->paginate('30')->onEachSide(1);
 
-        return view('stores.adresses',compact('stores','sto','nam'));
+        return view('stores.addresses.index',compact('stores','sto','nam'));
     }
 
     /**

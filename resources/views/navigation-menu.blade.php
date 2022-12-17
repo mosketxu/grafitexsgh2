@@ -141,6 +141,36 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+            @can('store.index')
+            <x-jet-responsive-nav-link href="{{ route('store.index') }}" :active="request()->routeIs('store.index')">
+                {{ __('Stores') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('tiendas.index')
+            <x-jet-responsive-nav-link href="{{ route('tiendas.index') }}" :active="request()->routeIs('tiendas.index')">
+                {{ __('Control recepción') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('elemento.index')
+            <x-jet-responsive-nav-link href="{{ route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
+                {{ __('Elementos') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('auxiliares.index')
+            <x-jet-responsive-nav-link href="{{ route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
+                {{ __('Auxiliares') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('campaign.index')
+            <x-jet-responsive-nav-link href="{{ route('campaign.index') }}" :active="request()->routeIs('campaign.index')">
+                {{ __('Campañas') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('tarifa.index')
+            <x-jet-responsive-nav-link href="{{ route('tarifa.index') }}" :active="request()->routeIs('tarifa.index')">
+                {{ __('Tarifas') }}
+            </x-jet-responsive-nav-link>
+            @endcan
             @can('maestro.index')
             <x-jet-responsive-nav-link href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
                 {{ __('Maestro') }}

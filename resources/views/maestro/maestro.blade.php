@@ -8,7 +8,6 @@
         <div class="">
             @include('maestro.maestrofilters')
         </div>
-        {{-- main content  --}}
         <div class="flex-col space-y-4">
             <div class="">
                 <table class="ml-2 text-xs tracking-tighter table-auto" width=100%>

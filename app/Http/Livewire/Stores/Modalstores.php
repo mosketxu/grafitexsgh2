@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Modalstores extends Component
 {
-    public $muestramodalstores=true;
+    public $muestramodalstores=false;
 
     public function render()
     {

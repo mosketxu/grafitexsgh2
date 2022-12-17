@@ -1,4 +1,4 @@
-<form medivod="GET" action="{{route('maestro.index') }}">
+<form method="GET" action="{{route('maestro.index') }}">
     <div class="grid grid-cols-12 space-y-1 gap2 ">
         <div class="w-full col-span-11 space-y-1 ">
             <div class="flex space-x-1 text-xs">
