@@ -49,10 +49,10 @@ class StoreController extends Controller
             ->orderBy('id')
             ->paginate('25');
         // $countries=Country::get();
-        // $areas=Area::orderBy('area')->get();
-        // $segmentos=Segmento::orderBy('segmento')->get();
-        // $conceptos=Storeconcept::orderBy('storeconcept')->get();
-        // $furnitures=Furniture::orderBy('furniture_type')->get();
+        $areas=Area::orderBy('area')->get();
+        $segmentos=Segmento::orderBy('segmento')->get();
+        $conceptos=Storeconcept::orderBy('storeconcept')->get();
+        $furnitures=Furniture::orderBy('furniture_type')->get();
 
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
@@ -61,7 +61,7 @@ class StoreController extends Controller
             //         compact('stores','countries','areas','segmentos','conceptos','furnitures',
             //         'lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
             return view('stores.index',
-                    compact('stores','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
+                    compact('stores','stores','areas','segmentos','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
 
     }
 

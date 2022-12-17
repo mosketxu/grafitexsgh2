@@ -61,20 +61,17 @@
 @push('scriptchosen')
 
 <script>
-    function borrarFiltros(form){
-        $("#lux").html('');
-        $("#sto").html('');
-        $("#nam").html('');
-        $("#coun").html('');
-        $("#idi").html('');
-        $("#are").html('');
-        $("#segmen").html('');
-        $("#cha").html('');
-        $("#clu").html('');
-        $("#conce").html('');
-        $("#fur").html('');
-    }
-
+    new TomSelect('#lux', {maxItems: 10,});
+    new TomSelect('#sto', {maxItems: 10,});
+    new TomSelect('#nam', {maxItems: 10,});
+    new TomSelect('#coun', {maxItems: 10,});
+    new TomSelect('#are', {maxItems: 10,});
+    new TomSelect('#segmen', {maxItems: 10,});
+    new TomSelect('#cha', {maxItems: 10,});
+    new TomSelect('#clu', {maxItems: 10,});
+    new TomSelect('#conce', {maxItems: 10,});
+    new TomSelect('#fur', {maxItems: 10,});
 </script>
+
 
 @endpush
