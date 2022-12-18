@@ -15,14 +15,8 @@ class ElementoController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
 
-        $elementos=Elemento::search($request->busca)
-        ->paginate()->onEachSide(1);
+        $elementos=Elemento::orderBy('elementificador')->paginate(20);
 
         $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
         $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
@@ -31,7 +25,7 @@ class ElementoController extends Controller
         $medidas=Medida::orderBy('medida')->get();
         $familias=Tarifa::orderBy('familia')->get();
         $materiales=Material::orderBy('material')->get();
-        return view('elementos.index',compact('elementos','busqueda',
+        return view('elementos.index',compact('elementos',
             'ubicaciones','mobiliarios','propxelementos','cartelerias','medidas','familias','materiales'));
     }
 
@@ -71,7 +65,10 @@ class ElementoController extends Controller
          $me=Medida::find($request->medida_id)->medida;
          $ma=Material::find($request->material_id)->material;
          $uxp=$request->unitxprop;
-         $e= str_replace(" ","",$u.$m.$c.$me.$ma.$uxp);
+         $e=Elemento::elementificador($u,$m,$p,$c,$me,$ma,$uxp);
+
+         $matmed=Elemento::matmed($ma,$me);
+
         $controlElementificador=Elemento::where('elementificador',$e)->count();
 
         if ($controlElementificador>0){
@@ -97,8 +94,11 @@ class ElementoController extends Controller
             'medida'=>$me,
             'material_id'=>$request->material_id,
             'material'=>$ma,
+            'matmed'=>$matmed,
+            'matmed'=>$matmed,
             'unitxprop'=>$request->unitxprop,
             'observaciones'=>$request->observaciones,
+            'familia_id'=>$request->familia_id,
              ]
         );
 
