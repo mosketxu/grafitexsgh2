@@ -2,40 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Store,Elemento, StoreElemento,Ubicacion,Mobiliario,Propxelemento,Carteleria,Medida,Material};
+use App\Models\{Area, Store,Elemento, StoreElemento,Ubicacion,Mobiliario,Propxelemento,Carteleria, Furniture, Medida,Material, Segmento, Storeconcept};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// use phpDocumentor\Reflection\Element;
+// use Illuminate\Database\Eloquent\Builder;
 
 class StoreElementosController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('can:storeelementos.index')->only('index');
+        $this->middleware('can:storeelementos.index')->only('elementos');
         $this->middleware('can:storeelementos.edit')->only('store','edit','destroy');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($storeId, Request $request){
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+    public function elementos($storeId, Request $request){
+
+        $ubi=$request->ubi;
+        $mobi=$request->mobi;
+        $prop=$request->prop;
+        $car=$request->car;
+        $med=$request->med;
+        $mat=$request->mat;
+
+        $areas=Area::orderBy('area')->get();
+        $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
+        $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
+        $props=Propxelemento::orderBy('propxelemento')->get();
+        $cartelerias=Carteleria::orderBy('carteleria')->get();
+        $medidas=Medida::orderBy('medida')->get();
+        $materiales=Material::orderBy('material')->get();
+
 
         $store=Store::find($storeId);
-        $storeelementos=StoreElemento::search($request->busca)
-        ->join('stores','store_elementos.store_id','stores.id')
-        ->join('elementos','store_elementos.elemento_id','elementos.id')
-        ->where('store_elementos.store_id',$storeId)
-        ->paginate('10')->onEachSide(1);
+        $storeelementos=StoreElemento::with('store','elemento')
+        ->when(!empty($ubi),function($query) use($ubi){$query->whereHas('elemento',function($query) use($ubi){return $query->where('ubicacion','=',$ubi);});})
+        ->when(!empty($mobi),function($query) use($mobi){$query->whereHas('elemento',function($query) use($mobi){return $query->where('mobiliario','=',$mobi);});})
+        ->when(!empty($car),function($query) use($car){$query->whereHas('elemento',function($query) use($car){return $query->where('carteleria','=',$car);});})
+        ->when(!empty($prop),function($query) use($prop){$query->whereHas('elemento',function($query) use($prop){return $query->where('propxelemento','=',$prop);});})
+        ->when(!empty($med),function($query) use($med){$query->whereHas('elemento',function($query) use($med){return $query->where('medida','=',$med);});})
+        ->when(!empty($mat),function($query) use($mat){$query->whereHas('elemento',function($query) use($mat){return $query->where('material','=',$mat);});})
+        ->where('store_id',$storeId)
+        ->paginate('10');
 
-        return view('stores.storeelementos.index',compact('store','busqueda','storeelementos','totalElementos'));
+        return view('stores.storeelementos.index',compact('ubicaciones','mobiliarios','props','cartelerias','medidas','materiales',
+            'store','storeelementos','ubi','mobi','prop','car','med','mat'));
     }
 
     /**
@@ -44,16 +55,16 @@ class StoreElementosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$store_id){
+    public function store(Request $request){
         $request->validate([
             'elemento_id'=>'required'
         ]);
 
-        $elemento=Elemento::find($request->elemento_id);
+$elemento=Elemento::find($request->elemento_id);
 
         DB::table('store_elementos')
             ->insert([
-            'store_id'=>$store_id,
+            'store_id'=>$request->store_id,
             'elemento_id'=>$request->elemento_id,
             'elementificador'=>$elemento->elementificador,
             ]);
@@ -78,29 +89,38 @@ class StoreElementosController extends Controller
 
         $store=Store::find($storeId);
 
-        $ubi=$request->get('ubi');
-        $mob=$request->get('mob');
-        $cart=$request->get('cart');
-        $mat=$request->get('mat');
-        $med=$request->get('med');
-        $propx=$request->get('propx');
+        $ubi=$request->ubi;
+        $mobi=$request->mobi;
+        $prop=$request->prop;
+        $car=$request->car;
+        $med=$request->med;
+        $mat=$request->mat;
+
+
+        $areas=Area::orderBy('area')->get();
+        $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
+        $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
+        $props=Propxelemento::orderBy('propxelemento')->get();
+        $cartelerias=Carteleria::orderBy('carteleria')->get();
+        $medidas=Medida::orderBy('medida')->get();
+        $materiales=Material::orderBy('material')->get();
 
         $elementosDisp = Elemento::whereNotIn('id', function ($query) use ($storeId) {
             $query->select('elemento_id')->from('store_elementos')->where('store_id', '=', $storeId);
             })
-        ->ubi($request->ubi)
-        ->mob($request->mob)
-        ->cart($request->cart)
-        ->mat($request->mat)
-        ->med($request->med)
-        ->propx($request->propx)
-        ->paginate(10)
-        ->onEachSide(1);
+            ->when(!empty($ubi),function($query) use($ubi){return $query->where('ubicacion','=',$ubi);})
+            ->when(!empty($mobi),function($query) use($mobi){return $query->where('mobiliario','=',$mobi);})
+            ->when(!empty($car),function($query) use($car){return $query->where('carteleria','=',$car);})
+            ->when(!empty($prop),function($query) use($prop){return $query->where('propxelemento','=',$prop);})
+            ->when(!empty($med),function($query) use($med){return $query->where('medida','=',$med);})
+            ->when(!empty($mat),function($query) use($mat){return $query->where('material','=',$mat);})
+            ->paginate(10);
 
         // dd($totalelementosDisp);
 
         return view('stores.storeelementos.edit',compact('store','elementosDisp',
-            'ubi','mob','propx','cart','med','mat'));
+            'ubi','prop','car','med','mat',
+        'areas','ubicaciones','mobiliarios','props','cartelerias','medidas','materiales'));
     }
 
     /**

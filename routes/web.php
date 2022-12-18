@@ -201,13 +201,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('store.updatetiendas')->middleware('can:store.edit');
 
     Route::get('store/adresses',[StoreController::class,'adresses'])->name('store.addresses')->middleware('can:store.index');
-    Route::post('store/{store}',[StoreController::class,'updates'])->name('store.updates')->middleware('can:store.edit');
-
     Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('store.updateimagenindex')->middleware('can:store.create');
     Route::resource('store', StoreController::class)->except('create','show'); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //store elementos
-    Route::resource('storeelementos', StoreElementosController::class)->except('show','create','update');; //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
+    Route::get('storeelementos/{store}/elementos',[StoreElementosController::class,'elementos'])->name('storeelementos.elementos')->middleware('can:store.index');
+    Route::resource('storeelementos', StoreElementosController::class)->except('create','update');; //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //elemento.php
     Route::resource('elemento', ElementoController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller

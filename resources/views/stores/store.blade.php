@@ -5,7 +5,7 @@
                 @include('errores')
             </div>
             <div class="">
-                {{-- @include('presupuestos.presupuestoeditorialfilters') --}}
+                {{-- @include('filtros si toca') --}}
             </div>
             {{-- datos de la store --}}
             <div class="flex-col space-y-1 text-gray-500 border border-blue-300 rounded shadow-md">

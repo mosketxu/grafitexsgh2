@@ -25,6 +25,7 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
+        // dd($request);
         $lux=$request->get('lux');
         $sto=$request->get('sto');
         $nam=$request->get('nam');

@@ -19,7 +19,7 @@
 
                 @can('store.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{route('store.index') }}" :active="request()->routeIs('store.index')">
+                        <x-jet-nav-link class="bg-blue-200" href="{{route('store.index') }}" :active="request()->routeIs('store.index')">
                             {{ __('Stores') }}
                         </x-jet-nav-link>
                     </div>

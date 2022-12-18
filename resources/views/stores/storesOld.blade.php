@@ -22,18 +22,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-auto ">
-                        <span class="h3 m-0 text-dark">@yield('titlePag')</span>
+                        <span class="m-0 h3 text-dark">@yield('titlePag')</span>
                     </div>
                     <div class="col-auto mr-auto">
                         @can('store.create')
                         <a href="" role="button" data-toggle="modal" data-target="#storeCreateModal" title="Crear tienda nueva">
-                            <i class="fas fa-plus-circle fa-2x text-primary mt-2"></i>
+                            <i class="mt-2 fas fa-plus-circle fa-2x text-primary"></i>
                         </a>
                         &nbsp;&nbsp;
                         @endcan
                         @can('store.index')
-                        <a href="{{route('store.addresses')}}" role="button" title="Direcciones de las tiendas">
-                            <i class="fas fa-map-marker-alt fa-2x text-success mt-2"></i>
+                        <a href="{{route('store.adresses')}}" role="button" title="Direcciones de las tiendas">
+                            <i class="mt-2 fas fa-map-marker-alt fa-2x text-success"></i>
                         </a>
                         @endcan
                     </div>
@@ -57,7 +57,7 @@
                                 {{ $stores->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
                                 Hay {{$stores->total()}} stores.
                             </div>
-                            <div class="col-2 float-right mb-2">
+                            <div class="float-right mb-2 col-2">
                             </div>
                         </div>
 
@@ -142,9 +142,9 @@
                                             <td width="100px">
                                                 <div class="text-center">
                                                     <button type="submit" name="submit" class=" enlace" value="filtrar"><i class="fas fa-search fa-2x text-primary"></i></button>
-                                                    <a href="#!" class="btn-borrarfiltro " title="Borrar Filtros" onclick="borrarFiltros('formfiltro')"><i class="far fa-times-circle text-danger fa-2x ml-1"></i></a>
+                                                    <a href="#!" class="btn-borrarfiltro " title="Borrar Filtros" onclick="borrarFiltros('formfiltro')"><i class="ml-1 far fa-times-circle text-danger fa-2x"></i></a>
                                                     &nbsp;&nbsp;
-                                                    <button type="submit" name="submit" class=" enlace" value="excel"><i class="far fa fa-file-excel text-success fa-2x mx-1"></i></button>
+                                                    <button type="submit" name="submit" class=" enlace" value="excel"><i class="mx-1 far fa fa-file-excel text-success fa-2x"></i></button>
                                                 </div>
                                             </td>
                                         </form>
@@ -204,17 +204,17 @@
                                             <td width="100px">
                                                 <div class="text-center">
                                                     {{-- @can('store.create')
-                                                    <a href="#" class="mr-4" name="Upload" onclick="subirImagenIndex('form{{$store->id}}','{{$store->id}}')" title="Subir imagen"><i class="fas fa-upload text-info fa-2x mx-1"></i></a>
+                                                    <a href="#" class="mr-4" name="Upload" onclick="subirImagenIndex('form{{$store->id}}','{{$store->id}}')" title="Subir imagen"><i class="mx-1 fas fa-upload text-info fa-2x"></i></a>
                                                     @endcan --}}
 
                                                     @can('store.edit')
-                                                    <a href="{{ route('store.edit',$store) }}" title="Editar tienda"><i class="far fa-edit text-primary fa-2x mx-1"></i></a>
+                                                    <a href="{{ route('store.edit',$store) }}" title="Editar tienda"><i class="mx-1 far fa-edit text-primary fa-2x"></i></a>
                                                     @endcan
                                                     @can('storeelementos.index')
-                                                    <a href="{{ route('storeelementos.index',$store) }}" title="Elementos"><i class="far fas fa-cubes text-teal fa-2x mx-1"></i></a>
+                                                    <a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos"><i class="mx-1 far fas fa-cubes text-teal fa-2x"></i></a>
                                                     @endcan
                                                     @can('store.destroy')
-                                                    <a href="#!" class="btn-delete " title="Eliminar"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></a>
+                                                    <a href="#!" class="btn-delete " title="Eliminar"><i class="ml-1 far fa-trash-alt text-danger fa-2x"></i></a>
                                                     @endcan
                                                 </div>
                                             </td>
@@ -246,7 +246,7 @@
                                         <label for="id">Store</label>
                                         <input  type="text" class="form-control form-control-sm" id="idstore" name="id" value="{{old('id')}}">
                                     </div>
-                                    <div class="form-group  col-4">
+                                    <div class="form-group col-4">
                                         <label for="name">Nombre</label>
                                         <input  type="text" class="form-control form-control-sm" id="name" name="name" value="{{old('name')}}">
                                     </div>
@@ -289,10 +289,10 @@
                                     </div>
                                     <div class="form-group col-5">
                                         <label for="imagen">Imagen</label>
-                                        <input  type="file" class="form-control form-control-sm m-0 p-0" id="imagen" name="imagen" value="{{old('imagen')}}">
+                                        <input  type="file" class="p-0 m-0 form-control form-control-sm" id="imagen" name="imagen" value="{{old('imagen')}}">
                                     </div>
                                 </div>
-                                <div class="form-group m-0 p-0">
+                                <div class="p-0 m-0 form-group">
                                         <label for="observaciones">Observaciones</label>
                                         <input  type="text" class="form-control form-control-sm" id="observaciones" name="observaciones" value="{{old('observaciones')}}">
                                     </div>
@@ -310,7 +310,7 @@
             <form id="formDelete" action="{{route('store.destroy',':ELEMENTO_ID')}}" method="POST" style="display:inline">
                 <input type="hidden" name="_method" value="DELETE" />
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                {{-- <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button> --}}
+                {{-- <button type="submit" class="enlace"><i class="ml-1 far fa-trash-alt text-danger fa-2x"></i></button> --}}
             </form>
         </section>
     </div>

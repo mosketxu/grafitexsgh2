@@ -12,15 +12,15 @@ class StoreElemento extends Model
 
     // protected $with=['elemen'];
 
-    // public function elemen()
-    // {
-    //     return $this->belongsTo(Elemento::class,'elemento_id');
-    // }
+    public function elemento()
+    {
+        return $this->belongsTo(Elemento::class,'elemento_id');
+    }
 
-    // public function store()
-    // {
-    //     return $this->belongsTo(Store::class,'store_id');
-    // }
+    public function store()
+    {
+        return $this->belongsTo(Store::class,'store_id');
+    }
 
     public function scopeSearch($query, $busca)
     {

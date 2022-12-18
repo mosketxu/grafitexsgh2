@@ -8,7 +8,7 @@
         <div class="">
             @include('stores.storesfilters')
         </div>
-        <div class="space-y-1 border rounded-md">
+        <div class="mx-2 space-y-1 border rounded-md">
             <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
                 <div class="w-1/12 text-left">Luxotica</div>
                 <div class="w-1/12 text-left">Code</div>
@@ -42,7 +42,7 @@
                         <a href="{{ route('store.edit',$store) }}" title="Editar tienda"><x-icon.edit class="w-6 text-blue-600"/></a>
                         @endcan
                         @can('storeelementos.index')
-                        <a href="{{ route('storeelementos.index',$store) }}" title="Elementos"><x-icon.cubes class="w-6 text-green-600"/></a>
+                        <a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos"><x-icon.cubes class="w-6 text-green-600"/></a>
                         @endcan
                         @can('store.delete')
                             @livewire('stores.store-eliminar',['store'=>$store],key($store->id))

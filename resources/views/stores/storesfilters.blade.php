@@ -17,20 +17,20 @@
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="nam" name="nam[]" data-placeholder="name" multiple>
+                    <select class="" id="nam" name="nam[]" data-placeholder="name" multiple>
                         @foreach ($stores as $store )
                             <option value="{{$store->name}}" {{ empty($nam) ? "" : (in_array($store->name, $nam) ? "selected" : "")}}>{{$store->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="coun" name="coun[]" data-placeholder="country" multiple>
+                    <select class="" id="coun" name="coun[]" data-placeholder="country" multiple>
                         <option value="ES" {{ empty($coun) ? "" : (in_array("ES", $coun) ? "selected" : "")}}>ES</option>
                         <option value="PT" {{ empty($coun) ? "" : (in_array("PT", $coun) ? "selected" : "")}}>PT</option>
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="are" name="are[]" data-placeholder="area" multiple>
+                    <select class="" id="are" name="are[]" data-placeholder="area" multiple>
                         @foreach ($areas as $area )
                         <option value="{{$area->area}}" {{ empty($are) ? "" : (in_array($area->area, $are) ? "selected" : "")}}>{{$area->area}}</option>
                         @endforeach
@@ -39,14 +39,14 @@
             </div>
             <div class="flex space-x-1 text-xs">
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="segmen" name="segmen[]" data-placeholder="segmento" multiple>
+                    <select class="" id="segmen" name="segmen[]" data-placeholder="segmento" multiple>
                         @foreach ($segmentos as $segmento )
                             <option value="{{$segmento->segmento}}" {{ empty($segmen) ? "" : (in_array($segmento->segmento, $segmen) ? "selected" : "")}}>{{$segmento->segmento}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="cha" name="cha[]" data-placeholder="channel" multiple>
+                    <select class="" id="cha" name="cha[]" data-placeholder="channel" multiple>
                         <option value="Airport" {{ empty($cha) ? "" : (in_array("Airport", $cha) ? "selected" : "")}}>Airport</option>
                         <option value="Dpt.Store" {{ empty($cha) ? "" : (in_array("Dpt.Store", $cha) ? "selected" : "")}}>Dpt.Store</option>
                         <option value="Mall" {{ empty($cha) ? "" : (in_array("Mall", $cha) ? "selected" : "")}}>Mall</option>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="clu" name="clu[]" data-placeholder="cluster" multiple>
+                    <select class="" id="clu" name="clu[]" data-placeholder="cluster" multiple>
                         <option value="Basic">Basic</option>
                         <option value="ECI">ECI</option>
                         <option value="INLINE">INLINE</option>
@@ -63,14 +63,14 @@
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="conce" name="conce[]" data-placeholder="concepto" multiple>
+                    <select class="" id="conce" name="conce[]" data-placeholder="concepto" multiple>
                         @foreach ($conceptos as $concepto )
                             <option value="{{$concepto->storeconcept}}" {{ empty($conce) ? "" : (in_array($concepto->storeconcept, $conce) ? "selected" : "")}}>{{$concepto->storeconcept}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="w-full">
-                    <select class="form-control form-control-sm select2" id="fur" name="fur[]" data-placeholder="furniture_type" multiple>
+                    <select class="" id="fur" name="fur[]" data-placeholder="furniture_type" multiple>
                         @foreach($furnitures as $furniture )
                         <option value="{{$furniture->furniture_type}}" {{ empty($fur) ? "" : (in_array($furniture->furniture_type, $fur) ? "selected" : "")}}>{{$furniture->furniture_type}}</option>
                         @endforeach
@@ -80,22 +80,8 @@
         </div>
             <div class="col-span-1 ml-8">
                 <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter /></button></div>
-                <div width="w-full py-0 "><x-icon.filter-slash-a  onclick="borrarFiltros()"></x-icon.filter-slash-a></div>
+                <a class="text-blue-700 underline" href='{{route('store.index')}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
             </div>
         </div>
     </div>
 </form>
-
-{{-- <tr>
-
-        </th>
-        <td width="100px">
-            <div class="text-center">
-                <button type="submit" name="submit" class=" enlace" value="filtrar"><i class="fas fa-search fa-2x text-primary"></i></button>
-                <a href="#!" class="btn-borrarfiltro " title="Borrar Filtros" onclick="borrarFiltros('formfiltro')"><i class="ml-1 far fa-times-circle text-danger fa-2x"></i></a>
-                &nbsp;&nbsp;
-                <button type="submit" name="submit" class=" enlace" value="excel"><i class="mx-1 far fa fa-file-excel text-success fa-2x"></i></button>
-            </div>
-        </td>
-    </form>
-</tr> --}}
