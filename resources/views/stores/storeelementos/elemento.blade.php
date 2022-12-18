@@ -53,7 +53,7 @@
                 <div class="w-1/12">Material</div>
                 <div class="w-1/12 text-center">Unit x Prop</div>
                 <div class="w-2/12">Observaciones</div>
-                <div class="w-10"></div>
+                <div class="w-1/12"></div>
             </div>
             @foreach ($elementosDisp as $elemento)
             <form action="{{route('storeelementos.store',$elemento->id)}}" method="post">
