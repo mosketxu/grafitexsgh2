@@ -78,18 +78,19 @@ class Elemento extends Model
         static public function matmed($mat,$med)
         {
             $matmed=$mat . $med;
-            $sust=array(" ","/","-","(",")","á","é","í",'ó','ú',"Á","É","Í",'Ó','Ú');
-            $por=array("","","","","","a","e","i",'o','u',"A","E","I",'O','U');
+            $sust=array(" ","/","-","(",")","á","é","í",'ó','ú',"Á","É","Í",'Ó','Ú','.');
+            $por=array("","","","","","a","e","i",'o','u',"A","E","I",'O','U','.');
             $matmed=str_replace($sust, $por, $matmed);
             $matmed=strtolower($matmed);
             return $matmed;
         }
 
         static public function elementificador($ubi,$mob,$prop,$car,$med,$mat,$unixprop){
-            $e= str_replace(" ","",$ubi.$mob.$prop.$car.$med.$mat.$unixprop);
-            $e=str_replace("/","",$e);
+            $elemen=strtolower($ubi.$mob.$prop.$car.$med.$mat.$unixprop);
+            $sust=array(" ","/","-","(",")","á","é","í",'ó','ú',"Á","É","Í",'Ó','Ú','.');
+            $por=array("","","","","","a","e","i",'o','u',"A","E","I",'O','U','.');
+            $e= str_replace($sust,$por,$elemen);
             return $e;
-
         }
 
 

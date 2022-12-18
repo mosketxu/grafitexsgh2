@@ -80,6 +80,7 @@ class MaestroController extends Controller
     public function actualizarTablas($origen){
         //elimino los elementos de las stores para volver a añadirlos
         DB::table('store_elementos')->delete();
+        DB::table('elementos_temp')->delete(); // si no los elimino es muy lento y salta. La creo como puente para copiar solo los elementos sin duplicados
         DB::table('elementos')->delete(); // si no los elimino es muy lento y salta
 
         //Inserto actualizo Ubicaciones

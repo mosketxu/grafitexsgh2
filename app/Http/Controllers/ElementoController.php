@@ -15,18 +15,32 @@ class ElementoController extends Controller
      */
     public function index(Request $request)
     {
+        $ubi=$request->ubi;
+        $mobi=$request->mobi;
+        $prop=$request->prop;
+        $car=$request->car;
+        $med=$request->med;
+        $mat=$request->mat;
 
-        $elementos=Elemento::orderBy('elementificador')->paginate(20);
+        $elementos=Elemento::query()
+        ->when(!empty($ubi),function($query) use($ubi){return $query->where('ubicacion','=',$ubi);})
+        ->when(!empty($mobi),function($query) use($mobi){return $query->where('mobiliario','=',$mobi);})
+        ->when(!empty($car),function($query) use($car){return $query->where('carteleria','=',$car);})
+        ->when(!empty($prop),function($query) use($prop){return $query->where('propxelemento','=',$prop);})
+        ->when(!empty($med),function($query) use($med){return $query->where('medida','=',$med);})
+        ->when(!empty($mat),function($query) use($mat){return $query->where('material','=',$mat);})
+        ->orderBy('elementificador')
+        ->paginate(20);
 
         $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
         $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
-        $propxelementos=Propxelemento::orderBy('propxelemento')->get();
+        $props=Propxelemento::orderBy('propxelemento')->get();
         $cartelerias=Carteleria::orderBy('carteleria')->get();
         $medidas=Medida::orderBy('medida')->get();
         $familias=Tarifa::orderBy('familia')->get();
         $materiales=Material::orderBy('material')->get();
         return view('elementos.index',compact('elementos',
-            'ubicaciones','mobiliarios','propxelementos','cartelerias','medidas','familias','materiales'));
+            'ubicaciones','mobiliarios','props','cartelerias','medidas','familias','materiales'));
     }
 
     /**

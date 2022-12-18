@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Elemento;
 use App\Models\Maestro;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -20,9 +21,9 @@ class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,Wit
     */
     public function model(array $row)
     {
-        $e= str_replace(" ","",$row['ubicacion'].$row['mobiliario'].$row['prop_elemento'].$row['carteleria'].$row['medida'].$row['material'].$row['unit_x_prop']);
-        $e=str_replace("/","",$e);
+        $e=Elemento::elementificador($row['ubicacion'],$row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
         $observaciones="";
+
         $udxprop=trim($row['unit_x_prop']);
         if(!is_numeric($udxprop)){
             $observaciones=$udxprop;
@@ -31,11 +32,7 @@ class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,Wit
 
         $mat=!is_null($row['material'])?$row['material']:'';
         $med=!is_null($row['medida'])?$row['medida']:'';
-        $matmed=$mat . $med;
-        $sust=array(" ","/","-","(",")","á","é","í",'ó','ú',"Á","É","Í",'Ó','Ú');
-        $por=array("","","","","","a","e","i",'o','u',"A","E","I",'O','U');
-        $matmed=str_replace($sust, $por, $matmed);
-        $matmed=strtolower($matmed);
+        $matmed=Elemento::matmed($mat,$med);
 
         return new Maestro([
             'store' => trim($row['store_code']),

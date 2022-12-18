@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
-                @can('storeelementos.create')
+                @can('elementos.create')
                     @include('elementos.menu_elementos')
                 @endcan
             </div>
@@ -16,7 +16,7 @@
     <div class="p-2">
         <div class="max-w-full mx-auto">
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                {{-- @include('elementos.elementos') --}}
+                @include('elementos.elementos')
             </div>
         </div>
     </div>

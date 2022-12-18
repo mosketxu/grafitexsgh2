@@ -1,4 +1,4 @@
-<form method="GET" action="{{ route('storeelementos.elementos',$store) }}">
+<form method="GET" action="{{ route('elemento.index') }}">
     <div class="flex w-full space-x-1 text-xs">
         <div class="w-full">
             <select class="" id="ubi" name="ubi[]" data-placeholder="Ubicación" multiple>
@@ -47,7 +47,7 @@
                 <button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter /></button>
             </div>
             <div class="">
-                </div><a class="text-blue-700 underline" href='{{route(Route::currentRouteName(),$store)}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
+                </div><a class="text-blue-700 underline" href='{{route(Route::currentRouteName())}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
             </div>
         </div>
     </div>
