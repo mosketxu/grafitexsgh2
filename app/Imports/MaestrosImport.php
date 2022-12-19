@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Elemento;
 use App\Models\Maestro;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -19,9 +20,8 @@ class MaestrosImport implements ToModel, WithHeadingRow, WithChunkReading
     */
     public function model(array $row)
     {
-
-        $e= str_replace(" ","",$row['ubicacion'].$row['mobiliario'].$row['prop_elemento'].$row['carteleria'].$row['medida'].$row['material'].$row['unit_x_prop']);
-        $e=str_replace("/","",$e);
+        if($row['ubicacion']=='' || is_null($row['ubicacion'])) $row['ubicacion']="FRONT DOOR" ;
+        $e=Elemento::elementificador($row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
         $observaciones="";
         $udxprop=trim($row['unit_x_prop']);
         if(!is_numeric($udxprop)){

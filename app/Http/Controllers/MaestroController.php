@@ -7,6 +7,8 @@ use App\Models\{Maestro,Ubicacion,Area, CampaignElemento, Carteleria, Elemento, 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isNull;
+
 class MaestroController extends Controller
 {
 
@@ -86,6 +88,8 @@ class MaestroController extends Controller
         //Inserto actualizo Ubicaciones
         $ubicaciones=Maestro::select('ubicacion')->distinct('ubicacion')->get()->toArray();
         foreach ($ubicaciones as $ubicacion){
+            // dd($ubicacion['ubicacion']);
+            // if($ubicacion['ubicacion']=='' || isNull($ubicacion['ubicacion'])) $ubicacion['ubicacion']="FRONT DOOR";
             Ubicacion::firstOrCreate($ubicacion);}
         //Inserto actualizo Areas
         $areas=Maestro::select('area')->distinct('area')->get()->toArray();

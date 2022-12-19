@@ -190,9 +190,10 @@ class Maestro extends Model
     }
 
     static function insertElementosSGH(){
-        $elementos=Maestro::select('elementificador','ubicacion','mobiliario','propxelemento','carteleria','medida','material','matmed','unitxprop','observaciones')->get();
 
-        foreach (array_chunk($elementos->toArray(), 100) as $t) {
+        $elementostemp=Maestro::select('elementificador','ubicacion','mobiliario','propxelemento','carteleria','medida','material','matmed','unitxprop','observaciones')->get();
+
+        foreach (array_chunk($elementostemp->toArray(), 100) as $t) {
             $dataSet = [];
             foreach ($t as $elemento) {
                 $familia=TarifaFamilia::where('matmed', $elemento['matmed'])->first()->tarifa_id;
@@ -221,32 +222,57 @@ class Maestro extends Model
 
         unset($dataSet);
 
-        $e=DB::table('elementos_temp')->distinct()->get();
-        foreach (array_chunk($e->toArray(),100) as $t){
-            $dataSet = [];
-            foreach ($t as $elemento) {
-                $dataSet[] = [
-                    'elementificador'=>$elemento->elementificador,
-                    'ubicacion_id'=>$elemento->ubicacion_id,
-                    'ubicacion'=>$elemento->ubicacion,
-                    'mobiliario_id'=>$elemento->mobiliario_id,
-                    'mobiliario'=>$elemento->mobiliario,
-                    'propxelemento_id'=>$elemento->propxelemento_id,
-                    'propxelemento'=>$elemento->propxelemento,
-                    'carteleria_id'=>$elemento->carteleria_id,
-                    'carteleria'=>$elemento->carteleria,
-                    'medida_id'=>$elemento->medida_id,
-                    'medida'=>$elemento->medida,
-                    'material_id'=>$elemento->material_id,
-                    'material'=>$elemento->material,
-                    'unitxprop'=>$elemento->unitxprop,
-                    'familia_id'=>$elemento->familia_id,
-                    'matmed'=>$elemento->matmed,
-                    'observaciones'=>$elemento->observaciones,
-                ];
-            }
-            DB::table('elementos')->insert($dataSet);
+        $elementos=DB::table('elementos_temp')->distinct()->get();
+
+        foreach($elementos as $elemen){
+            $el=Elemento::updateOrCreate([
+                'elementificador'=>$elemen->elementificador
+            ],[
+                'elementificador'=>$elemen->elementificador,
+                'ubicacion_id'=>$elemen->ubicacion_id,
+                'ubicacion'=>$elemen->ubicacion,
+                'mobiliario_id'=>$elemen->mobiliario_id,
+                'mobiliario'=>$elemen->mobiliario,
+                'propxelemento_id'=>$elemen->propxelemento_id,
+                'propxelemento'=>$elemen->propxelemento,
+                'carteleria_id'=>$elemen->carteleria_id,
+                'carteleria'=>$elemen->carteleria,
+                'medida_id'=>$elemen->medida_id,
+                'medida'=>$elemen->medida,
+                'material_id'=>$elemen->material_id,
+                'material'=>$elemen->material,
+                'unitxprop'=>$elemen->unitxprop,
+                'familia_id'=>$elemen->familia_id,
+                'matmed'=>$elemen->matmed,
+                'observaciones'=>$elemen->observaciones,
+            ]);
+
         }
+        // foreach (array_chunk($e->toArray(),100) as $t){
+        //     $dataSet = [];
+        //     foreach ($t as $elemento) {
+        //         $dataSet[] = [
+        //             'elementificador'=>$elemento->elementificador,
+        //             'ubicacion_id'=>$elemento->ubicacion_id,
+        //             'ubicacion'=>$elemento->ubicacion,
+        //             'mobiliario_id'=>$elemento->mobiliario_id,
+        //             'mobiliario'=>$elemento->mobiliario,
+        //             'propxelemento_id'=>$elemento->propxelemento_id,
+        //             'propxelemento'=>$elemento->propxelemento,
+        //             'carteleria_id'=>$elemento->carteleria_id,
+        //             'carteleria'=>$elemento->carteleria,
+        //             'medida_id'=>$elemento->medida_id,
+        //             'medida'=>$elemento->medida,
+        //             'material_id'=>$elemento->material_id,
+        //             'material'=>$elemento->material,
+        //             'unitxprop'=>$elemento->unitxprop,
+        //             'familia_id'=>$elemento->familia_id,
+        //             'matmed'=>$elemento->matmed,
+        //             'observaciones'=>$elemento->observaciones,
+        //         ];
+        //     }
+        //     DB::table('elementos')->insert($dataSet);
+        // }
         unset($dataSet);
         unset($elementos);
 

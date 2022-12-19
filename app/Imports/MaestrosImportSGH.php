@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
+use function PHPUnit\Framework\isNull;
 
 class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,WithCalculatedFormulas
 {
@@ -21,7 +22,8 @@ class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,Wit
     */
     public function model(array $row)
     {
-        $e=Elemento::elementificador($row['ubicacion'],$row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
+        if($row['ubicacion']=='' || is_null($row['ubicacion'])) $row['ubicacion']="FRONT DOOR" ;
+        $e=Elemento::elementificador($row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
         $observaciones="";
 
         $udxprop=trim($row['unit_x_prop']);
