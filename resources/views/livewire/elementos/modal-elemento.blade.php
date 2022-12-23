@@ -14,7 +14,7 @@
             @csrf
             <div class="space-y-2 text-sm">
                 <div class="flex space-x-1 ">
-                    <div class="w-4/12">
+                    <div class="w-full">
                         <x-jet-label for="area">Ubicación</x-jet-label>
                         <x-select  selectname="ubicacion_id" class="w-full py-1 border-blue-300" id="ubicacion_id" name="ubicacion_id" >
                             <option value="">Selecciona</option>
@@ -23,7 +23,7 @@
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="w-4/12">
+                    <div class="w-full">
                         <x-jet-label for="area">Mobiliario</x-jet-label>
                         <x-select  selectname="mobiliario_id" class="w-full py-1 border-blue-300" id="mobiliario_id" name="mobiliario_id" >
                             <option value="">Selecciona</option>
@@ -32,7 +32,9 @@
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="w-4/12">
+                </div>
+                <div class="flex space-x-1 ">
+                    <div class="w-full">
                         <x-jet-label for="area">Prop x Elemento</x-jet-label>
                         <x-select  selectname="propxelemento_id" class="w-full py-1 border-blue-300" id="propxelemento_id" name="propxelemento_id" >
                             <option value="">Selecciona</option>
@@ -41,9 +43,7 @@
                             @endforeach
                         </x-select>
                     </div>
-                </div>
-                <div class="flex space-x-1 ">
-                    <div class="w-3/12">
+                    <div class="w-full">
                         <x-jet-label for="area">Carteleria</x-jet-label>
                         <x-select  selectname="carteleria_id" class="w-full py-1 border-blue-300" id="carteleria_id" name="carteleria_id" >
                             <option value="">Selecciona</option>
@@ -52,7 +52,9 @@
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="w-3/12">
+                </div>
+                <div class="flex space-x-1 ">
+                    <div class="w-full">
                         <x-jet-label for="area">Medida</x-jet-label>
                         <x-select  selectname="medida_id" class="w-full py-1 border-blue-300" id="medida_id" name="medida_id" >
                             <option value="">Selecciona</option>
@@ -61,7 +63,7 @@
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="w-3/12">
+                    <div class="w-full">
                         <x-jet-label for="area">Material</x-jet-label>
                         <x-select  selectname="material_id" class="w-full py-1 border-blue-300" id="material_id" name="material_id" >
                             <option value="">Selecciona</option>
@@ -70,10 +72,21 @@
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="w-3/12">
+                </div>
+                <div class="flex space-x-1 ">
+                    <div class="w-full">
                         <x-jet-label for="unitxprop">Unit X Prop</x-jet-label>
                         <x-input.text  class="w-full py-0.5 " id="unitxprop" name="unitxprop" value="{{old('unitxprop')}}"/>
                         <input type="hidden"  name="familia_id" value="1"/>
+                    </div>
+                    <div class="w-full">
+                        <x-jet-label for="area">Familia</x-jet-label>
+                        <x-select  selectname="familias_id" class="w-full py-1 border-blue-300" id="material_id" name="material_id" >
+                            <option value="">Selecciona</option>
+                            @foreach($tarifas as $familia )
+                            <option value="{{$familia->id}}" {{old('familia_id')==$familia->id ? 'selected' : ''}}>{{$familia->familia}}</option>
+                            @endforeach
+                        </x-select>
                     </div>
                 </div>
                 <div class="flex">

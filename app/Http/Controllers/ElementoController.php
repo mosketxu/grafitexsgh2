@@ -141,23 +141,17 @@ class ElementoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-
+    public function edit($id){
         $elemento=Elemento::find($id);
         $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
         $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
-        $propxelementos=Propxelemento::orderBy('propxelemento')->get();
+        $props=Propxelemento::orderBy('propxelemento')->get();
         $cartelerias=Carteleria::orderBy('carteleria')->get();
         $medidas=Medida::orderBy('medida')->get();
-        $familias=Tarifa::where('familia','<>','transporte')
-            ->where('familia','<>','picking')
-            ->orderBy('familia')->get();
-        // dd($familias);
         $materiales=Material::orderBy('material')->get();
+        $tarifas=Tarifa::orderBy('familia')->get();
 
-        return view('elementos.edit',compact('elemento','ubicaciones','mobiliarios','propxelementos','cartelerias','medidas','familias','materiales'));
-
+        return view('elementos.edit',compact('elemento','ubicaciones','tarifas','mobiliarios','props','cartelerias','medidas','materiales'));
     }
 
     /**
@@ -167,28 +161,73 @@ class ElementoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'familia_id'=>'required',
-            ]);
+    public function update(Request $request, $id){
+    $elementoOld=Elemento::find($id);
 
-         DB::table('elementos')
-         ->where('id',$id)
-         ->update([
-            'familia_id'=>$request->familia_id,
+    $request->validate([
+        'ubicacion_id'=>'required',
+        'mobiliario_id'=>'required',
+        'propxelemento_id'=>'required',
+        'carteleria_id'=>'required',
+        'medida_id'=>'required',
+        'material_id'=>'required',
+        'familia_id'=>'required',
+        'unitxprop'=>'required|numeric',
+     ]);
+
+    $u=Ubicacion::find($request->ubicacion_id)->ubicacion;
+    $m=Mobiliario::find($request->mobiliario_id)->mobiliario;
+    $p=Propxelemento::find($request->propxelemento_id)->propxelemento;
+    $c=Carteleria::find($request->carteleria_id)->carteleria;
+    $me=Medida::find($request->medida_id)->medida;
+    $ma=Material::find($request->material_id)->material;
+    $uxp=$request->unitxprop;
+    $e=Elemento::elementificador($u, $m, $p, $c, $me, $ma, $uxp);
+
+    $matmed=Elemento::matmed($ma, $me);
+
+    if ($e!=$elementoOld->elementificador) {
+        $controlElementificador=Elemento::where('elementificador', $e)->count();
+        if ($controlElementificador>0) {
+            $notification = array(
+                'message' => 'Este Elemento ya existe.',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->withErrors($notification);
+        }
+    }
+
+    DB::table('elementos')
+        ->where('id',$id)
+        ->update([
+            'elementificador'=>$e,
+            'ubicacion_id'=>$request->ubicacion_id,
+            'ubicacion'=>$u,
+            'mobiliario_id'=>$request->mobiliario_id,
+            'mobiliario'=>$m,
+            'propxelemento_id'=>$request->propxelemento_id,
+            'propxelemento'=>$p,
+            'carteleria_id'=>$request->carteleria_id,
+            'carteleria'=>$c,
+            'medida_id'=>$request->medida_id,
+            'medida'=>$me,
+            'material_id'=>$request->material_id,
+            'material'=>$ma,
+            'matmed'=>$matmed,
+            'matmed'=>$matmed,
+            'unitxprop'=>$request->unitxprop,
             'observaciones'=>$request->observaciones,
-             ]
+            'familia_id'=>$request->familia_id,
+            ]
         );
+
 
         $notification = array(
             'message' => 'Elemento Actualizado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
-        return redirect('elemento')->with($notification);
-
-
+        return redirect()->route('elemento.edit',$id)->with($notification);
     }
 
     /**

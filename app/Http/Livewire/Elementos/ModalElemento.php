@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Elementos;
 
 use Livewire\Component;
-use App\Models\{ Ubicacion, Carteleria, Material, Medida, Mobiliario, Propxelemento};
+use App\Models\{ Ubicacion, Carteleria, Material, Medida, Mobiliario, Propxelemento, Tarifa};
 
 class ModalElemento extends Component
 {
@@ -16,8 +16,9 @@ class ModalElemento extends Component
         $cartelerias=Carteleria::orderBy('carteleria')->get();
         $medidas=Medida::orderBy('medida')->get();
         $materiales=Material::orderBy('material')->get();
+        $tarifas=Tarifa::orderBy('familia')->get();
 
-        return view('livewire.elementos.modal-elemento',compact('ubicaciones','mobiliarios','props','cartelerias','medidas','materiales'));
+        return view('livewire.elementos.modal-elemento',compact('ubicaciones','tarifas','mobiliarios','props','cartelerias','medidas','materiales'));
     }
 
     public function cambiamodal(){$this->muestramodal= $this->muestramodal==false ? true : false;}

@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
-                @can('elementos.create')
+                @can('elemento.create')
                     @include('elementos.menu_elementos')
                 @endcan
             </div>

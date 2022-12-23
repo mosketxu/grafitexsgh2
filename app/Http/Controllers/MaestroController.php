@@ -58,12 +58,11 @@ class MaestroController extends Controller
             ]);
 
         DB::table('maestros')->delete();
-
         try{
             if($origen=="Grafitex"){
                 (new MaestrosImport)->import(request()->file('maestro'));
             }else{
-                (new MaestrosImportSGH)->import(request()->file('maestro'));
+        (new MaestrosImportSGH)->import(request()->file('maestro'));
             }
         }catch(\ErrorException $ex){
             // dd($ex->getMessage());
@@ -91,6 +90,7 @@ class MaestroController extends Controller
             // dd($ubicacion['ubicacion']);
             // if($ubicacion['ubicacion']=='' || isNull($ubicacion['ubicacion'])) $ubicacion['ubicacion']="FRONT DOOR";
             Ubicacion::firstOrCreate($ubicacion);}
+
         //Inserto actualizo Areas
         $areas=Maestro::select('area')->distinct('area')->get()->toArray();
         foreach ($areas as $area){

@@ -58,12 +58,8 @@
 </script>
 
 <script>
-  new TomSelect('#select-code', {
-    maxItems: 10,
-  });
-  new TomSelect('#select-name', {
-    maxItems: 10,
-  });
+  new TomSelect('#select-code', {maxItems: 10,});
+  new TomSelect('#select-name', {maxItems: 10,});
 </script>
 
 @endpush

@@ -5,7 +5,6 @@
                 <div class="hidden space-x-2 sm:-my-px sm:m-2 sm:flex">
                     @livewire('elementos.modal-elemento')
                 </div>
-                </div>
             </div>
         </div>
     </div>

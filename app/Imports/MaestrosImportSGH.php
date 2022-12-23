@@ -22,7 +22,7 @@ class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,Wit
     */
     public function model(array $row)
     {
-        if($row['ubicacion']=='' || is_null($row['ubicacion'])) $row['ubicacion']="FRONT DOOR" ;
+        if($row['ubicacion']=='' || is_null($row['ubicacion'])) $row['ubicacion']="-" ;
         $e=Elemento::elementificador($row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
         $observaciones="";
 

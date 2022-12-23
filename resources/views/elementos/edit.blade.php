@@ -3,12 +3,12 @@
         <div class="flex">
             <div class="w-full">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Elemento de la Store: {{ $store->id }} - {{ $store->name }}
+                    Elemento: {{ $elemento->elementificador }}
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
-                @can('storeelementos.create')
-                    {{-- @include('stores.storeelementos.menu_storeelementos') --}}
+                @can('elemento.create')
+                    @include('elementos.menu_elementos')
                 @endcan
             </div>
         </div>
@@ -16,7 +16,7 @@
     <div class="p-2">
         <div class="max-w-full mx-auto">
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                @include('stores.storeelementos.elemento')
+                @include('elementos.elemento')
             </div>
         </div>
     </div>
