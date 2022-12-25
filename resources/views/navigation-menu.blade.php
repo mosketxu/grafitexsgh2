@@ -40,7 +40,7 @@
                 @endcan
                 @can('auxiliares.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
+                        <x-jet-nav-link class="bg-blue-200" href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
                             {{ __('Auxiliares') }}
                         </x-jet-nav-link>
                     </div>

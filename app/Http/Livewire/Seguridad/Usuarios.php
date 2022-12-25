@@ -56,7 +56,7 @@ class Usuarios extends Component
             ->select('id','name as valorcampo1','email as valorcampo2','password as valorcampo3')
             ->orderBy('name')
             ->paginate(10);
-
+        // dd('sdf222');
         return view('livewire.auxiliarcard',compact('valores'));
     }
 

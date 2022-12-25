@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController,  CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, UserController};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController,  CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UserController};
 
 
 Route::get('/', function () {
@@ -38,7 +38,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     })->name('dashboard');
 
     //Seguridad
-    Route::get('/seguridad', function () {return view('seguridad.seguridad');})->middleware('can:seguridad.index')->name('seguridad');
+    Route::get('/seguridad', function () {return view('seguridad.seguridad');})->name('seguridad');
+    // Route::get('/seguridad', function () {return view('seguridad.seguridad');})->middleware('can:seguridad.index')->name('seguridad');
 
     //Roles
     Route::resource('roles', RoleController::class)->only(['edit','update'])->names('roles');
@@ -218,23 +219,14 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //auxiliares
     Route::group(['prefix'=>'auxiliares'],function(){
         Route::get('/', [AuxiliaresController::class,'index'])->name('auxiliares.index')->middleware('can:auxiliares.index');
-
-        require __DIR__ .'/country.php';
-        require __DIR__ .'/area.php';
-        require __DIR__ .'/segmento.php';
-        require __DIR__ .'/furniture.php';
-        require __DIR__ .'/storeconcept.php';
-        require __DIR__ .'/ubicacion.php';
-        require __DIR__ .'/mobiliario.php';
-        require __DIR__ .'/propxelemento.php';
-        require __DIR__ .'/carteleria.php';
-        require __DIR__ .'/medida.php';
-        require __DIR__ .'/material.php';
     });
 
     // Route::group(['middleware' => ['auth']], function () {
     //     //Tienda
     //     require __DIR__ .'/tienda.php';
+    Route::get('tienda/control','TiendaController@control')->name('tienda.control')->middleware('can:tiendas.index');
+    Route::resource('tiendas', TiendaController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
+
     //     //Store elementos
     //     require __DIR__ .'/storeelementos.php';
     //     // Elementos

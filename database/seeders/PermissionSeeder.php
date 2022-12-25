@@ -16,7 +16,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('permissions')->delete();
+        // \DB::table('permissions')->delete();
 
         $admin=Role::find('1');
         $grafitex=Role::find('2');
@@ -129,6 +129,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'entidadcontacto.update'])->syncRoles($admin, $grafitex);
         Permission::create(['name'=>'entidadcontacto.delete'])->syncRoles($admin, $grafitex);
 
+        // // tiendas
+        Permission::create(['name'=>'tiendas.index'])->syncRoles($admin, $grafitex, $tienda);
+        Permission::create(['name'=>'tiendas.create'])->syncRoles($admin, $grafitex, $tienda);
+        Permission::create(['name'=>'tiendas.edit'])->syncRoles($admin, $grafitex, $tienda);
+        Permission::create(['name'=>'tiendas.update'])->syncRoles($admin, $grafitex, $tienda);
+        Permission::create(['name'=>'tiendas.delete'])->syncRoles($admin, $grafitex, $tienda);
+
         // Plan
         Permission::create(['name'=>'plan.index'])->syncRoles($admin, $grafitex);
         Permission::create(['name'=>'plan.create'])->syncRoles($admin, $grafitex);
@@ -141,5 +148,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'plantienda.create'])->syncRoles($admin, $grafitex);
         Permission::create(['name'=>'plantienda.edit'])->syncRoles($admin, $grafitex,$proveedor);
         Permission::create(['name'=>'plantienda.update'])->syncRoles($admin, $grafitex,$proveedor);
-        Permission::create(['name'=>'plantienda.delete'])->syncRoles($admin, $grafitex);    }
+        Permission::create(['name'=>'plantienda.delete'])->syncRoles($admin, $grafitex);
+    }
 }
