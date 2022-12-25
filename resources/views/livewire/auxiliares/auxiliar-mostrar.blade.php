@@ -65,7 +65,7 @@
             <div class="w-full m-2 border border-gray-500 shadow-md rounded-md">
                 {{-- titulos --}}
                 <div class="flex w-full mx-auto pt-2 pb-1 pl-2 space-x-1 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-t-md ">
-                    <div class="w-1/12">#</div>
+                    <div class="w-1/12 text-center">#</div>
                     <div class="w-10/12 flex space-x-2">
                         <div class="">
                             {{ $titulo }}
@@ -77,12 +77,31 @@
                             @endif
                         </div>
                     </div>
-                    <div class="W-1/12">
-                        Nuevo
+                    <div class="W-1/12 text-center">
+                        @if($vista!='country')
+                            @if($nuevo!='1')
+                            <x-icon.circle-plus-a class="w-6 text-green-500 hover:text-green-700 " wire:click="muestranuevo()" title="Nuevo"/>
+                            @else
+                            <x-icon.circle-minus-a class="w-6 text-pink-500 hover:text-pink-700 " wire:click="muestranuevo()" title="Nuevo"/>
+                            @endif
+                        @endif
                     </div>
                 </div>
+                @if($nuevo=='1')
+                <div class="">
+                    <div class="flex w-full mx-auto  bg-green-50 p-1 space-x-1 text-sm tracking-tighter text-gray-800  ">
+                        <div  class="w-1/12">
+                            <x-input.text class="py-0.5 bg-green-50" disabled/>
+                        </div>
+                        <div  class="w-10/12">
+                            <x-input.text class="py-0.5"  wire:model="valorcampo"/>
+                        </div>
+                        <div  class="w-1/12 text-center"><x-icon.save-a wire:click="save()"></x-icon.save-a></div>
+                    </div>
+                </div>
+                @endif
                 @forelse ($valores as $val )
-                <div class="flex w-full mx-auto  pt-2 pb-0 pl-2 space-x-1 text-sm tracking-tighter text-gray-800  ">
+                <div class="flex w-full mx-auto  p-1 space-x-1 text-sm tracking-tighter text-gray-800  ">
                     <div  class="w-1/12">
                         <x-input.text class="py-0.5 bg-blue-50" value="{{ $val->ide }} " disabled/>
                     </div>
@@ -90,7 +109,7 @@
                         <x-input.text class="py-0.5" value="{{ $val->valor }}"
                             wire:change="changeValor({{ $val }},$event.target.value)"/>
                     </div>
-                    <div  class="w-1/12"><x-icon.edit-a></x-icon.edit-a></div>
+                    <div  class="w-1/12 text-center"><x-icon.edit-a></x-icon.edit-a></div>
                 </div>
                 @empty
                     No hay datos
