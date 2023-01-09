@@ -12,10 +12,10 @@
     <div class="pb-0 mx-2 space-y-1 border rounded-md">
         {{-- Datos de la tienda --}}
         <div class="">
-            <div class="flex w-full pt-2 pb-0 pl-2 text-sm font-bold tracking-tighter text-gray-500 bg-green-100 space-x -1 rounded-t-md">
+            <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-green-100 rounded-t-md">
                 Datos de la tienda
             </div>
-            <div class="flex w-full pb-0 pl-2 text-sm tracking-tighter text-gray-500 space-x -1 rounded-t-md">
+            <div class="flex w-full pb-0 pl-2 space-x-1 text-sm tracking-tighter text-gray-500 rounded-t-md">
                 <div class="w-full">
                     <label class="font-bold text-black">Store</label>
                     <div>{{ $store->id }}</div>

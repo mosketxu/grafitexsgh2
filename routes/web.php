@@ -224,7 +224,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     // Route::group(['middleware' => ['auth']], function () {
     //     //Tienda
     //     require __DIR__ .'/tienda.php';
-    Route::get('tienda/control','TiendaController@control')->name('tienda.control')->middleware('can:tiendas.index');
+    Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
     Route::resource('tiendas', TiendaController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //     //Store elementos

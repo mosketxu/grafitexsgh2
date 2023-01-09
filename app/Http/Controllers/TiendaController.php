@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class TiendaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:tiendas.index')->only('index','control');
+        $this->middleware('can:tiendas.edit')->only('edit','show','update','destroy','campaginstores');
+    }
+
     public function index(Request $request)
     {
         if ($request->busca) {
@@ -95,21 +102,30 @@ class TiendaController extends Controller
         return view('tienda.show', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
     }
 
-    public function control(Request $request)
-    {
+    public function control(Request $request){
         if ($request->busca) {
             $busqueda = $request->busca;
         } else {
             $busqueda = '';
         }
 
-        $campaigns=CampaignTienda::search($busqueda)
+
+        // $campaigns=CampaignTienda::search($busqueda)
+        // ->with('campaign')
+        // ->with('tienda')
+        // ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
+        // ->select('campaign_id','campaign_name',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
+        // ->groupBy('campaign_id')
+        // ->paginate(10);
+        $campaigns=CampaignTienda::query()
         ->with('campaign')
         ->with('tienda')
         ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
-        ->select('campaign_id','campaign_name',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
+        ->select('campaign_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
         ->groupBy('campaign_id')
         ->paginate(10);
+
+        // dd($campaigns);
 
         return view('tienda.control',compact('campaigns','busqueda'));
     }
