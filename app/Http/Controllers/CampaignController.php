@@ -35,18 +35,21 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
-        $campaigns=Campaign::search($request->busca)
+    public function index(Request $request){
+
+        // if ($request->busca) {
+        //     $busqueda = $request->busca;
+        // } else {
+        //     $busqueda = '';
+        // }
+        // $campaigns=Campaign::search($request->busca)
+        // ->orderBy('id','DESC')
+        // ->paginate();
+        $campaigns=Campaign::query()
         ->orderBy('id','DESC')
         ->paginate();
 
-        return view('campaign.index',compact('campaigns','busqueda'));
+        return view('campaign.index',compact('campaigns'));
     }
 
     /**
