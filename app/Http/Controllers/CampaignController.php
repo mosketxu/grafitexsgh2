@@ -37,19 +37,19 @@ class CampaignController extends Controller
      */
     public function index(Request $request){
 
-        // if ($request->busca) {
-        //     $busqueda = $request->busca;
-        // } else {
-        //     $busqueda = '';
-        // }
-        // $campaigns=Campaign::search($request->busca)
-        // ->orderBy('id','DESC')
-        // ->paginate();
+        if ($request->search) {
+            $busqueda = $request->search;
+        } else {
+            $busqueda = '';
+        }
         $campaigns=Campaign::query()
+        ->when($busqueda!='',function($query) use($busqueda){return $query->where('campaign_name','like','%'.$busqueda.'%');})
         ->orderBy('id','DESC')
-        ->paginate();
+        ->paginate(15);
 
-        return view('campaign.index',compact('campaigns'));
+        // dd($campaigns);
+
+        return view('campaign.index',compact('campaigns','busqueda'));
     }
 
     /**
@@ -68,26 +68,34 @@ class CampaignController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $rules=[
-            'campaign_name'=>'required|unique:campaigns',
-            'campaign_initdate'=>'required',
-            'campaign_enddate'=>'required',
-        ];
+    public function store(Request $request){
+        // lo hago con livewire porque no pasaba la validacion y no se por qué
 
-        $messages = [
-            'campaign_name.required' => 'Agrega el nombre de la campaña.',
-            'campaign_name.unique' => 'El nombre de la campaña ya existe. Usa otro.',
-            'campaign_initdate.required' => 'La fecha Inicio es necesaria.',
-            'campaign_enddate.required' => 'La fecha Fin es necesaria.',
-        ];
+        // $rules=[
+        //     'campaign_name'=>'required|unique:campaigns',
+        //     'campaign_initdate'=>'required',
+        //     'campaign_enddate'=>'required',
+        // ];
 
-        $this->validate($request, $rules, $messages);
+        // $messages = [
+        //     'campaign_name.required' => 'Agrega el nombre de la campaña.',
+        //     'campaign_name.unique' => 'El nombre de la campaña ya existe. Usa otro.',
+        //     'campaign_initdate.required' => 'La fecha Inicio es necesaria.',
+        //     'campaign_enddate.required' => 'La fecha Fin es necesaria.',
+        // ];
 
-        $campaign = Campaign::create($request->all());
+        // $request->validate($rules);
 
-        return redirect()->route('campaign.index');
+        // $this->validate($request, $rules, $messages);
+
+        // $campaign = Campaign::create($request->all());
+
+        // $notification = array(
+        //     'message' => 'Campaña creada satisfactoriamente!',
+        //     'alert-type' => 'success'
+        // );
+
+        // return redirect()->route('campaign.index')->with($notification);
     }
 
     /**
@@ -100,15 +108,10 @@ class CampaignController extends Controller
     {
         //
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $campaign=Campaign::find($id);
+
+
+    public function edit($campid){
+        $campaign=Campaign::find($campid);
         return view('campaign.edit',compact('campaign'));
     }
 

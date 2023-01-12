@@ -1,15 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex">
-            <div class="w-full">
+            <div class="w-2/12">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     Campañas
                 </h2>
             </div>
-            <div class="flex flex-row-reverse w-full">
+            <div class="flex flex-row-reverse w-10/12">
                 @can('elemento.create')
-                    {{-- @include('campaign.menu_campanyas') --}}
-                    aqui el menu de las campañas
+                    @include('campaign.menu_campanyas')
                 @endcan
             </div>
         </div>
