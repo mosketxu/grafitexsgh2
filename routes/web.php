@@ -67,7 +67,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::post('generarcampaign/{tipo}/{campaign}', [CampaignController::class,'generarcampaign'])->name('campaign.generar')
             ->middleware('can:campaign.create');
 
-        Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')
+        Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar') //creo que sobra pw lo hago con livewire
             ->middleware('can:campaign.edit');
 
         Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')
