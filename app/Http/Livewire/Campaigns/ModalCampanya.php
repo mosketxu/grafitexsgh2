@@ -42,9 +42,17 @@ class ModalCampanya extends Component
 
         $this->validate();
 
+        // registering a callback to be executed upon the creation of an activity AR
+            $slug= Str::slug($this->campaign_name, '-');
+        // check to see if any other slugs exist that are the same & count them
+            $count = Campaign::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+        // if other slugs exist that are the same, append the count to the slug
+            $slug = $count ? "{$slug}-{$count}" : $slug;
+
+
         $campaign=Campaign::create([
             'campaign_name'=>$this->campaign_name,
-            'slug'=>Str::slug($this->campaign_name, '-'),
+            'slug'=>$slug,
             'campaign_initdate'=>$this->campaign_initdate,
             'campaign_enddate'=>$this->campaign_enddate,
         ]);

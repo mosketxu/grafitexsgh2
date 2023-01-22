@@ -30,14 +30,14 @@
                     <form id="formularioMas" method="post"
                         action="{{route('campaign.generar',['1',$campaign->id]) }}">
                         @csrf
-                        <x-button type="button" onclick=""
+                        <x-button type="submit"
                         title="Añadir Elementos a la Campaña" class="bg-green-600 rounded-md text-white px-2"
                         name="Generar">Añadir Elementos</x-button>
                     </form>
                     <form method="post"
                         action="{{route('campaign.generar',['0',$campaign->id]) }}">
                         @csrf
-                        <x-button type="button" onclick="generar('#formularioNueva')"
+                        <x-button type="submit"
                             title="Generar Nueva Campaña" class="bg-blue-600 rounded-md text-white px-2"
                             name="Generar">Nueva Campaña</x-button>
                     </form>

@@ -36,7 +36,6 @@ class CampaignController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-
         if ($request->search) {
             $busqueda = $request->search;
         } else {
@@ -47,18 +46,13 @@ class CampaignController extends Controller
         ->orderBy('id','DESC')
         ->paginate(15);
 
-        // dd($campaigns);
-
         return view('campaign.index',compact('campaigns','busqueda'));
     }
-
-
 
     public function edit($campid){
         $campaign=Campaign::find($campid);
         return view('campaign.edit',compact('campaign'));
     }
-
 
     public function addresses($id){
         $campaign=Campaign::find($id);
@@ -73,93 +67,9 @@ class CampaignController extends Controller
         return Excel::download(new CampaignStoresExport($campaignId), 'direcciones.xlsx');
     }
 
-    /**
-     * Show the form for filtering the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function filtrar($id,Request $request){
 
         $campaign = Campaign::find($id);
-
-        // stores
-        $storesDisponibles=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
-            ->select('store_id as store','name')
-            ->whereNotIn('store_id', function ($query) use ($id) {
-                $query->select('store_id')->from('campaign_stores')->where('campaign_id', '=', $id);
-            })
-            ->campstoseg($campaign->id)
-            ->campstoubi($campaign->id)
-            ->campstomob($campaign->id)
-            ->campstomed($campaign->id)
-            ->groupBy('store','name')
-            ->get();
-
-        $storesAsociadas = CampaignStore::select('store_id as store','store as name')->where('campaign_id', '=', $id)->get();
-
-        // segmentos
-        $segmentosDisponibles=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
-            ->select('segmento')
-            ->whereNotIn('segmento', function ($query) use ($id) {$query->select('segmento')->from('campaign_segmentos')->where('campaign_id', '=', $id);})
-            ->campstosto($campaign->id)
-            ->campstoubi($campaign->id)
-            ->campstomob($campaign->id)
-            ->campstomed($campaign->id)
-            ->groupBy('segmento')
-            ->get();
-
-        $segmentosAsociadas = CampaignSegmento::where('campaign_id', '=', $id)->get();
-
-        // Ubicacion
-        $ubicacionesDisponibles=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
-            ->select('ubicacion')
-            ->whereNotIn('ubicacion', function ($query) use ($id) {
-                $query->select('ubicacion')->from('campaign_ubicacions')->where('campaign_id', '=', $id);
-            })
-            ->campstosto($campaign->id)
-            ->campstoseg($campaign->id)
-            ->campstomob($campaign->id)
-            ->campstomed($campaign->id)
-            ->groupBy('ubicacion')
-            ->get();
-
-        $ubicacionesAsociadas = CampaignUbicacion::where('campaign_id', '=', $id)->get();
-
-        // Medidas
-        $medidasDisponibles=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
-            ->select('medida')
-            ->whereNotIn('medida', function ($query) use ($id) {
-                $query->select('campaign_medidas.medida')->from('campaign_medidas')->where('campaign_id', '=', $id);
-            })
-            ->campstosto($campaign->id)
-            ->campstoseg($campaign->id)
-            ->campstoubi($campaign->id)
-            ->campstomob($campaign->id)
-            ->groupBy('medida')
-            ->get();
-
-        $medidasAsociadas = CampaignMedida::where('campaign_id', '=', $id)->get();
-
-        // MObiliario
-        $mobiliariosDisponibles=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
-            ->select('mobiliario')
-            ->whereNotIn('mobiliario', function ($query) use ($id) {
-                $query->select('mobiliario')->from('campaign_mobiliarios')->where('campaign_id', '=', $id);
-            })
-            ->campstosto($campaign->id)
-            ->campstoseg($campaign->id)
-            ->campstoubi($campaign->id)
-            ->campstomed($campaign->id)
-            ->groupBy('mobiliario')
-            ->get();
-
-        $mobiliariosAsociadas = CampaignMobiliario::where('campaign_id', '=', $id)->get();
 
         if ($request->busca) {
             $busqueda = $request->busca;
@@ -175,25 +85,12 @@ class CampaignController extends Controller
         ->campstoubi($campaign->id)
         ->campstomob($campaign->id)
         ->campstomed($campaign->id)
-        ->paginate(10);
+        ->get();
 
-    return view('campaign.indexfiltrar', compact(
-            'campaign',
-            'storesDisponibles','storesAsociadas','medidasDisponibles','medidasAsociadas',
-            'mobiliariosDisponibles','mobiliariosAsociadas','ubicacionesDisponibles','ubicacionesAsociadas','segmentosDisponibles',
-            'segmentosAsociadas','elementos','busqueda'
-        ));
+        return view('campaign.indexfiltrar', compact('campaign','elementos','busqueda'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,$id)
-    {
+    public function update(Request $request,$id){
         $request->validate([
             'campaign_name' => 'required',
             'campaign_initdate' => 'required',
@@ -206,67 +103,7 @@ class CampaignController extends Controller
         return redirect()->route('campaign.index')->with('success','Registro actualizado satisfactoriamente');
     }
 
-    // public function asociarstore(Request $request)
-    // {
-    //     $asociadas = $request->storesduallistbox;
-    //     DB::table('campaign_stores')->where('campaign_id', '=', $request->campaign_id)->delete();
-    //     $contador=!is_null($request->storesduallistbox);
-
-    //     if(!is_null($request->storesduallistbox)){
-    //         foreach($asociadas as $asociada){
-    //             if(!empty($asociada)){
-    //                 $c=json_decode($asociada);
-    //                 if(CampaignStore::where('store_id',$c->store)->where('campaign_id',$request->campaign_id)->count()==0)
-    //                     CampaignStore::insert([
-    //                         'campaign_id'=>$request->campaign_id,
-    //                         'store_id'=>$c->store,
-    //                         'store'=>$c->name,
-    //                     ]);
-    //             }
-    //         }
-    //     }
-
-    //     $notification = array(
-    //         'message' => 'Filtro Stores: Actualizado con éxito.',
-    //         'alert-type' => 'success'
-    //     );
-    //     return redirect()->back()->with($notification);
-    // }
-
-    public function asociar(Request $request)
-    {
-            $campaign=$request->campaign_id;
-            $asociadas = $request->duallistbox;
-            $campo=$request->campo;
-            $tabla=$request->tabla;
-
-            DB::table($tabla)->where('campaign_id', '=', $campaign)->delete();
-
-            $data=array();
-            $contador=!is_null($request->duallistbox);
-            if(!is_null($request->duallistbox)){
-                // dd($asociadas);
-                foreach($asociadas as $asociada){
-                    if(!empty($asociada)){
-                        $c=json_decode($asociada);
-                        if (DB::table($request->tabla)->where($request->campo,$c->$campo)->where('campaign_id',$request->campaign_id)->count()==0)
-                            DB::table($tabla)->insert([
-                                'campaign_id'=>$campaign,
-                                $campo=>$c->$campo
-                            ]);
-                    }
-                }
-            }
-            $notification = array(
-                'message' => 'Filtro '.$request->campo.': Actualizado con éxito.',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($notification);
-    }
-
-
-    public function generarcampaign($tipo,$id)
-    {
+    public function generarcampaign($tipo,$id){
         $campaign = Campaign::find($id);
 
         //Si empiezo de 0 borrar todo lo generado y regenerar
@@ -280,13 +117,13 @@ class CampaignController extends Controller
             }
         }
 
-        //Filtros
 
         // Si no se ha seleccionado ningun Area entiendo que los quiero todos
         if(CampaignArea::where('campaign_id','=',$id)->count()==0){
             $areas=Area::select('area')->get();
             Campaign::inserta('campaign_areas',$areas,'area',$id);
         }
+        dd($id);
         // Si no se ha seleccionado ningun Medida entiendo que los quiero todos
         if(CampaignMedida::where('campaign_id','=',$id)->count()==0){
             $medidas=Medida::select('medida')->get();
