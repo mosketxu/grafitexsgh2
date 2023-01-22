@@ -10,7 +10,7 @@
                             </div>
                             <div class="flex w-2/12 ">
                                 <div class="">
-                                    <button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter /></button>
+                                    <button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button>
                                 </div>
                                 <div class="">
                                     <a class="text-blue-700 underline" href='{{route(Route::currentRouteName())}}'  title="Borrar Filtro"><x-icon.filter-slash/></a>

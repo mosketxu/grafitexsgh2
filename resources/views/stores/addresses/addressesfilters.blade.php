@@ -18,7 +18,7 @@
         </div>
         <div class="w-full">
             <div class="flex ml-2 space-x-2">
-                <div class="py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter /></button></div>
+                <div class="py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button></div>
             </div>
         </div>
     </div>

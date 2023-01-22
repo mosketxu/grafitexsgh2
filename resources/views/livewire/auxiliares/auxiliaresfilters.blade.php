@@ -79,7 +79,7 @@
             </div>
         </div>
             <div class="col-span-1 ml-8">
-                <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter /></button></div>
+                <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button></div>
                 <a class="text-blue-700 underline" href='{{route('store.index')}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
             </div>
         </div>
