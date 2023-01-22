@@ -32,8 +32,7 @@
                         <a href="{{route('campaign.edit', $campaign->id )}}" title="Edit"><x-icon.edit class="text-blue-500"/></a>
                         </div>
                         <div class="">
-                            {{-- <a href="{{route('campaign.filtrar', $campaign->id) }}" title="Filtrar"><x-icon.filter class="text-blue-500"/></a> --}}
-                            <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="text-blue-500"/></a>
+                            <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="text-black"/></a>
                         </div>
                     @endcan
                     @can('campaign.index')

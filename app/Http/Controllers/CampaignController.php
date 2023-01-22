@@ -105,7 +105,6 @@ class CampaignController extends Controller
 
     public function generarcampaign($tipo,$id){
         $campaign = Campaign::find($id);
-
         //Si empiezo de 0 borrar todo lo generado y regenerar
         if($tipo=="0"){
             if(CampaignTienda::where('campaign_id',$id)->count()>0){
@@ -117,13 +116,11 @@ class CampaignController extends Controller
             }
         }
 
-
         // Si no se ha seleccionado ningun Area entiendo que los quiero todos
         if(CampaignArea::where('campaign_id','=',$id)->count()==0){
             $areas=Area::select('area')->get();
             Campaign::inserta('campaign_areas',$areas,'area',$id);
         }
-        dd($id);
         // Si no se ha seleccionado ningun Medida entiendo que los quiero todos
         if(CampaignMedida::where('campaign_id','=',$id)->count()==0){
             $medidas=Medida::select('medida')->get();
@@ -162,7 +159,6 @@ class CampaignController extends Controller
         }
 
         // Separo en una tabla los stores y en otra todo los elementos de la store
-
         // $tiendas=Maestro::CampaignTiendas($id)->get();
         $tiendas=StoreElemento::join('stores','stores.id','store_id')
             ->join('elementos','elementos.id','elemento_id')
@@ -178,13 +174,10 @@ class CampaignController extends Controller
         foreach ($tiendas as $tienda) {
             if(CampaignTienda::where('campaign_id',$id)->where('store_id',$tienda->store)->count()==0){
                 $tiendaId = CampaignTienda::insertGetId(["campaign_id"=>$id,"store_id"=>$tienda->store]);
-            }
-            else{
+            }else{
                 $tiendaId=CampaignTienda::where('campaign_id',$id)->where('store_id',$tienda->store)->first()->id;
             }
-
             $t=$tienda->store;
-
             $generar=StoreElemento::join('stores','stores.id','store_id')
             ->join('elementos','elementos.id','elemento_id')
             ->campstoubi($campaign->id)
@@ -204,11 +197,11 @@ class CampaignController extends Controller
                 }
                 $familia=TarifaFamilia::getFamilia($gen['material'],$gen['medida']);
 
-		if($familia)
-                	$fam=$familia['id'];
+		        if($familia)
+                    $fam=$familia['id'];
 
                 if (is_null($fam))
-                $fam=1;
+                    $fam=1;
 
                 $elemento=$gen['mobiliario'].$gen['carteleria'].$gen['medida'];
                 $sust=array(" ","/","-","+",".","(",")","á","é","í",'ó','ú',"Á","É","Í",'Ó','Ú');
@@ -228,7 +221,6 @@ class CampaignController extends Controller
                 $por=array("","","","","","a","e","i",'o','u',"A","E","I",'O','U');
                 $matmed=str_replace($sust, $por, $matmed);
                 $matmed=strtolower($matmed);
-
 
                 $i=CampaignElemento::insert([
                     'tienda_id'  => $tiendaId,
@@ -277,11 +269,10 @@ class CampaignController extends Controller
             DB::table('campaign_galerias')->insert($dataSet);
         }
 
-    return redirect()->route('campaign.elementos', $campaign);
-}
+        return redirect()->route('campaign.elementos', $campaign);
+    }
 
-    public function conteo($campaignId, Request $request)
-    {
+    public function conteo($campaignId, Request $request){
         if ($request->busca) {
             $busqueda = $request->busca;
         } else {

@@ -40,7 +40,6 @@ class Campaign extends Model
     }
 
     static function inserta($tabla,$datos,$campo,$campaignId){
-        dd('sdf');
         foreach (array_chunk($datos->toArray(),1000) as $t){
             $dataSet = [];
             foreach ($datos as $dato) {

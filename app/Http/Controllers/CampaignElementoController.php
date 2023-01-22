@@ -8,16 +8,13 @@ use App\Exports\{CampaignElemenIdiMatMedMobExport, CampaignElementosExport,Campa
 use Maatwebsite\Excel\Facades\Excel;
 Use Image;
 
-class CampaignElementoController extends Controller
-{
+class CampaignElementoController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($campaignId, Request $request)
-    {
-
+    public function index($campaignId, Request $request){
         if ($request->busca) {
             $busqueda = $request->busca;
         } else {
@@ -27,13 +24,14 @@ class CampaignElementoController extends Controller
         $campaign = Campaign::find($campaignId);
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->search($request->busca)
+        // ->search($request->busca)
         ->where('campaign_id',$campaignId)
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','name','country','idioma','area','segmento','storeconcept',
             'ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','precio','unitxprop','imagen','observaciones')
         ->orderBy('store_id')
         ->paginate('25');
+
 
         return view('campaign.elementos.index', compact('campaign','elementos','busqueda'));
     }
