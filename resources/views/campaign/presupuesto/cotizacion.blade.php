@@ -6,7 +6,7 @@
 @section('title','Grafitex-Presupuesto Editar')
 @section('titlePag','Edición del presupuesto')
 @section('navbar')
-@include('campaign._navbarcampaign')
+{{-- @include('campaign._navbarcampaign') --}}
 @endsection
 
 

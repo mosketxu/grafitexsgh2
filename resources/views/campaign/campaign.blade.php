@@ -1,13 +1,13 @@
-@extends('layouts.grafitex')
+{{-- @extends('layouts.grafitex')
 
 @section('styles')
 @endsection
 
 @section('title','Grafitex-Campaña Editar')
 @section('titlePag','Edición de la campaña')
-@section('navbar')
-@include('campaign._navbarcampaign')
-@endsection
+@section('navbar') --}}
+{{-- @include('campaign._navbarcampaign') --}}
+{{-- @endsection --}}
 
 
 
@@ -27,7 +27,7 @@
         </div>
     </div>
     {{-- main content  --}}
-    <section class="content">
+    {{-- <section class="content"> --}}
         <div class="container-fluid">
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -82,9 +82,9 @@
                 </form>
             </div>
         </div>
-    </section>
+    {{-- </section> --}}
 </div>
-@endsection
+{{-- @endsection --}}
 
 @push('scriptchosen')
 {{-- <script src="{{ asset('js/campaignElementos.js')}}"></script> --}}

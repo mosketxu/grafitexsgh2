@@ -38,55 +38,48 @@
             <div class="">
                 <div class="w-full">
                     <div class="m-2">
-                        <form method="GET" action="{{route('campaign.filtrar',$campaign) }}">
-                            <div class="input-group input-group-sm text-xs">
-                                {{-- <input id="busca" name="busca"  type="text" class="form-control" name="search" value='{{$busqueda}}' placeholder="Search for..."/> --}}
-                                Hay {{$elementos->count()}} elementos disponibles.
-                            </div>
-                        </form>
+                        Hay {{$elementos->count()}} elementos disponibles.
                     </div>
-                    {{-- <div class="overflow-y-scroll w-full" style="height: 27vh;"> --}}
-                        <table class="text-left w-full text-xs">
-                            <thead class="bg-black text-white flex flex-col items-center justify-between overflow-y-scroll w-full">
-                                <tr class="flex w-full">
-                                    <th class="w-full">Store</th>
-                                    <th class="w-full">Name</th>
-                                    <th class="w-full">Country</th>
-                                    <th class="w-full">Zona</th>
-                                    <th class="w-full">Area</th>
-                                    <th class="w-full">Segmento</th>
-                                    <th class="w-full">Concepto</th>
-                                    <th class="w-full">Ubicación</th>
-                                    <th class="w-full">Mobiliario</th>
-                                    <th class="w-full">Prop x Elemento</th>
-                                    <th class="w-full">Carteleria</th>
-                                    <th class="w-full">Medida</th>
-                                    <th class="w-full">Material</th>
-                                    <th class="w-full">Unit x Prop</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 40vh;">
-                                @foreach ($elementos as $elemento)
-                                <tr class="flex w-full">
-                                    <td class="w-full">{{$elemento->store_id}}</td>
-                                    <td class="w-full">{{$elemento->name}}</td>
-                                    <td class="w-full">{{$elemento->country}}</td>
-                                    <td class="w-full">{{$elemento->area}}</td>
-                                    <td class="w-full">{{$elemento->zona}}</td>
-                                    <td class="w-full">{{$elemento->segmento}}</td>
-                                    <td class="w-full">{{$elemento->concepto}}</td>
-                                    <td class="w-full">{{$elemento->ubicacion}}</td>
-                                    <td class="w-full">{{$elemento->mobiliario}}</td>
-                                    <td class="w-full">{{$elemento->propxelemento}}</td>
-                                    <td class="w-full">{{$elemento->carteleria}}</td>
-                                    <td class="w-full">{{$elemento->medida}}</td>
-                                    <td class="w-full">{{$elemento->material}}</td>
-                                    <td class="w-full">{{$elemento->unitxprop}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="text-left w-full text-xs">
+                        <thead class="bg-black text-white flex flex-col items-center justify-between overflow-y-scroll w-full">
+                            <tr class="flex w-full">
+                                <th class="w-full">Store</th>
+                                <th class="w-full">Name</th>
+                                <th class="w-full">Country</th>
+                                <th class="w-full">Zona</th>
+                                <th class="w-full">Area</th>
+                                <th class="w-full">Segmento</th>
+                                <th class="w-full">Concepto</th>
+                                <th class="w-full">Ubicación</th>
+                                <th class="w-full">Mobiliario</th>
+                                <th class="w-full">Prop x Elemento</th>
+                                <th class="w-full">Carteleria</th>
+                                <th class="w-full">Medida</th>
+                                <th class="w-full">Material</th>
+                                <th class="w-full">Unit x Prop</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 40vh;">
+                            @foreach ($elementos as $elemento)
+                            <tr class="flex w-full">
+                                <td class="w-full">{{$elemento->store_id}}</td>
+                                <td class="w-full">{{$elemento->name}}</td>
+                                <td class="w-full">{{$elemento->country}}</td>
+                                <td class="w-full">{{$elemento->area}}</td>
+                                <td class="w-full">{{$elemento->zona}}</td>
+                                <td class="w-full">{{$elemento->segmento}}</td>
+                                <td class="w-full">{{$elemento->concepto}}</td>
+                                <td class="w-full">{{$elemento->ubicacion}}</td>
+                                <td class="w-full">{{$elemento->mobiliario}}</td>
+                                <td class="w-full">{{$elemento->propxelemento}}</td>
+                                <td class="w-full">{{$elemento->carteleria}}</td>
+                                <td class="w-full">{{$elemento->medida}}</td>
+                                <td class="w-full">{{$elemento->material}}</td>
+                                <td class="w-full">{{$elemento->unitxprop}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

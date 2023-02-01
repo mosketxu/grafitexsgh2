@@ -6,10 +6,9 @@
                     Elementos de la Campaña
                 </h2>
             </div>
-            <div class="flex flex-row-reverse w-10/12">
+            <div class="flex flex-row-reverse w-10/12 ">
                 @can('elemento.create')
-                    {{-- @include('campaign.menu_campanyas') --}}
-                    {{-- @include('campaign._navbarcampaign') --}}
+                    @include('campaign.menu_campanya_elementos')
                 @endcan
             </div>
         </div>
@@ -17,7 +16,7 @@
     <div class="p-2">
         <div class="max-w-full mx-auto">
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                {{-- @include('campaign.elementos') --}}
+                @include('campaign.elementos.elementos')
             </div>
         </div>
     </div>

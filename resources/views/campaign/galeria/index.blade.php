@@ -6,7 +6,7 @@
 @section('title','Grafitex-Galeria Campaña')
 @section('titlePag','Galeria de la Campaña')
 @section('navbar')
-    @include('campaign._navbarcampaign')
+    {{-- @include('campaign._navbarcampaign') --}}
 @endsection
 
 

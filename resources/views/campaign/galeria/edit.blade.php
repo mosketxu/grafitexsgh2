@@ -1,13 +1,13 @@
-@extends('layouts.grafitex')
+{{-- @extends('layouts.grafitex')
 
 @section('styles')
 @endsection
 
 @section('title','Grafitex-Galeria Editar')
 @section('titlePag','Edición de Imagenes de la Campaña')
-@section('navbar')
-@include('campaign._navbarcampaign')
-@endsection
+@section('navbar') --}}
+{{-- @include('campaign._navbarcampaign') --}}
+{{-- @endsection --}}
 
 
 
@@ -28,7 +28,7 @@
         </div>
     </div>
     {{-- main content  --}}
-    <section class="content">
+    {{-- <section class="content"> --}}
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
@@ -133,9 +133,9 @@
                 </form>
             </div>
         </div>
-    </section>
+    {{-- </section> --}}
 </div>
-@endsection
+{{-- @endsection --}}
 
 @push('scriptchosen')
 {{-- <script src="{{ asset('js/campaignElementos.js')}}"></script> --}}

@@ -6,7 +6,7 @@
 @section('title','Grafitex-Elementos famila prespuesto')
 @section('titlePag','Detalle elementos del presupuesto')
 @section('navbar')
-    @include('campaign._navbarcampaign')
+    {{-- @include('campaign._navbarcampaign') --}}
 @endsection
 
 

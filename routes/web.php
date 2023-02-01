@@ -73,7 +73,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
         //Elementos de la campaña
         Route::group(['prefix' => 'elementos'], function () {
-            Route::get('/{campaignlemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')
+            Route::get('/{campaignelemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')
                 ->middleware('can:campaign.index');
             Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignElementoController::class,'editelemento'])->name('campaign.elemento.editelemento')
                 ->middleware('can:campaign.edit');
