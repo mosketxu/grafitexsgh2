@@ -6,12 +6,12 @@ use App\Models\CampaignStore;
 use App\Models\StoreElemento;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\DataTable\WithBulkActionsasociar;
+use App\Http\Livewire\DataTable\WithBulkActions;
 
 
-class CampaignAsociarstores extends Component
+class CampaignAsociarstoresOri extends Component
 {
-    use WithPagination, WithBulkActionsasociar;
+    use WithPagination, WithBulkActions;
 
     public $visible=true;
     public $campaign;

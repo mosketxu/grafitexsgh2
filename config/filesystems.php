@@ -36,6 +36,20 @@ return [
             'throw' => false,
         ],
 
+        'galeria' => [
+            'driver' => 'local',
+            'root' => storage_path('app/galeria'),
+            'url' => env('APP_URL').'/galeria',
+            'visibility' => 'public',
+        ],
+
+        'store' => [
+            'driver' => 'local',
+            'root' => storage_path('app/store'),
+            'url' => env('APP_URL').'/store',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -71,6 +85,9 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('galeria') => storage_path('app/galeria'),
+        public_path('store') => storage_path('app/store'),
+
     ],
 
 ];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\DataTable;
 
-trait WithBulkActionsasociar
+trait WithBulkActions
 {
     public $selectPage = false;
     public $selectAll = false;

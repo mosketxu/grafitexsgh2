@@ -55,62 +55,9 @@
                         <th width="50px" class="text-center"><span class="ml-1">Acción</th>
                     </tr>
                 </thead>
-                <tbody class="bg-grey-light flex flex-col  overflow-y-scroll w-full" style="height: 40vh;">
-                    @foreach ($elementos as $elemento)
-                    <form id="form{{$elemento->id}}" role="form" method="post" action="javascript:void(0)" enctype="multipart/form-data">
-                    @csrf
-                        <tr class="flex w-full">
-                            <input type="hidden" name="elementoId" value="{{$elemento->id}}"/>
-                            <td class="w-1/12">{{$elemento->id}}</td>
-                            <td class="w-1/12">{{$elemento->store_id}}</td>
-                            <td class="w-1/12">{{$elemento->name}}</td>
-                            <td class="w-1/12">{{$elemento->country}}</td>
-                            <td class="w-1/12">{{$elemento->area}}</td>
-                            <td class="w-1/12">{{$elemento->idioma}}</td>
-                            <td class="w-1/12">{{$elemento->segmento}}</td>
-                            <td class="w-1/12">{{$elemento->storeconcept}}</td>
-                            <td class="w-1/12">{{$elemento->ubicacion}}</td>
-                            <td class="w-1/12">{{$elemento->mobiliario}}</td>
-                            <td class="w-1/12">{{$elemento->propxelemento}}</td>
-                            <td class="w-1/12">{{$elemento->carteleria}}</td>
-                            <td class="w-1/12">{{$elemento->medida}}</td>
-                            <td class="w-1/12">{{$elemento->material}}</td>
-                            <td class="w-1/12">{{$elemento->unitxprop}}</td>
-                            {{-- <td class="w-1/12">{{$elemento->observaciones}}</td> --}}
-                            <td width="150px">
-                                <div class="flex">
-                                    <div>
-                                        @can('campaign.edit')
-                                        <x-input.text type="file" id="inputFile{{$elemento->id}}" name="photo" style="display:none"/>
-                                        @endcan
-                                        @if(file_exists( 'storage/galeria/'.$campaign->id.'/'.$elemento->imagen ))
-                                            <img src="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}" alt={{$elemento->imagen}} title={{$elemento->imagen}}
-                                                id="original{{$elemento->id}}" class=""
-                                                style="width: 100px;cursor:pointer"
-                                                onclick='document.getElementById("inputFile{{$elemento->id}}").click()'/>
-                                        @else
-                                            <img src="{{asset('storage/galeria/pordefecto.jpg')}}"  alt={{$elemento->imagen}} title={{$elemento->imagen}}
-                                                id="original{{$elemento->id}}" class="img-fluid img-thumbnail"
-                                                style="width: 100px;cursor:pointer"
-                                                onclick='document.getElementById("inputFile{{$elemento->id}}").click()'/>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @can('campaign.edit')
-                                        <a href="#" name="Upload" onclick="subirImagenIndex('form{{$elemento->id}}','{{$elemento->id}}','{{$campaign->id}}')"><i class="mx-1 fas fa-upload text-info fa-2x"></i></a>
-                                        @endcan
-                                    </div>
-                                </div>
-                            </td>
-                            <td width="50px">
-                                <div class="text-center">
-                                    @can('campaign.edit')
-                                    <a href="{{ route('campaign.elemento.editelemento',[$campaign->id,$elemento->id]) }}" title="Edit"><x-icon.edit/></a>
-                                    @endcan
-                                </div>
-                            </td>
-                        </tr>
-                    </form>
+                <tbody class="bg-grey-light flex flex-col  overflow-y-scroll w-full" style="height: 70vh;">
+                    @foreach ($elementos as $campelemento)
+                        @livewire('campaigns.campaign-elementos',['campelemento'=>$campelemento,'campaign'=>$campaign],key($campelemento->id))
                     @endforeach
                 </tbody>
             </table>
@@ -121,52 +68,7 @@
 
 @push('scriptchosen')
 
-<script src="{{ asset('js/sortTable.js')}}"></script>
 <script>
-    $(document).ready(function() {
-
-    });
-   function subirImagenIndex(formulario,elementoId,campaignId){
-        var token= $('#token').val();
-        let timestamp = Math.floor( Date.now() );
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
-        formData.append("elementoId", elementoId);
-
-        $.ajax({
-            type:'POST',
-            url: "{{ route('campaign.elementos.updateimagenindex') }}",
-            data:formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success:function(data){
-                $('#'+formulario +' img').remove();
-                $('#original'+elementoId).attr('src', '/storage/galeria/'+ campaignId+'/'+ data.imagen+'?ver=' + timestamp);
-                toastr.info('Imagen actualizada con éxito','Imagen',{
-                    "progressBar":true,
-                    "positionClass":"toast-top-center"
-                });
-            },
-            error: function(data){
-                console.log(data);
-                toastr.error("No se ha actualizado la imagen.<br>"+ data.responseJSON.message,'Error actualización',{
-                    "closeButton": true,
-                    "progressBar":true,
-                    "positionClass":"toast-top-center",
-                    "options.escapeHtml" : true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": 0,
-                });
-            }
-        });
-    }
-
 
 </script>
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 
 class CampaignElemento extends Model
 {
@@ -15,6 +15,7 @@ class CampaignElemento extends Model
     protected $fillable=['campaign_id','tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',
         'propxlemento','carteleria','medida','material','familia','matmed','unitxprop','imagen','observaciones','precio','validado','motivo','otros','updated_by'
     ];
+
 
 
     public function tarifa()
@@ -86,8 +87,7 @@ class CampaignElemento extends Model
         ->get();
     }
 
-    static function getElementos($campaignId)
-    {
+    static function getElementos($campaignId){
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->where('campaign_id',$campaignId)
         ->select('campaign_id','familia','precio',DB::raw('SUM(unitxprop) as unidades'),DB::raw('SUM(unitxprop * precio) as tot'))
@@ -95,8 +95,7 @@ class CampaignElemento extends Model
         ->get();
     }
 
-    static function getPromedios($campaignId)
-    {
+    static function getPromedios($campaignId){
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->where('campaign_id',$campaignId)
         ->select('campaign_id','zona','campaign_elementos.store_id as store_id',DB::raw('SUM(unitxprop * precio) as tot'))
@@ -105,6 +104,11 @@ class CampaignElemento extends Model
 
     }
 
+    public function campelementoUrl(){
+        $i= $this->imagen ? Storage::disk('galeria')->url($this->imagen) : Storage::disk('galeria')->url('pordefecto.png');
+
+        return $i;
+    }
 
 }
 
