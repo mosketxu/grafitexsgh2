@@ -16,37 +16,52 @@ class CampaignElementos extends Component{
     public $campelemento;
     public $campaign;
     public $imagenelemento;
-
-    public function mount($campelemento,$campaign){
-        $this->campaign=$campaign;
-        $this->campelemento=$campelemento;
-    }
-
+    public $ruta;
+    public $observaciones;
+    public $precio;
 
     protected $rules = [
         'imagenelemento' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
     ];
 
-    public function messages()
-    {
+    public function messages(){
         return [
             'imagenelemento.required'=>'Debes seleccionar una imagen.',
             'imagenelemento.max'=>'El tamaño maximo es 12Mb',
         ];
     }
 
+    public function mount($campelemento,$campaign,$ruta){
+        $this->campaign=$campaign;
+        $this->campelemento=$campelemento;
+        $this->ruta=$ruta;
+        $this->observaciones=$campelemento->observaciones;
+        $this->precio=$campelemento->precio;
+
+    }
 
     public function render(){
-        return view('livewire.campaigns.campaign-elementos');
+        $vista=$this->ruta=='campaign.elementos' ? 'livewire.campaigns.campaign-elementos' : 'livewire.campaigns.campaign-elemento';
+        return view($vista);
     }
 
     public function updatedImagenelemento(){
         $this->validate();
-        $this->save();
+        $this->saveimg();
     }
 
-    public function save(){
 
+    public function saveinput(){
+        $this->campelemento->update([
+            'observaciones'=>$this->observaciones,
+            'precio'=>$this->precio,
+        ]);
+        $mensaje="Actualizado";
+        $this->dispatchBrowserEvent('notify', $mensaje);
+
+    }
+
+    public function saveimg(){
         $this->validate();
 
         $campElem=CampaignElemento::find($this->campelemento->elementoId);
@@ -84,8 +99,6 @@ class CampaignElementos extends Component{
             $this->campelemento->update([
                 'imagen'=>$nombre,
             ]);
-            // $this->campElem->imagen=$nombre;
-            // $this->campElem->save();
 
             Image::make($this->imagenelemento)
             ->resize(null, 144, function ($constraint) {
@@ -94,26 +107,5 @@ class CampaignElementos extends Component{
                 ->encode('jpg')
                 ->save('galeria/'.$campaignId.'/thumbnails/thumb-'.$file_name);
         }
-
-        // $filename=$this->imagenelemento->store('/','galeria');
-
-
-        // $this->campelemento->update([
-        //     'imagen'=>$file_name,
-        // ]);
-
-        // $extension=$this->imagenelemento->file('imagenelemento')->getClientOriginalExtension();
-        // dd($extension);
-        // $tipo=$this->imagenelemento->file('photo')->getClientMimeType();
-        // $nombre=$this->imagenelemento->file('photo')->getClientOriginalName();
-        // $tamanyo=$this->imagenelemento->file('photo')->getSize();
-
-        // dd($extension);
-
-
-        // $this->imagenelemento=null;
-
-        // dd('success');
-        // dd($this->imagenelemento);
     }
 }

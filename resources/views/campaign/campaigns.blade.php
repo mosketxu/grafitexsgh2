@@ -26,18 +26,18 @@
                 <div class="w-2/12">{{$campaign->campaign_initdate}}</div>
                 <div class="w-2/12">{{$campaign->campaign_enddate}}</div>
                 <div class="w-1/12">{{$campaign->campaign_state}}</div>
-                <div class="w-2/12 flex justify-between">
+                <div class="flex justify-between w-2/12">
                     @can('campaign.edit')
                         <div class="">
                         <a href="{{route('campaign.edit', $campaign->id )}}" title="Edit"><x-icon.edit class="text-blue-500"/></a>
                         </div>
                         <div class="">
-                            <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="w-7 text-black transform hover:text-black hover:scale-125"/></a>
+                            <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="text-black transform w-7 hover:text-black hover:scale-125"/></a>
                         </div>
                     @endcan
                     @can('campaign.index')
                         <div class="">
-                            <a href="{{route('campaign.elementos', $campaign->id ) }}" title="Elementos"><x-icon.cubes class="text-blue-500"/></a>
+                            <a href="{{route('campaign.elementos', $campaign->id ) }}" title="Elementos"><x-icon.cubes class="text-green-500 w-7 "/></a>
                         </div>
                         <div class="">
                             <a href="{{route('campaign.galeria', $campaign->id ) }}" title="Galeria"><x-icon.images class="text-blue-500"/></a>

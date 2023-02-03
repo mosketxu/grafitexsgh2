@@ -103,7 +103,6 @@ class CampaignElementoController extends Controller{
     {
         // solo actulizo los campos, la imagen no lo hago desde aquí;
         $campElem=json_decode($request->campaignelemento);
-        // dd($request);
         $campaignelem=CampaignElemento::find($campElem->id);
         $campaignelem->observaciones=$request->observaciones;
         $campaignelem->precio=$request->precio;
