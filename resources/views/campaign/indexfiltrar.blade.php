@@ -6,7 +6,13 @@
                     Filtros campaña
                 </h2>
             </div>
-            <div class="flex flex-row-reverse w-10/12">
+            <div class="flex flex-row-reverse w-8/12">
+                @can('elemento.create')
+                    @include('campaign.menu_campanya')
+                @endcan
+            </div>
+
+            <div class="flex flex-row-reverse w-2/12">
                 @can('campaign.create')
                     @include('campaign.menu_filtroscampanya')
                 @endcan

@@ -39,7 +39,7 @@
                 {{ __('Actualizar') }}
             </x-jet-button>
             @endcan
-            <x-jet-button  class="py-2 text-black border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+            <x-jet-button type="button" class="py-2 text-gray-400 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
         </div>
     </form>
 </div>

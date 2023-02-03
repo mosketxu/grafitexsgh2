@@ -6,7 +6,10 @@
                     Campaña: {{ $campaign->campaign_name }}
                 </h2>
             </div>
-            <div class="flex flex-row-reverse w-full">
+            <div class="flex flex-row-reverse w-10/12">
+                @can('campaign.index')
+                    @include('campaign.menu_campanya')
+                @endcan
             </div>
         </div>
     </x-slot>

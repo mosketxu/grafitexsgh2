@@ -29,7 +29,7 @@
                 <div class="flex justify-between w-2/12">
                     @can('campaign.edit')
                         <div class="">
-                        <a href="{{route('campaign.edit', $campaign->id )}}" title="Edit"><x-icon.edit class="text-blue-500"/></a>
+                        <a href="{{route('campaign.edit', $campaign->id )}}" title="Edit"><x-icon.edit class="w-6 text-blue-500"/></a>
                         </div>
                         <div class="">
                             <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="text-black transform w-7 hover:text-black hover:scale-125"/></a>

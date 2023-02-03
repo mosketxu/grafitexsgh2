@@ -8,7 +8,8 @@
             </div>
             <div class="flex flex-row-reverse w-10/12 ">
                 @can('elemento.create')
-                    @include('campaign.menu_campanya_elementos')
+                    {{-- @include('campaign.menu_campanya_elementos') --}}
+                    @include('campaign.menu_campanya')
                 @endcan
             </div>
         </div>
