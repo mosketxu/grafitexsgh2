@@ -138,24 +138,10 @@
             @error('imagenelemento') <span class="text-red-500">{{ $message }} </span>@enderror
         </div>
     </div>
-    <div class="">
+    <div class="mx-2">
         @can('campaign.edit')
-            <x-button.primary wire:click="saveinput"  >Guardar</x-button.primary>
-            <span
-                        x-data="{ open: false }"
-                        x-init="
-                            @this.on('notify-saved', () => {
-                                if (open === false) setTimeout(() => { open = false }, 2500);
-                                open = true;
-                            })
-                        "
-                    x-show.transition.out.duration.1000ms="open"
-                    style="display: none;"
-                    class="p-2 m-2 text-gray-500 rounded-lg bg-green-50"
-                    >Saved!</span>
+            <x-button.primary wire:click="saveinput" class="uppercase" >Guardar</x-button.primary>
         @endcan
-        <x-jet-button  class="py-2 text-black border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.elementos',$campaign->id) }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
-
-        {{-- <x-button.secondary><a class="" href="{{route('campaign.elementos',$campaign->id)}}" title="Ir la página anterior">Volver</a><x-button.secondary/> --}}
+        <x-button.secondary  class="uppercase hover:bg-gray-200" onclick="location.href = '{{ route('campaign.elementos',$campaign->id) }}'" color="gray" >{{ __('Volver') }}</x-button.secondary>
     </div>
 </div>

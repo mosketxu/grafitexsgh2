@@ -1,5 +1,5 @@
 <div class="">
-    <div class="h-full p-1 mx-2">
+    <div class="p-1 mx-2">
         <div class="text-gray-500 border border-blue-300 rounded shadow-md">
             <div class="flex w-full p-1 bg-gray-100 rounded-md">
                 <div class="w-6/12 rounded-md">

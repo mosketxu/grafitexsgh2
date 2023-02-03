@@ -19,5 +19,8 @@
                 @include('campaign.elementos.elementos')
             </div>
         </div>
+        <div class="pb-2 mx-2 my-2">
+            <x-button.secondary  class="uppercase bg-white hover:bg-gray-200" onclick="location.href = '{{ route('campaign.index') }}'" color="gray" >{{ __('Volver') }}</x-button.secondary>
+        </div>
     </div>
 </x-app-layout>

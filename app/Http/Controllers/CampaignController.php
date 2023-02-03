@@ -98,9 +98,9 @@ class CampaignController extends Controller
             'campaign_state' => 'required',
         ]);
 
-        Campaign::find($id)->update($request->all());
-
-        return redirect()->route('campaign.index')->with('success','Registro actualizado satisfactoriamente');
+        $campaign=Campaign::find($id)->update($request->all());
+        // dd('sdf');
+        return redirect()->route('campaign.edit',$campaign)->with('message','Registro actualizado satisfactoriamente');
     }
 
     public function generarcampaign($tipo,$id){

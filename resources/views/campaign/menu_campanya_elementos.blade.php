@@ -2,7 +2,7 @@
     <div class="flex w-full px-2 mx-auto ">
         <div class="flex justify-between w-full mr-4 space-x-5 ">
             @can('campaign.edit')
-                <a  href="{{route('campaign.filtrar',$campaign->id) }}" title="Filtros"><x-icon.edit class="w-6 pt-1 text-blue-500"/></a>
+                <a  href="{{route('campaign.filtrar',$campaign->id) }}" title="Filtros"><x-icon.filter class="w-6 pt-1 text-black"/></a>
             @endcan
             @can('campaign.index')
                 <a  href="{{route('campaign.index') }}" title="Campañas"><x-icon.campground  class="pt-1 text-orange-400 w-7"/></a>

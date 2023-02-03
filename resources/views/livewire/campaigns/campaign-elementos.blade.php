@@ -34,11 +34,9 @@
             @error('imagenelemento') <span class="text-red-500">{{ $message }} </span>@enderror
         </div>
     </td>
-    <td width="w-1/12">
-        @can('campaign.edit')
-        <div class="mt-1">
-            <a href="{{ route('campaign.elemento.editelemento',[$campaign->id,$campelemento->id]) }}" title="Edit"><x-icon.edit/></a>
-        </div>
-        @endcan
+    <td class="w-16 ml-2">
+            @can('campaign.edit')
+                <a href="{{ route('campaign.elemento.editelemento',[$campaign->id,$campelemento->id]) }}" title="Edit"><x-icon.edit class="mt-1 text-blue-500"/></a>
+            @endcan
     </td>
 </tr>
