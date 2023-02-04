@@ -14,10 +14,7 @@ class CampaignReportingController extends Controller
         $etiquetas=Campaign::where('id',$campaignId)
         ->first();
 
-        // dd($etiquetas->tiendaselementos->first());
-
         return view('reporting.etiquetasHTML',compact('etiquetas','today'));
-        // return view('reporting.etiquetasHTMLBootstrap',compact('etiquetas','today'));
     }
 
     public function pdf($campaignId){

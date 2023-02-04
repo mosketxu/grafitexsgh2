@@ -12,13 +12,13 @@
         <header>
         </header>
         <footer>
-            {{now()}} 
+            {{now()}}
         </footer>
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
             {{-- // dd($etiquetas->tiendaselementos->elementos); --}}
             @foreach($etiquetas->tiendaselementos as $campaignstore)
-            
+
             <div class="">
                 <table width="100%" cellspacing="0">
                     <thead>
@@ -40,7 +40,7 @@
                 <div class="etiquetas">
                     <table width="100%" cellspacing="0" border="1">
                         <thead>
-                            <tr> 
+                            <tr>
                                 <th style="text-align: center;" width="25%">
                                     {{$campaignstore->store_id}} <br>
                                     {{$campaignstore->tienda->segmento ?? 'tienda eliminada'}}
@@ -80,11 +80,11 @@
                                     Material: {{$etiqueta['material'] }}<br>
                                     Medida: {{$etiqueta['medida'] }}<br>
                                     Cantidad: {{$etiqueta['unitxprop'] }}<br>
-                                    @if(file_exists( 'storage/galeria/'.$etiquetas->id.'/'.$etiqueta['imagen'] ))
-                                        <img src="{{asset('storage/galeria/'.$etiquetas->id.'/'.$etiqueta['imagen'])}}" class="img-thumbnail" alt="{{$etiqueta['imagen']}}"/>
+                                    @if(file_exists( 'galeria/'.$etiquetas->id.'/'.$etiqueta['imagen'] ))
+                                        <img src="{{asset('galeria/'.$etiquetas->id.'/thumbnails/thumb-'.$etiqueta['imagen'])}}" class="img-thumbnail" alt="{{$etiqueta['imagen']}}"/>
                                     @else
-                                        <img src="{{asset('storage/galeria/pordefecto.jpg')}}" class="img-thumbnail" alt="pordefecto.jpg"/>
-                                    @endif                                        
+                                        <img src="{{asset('galeria/thumbnails/pordefecto.jpg')}}" class="img-thumbnail" alt="pordefecto.jpg"/>
+                                    @endif
                                 </td>
                                 @endforeach
                             </tr>

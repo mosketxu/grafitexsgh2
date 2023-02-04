@@ -44,11 +44,14 @@ class CampaignGaleria extends Component{
         $this->validate();
         if ($this->ruta=="campaign.galeria.edit")
             $this->saveimgindex();
-        else
-            $this->saveimg();
+            else
+            $this->saveimgindex();
+            // $this->saveimg();
     }
 
-    public function saveimg(){
+    public function saveimgBorrar(){
+
+        //  creo    que no lo uso
         $this->validate();
 
         $campGal=$this->campelemento;
@@ -61,7 +64,6 @@ class CampaignGaleria extends Component{
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$campGal->elemento.'-'.$campGal->campaign_id.'.'.$extension;
-
         // verifico si existe la imagen y la borro si existe. Busco el nombre que debería tener.
         $mi_imagen = public_path().'/galeria/'.$file_name;
         $mi_imagenthumb = public_path().'/galeria/thumbails/thumb-'.$file_name;
@@ -75,9 +77,9 @@ class CampaignGaleria extends Component{
         // verifico que realmente llega un fichero
         if ($files=$this->imagenelemento) {
             // for save the original image
-             // for save the original
+            // for save the original
             $imageUpload=Image::make($files);
-            $originalPath='storage/galeria/';
+            $originalPath='galeria/';
             $imageUpload->save($originalPath.$file_name);
             //redimensionando
             Image::make($this->imagenelemento)
@@ -86,6 +88,7 @@ class CampaignGaleria extends Component{
             })
             ->save('galeria/thumbnails/thumb-'.$file_name);
         }
+        dd($file_name);
 
         // $campaigngaleria=CampaignGaleria::find($campGal->id);
         $this->campelemento->imagen=$file_name;
