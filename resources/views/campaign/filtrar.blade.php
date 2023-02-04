@@ -26,13 +26,19 @@
             </div>
             <div class="flex  space-x-2 rounded-md shadow-md py-1 px-1">
                 <div class="w-6/12 space-y-1 rounded-md shadow-md py-2">
+                    {{-- los pongo porque sino run dev me los quita en el componente livewire --}}
+                    <div class="bg-blue-500"></div>
+                    <div class="bg-green-500"></div>
+                    <div class="bg-yellow-500"></div>
+                    <div class="bg-gray-500"></div>
+                    <div class="bg-indigo-500"></div>
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignStore','tabla1'=>'campaign_stores','model1c1'=>'store_id','model1c2'=>'store','titulo'=>'Stores','color'=>'blue-500'])
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignSegmento','tabla1'=>'campaign_segmentos','model1c1'=>'segmento','model1c2'=>'segmento','titulo'=>'Segmentos','color'=>'green-500'])
                 </div>
                 <div class="w-6/12 space-y-1 rounded-md shadow-md py-2">
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignUbicacion','tabla1'=>'campaign_ubicacions','model1c1'=>'ubicacion','model1c2'=>'ubicacion','titulo'=>'Ubicaciones','color'=>'yellow-500'])
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMedida','tabla1'=>'campaign_medidas','model1c1'=>'medida','model1c2'=>'medida','titulo'=>'Medidas','color'=>'gray-500'])
-                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMobiliario','tabla1'=>'campaign_mobiliarios','model1c1'=>'mobiliario','model1c2'=>'mobiliario','titulo'=>'Mobiliario','color'=>'blue-800'])
+                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMobiliario','tabla1'=>'campaign_mobiliarios','model1c1'=>'mobiliario','model1c2'=>'mobiliario','titulo'=>'Mobiliario','color'=>'indigo-500'])
                 </div>
             </div>
             <div class="">

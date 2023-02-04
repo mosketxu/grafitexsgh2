@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Campaign, CampaignElemento, Store, CampaignPresupuesto,CampaignPresupuestoDetalle,CampaignPresupuestoExtra,VCampaignResumenElemento,VCampaignPromedio,CampaignPresupuestoPickingtransporte, CampaignTienda};
+use App\Models\{Campaign,  CampaignPresupuesto,CampaignPresupuestoDetalle,CampaignPresupuestoExtra,VCampaignResumenElemento,CampaignPresupuestoPickingtransporte, CampaignTienda};
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+// use Barryvdh\DomPDF\Facade\Pdf;
+use PDF;
 
 class CampaignReportingController extends Controller
 {
@@ -23,7 +25,6 @@ class CampaignReportingController extends Controller
 
         $etiquetas=Campaign::where('id',$campaignId)
         ->first();
-
 
         $pdf = \PDF::loadView('reporting.etiquetasHTML',compact('etiquetas','today'));
         // $pdf->setPaper('a4','landscape');

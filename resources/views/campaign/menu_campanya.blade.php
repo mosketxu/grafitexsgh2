@@ -1,23 +1,23 @@
 <nav x-data="{ open: false }" class="rounded-md ">
     <div class="flex w-full px-2 mx-auto ">
-        <div class="flex justify-between w-full mr-4 space-x-5 ">
+        <div class="flex justify-between w-full ">
             @can('campaign.index')
-                <a  href="{{route('campaign.index') }}" title="Campañas"><x-icon.campground  class="pt-1 text-orange-400 w-7"/></a>
+                <a  href="{{route('campaign.index') }}" title="Campañas"><x-icon.campground  class="mx-4 pt-1 text-orange-400 w-7"/></a>
             @endcan
             @can('campaign.edit')
-            <a  href="{{route('campaign.edit',$campaign) }}" title="Filtros"><x-icon.edit class="w-6 pt-1 text-blue-500"/></a>
-            <a  href="{{route('campaign.filtrar',$campaign->id) }}" title="Filtros"><x-icon.filter class="w-6 pt-1 text-black"/></a>
+            <x-icon.edit-a  href="{{route('campaign.edit',$campaign) }}" title="Filtros" class="mx-4 pt-1 text-blue-500 w-6 "/>
+            <a  href="{{route('campaign.filtrar',$campaign->id) }}" title="Filtros"><x-icon.filter class="mx-4 pt-1 text-black  w-6 "/></a>
             @endcan
             @can('campaign.index')
-            <a  href="{{route('campaign.elementos',$campaign) }}"  title="Elementos"><x-icon.cubes  class="pt-1 text-green-500 w-7"/></a>
-            <a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria"><x-icon.images  class="pt-1 text-purple-700 w-7"/></a>
-            <a  href="{{route('campaign.etiquetas.pdf',$campaign->id) }}" title="Etiquetas"><x-icon.tags class="pt-1 text-blue-500 w-7"/></a>
-            <a  href="{{route('campaign.etiquetas.index',$campaign->id) }}" title="Etiquetas HTML"><x-icon.code class="pt-1 text-blue-500 w-7"/></a>
-            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="w-5 pt-1 text-blue-500"/></a>
-            <a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas"><x-icon.chart-column  class="pt-1 text-blue-500 w-7"/></a>
+            <x-icon.cubes-a  href="{{route('campaign.elementos',$campaign) }}"  title="Elementos" class="mx-4 pt-1 text-green-500 w-7"/>
+            <x-icon.images-a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria" class="mx-4 pt-1 text-purple-700 w-7"/>
+            <x-icon.tags-a  href="{{route('campaign.etiquetas.pdf',$campaign->id) }}" title="Etiquetas PDF" class="mx-4 pt-1 text-pink-700 w-7"/>
+            <x-icon.code-a  href="{{route('campaign.etiquetas.index',$campaign->id) }}" target="_blank" title="Etiquetas HTML" class="mx-4 pt-1 text-indigo-500 w-7"/>
+            <x-icon.location-dot-a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones" class="mx-4 pt-1 text-blue-500 w-5 "/>
+            <x-icon.chart-column-a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas" class="mx-4 pt-1 text-blue-500 w-7"/>
             @endcan
             @can('presupuestos.index')
-                <a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto"><x-icon.money class="w-8 pt-1 text-blue-500"/></a>
+                <x-icon.money-a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto" class="w-8 pt-1 text-blue-500"/>
             @endcan
         </div>
     </div>
