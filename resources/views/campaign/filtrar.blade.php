@@ -31,8 +31,8 @@
                 </div>
                 <div class="w-6/12 space-y-1 rounded-md shadow-md py-2">
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignUbicacion','tabla1'=>'campaign_ubicacions','model1c1'=>'ubicacion','model1c2'=>'ubicacion','titulo'=>'Ubicaciones','color'=>'yellow-500'])
-                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMedida','tabla1'=>'campaign_medidas','model1c1'=>'medida','model1c2'=>'medida','titulo'=>'Medidas','color'=>'gray-700'])
-                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMobiliario','tabla1'=>'campaign_mobiliarios','model1c1'=>'mobiliario','model1c2'=>'mobiliario','titulo'=>'Mobiliario','color'=>'indigo-900'])
+                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMedida','tabla1'=>'campaign_medidas','model1c1'=>'medida','model1c2'=>'medida','titulo'=>'Medidas','color'=>'gray-500'])
+                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignMobiliario','tabla1'=>'campaign_mobiliarios','model1c1'=>'mobiliario','model1c2'=>'mobiliario','titulo'=>'Mobiliario','color'=>'blue-800'])
                 </div>
             </div>
             <div class="">

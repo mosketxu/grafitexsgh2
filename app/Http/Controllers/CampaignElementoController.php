@@ -30,7 +30,7 @@ class CampaignElementoController extends Controller{
             'ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','precio','unitxprop','imagen','observaciones')
         ->orderBy('store_id')
-        ->paginate('25');
+        ->get();
 
 
         return view('campaign.elementos.index', compact('campaign','elementos','busqueda'));

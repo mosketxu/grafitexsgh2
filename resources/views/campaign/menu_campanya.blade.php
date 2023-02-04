@@ -10,11 +10,11 @@
             @endcan
             @can('campaign.index')
             <a  href="{{route('campaign.elementos',$campaign) }}"  title="Elementos"><x-icon.cubes  class="pt-1 text-green-500 w-7"/></a>
-            <a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas"><x-icon.chart-column  class="pt-1 text-blue-500 w-7"/></a>
             <a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria"><x-icon.images  class="pt-1 text-blue-500 w-7"/></a>
-            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="w-5 pt-1 text-blue-500"/></a>
             <a  href="{{route('campaign.etiquetas.pdf',$campaign->id) }}" title="Etiquetas"><x-icon.tags class="pt-1 text-blue-500 w-7"/></a>
             <a  href="{{route('campaign.etiquetas.index',$campaign->id) }}" title="Etiquetas HTML"><x-icon.code class="pt-1 text-blue-500 w-7"/></a>
+            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="w-5 pt-1 text-blue-500"/></a>
+            <a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas"><x-icon.chart-column  class="pt-1 text-blue-500 w-7"/></a>
             @endcan
             @can('presupuestos.index')
                 <a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto"><x-icon.money class="w-8 pt-1 text-blue-500"/></a>

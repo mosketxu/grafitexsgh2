@@ -120,19 +120,19 @@
                 </div>
             </div>
         </div>
-        <div class="w-3/12 p-2 m-2 border border-blue-500 rounded-md shadow-md" style="max-height: 350px;">
+        <div class="w-3/12 p-2 m-2 border border-blue-500 rounded-md shadow-md items-center" style="max-height: 350px;">
             @can('campaign.edit')
                 <input type="file" id="file{{ $campelemento->id }}" class="sr-only" wire:model="imagenelemento" />
             @endcan
             @if(file_exists( 'galeria/'.$campaign->id.'/'.$campelemento->imagen ))
                 <label for="file{{ $campelemento->id }}" class="cursor-pointer">
                     <img src="{{asset('galeria/'.$campaign->id.'/'.$campelemento->imagen.'?'.time())}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
-                    class="w-80"/>
+                    class="w-80 mx-auto items-center"/>
                 </label>
             @else
                 <label for="file{{ $campelemento->id }}" class="cursor-pointer">
                     <img src="{{asset('galeria/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
-                    class="w-80"/>
+                    class="w-80  mx-auto items-center"/>
                 </label>
             @endif
             @error('imagenelemento') <span class="text-red-500">{{ $message }} </span>@enderror
