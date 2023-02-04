@@ -10,7 +10,7 @@
             @endcan
             @can('campaign.index')
             <a  href="{{route('campaign.elementos',$campaign) }}"  title="Elementos"><x-icon.cubes  class="pt-1 text-green-500 w-7"/></a>
-            <a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria"><x-icon.images  class="pt-1 text-blue-500 w-7"/></a>
+            <a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria"><x-icon.images  class="pt-1 text-purple-700 w-7"/></a>
             <a  href="{{route('campaign.etiquetas.pdf',$campaign->id) }}" title="Etiquetas"><x-icon.tags class="pt-1 text-blue-500 w-7"/></a>
             <a  href="{{route('campaign.etiquetas.index',$campaign->id) }}" title="Etiquetas HTML"><x-icon.code class="pt-1 text-blue-500 w-7"/></a>
             <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="w-5 pt-1 text-blue-500"/></a>

@@ -25,7 +25,7 @@ class CampaignGaleriaController extends Controller
         // ->paginate('10')->onEachSide(2);
         ->get();
 
-        $totalGaleria=CampaignGaleria::where('campaign_id',$campaignId)->count();
+        $totalGaleria=$campaigngaleria->count();
 
         return view('campaign.galeria.index',compact('campaign','campaigngaleria','totalGaleria','busqueda'));
     }
@@ -68,16 +68,15 @@ class CampaignGaleriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($campaignId,$imagenId)
-    {
+    public function edit($campaignId,$imagenId){
         $campaign=Campaign::find($campaignId);
         $campaigngaleria=CampaignGaleria::where('id',$imagenId)->first();
 
         return view('campaign.galeria.edit',compact('campaign','campaigngaleria'));
+
     }
 
-    public function editgaleria($campaignId,$imagenId)
-    {
+    public function editgaleria($campaignId,$imagenId){
         $campaign=Campaign::find($campaignId);
         $campaigngaleria=CampaignGaleria::where('id',$imagenId)->first();
 
@@ -104,7 +103,14 @@ class CampaignGaleriaController extends Controller
         $campaign=Campaign::find($campaigngal->campaign_id);
         $campaigngaleria=CampaignGaleria::where('campaign_id',$campaigngal->campaign_id)->get();
 
-        return view('campaign.galeria',compact('campaign','campaigngaleria'));
+        $message = array(
+            'message' => 'Actualización satisfactoria!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('campaign.galeria.editgaleria',[$campaign->id,$campaigngal->id])->with($message);
+
+        // return view('campaign.galeria.edit',compact('campaign','campaigngaleria'));
 
         // return Response()->json($campaigngaleria);
     }

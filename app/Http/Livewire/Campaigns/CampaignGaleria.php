@@ -34,14 +34,18 @@ class CampaignGaleria extends Component{
         $this->ruta=$ruta;
     }
 
-    public function render()
-    {
-        return view('livewire.campaigns.campaign-galeria');
+    public function render(){
+
+        $vista= $this->ruta=="campaign.galeria.edit" ? 'livewire.campaigns.campaign-galeriaedit' : 'livewire.campaigns.campaign-galeria' ;
+        return view($vista);
     }
 
     public function updatedImagenelemento(){
         $this->validate();
-        $this->saveimgindex();
+        if ($this->ruta=="campaign.galeria.edit")
+            $this->saveimgindex();
+        else
+            $this->saveimg();
     }
 
     public function saveimg(){

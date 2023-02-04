@@ -40,7 +40,7 @@
                             <a href="{{route('campaign.elementos', $campaign->id ) }}" title="Elementos"><x-icon.cubes class="text-green-500 w-7 "/></a>
                         </div>
                         <div class="">
-                            <a href="{{route('campaign.galeria', $campaign->id ) }}" title="Galeria"><x-icon.images class="text-blue-500"/></a>
+                            <a href="{{route('campaign.galeria', $campaign->id ) }}" title="Galeria"><x-icon.images class="text-purple-700 w-7"/></a>
                         </div>
                         <div class="">
                             <a href="{{route('campaign.etiquetas.pdf', $campaign->id ) }}" title="Etiquetas"><x-icon.tags class="text-blue-500"/></a>
