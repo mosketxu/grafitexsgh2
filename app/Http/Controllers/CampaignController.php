@@ -59,8 +59,8 @@ class CampaignController extends Controller
         $stores=CampaignStore::join('stores','stores.id','store_id')
             ->where('campaign_id', '=', $id)
             ->orderBy('stores.id')
-            ->paginate('10')->onEachSide(1);
-        return view('campaign.adresses',compact('stores','campaign'));
+            ->paginate('20')->onEachSide(1);
+        return view('campaign.indexaddresses',compact('stores','campaign'));
     }
 
     public function exportadresses($campaignId){

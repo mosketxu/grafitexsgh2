@@ -49,18 +49,20 @@
                             <a href="{{route('campaign.etiquetas.index',$campaign->id) }}" target="_blank" title="Etiquetas HTML"><x-icon.code class="text-indigo-500 w-7"/></a>
                         </div>
                         <div class="">
-                            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="text-blue-500"/></a>
+                            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="text-teal-600 w-5"/></a>
                         </div>
+                        @endcan
+                    @can('presupuestos.index')
+                    <div class="">
+                        <a href="{{route('campaign.presupuesto', $campaign->id ) }}" title="Presupuesto"><x-icon.money class="text-blue-500"/></a>
+                    </div>
+                    @endcan
+                    @can('campaign.index')
                         <div class="">
                             <a href="{{route('campaign.conteo', $campaign->id ) }}" title="Estadísticas"><x-icon.chart-column class="text-blue-500"/></a>
                         </div>
                     @endcan
-                    @can('presupuesto.index')
-                        <div class="">
-                            <a href="{{route('campaign.presupuesto', $campaign->id ) }}" title="Presupuesto"><x-icon.money class="text-blue-500"/></a>
-                        </div>
-                    @endcan
-                    @can('campaign.destroy')
+                    @can('campaign.delete')
                         <form  action="{{route('campaign.delete',$campaign->id)}}" method="post">
                             @csrf
                             @method('DELETE')
