@@ -23,7 +23,7 @@ class CampaignElemento extends Model
         return $this->belongsTo(Tarifa::class,'familia');
     }
 
-    public function scopeSearch($query, $busca)
+    public function scopeSearch2($query, $busca)
     {
       return $query->where('campaign_elementos.store_id', 'LIKE', "%$busca%")
       ->orWhere('name', 'LIKE', "%$busca%")

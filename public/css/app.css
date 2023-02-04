@@ -1503,6 +1503,9 @@ select {
 .h-3\/5 {
   height: 60%;
 }
+.max-h-96 {
+  max-height: 24rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }

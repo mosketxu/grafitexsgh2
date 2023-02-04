@@ -15,16 +15,13 @@ class CampaignElementoController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index($campaignId, Request $request){
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+        $busqueda = '';
+        if ($request->busca) $busqueda = $request->busca;
 
         $campaign = Campaign::find($campaignId);
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        // ->search($request->busca)
+        ->search2($request->busca)
         ->where('campaign_id',$campaignId)
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','name','country','idioma','area','segmento','storeconcept',
             'ubicacion','mobiliario','propxelemento','carteleria','medida',

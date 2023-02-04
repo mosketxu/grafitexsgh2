@@ -20,12 +20,5 @@
                 <a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto"><x-icon.money class="w-8 pt-1 text-blue-500"/></a>
             @endcan
         </div>
-        @if(!empty($busqueda))
-        <div class="w-full">
-            <form method="GET" action="{{route('campaign.elementos',$campaign) }}">
-                <x-input.text id="busca" name="busca"  type="text" class="w-full" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
-            </form>
-        </div>
-        @endif
     </div>
 </nav>

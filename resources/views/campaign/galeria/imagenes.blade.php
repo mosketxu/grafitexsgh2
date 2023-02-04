@@ -24,10 +24,7 @@
                 </div>
                 <div class="w-2/12 text-center">
                     <div class="text-center">
-                        <label for="xls">Hay {{$elementos->count()}} elementos disponibles.</label>
-                    </div>
-                    <div class="text-center mx-auto">
-                        <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="text-green-700 w-6" title="Exporta Excel"/>
+                        <label for="xls">Hay {{$totalGaleria}} imágenes.</label>
                     </div>
                 </div>
             </div>
@@ -38,36 +35,44 @@
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">
                     <tr class="flex w-full">
-                        {{-- <th class="w-1/12">#</th> --}}
-                        <th class="w-16">Store</th>
-                        <th class="w-1/12">Name</th>
-                        <th class="w-1/12">Country</th>
-                        <th class="w-1/12">Area</th>
-                        <th class="w-1/12">Idioma</th>
-                        <th class="w-1/12">Segmento</th>
-                        <th class="w-1/12">Store Concept</th>
-                        <th class="w-1/12">Ubicación</th>
+                        <th class="w-1/12 pl-2">#</th>
                         <th class="w-1/12">Mobiliario</th>
-                        <th class="w-1/12">Prop x Elemento</th>
                         <th class="w-1/12">Carteleria</th>
-                        <th class="w-1/12">Medida</th>
-                        <th class="w-1/12">Material</th>
-                        <th class="w-1/12 text-left">Unit x Prop</th>
-                        {{-- <th class="w-1/12">Observaciones</th> --}}
-                        <th width="150px">Imagen </th>
-                        <th width="w-1/12" class="text-left">Acción</th>
+                        <th class="w-1/12">Medidas</th>
+                        {{-- <th class="w-1/12">Elemento</th> --}}
+                        <th class="w-3/12">Observaciones</th>
+                        <th class="w-1/12">Eci</th>
+                        <th class="w-2/12">Imagen</th>
+                        <th class="w-1/12">Img</th>
+                        <th class="w-1/12" class="text-center">Acción</th>
                     </tr>
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 70vh;">
-                    @foreach ($elementos as $campelemento)
-                        @livewire('campaigns.campaign-elementos',['campelemento'=>$campelemento,'campaign'=>$campaign,'ruta'=>'campaign.elementos'],key($campelemento->id))
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    @foreach ($campaigngaleria as $imagen)
+                    <tr class="flex w-full">
+                        <td class="w-1/12 pl-2">{{$imagen->id}}</td>
+                        <td class="w-1/12">{{$imagen->mobiliario}}</td>
+                        <td class="w-1/12">{{$imagen->carteleria}}</td>
+                        <td class="w-1/12">{{$imagen->medida}}</td>
+                        {{-- <td class="w-1/12">{{$imagen->elemento}}</td> --}}
+                        <td class="w-3/12">{{$imagen->observaciones}}</td>
+                        <td class="w-1/12">{{$imagen->eci}}</td>
+                        <td class="w-2/12" id="imagen{{$imagen->id}}">{{$imagen->imagen}}</td>
+                        <td class="w-1/12">
+                            @livewire('campaigns.campaign-galeria',['campelemento'=>$imagen,'campaign'=>$campaign,'ruta'=>'campaign.galeria'],key($imagen->id))
+                        </td>
+                        <td class="w-1/12 text-center">
+                            @can('campaign.edit')
+                            <x-icon.edit-a href="{{ route('campaign.galeria.editgaleria',[$campaign->id,$imagen->id]) }}" title="Edit" class=""/>
+                            @endcan
+                        </td>
+                    </tr>
+                </form>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
-
 
 @push('scriptchosen')
 

@@ -6,11 +6,18 @@
                     Elementos de la Campaña
                 </h2>
             </div>
-            <div class="flex flex-row-reverse w-10/12 ">
+            <div class="flex flex-row-reverse w-8/12 ">
                 @can('elemento.create')
                     {{-- @include('campaign.menu_campanya_elementos') --}}
                     @include('campaign.menu_campanya')
                 @endcan
+            </div>
+            <div class="flex flex-row-reverse w-2/12 ">
+                <div class="w-full">
+                    <form method="GET" action="{{route('campaign.elementos',$campaign) }}">
+                        <x-input.text id="busca" name="busca"  type="text" class="w-full" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
+                    </form>
+                </div>
             </div>
         </div>
     </x-slot>

@@ -13,20 +13,18 @@ class CampaignGaleriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($campaignId, Request $request)
-    {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+    public function index($campaignId, Request $request){
+        $busqueda="";
+        if ($request->busca) $busqueda = $request->busca;
+
 
         $campaign=Campaign::find($campaignId);
-        $campaigngaleria=CampaignGaleria::search($request->busca)
+        $campaigngaleria=CampaignGaleria::search2($request->busca)
         ->where('campaign_id',$campaignId)
         ->orderBy('elemento')
-        ->paginate('10')->onEachSide(2);
-        // ->get();
+        // ->paginate('10')->onEachSide(2);
+        ->get();
+
         $totalGaleria=CampaignGaleria::where('campaign_id',$campaignId)->count();
 
         return view('campaign.galeria.index',compact('campaign','campaigngaleria','totalGaleria','busqueda'));
@@ -113,8 +111,7 @@ class CampaignGaleriaController extends Controller
 
 
 
-     public function updateimagen(Request $request)
-    {
+     public function updateimagen(Request $request){
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:12288',
         ]);
@@ -168,8 +165,7 @@ class CampaignGaleriaController extends Controller
         //     ->with('success', 'You have successfully upload image.');
     }
 
-    public function updateimagenindex(Request $request)
-    {
+    public function updateimagenindex(Request $request){
         $request->validate([
             'photo' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
             ]);
