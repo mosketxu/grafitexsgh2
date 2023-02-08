@@ -157,17 +157,17 @@ class CampaignPresupuestoController extends Controller
         return view('campaign.presupuesto.edit',compact('campaign','materiales','campaignpresupuesto'));
     }
 
-    public function cotizacion($id)
-    {
-        $campaignpresupuesto=CampaignPresupuesto::find($id);
+    public function cotizacion($id){
+
+$campaignpresupuesto=CampaignPresupuesto::find($id);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
 
         // Info de promedios
-        $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$id)
-        ->get();
+        // $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$id)
+        // ->get();
 
-        $totalStores=VCampaignPromedio::where('campaign_id',$campaignpresupuesto->campaign_id)
-        ->count();
+        // $totalStores=VCampaignPromedio::where('campaign_id',$campaignpresupuesto->campaign_id)
+        // ->count();
 
         // Info de materiales
         $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$id)
@@ -176,18 +176,24 @@ class CampaignPresupuestoController extends Controller
         $materiales=VCampaignResumenElemento::where('campaign_id',$campaignpresupuesto->campaign_id)
         ->get();
 
-        $extras=CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
-        ->get();
+        // $extras=CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
+        // ->get();
 
-        $totalExtras = CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
-        ->sum('total');
+        // $totalExtras = CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
+        // ->sum('total');
 
-        return view('campaign.presupuesto.cotizacion',
+        // return view('campaign.presupuesto.indexcotizacion',
+        //     compact(
+        //         'campaign','campaignpresupuesto',
+        //         'promedios','totalMateriales','totalStores',
+        //         'materiales',
+        //         'extras','totalExtras'
+        //         ));
+        return view('campaign.presupuesto.indexcotizacion',
             compact(
                 'campaign','campaignpresupuesto',
-                'promedios','totalMateriales','totalStores',
+                'totalMateriales',
                 'materiales',
-                'extras','totalExtras'
                 ));
     }
 

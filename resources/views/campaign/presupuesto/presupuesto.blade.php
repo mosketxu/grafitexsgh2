@@ -8,14 +8,14 @@
                     disabled />
             </div>
             <div class="w-3/12">
-                <x-jet-label for="campaign_initdate">fecha Inicio</x-jet-label>
+                <x-jet-label for="campaign_initdate">Fecha Inicio</x-jet-label>
                 <input type="date" class="w-full py-1 bg-gray-100 rounded-md" id="campaign_initdate"
                     name="campaign_initdate"
                     value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
                     disabled />
             </div>
             <div class="w-3/12">
-                <x-jet-label for="campaign_enddate">fecha Finalización</x-jet-label>
+                <x-jet-label for="campaign_enddate">Fecha Finalización</x-jet-label>
                 <input type="date" class="w-full py-1 bg-gray-100 rounded-md" id="campaign_enddate"
                     name="campaign_enddate"
                     value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
