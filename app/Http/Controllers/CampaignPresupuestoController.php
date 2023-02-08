@@ -149,8 +149,7 @@ class CampaignPresupuestoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         $campaignpresupuesto=CampaignPresupuesto::find($id);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
         $materiales=CampaignPresupuestoDetalle::where('presupuesto_id',$campaignpresupuesto->id)->get();
@@ -218,7 +217,7 @@ class CampaignPresupuestoController extends Controller
         $request->validate([
             'referencia' => 'required',
             'version' => 'required',
-            // 'fecha' => 'required|date',
+            'fecha' => 'required|date',
             'estado' => 'required',
             ]);
 

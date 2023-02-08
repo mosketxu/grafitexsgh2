@@ -48,7 +48,16 @@ class CampaignPresupuesto extends Model
     public function getFechapreAttribute()
     {
         if ($this->fecha) {
-            return Carbon::parse($this->fecha)->format('d-m-Y');
+            return Carbon::parse($this->fecha)->format('d/m/Y');
+        } else {
+            return '';
+        }
+    }
+
+    public function getFechaprestrAttribute()
+    {
+        if ($this->fecha) {
+            return Carbon::parse($this->fecha)->format('Y-m-d');
         } else {
             return '';
         }
