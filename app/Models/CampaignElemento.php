@@ -95,6 +95,7 @@ class CampaignElemento extends Model
         ->get();
     }
 
+
     static function getPromedios($campaignId){
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->where('campaign_id',$campaignId)

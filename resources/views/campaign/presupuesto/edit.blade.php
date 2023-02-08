@@ -95,10 +95,10 @@
                                         <label class="form-label-sm" for="estado">Estado</label>
                                         <select name="estado" id="estado" class="form-control form-control-sm">
                                             <option value="{{$campaignpresupuesto->estado}}">{{$campaignpresupuesto->estado}}</option>
-                                            <option value="Creado">Creado</option>
-                                            <option value="Iniciado">Iniciado</option>
-                                            <option value="Aceptado">Aceptado</option>
-                                            <option value="Rechazado">Rechazado</option>
+                                            <option value="0">Creado</option>
+                                            <option value="1">Iniciado</option>
+                                            <option value="2">Aceptado</option>
+                                            <option value="3">Rechazado</option>
                                         </select>
                                     </div>
                                 </div>

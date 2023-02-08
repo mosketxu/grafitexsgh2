@@ -106,23 +106,23 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         // presupuesto
         Route::group(['prefix' => 'presupuesto'], function () {
             Route::get('/{campaign}', [CampaignPresupuestoController::class,'index'])->name('campaign.presupuesto')
-                ->middleware('can:presupuesto.index');
+                ->middleware('can:presupuestos.index');
             Route::get('/edit/{campaignpresupuesto}', [CampaignPresupuestoController::class,'edit'])->name('campaign.presupuesto.edit')
-                ->middleware('can:presupuesto.edit');
+                ->middleware('can:presupuestos.edit');
             Route::get('/cotizacion/{campaignpresupuesto}', [CampaignPresupuestoController::class,'cotizacion'])->name('campaign.presupuesto.cotizacion')
-                ->middleware('can:presupuesto.index');
+                ->middleware('can:presupuestos.index');
             Route::get('/cotizacion/elementos/{campaignid}/{familiaid}/{presupuestoid}', [CampaignPresupuestoController::class,'elementosfamilia'])->name('campaign.presupuesto.elementosfamilia')
-                ->middleware('can:presupuesto.index');
+                ->middleware('can:presupuestos.index');
             Route::post('/update/{campaignpresupuesto}', [CampaignPresupuestoController::class,'update'])->name('campaign.presupuesto.update')
-                ->middleware('can:presupuesto.edit');
+                ->middleware('can:presupuestos.edit');
             Route::put('/updateelemento', [CampaignPresupuestoController::class,'updateelemento'])->name('campaign.presupuesto.updateelemento')
-                ->middleware('can:presupuesto.edit');
+                ->middleware('can:presupuestos.edit');
             Route::get('/refresh/{campaign}/{campaignpresupuesto}', [CampaignPresupuestoController::class,'refresh'])->name('campaign.presupuesto.refresh')
-                ->middleware('can:presupuesto.edit');
+                ->middleware('can:presupuestos.edit');
             Route::post('/store', [CampaignPresupuestoController::class,'store'])->name('campaign.presupuesto.store')
-                ->middleware('can:presupuesto.create');
+                ->middleware('can:presupuestos.create');
             Route::delete('/delete/{campaignpresupuesto}', [CampaignPresupuestoController::class,'destroy'])->name('campaign.presupuesto.delete')
-                ->middleware('can:presupuesto.destroy');
+                ->middleware('can:presupuestos.delete');
             //presupuesto detalles
             // Route::group(['prefix' => 'detalle'], function () {
             //     Route::post('/update/{campaignpresupuestodetalle}', 'CampaignPresupuestoDetalleController@update')->name('campaign.presupuesto.detalle.update')
@@ -141,10 +141,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
                     ->middleware('can:prespuesto.edit');
 
                 Route::post('/store', [CampaignPresupuestoExtraController::class,'store'])->name('campaign.presupuesto.extra.store')
-                    ->middleware('can:presupuesto.create');
+                    ->middleware('can:presupuestos.create');
 
                 Route::delete('/delete/{campaignpresupuestoextra}', [CampaignPresupuestoExtraController::class,'destroy'])->name('campaign.presupuesto.extra.delete')
-                    ->middleware('can:presupuesto.destroy');
+                    ->middleware('can:presupuestos.destroy');
             });
         });
 

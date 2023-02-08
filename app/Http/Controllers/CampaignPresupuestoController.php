@@ -20,14 +20,13 @@ class CampaignPresupuestoController extends Controller
      */
     public function index( Request $request, $campaignId)
     {
-        if ($request->busca) {
+        $busqueda = '';
+        if ($request->busca)
             $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+
         $campaign = Campaign::find($campaignId);
 
-        $presupuestos= CampaignPresupuesto::search($request->busca)
+        $presupuestos= CampaignPresupuesto::search2($request->busca)
             ->where('campaign_id',$campaignId)
             ->orderBy('fecha')
             ->paginate('50');
@@ -65,7 +64,6 @@ class CampaignPresupuestoController extends Controller
         // Lo hago cada vez que genero un presupuesto para tener siempre el último precio
 
         //cambio el 5/3/2020 Como solo se va a usar un tramo, asigno el precio del tramo 1.
-
         $totalpresupuestoMat= CampaignElemento::asignElementosPrecio($request->campaign_id);
 
         $campPresu=CampaignPresupuesto::create($request->all());
@@ -124,7 +122,6 @@ class CampaignPresupuestoController extends Controller
             ];
         }
         DB::table('campaign_presupuesto_pickingtransportes')->insert($dataSet);
-
 
         $notification = array(
             'message' => '¡Presupuesto creado satisfactoriamente!',
@@ -377,6 +374,13 @@ class CampaignPresupuestoController extends Controller
     public function destroy($id)
     {
         CampaignPresupuesto::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Eliminado con exito.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
 
         return response()->json(['success'=>'Eliminado con exito']);
     }
