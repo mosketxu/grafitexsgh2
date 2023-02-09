@@ -159,8 +159,9 @@ class CampaignPresupuestoController extends Controller
 
     public function cotizacion($id){
 
-$campaignpresupuesto=CampaignPresupuesto::find($id);
+        $campaignpresupuesto=CampaignPresupuesto::find($id);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
+
 
         // Info de promedios
         // $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$id)
@@ -170,11 +171,11 @@ $campaignpresupuesto=CampaignPresupuesto::find($id);
         // ->count();
 
         // Info de materiales
-        $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$id)
-        ->sum('total');
+        // $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$id)
+        // ->sum('total');
 
-        $materiales=VCampaignResumenElemento::where('campaign_id',$campaignpresupuesto->campaign_id)
-        ->get();
+        // $materiales=VCampaignResumenElemento::where('campaign_id',$campaignpresupuesto->campaign_id)
+        // ->get();
 
         // $extras=CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
         // ->get();
@@ -192,22 +193,24 @@ $campaignpresupuesto=CampaignPresupuesto::find($id);
         return view('campaign.presupuesto.indexcotizacion',
             compact(
                 'campaign','campaignpresupuesto',
-                'totalMateriales',
-                'materiales',
                 ));
     }
 
-    public function elementosfamilia($campaignId,$familiaId,$presupuesto)
-    {
+    public function elementosfamilia($campaignId,$familiaId,$presupuestoId){
+
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
         ->where('campaign_id',$campaignId)
         ->where('familia',$familiaId)
-        ->get();
+        ->orderBy('material','asc')
+        ->orderBy('medida','asc')
+        ->paginate(13);
+
+        $presupuesto=CampaignPresupuesto::find($presupuestoId);
 
         $tarifas=Tarifa::where('tipo','0')->orderBy('familia')->get();
         $campaign=Campaign::find($campaignId);
 
-        return view('campaign.presupuesto.elementos',compact('campaign','elementos','presupuesto','tarifas'));
+        return view('campaign.presupuesto.indexelementosfamilia',compact('campaign','elementos','presupuesto','tarifas'));
 
     }
 
@@ -238,8 +241,8 @@ $campaignpresupuesto=CampaignPresupuesto::find($id);
         return redirect()->back()->with($notification);
     }
 
-    public function updateelemento(Request $request)
-    {
+    public function updateelemento(Request $request){
+
         $precio=Tarifa::where('id',$request->familia)->first()->tarifa1;
 
         $campaignelem=CampaignElemento::where('elemento_id',$request->elemento_id)

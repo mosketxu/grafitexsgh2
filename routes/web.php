@@ -107,10 +107,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::group(['prefix' => 'presupuesto'], function () {
             Route::get('/{campaign}', [CampaignPresupuestoController::class,'index'])->name('campaign.presupuesto')
                 ->middleware('can:presupuestos.index');
+            Route::get('/presupuesto/{campaignpresupuesto}/cotizacion', [CampaignPresupuestoController::class,'cotizacion'])->name('campaign.presupuesto.cotizacion')
+            ->middleware('can:presupuestos.index');
             Route::get('/edit/{campaignpresupuesto}', [CampaignPresupuestoController::class,'edit'])->name('campaign.presupuesto.edit')
                 ->middleware('can:presupuestos.edit');
-            Route::get('/cotizacion/{campaignpresupuesto}', [CampaignPresupuestoController::class,'cotizacion'])->name('campaign.presupuesto.cotizacion')
-                ->middleware('can:presupuestos.index');
             Route::get('/cotizacion/elementos/{campaignid}/{familiaid}/{presupuestoid}', [CampaignPresupuestoController::class,'elementosfamilia'])->name('campaign.presupuesto.elementosfamilia')
                 ->middleware('can:presupuestos.index');
             Route::post('/update/{campaignpresupuesto}', [CampaignPresupuestoController::class,'update'])->name('campaign.presupuesto.update')

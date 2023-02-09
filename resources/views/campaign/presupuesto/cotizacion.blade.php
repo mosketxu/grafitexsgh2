@@ -18,7 +18,7 @@
     <div class="text-gray-500 shadow-md">
         <div class="flex w-full p-1 bg-gray-100 rounded-md space-x-2">
             <div class="w-6/12 flex">
-                <x-jet-label class="mx-2 mt-1" for="campaign_name">Presupuesto</x-jet-label>
+                <x-jet-label class="mx-2 mt-1" for="campaign_name">Presupuesto </x-jet-label>
                 <input type="text" class="w-full py-1 bg-gray-100 rounded-md" value="{{ $campaignpresupuesto->referencia }}" disabled />
             </div>
             <div class="w-2/12 flex">
@@ -46,6 +46,10 @@
         @livewire('campaigns.presupuesto.presupuesto-extra',['campaign'=>$campaign,'presupuesto'=>$campaignpresupuesto])
         @livewire('campaigns.presupuesto.presupuesto-material',['campaign'=>$campaign,'presupuesto'=>$campaignpresupuesto])
     </div>
+</div>
+<div class=" m-2">
+    <x-jet-button type="button" class="py-2 text-gray-400 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.presupuesto',$campaign->id) }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+ </div>
 
 @push('scriptchosen')
 

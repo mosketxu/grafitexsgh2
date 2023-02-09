@@ -8,11 +8,11 @@
             </div>
             <div class="flex flex-row-reverse w-8/12">
                 <div class="flex">
-                    @can('presupuestos.index')
+                    {{-- @can('presupuestos.index')
                     <div class="">
                         @include('campaign.presupuesto.menu_cotizacion')
                     </div>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </div>
@@ -21,7 +21,15 @@
         <div class="max-w-full mx-auto">
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
                 <div class="">
-                @include('campaign.presupuesto.cotizacion')
+                @include('campaign.presupuesto.elementosfamilia')
+            </div>
+        </div>
+        <div class="m-2 flex justify-between">
+            <div class="">
+                <x-jet-button type="button" class="py-2 text-gray-800 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.presupuesto.cotizacion',$presupuesto) }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+            </div>
+            <div class="flex flex-col-reverse">
+                {{ $elementos->appends(request()->except('page'))->links() }}
             </div>
         </div>
     </div>
