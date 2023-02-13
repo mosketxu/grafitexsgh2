@@ -7,38 +7,23 @@ use Illuminate\Http\Request;
 
 class TarifaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:tarifa.index')->only('index');
+        $this->middleware('can:tarifa.edit')->only('edit','update','store');
+        $this->middleware('can:tarifa.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    // public function index(Request $request)
+    public function index()
     {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
-        $tarifasMateriales = Tarifa::search($request->busca)
-            ->where('tipo',0)
-            ->orderBy('familia')
-            ->paginate(8);
-        $tarifasPicking = Tarifa::where('tipo',1)
-            ->paginate(8);
-        $tarifasTransportes = Tarifa::where('tipo',2)
-            ->paginate(8);
-
-        return view('tarifa.index', compact('tarifasMateriales','tarifasPicking','tarifasTransportes','busqueda'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('tarifa.index',);
     }
 
     /**
@@ -47,8 +32,7 @@ class TarifaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'familia'=>'required',
             'tramo1'=>'required|numeric',
@@ -69,30 +53,6 @@ class TarifaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-        $tarifa=Tarifa::find($id);
-        return view('tarifa.edit',compact('tarifa'));
-
-    }
 
     /**
      * Update the specified resource in storage.

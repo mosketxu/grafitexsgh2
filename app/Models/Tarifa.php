@@ -34,7 +34,7 @@ class Tarifa extends Model
         return $this->hasMany(VCampaignResumenElemento::class);
     }
 
-    public function scopeSearch($query, $busca)
+    public function scopeSearch2($query, $busca)
     {
       return $query->where('familia', 'LIKE', "%$busca%")
       ->orWhere('tramo1', 'LIKE', "%$busca%")
