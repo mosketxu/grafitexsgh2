@@ -16,7 +16,7 @@
             <x-icon.location-dot-a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones" class="w-5 pt-1 mx-4 text-teal-600 "/>
             @endcan
             @can('presupuestos.index')
-            <x-icon.money-a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto" class="w-8 pt-1 text-blue-500"/>
+            <x-icon.money-a  href="{{route('campaign.presupuesto',$campaign->id) }}" title="Presupuesto" class="w-8 pt-1 text-pink-500"/>
             @endcan
             @can('campaign.index')
             <x-icon.chart-column-a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas" class="pt-1 mx-4 text-orange-500 w-7"/>

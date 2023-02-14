@@ -113,5 +113,56 @@ class CampaignReportingController extends Controller
         // return $pdf->download('etiquetas.pdf'); así lo descarga
         return $pdf->stream(); // así lo muestra en pantalla
     }
+
+    public function pdfPresupuestounido($presupuestoId){
+        $today=Carbon::now()->format('d/m/Y');
+
+        $presupuesto=CampaignPresupuesto::where('id',$presupuestoId)
+        ->with('campaign')
+        ->first();
+
+        $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)
+        ->get();
+
+        $totalPicking=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)
+        ->select(DB::raw('SUM(picking * stores) as picking'),DB::raw('SUM(transporte * stores) as transporte'))
+        ->first();
+
+        $stores=CampaignTienda::join('stores','stores.id','store_id')
+        ->select('zona')
+        ->where('campaign_id',$presupuesto->campaign_id)
+        ->get();
+
+        $totalStores=$stores->count();
+
+        // Info de materiales
+        $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$presupuesto->id)
+        ->sum('total');
+
+        $materiales=VCampaignResumenElemento::where('campaign_id',$presupuesto->campaign_id)
+        ->get();
+
+        $extras=CampaignPresupuestoExtra::where('presupuesto_id',$presupuesto->id)
+        ->get();
+
+        $totalExtras = CampaignPresupuestoExtra::where('presupuesto_id',$presupuesto->id)
+        ->sum('total');
+
+
+        $pdf = \PDF::loadView('reporting.presupuestounido',
+            compact('presupuesto','promedios',
+                'totalStores','totalMateriales',
+                'materiales','extras','totalExtras',
+                'totalMateriales',
+                'totalStores',
+                'totalPicking',
+                'totalExtras',
+                'today' ));
+
+        // $pdf->setPaper('a4','landscape');
+        $pdf->setPaper('a4','portrait');
+        // return $pdf->download('etiquetas.pdf'); así lo descarga
+        return $pdf->stream(); // así lo muestra en pantalla
+    }
 }
 

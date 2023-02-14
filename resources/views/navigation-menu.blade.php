@@ -19,7 +19,7 @@
 
                 @can('store.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link class="bg-blue-200" href="{{route('store.index') }}" :active="request()->routeIs('store.index')">
+                        <x-jet-nav-link  href="{{route('store.index') }}" :active="request()->routeIs('store.index')">
                             {{ __('Stores') }}
                         </x-jet-nav-link>
                     </div>
@@ -33,14 +33,14 @@
                 @endcan
                 @can('elemento.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link class="bg-blue-200" href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
+                        <x-jet-nav-link  href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
                             {{ __('Elementos') }}
                         </x-jet-nav-link>
                     </div>
                 @endcan
                 @can('auxiliares.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link class="bg-blue-200" href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
+                        <x-jet-nav-link  href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
                             {{ __('Auxiliares') }}
                         </x-jet-nav-link>
                     </div>
@@ -54,21 +54,21 @@
                 @endcan
                 @can('tarifa.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{route('tarifa.index') }}" :active="request()->routeIs('tarifa.index')">
+                        <x-jet-nav-link  href="{{route('tarifa.index') }}" :active="request()->routeIs('tarifa.index')">
                             {{ __('Tarifas') }}
                         </x-jet-nav-link>
                     </div>
                 @endcan
                 @can('maestro.index')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link class="bg-blue-200" href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
+                    <x-jet-nav-link  href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
                         {{ __('Maestro') }}
                     </x-jet-nav-link>
                 </div>
                 @endcan
                 @can('seguridad.index')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link class="bg-blue-200" href="{{ route('seguridad') }}" :active="request()->routeIs('seguridad')">
+                    <x-jet-nav-link  href="{{ route('seguridad') }}" :active="request()->routeIs('seguridad')">
                         {{ __('Seguridad') }}
                     </x-jet-nav-link>
                 </div>

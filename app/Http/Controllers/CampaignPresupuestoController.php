@@ -162,34 +162,6 @@ class CampaignPresupuestoController extends Controller
         $campaignpresupuesto=CampaignPresupuesto::find($id);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
 
-
-        // Info de promedios
-        // $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$id)
-        // ->get();
-
-        // $totalStores=VCampaignPromedio::where('campaign_id',$campaignpresupuesto->campaign_id)
-        // ->count();
-
-        // Info de materiales
-        // $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$id)
-        // ->sum('total');
-
-        // $materiales=VCampaignResumenElemento::where('campaign_id',$campaignpresupuesto->campaign_id)
-        // ->get();
-
-        // $extras=CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
-        // ->get();
-
-        // $totalExtras = CampaignPresupuestoExtra::where('presupuesto_id',$campaignpresupuesto->id)
-        // ->sum('total');
-
-        // return view('campaign.presupuesto.indexcotizacion',
-        //     compact(
-        //         'campaign','campaignpresupuesto',
-        //         'promedios','totalMateriales','totalStores',
-        //         'materiales',
-        //         'extras','totalExtras'
-        //         ));
         return view('campaign.presupuesto.indexcotizacion',
             compact(
                 'campaign','campaignpresupuesto',
@@ -286,11 +258,21 @@ class CampaignPresupuestoController extends Controller
             ->where('campaign_id',$campaignId)
             ->get();
 
+            // dd($campaignId);
+
+        $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
+            // ->select('campaign_elementos.*')
+            ->where('campaign_id',$campaignId)
+            ->orderBy('elemento_id')
+            ->get();
+
         foreach ($elementos as $elemento){
+            // if($elemento->elemento_id==4061){
             $familia=TarifaFamilia::getFamilia($elemento['material'],$elemento['medida']);
+
+                // dd($familia);
             $fam=$familia['id'];
             $precio=Tarifa::where('id',$fam)->first()->tarifa1;
-
             if (is_null($fam))
                 $fam=1;
             CampaignElemento::where('elemento_id',$elemento->elemento_id)
@@ -298,12 +280,13 @@ class CampaignPresupuestoController extends Controller
                     'familia'=>$fam,
                     'precio'=>$precio,
             ]);
-
             Elemento::where('matmed',$familia->matmed)
                 ->update([
                     'familia_id'=>$fam,
                 ]);
+            // }
         }
+
 
         $totalpresupuestoMat= CampaignElemento::asignElementosPrecio($campaignId);
 

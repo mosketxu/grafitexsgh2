@@ -160,6 +160,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             // presupuesto
             Route::get('/presupuesto/pdf/{campaignreportingcontroller}', [CampaignReportingController::class,'pdfPresupuesto'])->name('campaign.presupuesto.pdfPresupuesto')
                 ->middleware('can:campaign.index');
+            Route::get('/presupuesto/{campaignreportingcontroller}/pdf', [CampaignReportingController::class,'pdfPresupuestounido'])->name('campaign.presupuesto.pdfPresupuestounido')
+                ->middleware('can:campaign.index');
 
             Route::get('/presupuesto/preview/{campaignreportingcontroller}', [CampaignReportingController::class,'previewPresupuesto'])->name('campaign.presupuesto.previewPresupuesto')
                 ->middleware('can:campaign.index');

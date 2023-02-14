@@ -33,18 +33,16 @@ class TarifaFamilia extends Model
       $mat=trim($material);
       $med=trim($medida);
 
+
       $tarifa=TarifaFamilia::where('material',$mat)
-      ->where('medida',$med)
-      ->first();
-      // $familia=Tarifa::where('id',$tarifa['tarifa_id'])
-      //->first();
+          ->where('medida',$med)
+          ->first();
 
       if (is_null($tarifa))
-        $familia=Tarifa::where('id',0)->first();
+        $familia=Tarifa::where('id',1)->first(); // el 1 debe ser "Sin identificar"
       else
         $familia=Tarifa::where('id',$tarifa['tarifa_id'])
         ->first();
-
 
       return $familia;
     }

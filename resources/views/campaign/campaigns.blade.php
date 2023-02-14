@@ -54,7 +54,7 @@
                         @endcan
                     @can('presupuestos.index')
                     <div class="">
-                        <a href="{{route('campaign.presupuesto', $campaign->id ) }}" title="Presupuesto"><x-icon.money class="text-blue-500"/></a>
+                        <a href="{{route('campaign.presupuesto', $campaign->id ) }}" title="Presupuesto"><x-icon.money class="w-8 text-pink-500"/></a>
                     </div>
                     @endcan
                     @can('campaign.index')
