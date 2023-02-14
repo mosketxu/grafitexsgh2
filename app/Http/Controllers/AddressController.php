@@ -41,7 +41,7 @@ class AddressController extends Controller
 
         $cont = 0;
 
-        return redirect()->route('store.index');
+        return redirect()->route('stores.index');
     }
 
     /**

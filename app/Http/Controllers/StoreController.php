@@ -15,8 +15,8 @@ class StoreController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:store.index')->only('index','adresses');
-        $this->middleware('can:store.edit')->only('store','edit','update','updateimagenindex','destroy');
+        $this->middleware('can:stores.index')->only('index','adresses');
+        $this->middleware('can:stores.edit')->only('store','edit','update','updateimagenindex','destroy');
     }
 
     /**
@@ -25,7 +25,6 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        // dd($request);
         $lux=$request->get('lux');
         $sto=$request->get('sto');
         $nam=$request->get('nam');
@@ -73,7 +72,7 @@ class StoreController extends Controller
         $stores=Store::sto($sto)
             ->nam($nam)
             ->orderBy('id')
-            ->paginate('30')->onEachSide(1);
+            ->paginate('15')->onEachSide(1);
 
         return view('stores.addresses.index',compact('stores','sto','nam'));
     }
@@ -217,22 +216,22 @@ class StoreController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('store.edit',$store)->with($notification);
+        return redirect()->route('stores.edit',$store)->with($notification);
 
     }
 
-    public function updateimagenindex(Request $request){
-        $request->validate([
-            'imagen' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
-        ]);
+    // public function updateimagenindex(Request $request){
+    //     $request->validate([
+    //         'imagen' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
+    //     ]);
 
-        $store=Store::find($request->id);
-        $store->imagen = Store::subirImagen($store->id,$request->file('imagen'));
-        $store->save();
+    //     $store=Store::find($request->id);
+    //     $store->imagen = Store::subirImagen($store->id,$request->file('imagen'));
+    //     $store->save();
 
-        return Response()->json($store);
+    //     return Response()->json($store);
 
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -67,10 +67,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'presupuestos.delete'])->syncRoles($admin, $grafitex);
 
         // store
-        Permission::create(['name'=>'store.index'])->syncRoles($admin, $grafitex);
+        Permission::create(['name'=>'stores.index'])->syncRoles($admin, $grafitex);
         Permission::create(['name'=>'store.create'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'store.edit'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'store.update'])->syncRoles($admin, $grafitex);
+        Permission::create(['name'=>'stores.edit'])->syncRoles($admin, $grafitex);
+        Permission::create(['name'=>'stores.update'])->syncRoles($admin, $grafitex);
         Permission::create(['name'=>'store.delete'])->syncRoles($admin, $grafitex);
 
         // elemento

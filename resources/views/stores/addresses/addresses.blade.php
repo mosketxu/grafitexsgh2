@@ -19,33 +19,39 @@
                 <div class="w-1/12 text-left">Postal Code</div>
                 <div class="w-1/12 text-left">Phone</div>
                 <div class="w-1/12 text-left">email</div>
-                @can('store.edit')
+                @can('stores.edit')
                     <div class="w-10" ></div>
                 @endcan
             </div>
-            @foreach ($stores as $store)
-            <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y " wire:loading.class.delay="opacity-50">
-                <input type="hidden" id="id" name="id" value="{{$store->id}}">
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->luxotica}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->id}}</div>
-                <div class="flex-wrap w-2/12 my-2 text-left">{{$store->name}}</div>
-                <div class="flex-wrap w-2/12 my-2 text-left">{{$store->address}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->city}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->province}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->cp}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$store->phone}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left break-words">{{$store->email}}</div>
-                @can('store.edit')
-                <div class="w-10 pl-3 mt-2">
-                    <a href="{{route('store.edit',$store)}}" class="text-blue-500 scale-125 hover:text-blue-900 hover:" ><x-icon.edit  title="Editar tienda"/></a>
+            <div class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 60vh;">
+                @foreach ($stores as $store)
+                <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y " wire:loading.class.delay="opacity-50">
+                    <input type="hidden" id="id" name="id" value="{{$store->id}}">
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->luxotica}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->id}}</div>
+                    <div class="flex-wrap w-2/12 my-2 text-left">{{$store->name}}</div>
+                    <div class="flex-wrap w-2/12 my-2 text-left">{{$store->address}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->city}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->province}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->cp}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->phone}}</div>
+                    <div class="flex-wrap w-1/12 my-2 text-left break-words">{{$store->email}}</div>
+                    @can('stores.edit')
+                    <div class="w-10 pl-3 mt-2">
+                        <a href="{{route('stores.edit',$store)}}" class="text-blue-500 scale-125 hover:text-blue-900 hover:" ><x-icon.edit  title="Editar tienda"/></a>
+                    </div>
+                    @endcan
                 </div>
-                @endcan
-            </div>
-            @endforeach
+                @endforeach
             </div>
             <div class="">
-            {{ $stores->appends(request()->except('page'))->links() }}
+                {{ $stores->appends(request()->except('page'))->links() }}
             </div>
+        </div>
+        {{-- botones --}}
+        <div class="">
+            <x-button.button  class="py-2" onclick="location.href = '{{ route('stores.addresses') }}'" color="green" >{{ __('Volver a direcciones') }}</x-button.button>
+            <x-button.button  class="py-2 text-black" onclick="location.href = '{{ route('stores.index') }}'" color="gray" >{{ __('Volver a stores') }}</x-button.button>
         </div>
     </div>
 </div>

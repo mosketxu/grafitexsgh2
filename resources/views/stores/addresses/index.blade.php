@@ -13,7 +13,7 @@
                         <div class="flex justify-between ">
                             <div class="flex text-xs">
                                 <div class="hidden space-x-2 sm:-my-px sm:m-2 sm:flex">
-                                    <x-button.button  class="py-2" onclick="location.href = '{{ route('store.index') }}'" color="green" >{{ __('Stores') }}</x-button.button>
+                                    <x-button.button  class="py-2" onclick="location.href = '{{ route('stores.index') }}'" color="green" >{{ __('Stores') }}</x-button.button>
                                 </div>
                             </div>
                         </div>

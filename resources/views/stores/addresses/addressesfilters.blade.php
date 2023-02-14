@@ -1,4 +1,4 @@
-<form id="formfiltro" method="GET" action="{{route('store.addresses') }}">
+<form id="formfiltro" method="GET" action="{{route('stores.addresses') }}">
     <div class="flex">
         <div class="w-full">
             <select id="select-code" name="sto[]" multiple placeholder="Selecciona el codido de la tienda..." autocomplete="off" multiple

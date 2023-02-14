@@ -6,8 +6,8 @@
             Nueva store
         </button>
         @endcan
-        @can('store.index')
-            <x-button.button  class="py-1" onclick="location.href = '{{ route('store.addresses') }}'" color="green" >{{ __('Direcciones') }}</x-button.button>
+        @can('stores.index')
+            <x-button.button  class="py-1" onclick="location.href = '{{ route('stores.addresses') }}'" color="green" >{{ __('Direcciones') }}</x-button.button>
         @endcan
     </div>
     {{-- Modal fichero stores --}}
@@ -16,7 +16,7 @@
             {{ __('Nueva tienda') }}
         </x-slot>
         <x-slot name="content">
-            <form id="formulariostores" role="form" method="post" action="{{ route('store.store') }}" enctype="multipart/form-data" >
+            <form id="formulariostores" role="form" method="post" action="{{ route('stores.store') }}" enctype="multipart/form-data" >
             @csrf
             <div class="text-sm">
                 <div class="flex">

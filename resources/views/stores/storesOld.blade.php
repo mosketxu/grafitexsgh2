@@ -31,8 +31,8 @@
                         </a>
                         &nbsp;&nbsp;
                         @endcan
-                        @can('store.index')
-                        <a href="{{route('store.adresses')}}" role="button" title="Direcciones de las tiendas">
+                        @can('stores.index')
+                        <a href="{{route('stores.adresses')}}" role="button" title="Direcciones de las tiendas">
                             <i class="mt-2 fas fa-map-marker-alt fa-2x text-success"></i>
                         </a>
                         @endcan
@@ -65,7 +65,7 @@
                             <table  class="table table-hover table-sm small" cellspacing="0" width=100%>
                                 <thead>
                                     <tr>
-                                        <form id="formfiltro" method="GET" action="{{route('store.index') }}">
+                                        <form id="formfiltro" method="GET" action="{{route('stores.index') }}">
                                         {{-- <form id="formfiltro" method="GET" action="{{route('store.export') }}"> --}}
                                             <th>
                                                 <select class="form-control form-control-sm select2" id="lux" name="lux[]" data-placeholder="Luxotica" multiple>
@@ -207,13 +207,13 @@
                                                     <a href="#" class="mr-4" name="Upload" onclick="subirImagenIndex('form{{$store->id}}','{{$store->id}}')" title="Subir imagen"><i class="mx-1 fas fa-upload text-info fa-2x"></i></a>
                                                     @endcan --}}
 
-                                                    @can('store.edit')
-                                                    <a href="{{ route('store.edit',$store) }}" title="Editar tienda"><i class="mx-1 far fa-edit text-primary fa-2x"></i></a>
+                                                    @can('stores.edit')
+                                                    <a href="{{ route('stores.edit',$store) }}" title="Editar tienda"><i class="mx-1 far fa-edit text-primary fa-2x"></i></a>
                                                     @endcan
                                                     @can('storeelementos.index')
                                                     <a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos"><i class="mx-1 far fas fa-cubes text-teal fa-2x"></i></a>
                                                     @endcan
-                                                    @can('store.destroy')
+                                                    @can('stores.destroy')
                                                     <a href="#!" class="btn-delete " title="Eliminar"><i class="ml-1 far fa-trash-alt text-danger fa-2x"></i></a>
                                                     @endcan
                                                 </div>
@@ -237,7 +237,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form method="post" action="{{ route('store.store') }}"  enctype="multipart/form-data">
+                        <form method="post" action="{{ route('stores.store') }}"  enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
                                 {{-- <input  type="hidden" class="form-control form-control-sm" id="pais" name="pais" value="si no lo pongo da error Â¿Â¿?? algun resto de memoria"> --}}
@@ -307,7 +307,7 @@
                     </div>
                 </div>
             </div>
-            <form id="formDelete" action="{{route('store.destroy',':ELEMENTO_ID')}}" method="POST" style="display:inline">
+            <form id="formDelete" action="{{route('stores.destroy',':ELEMENTO_ID')}}" method="POST" style="display:inline">
                 <input type="hidden" name="_method" value="DELETE" />
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 {{-- <button type="submit" class="enlace"><i class="ml-1 far fa-trash-alt text-danger fa-2x"></i></button> --}}
@@ -386,7 +386,7 @@
 
         $.ajax({
             type:'POST',
-            url: "{{ route('store.updateimagenindex') }}",
+            url: "{{ route('stores.updateimagenindex') }}",
             data:formData,
             cache:false,
             contentType: false,

@@ -27,7 +27,7 @@ class StoreEliminar extends Component
                 'message' => 'Store eliminada satisfactoriamente!',
                 'alert-type' => 'success'
             );
-            return redirect()->route('store.index')->with($notification);
+            return redirect()->route('stores.index')->with($notification);
         }
     }
 }

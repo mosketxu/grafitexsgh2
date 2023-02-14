@@ -1,4 +1,4 @@
-<form method="GET" action="{{route('store.index') }}">
+<form method="GET" action="{{route('stores.index') }}">
     <div class="grid grid-cols-12 space-y-1 gap2 ">
         <div class="w-full col-span-11 space-y-1 ">
             <div class="flex space-x-1 text-xs">
@@ -80,7 +80,7 @@
         </div>
             <div class="col-span-1 ml-8">
                 <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button></div>
-                <a class="text-blue-700 underline" href='{{route('store.index')}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
+                <a class="text-blue-700 underline" href='{{route('stores.index')}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
             </div>
         </div>
     </div>

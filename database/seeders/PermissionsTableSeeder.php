@@ -48,11 +48,11 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name'=>'Presupuestos Eliminar','slug'=>'presupuesto.destroy','description'=>'Elimina el prespuesto del sistema',]);
 
         //Store
-        // Permission::create(['name'=>'Stores Navegar','slug'=>'store.index','description'=>'Lista todos los Stores del sistema',]);
+        // Permission::create(['name'=>'Stores Navegar','slug'=>'stores.index','description'=>'Lista todos los Stores del sistema',]);
         // Permission::create(['name'=>'Stores Ver detalle','slug'=>'store.show','description'=>'Ver en detalle cada store del sistema',]);
         // Permission::create(['name'=>'Stores Crear','slug'=>'store.create','description'=>'Crea un store en el sistema',]);
-        // Permission::create(['name'=>'Stores Editar','slug'=>'store.edit','description'=>'Edita cada store del sistema',]);
-        // Permission::create(['name'=>'Stores Eliminar','slug'=>'store.destroy','description'=>'Elimina el store del sistema',]);
+        // Permission::create(['name'=>'Stores Editar','slug'=>'stores.edit','description'=>'Edita cada store del sistema',]);
+        // Permission::create(['name'=>'Stores Eliminar','slug'=>'stores.destroy','description'=>'Elimina el store del sistema',]);
 
         //Elementos
         // Permission::create(['name'=>'Elementos Navegar','slug'=>'elemento.index','description'=>'Lista todos los Elementos del sistema',]);

@@ -79,7 +79,7 @@
             Actualiza datos de las tiendas: direcciones, email,...
         </x-slot>
         <x-slot name="content">
-            <form id="formularioSGH" role="form" method="post" action="{{ route('store.updatetiendas') }}" enctype="multipart/form-data" >
+            <form id="formularioSGH" role="form" method="post" action="{{ route('stores.updatetiendas') }}" enctype="multipart/form-data" >
                 @csrf
                 <div class="row">
                     <div class="form-group col">

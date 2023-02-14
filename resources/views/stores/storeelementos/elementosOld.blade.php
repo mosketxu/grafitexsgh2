@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type ='button' class="btn btn-default" onclick="location.href = '{{route('store.index') }}'" value="Volver"/>
+                        <input type ='button' class="btn btn-default" onclick="location.href = '{{route('stores.index') }}'" value="Volver"/>
                     </div>
                 </div>
             </section>

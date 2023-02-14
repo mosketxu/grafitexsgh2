@@ -17,9 +17,9 @@
                     </x-jet-nav-link>
                 </div>
 
-                @can('store.index')
+                @can('stores.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link  href="{{route('store.index') }}" :active="request()->routeIs('store.index')">
+                        <x-jet-nav-link  href="{{route('stores.index') }}" :active="request()->routeIs('stores.index')">
                             {{ __('Stores') }}
                         </x-jet-nav-link>
                     </div>
@@ -141,8 +141,8 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            @can('store.index')
-            <x-jet-responsive-nav-link href="{{ route('store.index') }}" :active="request()->routeIs('store.index')">
+            @can('stores.index')
+            <x-jet-responsive-nav-link href="{{ route('stores.index') }}" :active="request()->routeIs('stores.index')">
                 {{ __('Stores') }}
             </x-jet-responsive-nav-link>
             @endcan

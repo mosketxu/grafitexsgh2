@@ -12,9 +12,9 @@
         <nav class="mt-2">
             <ul id="main-menu" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                @can('store.index')
+                @can('stores.index')
                 <li class="nav-item">
-                    <a href="{{route('store.index') }}" id="menustores" class="nav-link">
+                    <a href="{{route('stores.index') }}" id="menustores" class="nav-link">
                         <i class="nav-icon fas fa-store"></i>
                         <p>Stores</p>
                     </a>

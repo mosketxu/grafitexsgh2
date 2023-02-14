@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         }
         elseif(Auth::user()->hasRole('sgh')){
             dd('3');
-            return redirect()->route('store.index');
+            return redirect()->route('stores.index');
         }
         elseif(Auth::user()->hasRole('tienda')){
             dd('4');
@@ -169,14 +169,14 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     });
 
     //store.php
-    Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('store.updatetiendas')->middleware('can:store.edit');
+    Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('stores.updatetiendas')->middleware('can:stores.edit');
+    Route::get('store/adresses',[StoreController::class,'adresses'])->name('stores.addresses')->middleware('can:stores.index');
+    Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('stores.updateimagenindex')->middleware('can:store.create');
+    Route::resource('stores', StoreController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
-    Route::get('store/adresses',[StoreController::class,'adresses'])->name('store.addresses')->middleware('can:store.index');
-    Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('store.updateimagenindex')->middleware('can:store.create');
-    Route::resource('store', StoreController::class)->except('create','show'); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //store elementos
-    Route::get('storeelementos/{store}/elementos',[StoreElementosController::class,'elementos'])->name('storeelementos.elementos')->middleware('can:store.index');
+    Route::get('storeelementos/{store}/elementos',[StoreElementosController::class,'elementos'])->name('storeelementos.elementos')->middleware('can:stores.index');
     Route::resource('storeelementos', StoreElementosController::class)->except('create','update');; //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //elemento.php
