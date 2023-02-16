@@ -5,16 +5,9 @@
                 <div class="flex w-8/12 mr-2 space-x-1 text-xs">
                     <form method="GET" action="{{ route('campaign.index') }}" class="w-full">
                         <div class="flex w-full mr-2">
-                            <div class="w-10/12">
-                                <x-input.text  class="w-full" type="search" id="search" name="search" value="{{ $busqueda }}" placeholder="Búsqueda de campaña"/>
-                            </div>
-                            <div class="flex w-2/12 ">
-                                <div class="">
-                                    <button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button>
-                                </div>
-                                <div class="">
-                                    <a class="text-blue-700 underline" href='{{route(Route::currentRouteName())}}'  title="Borrar Filtro"><x-icon.filter-slash/></a>
-                                </div>
+                            <div class="w-full">
+                                <x-input.text  type="search" id="search" name="search" value="{{ $busqueda }}"
+                                class="w-full placeholder:italic placeholder:text-slate-400 border-slate-300 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Búsqueda de campaña..."/>
                             </div>
                         </div>
                     </form>

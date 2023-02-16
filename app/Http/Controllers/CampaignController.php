@@ -36,13 +36,11 @@ class CampaignController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        if ($request->search) {
-            $busqueda = $request->search;
-        } else {
-            $busqueda = '';
-        }
-        $campaigns=Campaign::query()
-        ->when($busqueda!='',function($query) use($busqueda){return $query->where('campaign_name','like','%'.$busqueda.'%');})
+        $busqueda = '';
+        if ($request->search) $busqueda = $request->search;
+
+        $campaigns=Campaign::search2($request->search)
+        // ->when($busqueda!='',function($query) use($busqueda){return $query->where('campaign_name','like','%'.$busqueda.'%');})
         ->orderBy('id','DESC')
         ->paginate(15);
 
