@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarifa;
+use App\Models\TarifaFamilia;
 use Illuminate\Http\Request;
 
 class TarifaController extends Controller
@@ -11,7 +12,7 @@ class TarifaController extends Controller
     public function __construct()
     {
         $this->middleware('can:tarifa.index')->only('index');
-        $this->middleware('can:tarifa.edit')->only('edit','update','store');
+        $this->middleware('can:tarifa.edit')->only('update','store');
         $this->middleware('can:tarifa.delete')->only('destroy');
     }
 
@@ -21,8 +22,7 @@ class TarifaController extends Controller
      * @return \Illuminate\Http\Response
      */
     // public function index(Request $request)
-    public function index()
-    {
+    public function index(){
         return view('tarifa.index',);
     }
 
@@ -53,7 +53,6 @@ class TarifaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -61,8 +60,7 @@ class TarifaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         if($request->tipo===0)
             $request->validate([
                 'familia' => 'required',
@@ -95,17 +93,24 @@ class TarifaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Tarifa::find($id)->delete();
+    public function destroy($id){
+        $t=Tarifa::find($id);
+
+        $tf=TarifaFamilia::where('tarifa_id',$t->id)->count();
+        if($tf>0){
+            $notification = array(
+                'message' => 'Hay familias asociadas a esta tarifa. No se puede eliminer',
+                'alert-type' => 'alarm'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        $t->delete();
 
         $notification = array(
             'message' => 'Tarifa eliminada satisfactoriamente!',
             'alert-type' => 'success'
         );
-
         return redirect()->back()->with($notification);
-
-        // return response()->json(['success'=>'Eliminado con exito']);
     }
 }

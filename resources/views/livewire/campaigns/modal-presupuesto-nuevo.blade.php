@@ -46,8 +46,8 @@
                     <x-jet-secondary-button wire:click="cambiamodal()">
                         {{ __('Cancelar') }}
                     </x-jet-secondary-button>
-                    @can('store.create')
-                    <x-jet-button type="submit" class="bg-blue-700 hover:bg-blue-900" >
+                    @can('stores.create')
+                    <x-jet-button type="submit" class="bg-blue-600 hover:bg-blue-900" >
                         {{ __('Guardar') }}
                     </x-jet-button>
                     @endcan

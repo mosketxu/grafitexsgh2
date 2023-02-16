@@ -48,7 +48,7 @@ class StoreController extends Controller
             ->fur($fur)
             ->orderBy('id')
             ->paginate('25');
-        // $countries=Country::get();
+
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
@@ -57,9 +57,6 @@ class StoreController extends Controller
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
         else
-            // return view('stores.index',
-            //         compact('stores','countries','areas','segmentos','conceptos','furnitures',
-            //         'lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
             return view('stores.index',
                     compact('stores','stores','areas','segmentos','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
 
@@ -136,8 +133,6 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Store $store){
-
-
         $countries=Country::get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
@@ -146,9 +141,6 @@ class StoreController extends Controller
 
         return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures'));
     }
-
-
-
 
     /**
      * Update the specified resource in storage.
@@ -219,19 +211,6 @@ class StoreController extends Controller
         return redirect()->route('stores.edit',$store)->with($notification);
 
     }
-
-    // public function updateimagenindex(Request $request){
-    //     $request->validate([
-    //         'imagen' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
-    //     ]);
-
-    //     $store=Store::find($request->id);
-    //     $store->imagen = Store::subirImagen($store->id,$request->file('imagen'));
-    //     $store->save();
-
-    //     return Response()->json($store);
-
-    // }
 
     /**
      * Remove the specified resource from storage.

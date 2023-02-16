@@ -11,31 +11,21 @@ use Illuminate\Support\Facades\DB;
 class TiendaController extends Controller
 {
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('can:tiendas.index')->only('index','control');
         $this->middleware('can:tiendas.edit')->only('edit','show','update','destroy','campaginstores');
     }
 
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $busqueda = '';
         if ($request->busca) $busqueda = $request->busca;
 
         $storeId=(auth()->user()->name);
         $store=Store::find(auth()->user()->name);
 
-        // $campaigns=Campaign::search2($request->busca)
-        //     ->whereIn('id', function ($query) use ($storeId){
-        //         $query->select('campaign_id')->from('campaign_stores')->where('store_id', '=', $storeId);
-        //     })
-        //     ->orderBy('campaign_initdate')
-        //     ->paginate(10);
-
         $campaigns=Campaign::search2($request->busca)
             ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
             ->paginate(10);
-
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
@@ -69,8 +59,7 @@ class TiendaController extends Controller
         return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
     }
 
-    public function show($camp,$sto,Request $request)
-    {
+    public function show($camp,$sto,Request $request){
         $busqueda = '';
         if ($request->busqueda) $busqueda = $request->busqueda;
 
@@ -82,7 +71,6 @@ class TiendaController extends Controller
         ->where('campaign_elementos.store_id',$sto)
         ->select('campaign_elementos.id as id','estadorecepcion')
         ->get();
-
 
         $total=$elementos->count();
         $sinvalorar=$elementos->where('estadorecepcion','0')->count();
@@ -111,13 +99,10 @@ class TiendaController extends Controller
         ->groupBy('campaign_id')
         ->paginate(10);
 
-        // dd($campaigns);
-
         return view('tienda.index',compact('campaigns','busqueda'));
     }
 
     public function controlstores($campaignId){
-
         $campaign=Campaign::find($campaignId);
         $stores=CampaignTienda::with('campaign')->with('tienda')
         ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
@@ -136,8 +121,7 @@ class TiendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         $rules=[
             'estadorecepcion'=>'required|integer|min:1',
         ];
@@ -166,5 +150,4 @@ class TiendaController extends Controller
         return redirect()->route('tienda.editrecepcion',[$request->campaignId,$request->storeId])->with($notification);
 
     }
-
 }

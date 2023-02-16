@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 
 class AuxiliaresController extends Controller
 {
-    public function index()
-    {
+    public function __construct(){
+        $this->middleware('can:auxiliares.index')->only('index');
+    }
+
+    public function index(){
         $countries=Country::paginate(10)->onEachSide(2);
         $areas=Area::orderBy('area')->paginate(10)->onEachSide(2);
         $segmentos=Segmento::orderBy('segmento')->paginate(10)->onEachSide(2);

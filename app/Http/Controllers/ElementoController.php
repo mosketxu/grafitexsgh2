@@ -6,15 +6,21 @@ use App\Models\{Elemento,Ubicacion,Mobiliario,Propxelemento,Carteleria,Medida,Ma
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ElementoController extends Controller
-{
+class ElementoController extends Controller{
+
+    public function __construct()
+    {
+        $this->middleware('can:elemento.index')->only('index','control');
+        $this->middleware('can:elemento.edit')->only('edit','update');
+        $this->middleware('can:elemento.delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $ubi=$request->ubi;
         $mobi=$request->mobi;
         $prop=$request->prop;
@@ -30,7 +36,7 @@ class ElementoController extends Controller
         ->when(!empty($med),function($query) use($med){return $query->where('medida','=',$med);})
         ->when(!empty($mat),function($query) use($mat){return $query->where('material','=',$mat);})
         ->orderBy('elementificador')
-        ->paginate(20);
+        ->paginate(15);
 
         $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
         $mobiliarios=Mobiliario::orderBy('mobiliario')->get();
@@ -44,23 +50,12 @@ class ElementoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'ubicacion_id'=>'required',
             'mobiliario_id'=>'required',
@@ -70,19 +65,17 @@ class ElementoController extends Controller
             'material_id'=>'required',
             'familia_id'=>'required',
             'unitxprop'=>'required|numeric',
-         ]);
+        ]);
 
-         $u=Ubicacion::find($request->ubicacion_id)->ubicacion;
-         $m=Mobiliario::find($request->mobiliario_id)->mobiliario;
-         $p=Propxelemento::find($request->propxelemento_id)->propxelemento;
-         $c=Carteleria::find($request->carteleria_id)->carteleria;
-         $me=Medida::find($request->medida_id)->medida;
-         $ma=Material::find($request->material_id)->material;
-         $uxp=$request->unitxprop;
-         $e=Elemento::elementificador($u,$m,$p,$c,$me,$ma,$uxp);
-
-         $matmed=Elemento::matmed($ma,$me);
-
+        $u=Ubicacion::find($request->ubicacion_id)->ubicacion;
+        $m=Mobiliario::find($request->mobiliario_id)->mobiliario;
+        $p=Propxelemento::find($request->propxelemento_id)->propxelemento;
+        $c=Carteleria::find($request->carteleria_id)->carteleria;
+        $me=Medida::find($request->medida_id)->medida;
+        $ma=Material::find($request->material_id)->material;
+        $uxp=$request->unitxprop;
+        $e=Elemento::elementificador($u,$m,$p,$c,$me,$ma,$uxp);
+        $matmed=Elemento::matmed($ma,$me);
         $controlElementificador=Elemento::where('elementificador',$e)->count();
 
         if ($controlElementificador>0){
@@ -93,8 +86,7 @@ class ElementoController extends Controller
             return redirect()->back()->withErrors($notification);
         }
 
-
-         DB::table('elementos')->insert([
+        DB::table('elementos')->insert([
             'elementificador'=>$e,
             'ubicacion_id'=>$request->ubicacion_id,
             'ubicacion'=>$u,
@@ -113,7 +105,7 @@ class ElementoController extends Controller
             'unitxprop'=>$request->unitxprop,
             'observaciones'=>$request->observaciones,
             'familia_id'=>$request->familia_id,
-             ]
+            ]
         );
 
         $notification = array(
@@ -121,18 +113,6 @@ class ElementoController extends Controller
             'alert-type' => 'success'
         );
         return redirect('elemento')->with($notification);
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -162,65 +142,63 @@ class ElementoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-    $elementoOld=Elemento::find($id);
+        $elementoOld=Elemento::find($id);
 
-    $request->validate([
-        'ubicacion_id'=>'required',
-        'mobiliario_id'=>'required',
-        'propxelemento_id'=>'required',
-        'carteleria_id'=>'required',
-        'medida_id'=>'required',
-        'material_id'=>'required',
-        'familia_id'=>'required',
-        'unitxprop'=>'required|numeric',
-     ]);
+        $request->validate([
+            'ubicacion_id'=>'required',
+            'mobiliario_id'=>'required',
+            'propxelemento_id'=>'required',
+            'carteleria_id'=>'required',
+            'medida_id'=>'required',
+            'material_id'=>'required',
+            'familia_id'=>'required',
+            'unitxprop'=>'required|numeric',
+        ]);
 
-    $u=Ubicacion::find($request->ubicacion_id)->ubicacion;
-    $m=Mobiliario::find($request->mobiliario_id)->mobiliario;
-    $p=Propxelemento::find($request->propxelemento_id)->propxelemento;
-    $c=Carteleria::find($request->carteleria_id)->carteleria;
-    $me=Medida::find($request->medida_id)->medida;
-    $ma=Material::find($request->material_id)->material;
-    $uxp=$request->unitxprop;
-    $e=Elemento::elementificador($u, $m, $p, $c, $me, $ma, $uxp);
+        $u=Ubicacion::find($request->ubicacion_id)->ubicacion;
+        $m=Mobiliario::find($request->mobiliario_id)->mobiliario;
+        $p=Propxelemento::find($request->propxelemento_id)->propxelemento;
+        $c=Carteleria::find($request->carteleria_id)->carteleria;
+        $me=Medida::find($request->medida_id)->medida;
+        $ma=Material::find($request->material_id)->material;
+        $uxp=$request->unitxprop;
+        $e=Elemento::elementificador($u, $m, $p, $c, $me, $ma, $uxp);
+        $matmed=Elemento::matmed($ma, $me);
 
-    $matmed=Elemento::matmed($ma, $me);
+            if ($e!=$elementoOld->elementificador) {
+                $controlElementificador=Elemento::where('elementificador', $e)->count();
+                if ($controlElementificador>0) {
+                    $notification = array(
+                        'message' => 'Este Elemento ya existe.',
+                        'alert-type' => 'error'
+                    );
+                    return redirect()->back()->withErrors($notification);
+                }
+            }
 
-    if ($e!=$elementoOld->elementificador) {
-        $controlElementificador=Elemento::where('elementificador', $e)->count();
-        if ($controlElementificador>0) {
-            $notification = array(
-                'message' => 'Este Elemento ya existe.',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->withErrors($notification);
-        }
-    }
-
-    DB::table('elementos')
-        ->where('id',$id)
-        ->update([
-            'elementificador'=>$e,
-            'ubicacion_id'=>$request->ubicacion_id,
-            'ubicacion'=>$u,
-            'mobiliario_id'=>$request->mobiliario_id,
-            'mobiliario'=>$m,
-            'propxelemento_id'=>$request->propxelemento_id,
-            'propxelemento'=>$p,
-            'carteleria_id'=>$request->carteleria_id,
-            'carteleria'=>$c,
-            'medida_id'=>$request->medida_id,
-            'medida'=>$me,
-            'material_id'=>$request->material_id,
-            'material'=>$ma,
-            'matmed'=>$matmed,
-            'matmed'=>$matmed,
-            'unitxprop'=>$request->unitxprop,
-            'observaciones'=>$request->observaciones,
-            'familia_id'=>$request->familia_id,
+        DB::table('elementos')
+            ->where('id',$id)
+            ->update([
+                'elementificador'=>$e,
+                'ubicacion_id'=>$request->ubicacion_id,
+                'ubicacion'=>$u,
+                'mobiliario_id'=>$request->mobiliario_id,
+                'mobiliario'=>$m,
+                'propxelemento_id'=>$request->propxelemento_id,
+                'propxelemento'=>$p,
+                'carteleria_id'=>$request->carteleria_id,
+                'carteleria'=>$c,
+                'medida_id'=>$request->medida_id,
+                'medida'=>$me,
+                'material_id'=>$request->material_id,
+                'material'=>$ma,
+                'matmed'=>$matmed,
+                'matmed'=>$matmed,
+                'unitxprop'=>$request->unitxprop,
+                'observaciones'=>$request->observaciones,
+                'familia_id'=>$request->familia_id,
             ]
         );
-
 
         $notification = array(
             'message' => 'Elemento Actualizado satisfactoriamente!',
@@ -236,16 +214,8 @@ class ElementoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
-    {
-
-        // try{
-            Elemento::destroy($id);;
-        // }catch(\ErrorException $ex){
-        //     return back()->withError($ex->getMessage());
-        // }
-
-        // no funcionan los mensajes ni try catch!
+    public function destroy($id, Request $request){
+        Elemento::destroy($id);;
 
         $notification = array(
             'message' => 'Elemento eliminado satisfactoriamente!',
@@ -258,8 +228,5 @@ class ElementoController extends Controller
                 'notificacion'=>$notification,
             ]);
         }
-        // Session::flash('message',$this->elemento->id, 'ha sido eliminado');
-        // return redirect()->back()
-        // $request->session()->flash('key', $value);
     }
 }

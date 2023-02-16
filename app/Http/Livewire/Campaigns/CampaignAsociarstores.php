@@ -68,12 +68,9 @@ class CampaignAsociarstores extends Component
 
     public function disocia($asociada,$unotodos){
         $borrar=$this->model1::find($asociada);
-        if($borrar)
-            $borrar->delete();
-
-        if($unotodos=='1') return redirect()->route('campaign.filtrar',$this->campaign);
+        if($borrar) $borrar->delete();
+        // if($unotodos=='1') return redirect()->route('campaign.filtrar',$this->campaign);
     }
-
 
     public function disociartodos(){
         $todos=$this->rowsaso;

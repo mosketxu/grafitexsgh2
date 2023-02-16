@@ -23,18 +23,18 @@
                         disabled />
                 </div>
                 <div class="w-2/12 text-center">
-                    <div class="text-center">
-                        <label for="xls">Hay {{$elementos->count()}} elementos disponibles.</label>
-                    </div>
                     <div class="text-center mx-auto">
-                        <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="text-green-700 w-6" title="Exporta Excel"/>
+                        <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="text-green-700 w-6 mt-5" title="Exporta Excel"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="">
-        <div class="w-full h-3/5">
+        <div class="w-full px-2">
+            <div class="m-2">
+                {{ $elementos->appends(request()->except('page'))->links() }}
+            </div>
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">
                     <tr class="flex w-full">
@@ -55,10 +55,10 @@
                         <th class="w-1/12 text-left">Unit x Prop</th>
                         {{-- <th class="w-1/12">Observaciones</th> --}}
                         <th width="150px">Imagen </th>
-                        <th width="w-1/12" class="text-left">Acción</th>
+                        <th width="w-1/12" class="mr-3">Acción</th>
                     </tr>
                 </thead>
-                <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 70vh;">
+                <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
                     @foreach ($elementos as $campelemento)
                         @livewire('campaigns.campaign-elementos',['campelemento'=>$campelemento,'campaign'=>$campaign,'ruta'=>'campaign.elementos'],key($campelemento->id))
                     @endforeach

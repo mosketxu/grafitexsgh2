@@ -9,15 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class StoreElementosController extends Controller
 {
-
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('can:storeelementos.index')->only('elementos');
-        $this->middleware('can:storeelementos.edit')->only('store','edit','destroy');
+        $this->middleware('can:storeelementos.edit')->only('store','edit');
+        $this->middleware('can:storeelementos.delete')->only('destroy');
     }
 
     public function elementos($storeId, Request $request){
-
         $ubi=$request->ubi;
         $mobi=$request->mobi;
         $prop=$request->prop;
@@ -32,9 +30,8 @@ class StoreElementosController extends Controller
         $cartelerias=Carteleria::orderBy('carteleria')->get();
         $medidas=Medida::orderBy('medida')->get();
         $materiales=Material::orderBy('material')->get();
-
-
         $store=Store::find($storeId);
+
         $storeelementos=StoreElemento::with('store','elemento')
         ->when(!empty($ubi),function($query) use($ubi){$query->whereHas('elemento',function($query) use($ubi){return $query->where('ubicacion','=',$ubi);});})
         ->when(!empty($mobi),function($query) use($mobi){$query->whereHas('elemento',function($query) use($mobi){return $query->where('mobiliario','=',$mobi);});})
@@ -60,8 +57,7 @@ class StoreElementosController extends Controller
             'elemento_id'=>'required'
         ]);
 
-$elemento=Elemento::find($request->elemento_id);
-
+        $elemento=Elemento::find($request->elemento_id);
         DB::table('store_elementos')
             ->insert([
             'store_id'=>$request->store_id,
@@ -74,10 +70,7 @@ $elemento=Elemento::find($request->elemento_id);
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-
-
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -86,7 +79,6 @@ $elemento=Elemento::find($request->elemento_id);
      * @return \Illuminate\Http\Response
      */
     public function edit($storeId, Request $request){
-
         $store=Store::find($storeId);
 
         $ubi=$request->ubi;
@@ -95,7 +87,6 @@ $elemento=Elemento::find($request->elemento_id);
         $car=$request->car;
         $med=$request->med;
         $mat=$request->mat;
-
 
         $areas=Area::orderBy('area')->get();
         $ubicaciones=Ubicacion::orderBy('ubicacion')->get();
@@ -116,8 +107,6 @@ $elemento=Elemento::find($request->elemento_id);
             ->when(!empty($mat),function($query) use($mat){return $query->where('material','=',$mat);})
             ->paginate(10);
 
-        // dd($totalelementosDisp);
-
         return view('stores.storeelementos.edit',compact('store','elementosDisp',
             'ubi','prop','car','med','mat',
         'areas','ubicaciones','mobiliarios','props','cartelerias','medidas','materiales'));
@@ -130,19 +119,14 @@ $elemento=Elemento::find($request->elemento_id);
      * @return \Illuminate\Http\Response
      */
     public function destroy($store_id,$elemento_id, Request $request){
-        // dd($store_id.'-'.$elemento_id);
         $s=StoreElemento::where('store_id',$store_id)
         ->where('elemento_id',$elemento_id)
         ->first();
-        // dd($s);
         try{
-            // StoreElemento::destroy($s->id);
             $s->delete();
         }catch(\ErrorException $ex){
             return back()->withError($ex->getMessage());
         }
-
-        // no funcionan los mensajes ni try catch!
 
         $notification = array(
             'message' => 'Elemento eliminado satisfactoriamente!',

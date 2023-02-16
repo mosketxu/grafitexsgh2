@@ -58,7 +58,7 @@
                 <div class="w-2/12">Observaciones</div>
                 <div class="w-10"></div>
             </div>
-            @foreach ($storeelementos as $elemento)
+            @forelse ($storeelementos as $elemento)
                 <div class="flex w-full py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1">
                     <div class="w-1/12">{{$elemento->elemento->ubicacion}}</div>
                     <div class="w-2/12">{{$elemento->elemento->mobiliario}}</div>
@@ -74,7 +74,11 @@
                         @endcan
                     </div>
                 </div>
-            @endforeach
+            @empty
+            <div class="flex w-full py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1">
+                    No hay elementos
+            </div>
+            @endforelse
             <div class="py-0 ml-2">
             {{ $storeelementos->appends(request()->except('page'))->links() }}
             </div>

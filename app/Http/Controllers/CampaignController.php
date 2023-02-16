@@ -28,8 +28,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CampaignController extends Controller
-{
+class CampaignController extends Controller{
+
+    public function __construct(){
+        $this->middleware('can:campaign.index')->only('index','addresses','exportaddresses');
+        $this->middleware('can:campaign.edit')->only('edit','filtrar','show','update','destroy','generarcampaign','conteo');
+        $this->middleware('can:campaign.delete')->only('destroy');
+    }
      /**
      * Display a listing of the resource.
      *
@@ -40,7 +45,6 @@ class CampaignController extends Controller
         if ($request->search) $busqueda = $request->search;
 
         $campaigns=Campaign::search2($request->search)
-        // ->when($busqueda!='',function($query) use($busqueda){return $query->where('campaign_name','like','%'.$busqueda.'%');})
         ->orderBy('id','DESC')
         ->paginate(15);
 
@@ -66,18 +70,14 @@ class CampaignController extends Controller
     }
 
     public function filtrar($id,Request $request){
-
         $campaign = Campaign::find($id);
+        $busqueda = '';
 
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+        if ($request->busca) $busqueda = $request->busca;
 
         $elementos=StoreElemento::join('stores','stores.id','store_id')
         ->join('elementos','elementos.id','elemento_id')
-        ->when($busqueda!='',function($query) use($busqueda){return $query->where('campaign_name','like','%'.$busqueda.'%');})
+        ->search2($busqueda)
         ->campstosto($campaign->id)
         ->campstoseg($campaign->id)
         ->campstoubi($campaign->id)
@@ -96,8 +96,13 @@ class CampaignController extends Controller
             'campaign_state' => 'required',
         ]);
 
-        $campaign=Campaign::find($id)->update($request->all());
-        // dd('sdf');
+        $campaign=Campaign::find($id);
+        $campaign->update([
+            'campaign_name' => $request->campaign_name,
+            'campaign_initdate' => $request->campaign_initdate,
+            'campaign_enddate' => $request->campaign_enddate,
+            'campaign_state' => $request->campaign_state,]
+        );
         return redirect()->route('campaign.edit',$campaign)->with('message','Registro actualizado satisfactoriamente');
     }
 
@@ -281,23 +286,19 @@ class CampaignController extends Controller
         return view('campaign.conteosindex',compact('campaign','busqueda'));
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         Campaign::where('id',$id)->delete();
-
 
          $notification = array(
             'message' => '¡Campaña eliminada satisfactoriamente!',
             'alert-type' => 'success'
         );
-
         return redirect()->back()->with($notification);
     }
 }

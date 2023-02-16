@@ -29,17 +29,17 @@ class AuxiliarMostrar extends Component
 
     protected function rules(){
         return [
-            'country'=>'required_if:vista,country|unique:countries,country',
+            'valorcampo'=>'required_if:vista,country|unique:countries,country',
             'valorcampo'=>'required_if:vista,area|unique:areas,area',
-            'segmento'=>'required_if:vista,segmento|unique:segmentos,segmento',
-            'furniture'=>'required_if:vista,furniture|unique:furnitures,furniture_type',
-            'concept'=>'required_if:vista,concept|unique:storeconcepts,storeconcept',
-            'ubicacion'=>'required_if:vista,ubicacion|unique:ubicacions,ubicacion',
-            'mobiliario'=>'required_if:vista,mobiliario|unique:mobiliarios,mobiliario',
-            'propxelem'=>'required_if:vista,propxelem|unique:propxelementos,propxelemento',
-            'carteleria'=>'required_if:vista,carteleria|unique:cartelerias,carteleria',
-            'medida'=>'required_if:vista,medida|unique:medidas,medida',
-            'material'=>'required_if:vista,material|unique:materiales,material',
+            'valorcampo'=>'required_if:vista,segmento|unique:segmentos,segmento',
+            'valorcampo'=>'required_if:vista,furniture|unique:furnitures,furniture_type',
+            'valorcampo'=>'required_if:vista,concept|unique:storeconcepts,storeconcept',
+            'valorcampo'=>'required_if:vista,ubicacion|unique:ubicacions,ubicacion',
+            'valorcampo'=>'required_if:vista,mobiliario|unique:mobiliarios,mobiliario',
+            'valorcampo'=>'required_if:vista,propxelem|unique:propxelementos,propxelemento',
+            'valorcampo'=>'required_if:vista,carteleria|unique:cartelerias,carteleria',
+            'valorcampo'=>'required_if:vista,medida|unique:medidas,medida',
+            'valorcampo'=>'required_if:vista,material|unique:materiales,material',
         ];}
 
     public function messages(){

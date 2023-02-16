@@ -15,6 +15,7 @@ class CampaignElementoController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index($campaignId, Request $request){
+
         $busqueda = '';
         if ($request->busca) $busqueda = $request->busca;
 
@@ -27,7 +28,7 @@ class CampaignElementoController extends Controller{
             'ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','precio','unitxprop','imagen','observaciones')
         ->orderBy('store_id')
-        ->get();
+        ->paginate(10);
 
 
         return view('campaign.elementos.index', compact('campaign','elementos','busqueda'));

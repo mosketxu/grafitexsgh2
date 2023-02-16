@@ -11,7 +11,11 @@
 </div>
 @endif
 @if (session()->has('message'))
-<div id="alert" class="relative px-6 py-2 mb-2 text-white bg-green-200 border-green-500 rounded border-1" >
+    @if(session('alert-type')=='alarm')
+        <div id="alert" class="relative px-6 py-2 mb-2 text-white bg-red-200 border-red-500 rounded border-1" >
+    @else
+        <div id="alert" class="relative px-6 py-2 mb-2 text-white bg-green-200 border-green-500 rounded border-1" >
+    @endif
     <span class="inline-block mx-8 align-middle" >
         {{ session('message') }}
     </span>
