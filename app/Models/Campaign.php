@@ -14,7 +14,8 @@ class Campaign extends Model
     protected $fillable=['campaign_name','campaign_initdate','campaign_enddate','campaign_state','slug'];
     protected $dates = ['deleted_at'];
 
-    public function stores(){return $this->hasMany(Store::class);}
+    // public function stores(){return $this->hasMany(Store::class);}
+    public function campstores(){return $this->hasMany(CampaignStore::class);}
 
 
     // public static function boot()
@@ -30,7 +31,7 @@ class Campaign extends Model
     //      });
     // }
 
-    public function scopeSearch($query, $busca)
+    public function scopeSearch2($query, $busca)
     {
       return $query->where('campaign_name', 'LIKE', "%$busca%")
       ->orWhere('campaign_initdate', 'LIKE', "%$busca%")

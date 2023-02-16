@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, Store};
+// use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,31 +19,31 @@ class TiendaController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+        $busqueda = '';
+        if ($request->busca) $busqueda = $request->busca;
 
         $storeId=(auth()->user()->name);
         $store=Store::find(auth()->user()->name);
 
-        $campaigns=Campaign::search($request->busca)
-            ->whereIn('id', function ($query) use ($storeId){
-                $query->select('campaign_id')->from('campaign_stores')->where('store_id', '=', $storeId);
-            })
-            ->orderBy('campaign_initdate')
+        // $campaigns=Campaign::search2($request->busca)
+        //     ->whereIn('id', function ($query) use ($storeId){
+        //         $query->select('campaign_id')->from('campaign_stores')->where('store_id', '=', $storeId);
+        //     })
+        //     ->orderBy('campaign_initdate')
+        //     ->paginate(10);
+
+        $campaigns=Campaign::search2($request->busca)
+            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
             ->paginate(10);
-        return view('tienda.index',compact('campaigns','store','title','busqueda'));
+
+
+        return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
 
-    public function edit($camp,$sto, Request $request)
-    {
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+    public function editrecepcion($camp,$sto, Request $request){
+        $busqueda = '';
+        if ($request->busca) $busqueda = $request->busca;
+
         $campaign = Campaign::find($camp);
         $store=Store::find($sto);
 
@@ -51,7 +52,6 @@ class TiendaController extends Controller
         ->where('campaign_elementos.store_id',$sto)
         ->select('campaign_elementos.id as id','estadorecepcion')
         ->get();
-        // dd($elementos);
 
         $total=$elementos->count();
         $sinvalorar=$elementos->where('estadorecepcion','0')->count();
@@ -59,23 +59,20 @@ class TiendaController extends Controller
         $correctos=$elementos->where('estadorecepcion','1')->count();
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->search($request->busca)
+        ->search2($request->busca)
         ->where('campaign_id',$camp)
         ->where('campaign_elementos.store_id',$sto)
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion')
         ->paginate(8);
 
-        return view('tienda.edit', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
+        return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
     }
 
     public function show($camp,$sto,Request $request)
     {
-        if ($request->busqueda) {
-            $busqueda = $request->busqueda;
-        } else {
-            $busqueda = '';
-        }
+        $busqueda = '';
+        if ($request->busqueda) $busqueda = $request->busqueda;
 
         $campaign = Campaign::find($camp);
         $store=Store::find($sto);
@@ -93,45 +90,34 @@ class TiendaController extends Controller
         $correctos=$elementos->where('estadorecepcion','1')->count();
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->OK($busqueda)
-        ->where('campaign_id',$camp)
-        ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
-            'material','familia','unitxprop','imagen','observaciones','OK','KO','estadorecepcion','obsrecepcion')
-        ->paginate(8);
+            ->OK($busqueda)
+            ->where('campaign_id',$camp)
+            ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
+                'material','familia','unitxprop','imagen','observaciones','OK','KO','estadorecepcion','obsrecepcion')
+            ->paginate(10);
 
-        return view('tienda.show', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
+        return view('tienda.indexcampaignelementos', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
     }
 
     public function control(Request $request){
-        if ($request->busca) {
-            $busqueda = $request->busca;
-        } else {
-            $busqueda = '';
-        }
+        $busqueda='';
+        if ($request->busca) $busqueda = $request->busca;
 
-
-        // $campaigns=CampaignTienda::search($busqueda)
-        // ->with('campaign')
-        // ->with('tienda')
-        // ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
-        // ->select('campaign_id','campaign_name',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
-        // ->groupBy('campaign_id')
-        // ->paginate(10);
-        $campaigns=CampaignTienda::query()
+        $campaigns=CampaignTienda::search2($busqueda)
         ->with('campaign')
         ->with('tienda')
         ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
-        ->select('campaign_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
+        ->select('campaign_name','campaign_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
         ->groupBy('campaign_id')
         ->paginate(10);
 
         // dd($campaigns);
 
-        return view('tienda.control',compact('campaigns','busqueda'));
+        return view('tienda.index',compact('campaigns','busqueda'));
     }
 
-    public function campaignstores($campaignId)
-    {
+    public function controlstores($campaignId){
+
         $campaign=Campaign::find($campaignId);
         $stores=CampaignTienda::with('campaign')->with('tienda')
         ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
@@ -140,7 +126,7 @@ class TiendaController extends Controller
         ->where('campaign_id',$campaignId)
         ->paginate(10);
 
-        return view('tienda.campaignstores',compact('campaign','stores'));
+        return view('tienda.indexcontroltienda',compact('campaign','stores'));
     }
 
     /**
@@ -177,7 +163,7 @@ class TiendaController extends Controller
             'message' => 'Elemento actualizado satisfactoriamente!',
             'alert-type' => 'success',
         );
-        return redirect()->route('tienda.edit',[$request->campaignId,$request->storeId])->with($notification);
+        return redirect()->route('tienda.editrecepcion',[$request->campaignId,$request->storeId])->with($notification);
 
     }
 

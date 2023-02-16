@@ -1,52 +1,80 @@
-    <div class="">
-        <div class="h-full p-1 mx-2">
-            <div class="py-1 space-y-2">
-                <div class="">
-                    @include('errores')
+<div class="">
+    <div class="p-1 mx-2">
+        <div class="text-gray-500 border border-blue-300 rounded shadow-md">
+            <div class="flex w-full p-1 bg-gray-100 rounded-md">
+                <div class="w-6/12 rounded-md">
+                    <label for="campaign_name">Campaña</label>
+                    <input type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
+                        name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
+                        disabled />
+                </div>
+                <div class="w-3/12">
+                    <label for="campaign_initdate">Fecha Inicio</label>
+                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
+                        name="campaign_initdate"
+                        value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
+                        disabled />
+                </div>
+                <div class="w-3/12">
+                    <label for="campaign_enddate">Fecha Finalización</label>
+                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
+                        name="campaign_enddate"
+                        value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
+                        disabled />
                 </div>
             </div>
-            <div class="">
-                aqui los filtros
-                {{-- @include('tienda.tiendasfilters') --}}
-            </div>
-            <div class="mx-2 space-y-1 border rounded-md">
-                <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
-                    <div class="w-1/12 text-left">#</div>
-                    <div class="w-1/12 text-left">Campaña</div>
-                    <div class="w-1/12 text-left">Fecha Inicio</div>
-                    <div class="w-1/12 text-left">Fecha Fin Prevista</div>
-                    <div class="w-1/12 text-left">Total</div>
-                    <div class="w-1/12 text-left"><x-icon.question class="w-2 mb-1 text-black"></x-icon.question></div>
-                    <div class="w-1/12 text-left"><x-icon.thumbs-up  class="w-4 mb-1 text-green-700"></x-icon.thumbs-up></div>
-                    <div class="w-1/12 text-left"><x-icon.thumbs-down class="w-4 mb-1 text-red-700"></x-icon.thumbs-down></div>
-                    <div class="w-1/12 text-left"></div>
-                </div>
-                @foreach($campaigns as $campaign)
-                <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y ">
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->id}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->campaign_name}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->campaign_initdate}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->campaign_enddate}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->total}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->total-$campaign->OK-$campaign->KO}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->OK}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->KO}}</div>
-                    <div class="flex w-1/12 my-2 space-x-2 text-left">
-                        @can('tiendas.index')
-                            <a href="{{route('tienda.campaignstores',$campaign->campaign ) }}" title="tiendas de la campaña"><x-icon.arrow-right></x-icon.arrow-right></a>
-                        @endcan
-                    </div>
-                </div>
-                @endforeach
-                {{ $campaigns->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
     </div>
+    <div class="mx-2">
+        <div class="flex items-center w-full py-1 pl-2 space-x-2">
+            {{ $stores->appends(request()->except('page'))->links() }}
+        </div>
+        <div class="w-full h-3/5">
+            <table class="w-full text-xs text-left">
+                <thead class="flex flex-col w-full text-white bg-black">
+                    <tr class="flex w-full px-2">
+                        <th class="w-1/12">Luxotica</th>
+                        <th class="w-1/12">Store</th>
+                        <th class="w-2/12">Nombre</th>
+                        <th class="w-3/12">eMail</th>
+                        <th class="w-1/12 text-right">Total</th>
+                        <th class="flex flex-row-reverse w-1/12"><x-icon.question class="w-2 mb-1 text-white"/></th>
+                        <th class="flex flex-row-reverse w-1/12"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/></th>
+                        <th class="flex flex-row-reverse w-1/12"><x-icon.thumbs-down class="w-4 mb-1 text-red-500"/></th>
+                        <th class="w-1/12"></th>
+                    </tr>
+                </thead>
+                <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 70vh;">
+                    @foreach ($stores as $store)
+                    <tr class="flex w-full px-2">
+                        <input type="hidden" name="id" value="{{$store->id}}">
+                        <td class="w-1/12">{{$store->tienda->luxotica}}</td>
+                        <td class="w-1/12">{{$store->tienda->id}}</td>
+                        <td class="w-2/12">{{$store->tienda->name}}</td>
+                        <td class="w-3/12"><a href="mailto:{{$store->tienda->email}}"><span class="text-blue-500 underline">{{$store->tienda->email}}</span>  </a></td>
+                        <td class="w-1/12 text-right">{{$store->total}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->total-$store->OK-$store->KO}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->OK}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->KO}}</td>
+                        <td class="flex flex-row-reverse w-1/12 pr-2">
+                            @can('tiendas.index')
+                                <a href="{{ route('tienda.show',[$campaign,$store->tienda->id]) }}" title="Editar tienda"><x-icon.arrow-right class="text-green-500"/></a>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 @push('scriptchosen')
 
+<script>
+
+</script>
 
 @endpush
 

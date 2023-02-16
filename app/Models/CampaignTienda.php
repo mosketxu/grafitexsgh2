@@ -30,7 +30,7 @@ class CampaignTienda extends Model
 
     // SCOPES
 
-    public function scopeSearch($query, $busca)
+    public function scopeSearch2($query, $busca)
     {
       return $query->join('campaigns','campaigns.id','campaign_tiendas.campaign_id')
       ->where('campaign_name', 'LIKE', "%$busca%");

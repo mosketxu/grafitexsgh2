@@ -5,17 +5,23 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
+                    @can('dashboard.index')
                     <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block w-auto h-9" />
                     </a>
+                    @else
+                        <x-jet-application-mark class="block w-auto h-9" />
+                    @endcan
                 </div>
 
                 <!-- Navigation Links -->
+                @can('dashboard.index')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
+                @endcan
 
                 @can('stores.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -26,9 +32,15 @@
                 @endcan
                 @can('tiendas.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        @if(Auth::user()->hasRole('tienda'))
+                        <x-jet-nav-link href="{{route('tienda.index') }}" :active="request()->routeIs('tienda.index')">
+                            {{ __('Control recepción') }}
+                        </x-jet-nav-link>
+                        @else
                         <x-jet-nav-link href="{{route('tienda.control') }}" :active="request()->routeIs('tienda.control')">
                             {{ __('Control recepción') }}
                         </x-jet-nav-link>
+                        @endif
                     </div>
                 @endcan
                 @can('elemento.index')
@@ -147,7 +159,7 @@
             </x-jet-responsive-nav-link>
             @endcan
             @can('tiendas.index')
-            <x-jet-responsive-nav-link href="{{ route('tiendas.index') }}" :active="request()->routeIs('tiendas.index')">
+            <x-jet-responsive-nav-link href="{{ route('tienda.index') }}" :active="request()->routeIs('tiendas.index')">
                 {{ __('Control recepción') }}
             </x-jet-responsive-nav-link>
             @endcan

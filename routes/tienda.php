@@ -7,7 +7,7 @@ Route::get('tienda/index','TiendaController@index')->name('tienda.index')
 Route::get('tienda/control','TiendaController@control')->name('tienda.control')
 ->middleware('can:tiendas.index');
 
-Route::get('tienda/{campaign}/campaignstores','TiendaController@campaignstores')->name('tienda.campaignstores')
+Route::get('tienda/{campaign}/campaignstores','TiendaController@campaignstores')->name('tienda.controlstores')
 ->middleware('can:tiendas.index');
 
 Route::get('tienda/{campaign}/{store}/edit','TiendaController@edit')->name('tienda.edit')

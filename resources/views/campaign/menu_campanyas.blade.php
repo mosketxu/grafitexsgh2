@@ -1,8 +1,8 @@
 <nav x-data="{ open: false }" class="rounded-md ">
     <div class="w-full px-2 mx-auto sm:px-2 lg:px-2">
-        <div class="w-full flex justify-between ">
-            <div class="w-full flex text-xs">
-                <div class="flex w-8/12 space-x-1 text-xs mr-2">
+        <div class="flex justify-between w-full ">
+            <div class="flex w-full text-xs">
+                <div class="flex w-8/12 mr-2 space-x-1 text-xs">
                     <form method="GET" action="{{ route('campaign.index') }}" class="w-full">
                         <div class="flex w-full mr-2">
                             <div class="w-10/12">

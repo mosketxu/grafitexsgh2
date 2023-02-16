@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-auto ">
-                        <span class="h3 m-0 text-dark">@yield('titlePag')</span>
+                        <span class="m-0 h3 text-dark">@yield('titlePag')</span>
                         <span class="hidden" id="campaign_id"></span>
                     </div>
                     <div class="col-auto mr-auto">
@@ -65,7 +65,7 @@
                                 {{ $elementos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
                                 Hay {{$elementos->total()}} elementos
                             </div>
-                            <div class="col-2 float-right mb-2">
+                            <div class="float-right mb-2 col-2">
                                 {{-- <form method="GET" action="{{route('tienda.control') }}">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
@@ -77,8 +77,8 @@
                             </div>
                         </div>
 
-                        <div class="table-responsive mb-0 pb-0">
-                            <table id="tcampaignElementos" class="table table-hover table-sm small mb-0 pb-0" cellspacing="0" width=100%>
+                        <div class="pb-0 mb-0 table-responsive">
+                            <table id="tcampaignElementos" class="table pb-0 mb-0 table-hover table-sm small" cellspacing="0" width=100%>
                                 <thead>
                                     <tr>
                                         <th class="d-none">#</th>
@@ -108,11 +108,11 @@
                                                     </form>
                                                     <form action="{{route('tienda.show',[$campaign,$store])}}">
                                                         <input type="hidden" name="busqueda" value="OK">
-                                                        <button type="submit"  class="enlace"><span class="badge badge-success"><i class="far fa-thumbs-up  fa-lg"></i> {{$correctos}}</span> </button>
+                                                        <button type="submit"  class="enlace"><span class="badge badge-success"><i class="far fa-thumbs-up fa-lg"></i> {{$correctos}}</span> </button>
                                                     </form>
                                                     <form action="{{route('tienda.show',[$campaign,$store])}}">
                                                         <input type="hidden" name="busqueda" value="KO">
-                                                            <button type="submit" class="enlace"><span class="badge badge-danger"><i class="far fa-thumbs-down  fa-lg"></i> {{$incidencias}}</span> </button>
+                                                            <button type="submit" class="enlace"><span class="badge badge-danger"><i class="far fa-thumbs-down fa-lg"></i> {{$incidencias}}</span> </button>
                                                     </form>
                                                 </div>
                                         </div>
@@ -176,7 +176,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-default" href="{{route('tienda.campaignstores',$campaign->id)}}" title="Ir la página anterior">Volver</a>
+                        <a class="btn btn-default" href="{{route('tienda.controlstores',$campaign->id)}}" title="Ir la página anterior">Volver</a>
                     </div>
                 </div>
             </div>

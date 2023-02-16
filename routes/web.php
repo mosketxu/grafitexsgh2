@@ -25,7 +25,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             return redirect()->route('stores.index');
         }
         elseif(Auth::user()->hasRole('tienda')){
-            dd('4');
             return redirect()->route('tienda.index');
         }
         elseif(Auth::user()->hasRole('proveedor')){
@@ -194,8 +193,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     // Route::group(['middleware' => ['auth']], function () {
     //     //Tienda
     //     require __DIR__ .'/tienda.php';
+    Route::put('tienda/update',[TiendaController::class,'update'])->name('tienda.update')->middleware('can:tiendas.edit');
+    Route::get('tienda/{campaign}/controlstores',[TiendaController::class,'controlstores'])->name('tienda.controlstores')->middleware('can:tiendas.index');
     Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
-    Route::resource('tiendas', TiendaController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
+    Route::get('tienda/{campaign}/{store}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
+    Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
+    Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
+    // Route::resource('tiendas', TiendaController::class); //cuando es resource para aplicar seguridad can hay que hacerlo en el controller
 
     //     //Store elementos
     //     require __DIR__ .'/storeelementos.php';
