@@ -5,19 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pais extends Model
+class Provincia extends Model
 {
-    use HasFactory;
-
-    protected $table = 'paises';
-
     public $incrementing = false;
     public $timestamps = false;
-
-    protected $fillable = ['pais'];
+    protected $fillable = ['provincia'];
 
     public function entidades()
     {
-        return $this->hasMany(Entidad::class,'pais_id');
+         return $this->hasMany(Entidad::class);
     }
+
 }
+

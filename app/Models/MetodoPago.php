@@ -9,8 +9,6 @@ class MetodoPago extends Model
 {
     use HasFactory;
 
-    protected $connection = 'mysqlstock';
-
     protected $fillable = ['nombre','nombrecorto'];
 
     public $incrementing = false;
