@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Entidad;
 
-use App\Models\{Area, Entidad,User};
+use App\Models\{Area, Entidad, Provincia, User};
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,20 +17,23 @@ class Ents extends Component
 
     public Entidad $entidad;
 
-    public function render()
-    {
+    public function render(){
         $entidades=Entidad::query()
+            ->with('entidadareas')
             ->search('entidad',$this->search)
             ->search('provincia',$this->filtroprovincia)
             ->search('localidad',$this->filtrolocalidad)
             ->when($this->filtroarea!='', function ($query) {
-                $query->where('area_id','=',$this->filtroarea);})
+                $query->whereHas('entidadareas',function($query){
+                    $query->where('area_id', $this->filtroarea);
+                });})
             ->orderBy('entidad','asc')
             ->get();
 
             $areas=Area::orderBy('area')->get();
+            $provincias=Provincia::orderBy('provincia')->get();
 
-        return view('livewire.entidad.ents',compact('entidades','areas'));
+        return view('livewire.entidad.ents',compact('entidades','areas','provincias'));
     }
 
     public function updatingSearch(){$this->resetPage();}

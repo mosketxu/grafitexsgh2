@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Entidad;
 
-use App\Models\{Entidad, EntidadContacto,  MetodoPago,Pais,Provincia, User};
+use App\Models\{Area, Entidad, EntidadArea, EntidadContacto,  MetodoPago,Pais,Provincia, User};
 // use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
@@ -16,6 +16,8 @@ class Ent extends Component
     public $departamento;
     public $comentario;
     public $contacto;
+    public $area='';
+    public $observaciones='';
 
     protected function rules()
     {
@@ -65,7 +67,6 @@ class Ent extends Component
     {
         $this->entidad=$entidad;
         $this->contacto=$contacto;
-
         $this->fechacli=$this->entidad->fechacliente;
     }
 
@@ -80,11 +81,16 @@ class Ent extends Component
         $metodopagos=MetodoPago::all();
         $provincias=Provincia::all();
         $paises=Pais::all();
-        return view('livewire.entidad.ent',compact('metodopagos','provincias','paises'));
+
+        $areasSi=EntidadArea::where('entidad_id',$this->entidad->id)->get();
+        // dd($areasSi->pluck('area_id'));
+        $areasNo=Area::whereNotIn('id',$areasSi->pluck('area_id'))->get();
+
+
+        return view('livewire.entidad.ent',compact('metodopagos','provincias','paises','areasSi','areasNo'));
     }
 
-    public function save()
-    {
+    public function save(){
         $this->validate();
         if($this->entidad->id){
             $i=$this->entidad->id;
@@ -110,6 +116,7 @@ class Ent extends Component
             $i=$this->entidad->id;
             $mensaje="Proveedor creado satisfactoriamente";
         }
+
 
         $ent=Entidad::updateOrCreate([
             'id'=>$i
@@ -156,6 +163,45 @@ class Ent extends Component
         }
 
         $this->emitSelf('notify-saved');
+        // $this->dispatchBrowserEvent('notify', $mensaje);
+    }
+
+    public function savearea(){
+        $i='';
+        $e=EntidadArea::where('entidad_id',$this->entidad->id)->where('area_id',$this->area)->first();
+        if($e) $i=$e->id;
+
+        $entarea=EntidadArea::updateOrCreate([
+            'id'=>$i
+            ],
+            [
+            'entidad_id'=>$this->entidad->id,
+            'area_id'=>$this->area,
+            'observaciones'=>$this->observaciones,
+            ]
+        );
+
+        return redirect()->route('entidad.edit',$this->entidad)->with('message','Area actualizada con éxito');
+
+    }
+
+    public function changeValor($valor,$v){
+        $entarea=EntidadArea::find($valor['id']);
+            // $p=Country::find($valor['ide']);
+        $entarea->observaciones=$v;
+        $entarea->save();
+        $mensaje="Actualizado";
         $this->dispatchBrowserEvent('notify', $mensaje);
+    }
+
+
+
+    public function delete($areaId){
+        $entare=EntidadArea::find($areaId);
+        if($entare)
+            $entare->delete();
+
+        return redirect()->route('entidad.edit',$this->entidad)->with('message','Area eliminada con éxito');
+
     }
 }

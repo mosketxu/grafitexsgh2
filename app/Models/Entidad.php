@@ -19,7 +19,9 @@ class Entidad extends Model
                         'metodopago_id','diavencimiento','observaciones'];
 
     public function pais(){ return $this->belongsTo(Pais::class);}
-    public function entidadarea(){return $this->belongsTo(Area::class,'area_id');}
+    public function provinci(){ return $this->belongsTo(Provincia::class,'provincia','id');}
+    public function entidadareaprincipal(){return $this->belongsTo(Area::class,'area_id');}
+    public function entidadareas(){return $this->hasMany(EntidadArea::class,'entidad_id');}
     public function metodopago(){return $this->belongsTo(MetodoPago::class);}
     public function contactos(){return $this->hasMany(EntidadContacto::class)->withDefault(['contacto'=>'-']);}
 

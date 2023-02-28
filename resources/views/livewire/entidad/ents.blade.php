@@ -1,6 +1,5 @@
 <div class="">
     <div class="h-full p-1 mx-2">
-        <h1 class="text-2xl font-semibold text-gray-900">Proveedores
         <div class="py-1 space-y-4">
             <div class="">
                 @include('errores')
@@ -12,7 +11,7 @@
             <div class="flex-col space-y-4">
                 <div>
                     <div class="flex w-full py-2 pl-2 text-sm text-gray-500 bg-blue-100 rounded-t-md">
-                        <div class="w-4/12 font-light" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Proveedor') }}" /></div>
+                        <div class="w-4/12 font-light" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Nombre') }}" /></div>
                         <div class="w-3/12 font-light" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Ciudad') }}" /></div>
                         <div class="w-2/12 font-light" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Provincia') }}" /></div>
                         <div class="w-2/12 font-light" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Area') }} " /></div>
@@ -28,7 +27,7 @@
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $entidad->localidad }}"  readonly/>
                                 </div>
                                 <div class="w-2/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $entidad->provincia}}"  readonly/>
+                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $entidad->provinci->provincia ?? '-'}}"  readonly/>
                                 </div>
                                 <div class="w-2/12">
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $entidad->entidadarea->area ?? '-' }}" readonly/>
