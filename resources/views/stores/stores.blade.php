@@ -20,7 +20,10 @@
                 <div class="w-1/12 text-left">Cluster</div>
                 <div class="w-1/12 text-left">Concepto</div>
                 <div class="w-1/12 text-left">Furniture Type</div>
-                <div class="w-1/12 text-left"></div>
+                @hasanyrole('admin|grafitex')
+                    <div class="w-1/12 text-left">Prov.Fav</div>
+                @endhasanyrole
+                <div class="w-10 text-left"></div>
             </div>
             <div class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 60vh;">
                 @foreach ($stores as $store)
@@ -38,7 +41,15 @@
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->store_cluster}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->concep->storeconcept}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->furniture_type}}</div>
-                        <div class="flex w-1/12 my-2 ml-2text-center justify-between">
+                        @hasanyrole('admin|grafitex')
+                            <div class="w-1/12 text-left">
+                                @if($store->proveedor_id)
+                                <a href="{{ route('entidad.edit',$store->proveedor->id) }}">{{ $store->proveedor->entidad }}</a>
+                                @endif
+                            </div>
+                        @endhasanyrole
+
+                        <div class="flex justify-between w-10 my-2 ml-2text-center">
                             @can('stores.edit')
                                 <div class="">
                                     <a href="{{ route('stores.edit',$store) }}" title="Editar tienda"><x-icon.edit class="w-6 text-blue-600"/></a>

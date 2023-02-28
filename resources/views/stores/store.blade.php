@@ -15,7 +15,7 @@
                     <div class="p-1 rounded-md bg-blue-50">
                         <h3 class="pl-1 font-semibold">Datos generales</h3>
                     </div>
-                    <div class="w-full flex">
+                    <div class="flex w-full">
                         <div class="w-9/12 p-1 m-1 space-y-1">
                             <div class="flex flex-col mx-2 space-y-1 md:space-y-0 md:flex-row md:space-x-2">
                                 {{-- Code --}}
@@ -172,11 +172,22 @@
                                     <x-input.text name="observaciones" value="{{old('observaciones',$store->observaciones)}}" class="py-1"/>
                                 </div>
                             </div>
+                            @hasanyrole('admin|grafitex')
+                            <div class="flex flex-col mx-2 space-y-1 md:space-y-0 md:flex-row md:space-x-2">
+                                <x-jet-label for="furniture_type">Proveedor favorito</x-jet-label>
+                                <x-select class="w-full py-1.5 border-blue-300"  id="proveedor_id" selectname="proveedor_id" name="proveedor_id" >
+                                    <option value="">-- Selecciona el proveedor favorito--</option>
+                                    @foreach($proveedores as $proveedor )
+                                    <option value="{{$proveedor->id}}" {{old('proveedor_id',$proveedor->id==$store->proveedor_id) ? 'selected' : ''}}>{{$proveedor->entidad}}</option>
+                                    @endforeach
+                                </x-select>
+                        </div>
+                            @endhasanyrole
                         </div>
                         <div class="3/12">
                             {{-- imagen --}}
-                            <div class="w-full form-item space-y-3">
-                                <div class=" border rounded-md my-2">
+                            <div class="w-full space-y-3 form-item">
+                                <div class="my-2 border rounded-md ">
                                     <img src="{{asset('storage/store/'.$store->imagen)}}" alt={{$store->imagen}} title={{$store->imagen}}
                                     class="img-fluid img-thumbnail" style="max-height: 200px; ">
                                 </div>
@@ -188,7 +199,7 @@
                         </div>
                     </div>
                     {{-- botones --}}
-                    <div class="">
+                    <div class="m-2">
                         @can('stores.edit')
                         <x-jet-button type="submit" class="bg-blue-700 hover:bg-blue-900" >
                             {{ __('Guardar') }}

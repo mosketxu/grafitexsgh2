@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Furniture, Storeconcept};
+use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, Storeconcept};
 use App\Imports\StoreAdressesImport;
 use App\Exports\StoreExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class StoreController extends Controller
@@ -53,6 +55,11 @@ class StoreController extends Controller
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
+
+        // $roles = Auth::user()->getRoleNames();
+        // dd($roles);
+        // dd(Auth::user()->hasRole('admin','sgh'));
+
 
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
@@ -138,8 +145,9 @@ class StoreController extends Controller
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
+        $proveedores=Entidad::orderBy('entidad')->get();
 
-        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures'));
+        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','proveedores'));
     }
 
     /**
@@ -200,6 +208,7 @@ class StoreController extends Controller
             'deliverytime'=>$request->deliverytime,
             'imagen'=>$imagen,
             'observaciones'=>$request->observaciones,
+            'proveedor_id'=>$request->proveedor_id,
              ]
         );
 

@@ -14,7 +14,7 @@ class Store extends Model
         'country','zona','area_id','area','idioma','segmento',
         'concepto_id','concepto','imagen',
         'channel','store_cluster','furniture_type','winterschedule','summerschedule',
-        'deliverytime','observaciones'
+        'deliverytime','observaciones','proveedor_id'
     ];
 
     protected $with=['are','concep','storeelementos'];
