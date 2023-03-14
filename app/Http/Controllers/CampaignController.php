@@ -34,6 +34,7 @@ class CampaignController extends Controller{
         $this->middleware('can:campaign.index')->only('index','addresses','exportaddresses');
         $this->middleware('can:campaign.edit')->only('edit','filtrar','show','update','destroy','generarcampaign','conteo');
         $this->middleware('can:campaign.delete')->only('destroy');
+        $this->middleware('can:plan.index')->only('plan');
     }
      /**
      * Display a listing of the resource.
@@ -285,6 +286,23 @@ class CampaignController extends Controller{
         $totalstores=CampaignTienda::where('campaign_id',$campaignId)->count();
         return view('campaign.conteosindex',compact('campaign','busqueda'));
     }
+
+
+    public function plan(Request $request){
+        $busqueda = '';
+        if ($request->busca) $busqueda = $request->busca;
+
+        $campaigns=Campaign::search2($request->busca)
+            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
+            ->paginate(10);
+
+        return view('campaign.plan.index',compact('campaigns','busqueda'));
+        // tienda.indexrecepcion
+    }
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

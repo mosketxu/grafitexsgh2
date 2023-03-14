@@ -81,6 +81,10 @@ class CampaignAsociarstores extends Component
     }
 
     public function getRowsdispProperty(){
+
+        // $a="where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%')";
+        // dd($a);
+
         if($this->model1c1=='store_id'){
             return StoreElemento::join('stores','stores.id','store_id')
                 ->join('elementos','elementos.id','elemento_id')
@@ -89,7 +93,8 @@ class CampaignAsociarstores extends Component
                     $query->select($this->model1c1)->from($this->tabla1)->where('campaign_id', '=', $this->campaignid);
                 })
                 ->when($this->searchdisponibles!='', function ($query){
-                    $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere($this->model1c2,'like','%'.$this->searchdisponibles.'%');
+                    // $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere($this->model1c2,'like','%'.$this->searchdisponibles.'%');
+                    $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%');
                     })
                 ->campstoseg($this->campaignid)
                 ->campstoubi($this->campaignid)

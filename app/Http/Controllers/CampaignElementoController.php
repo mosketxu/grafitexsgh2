@@ -72,8 +72,7 @@ class CampaignElementoController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($campaignId,$elementoId)
-    {
+    public function edit($campaignId,$elementoId){
         $campaign=Campaign::find($campaignId);
         $campaignelemento=CampaignElemento::where('id',$elementoId)->first();
 

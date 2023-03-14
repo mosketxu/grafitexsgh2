@@ -10,7 +10,8 @@
         </div>
         <div class="mx-2 space-y-1 border rounded-md">
             <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
-                <div class="w-1/12 text-left">Luxotica</div>
+                {{-- <div class="w-1/12 text-left">Luxottica</div> --}}
+                <div class="w-1/12 text-left">Country</div>
                 <div class="w-1/12 text-left">Code</div>
                 <div class="w-1/12 text-left">Store</div>
                 <div class="w-1/12 text-left">Country</div>
@@ -20,9 +21,9 @@
                 <div class="w-1/12 text-left">Cluster</div>
                 <div class="w-1/12 text-left">Concepto</div>
                 <div class="w-1/12 text-left">Furniture Type</div>
-                @hasanyrole('admin|grafitex')
+                {{-- @hasanyrole('admin|grafitex')
                     <div class="w-1/12 text-left">Prov.Fav</div>
-                @endhasanyrole
+                @endhasanyrole --}}
                 <div class="w-10 text-left"></div>
             </div>
             <div class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 60vh;">
@@ -41,13 +42,13 @@
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->store_cluster}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->concep->storeconcept}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->furniture_type}}</div>
-                        @hasanyrole('admin|grafitex')
+                        {{-- @hasanyrole('admin|grafitex')
                             <div class="w-1/12 text-left">
                                 @if($store->proveedor_id)
                                 <a href="{{ route('entidad.edit',$store->proveedor->id) }}">{{ $store->proveedor->entidad }}</a>
                                 @endif
                             </div>
-                        @endhasanyrole
+                        @endhasanyrole --}}
 
                         <div class="flex justify-between w-10 my-2 ml-2text-center">
                             @can('stores.edit')

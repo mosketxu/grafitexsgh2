@@ -33,7 +33,8 @@
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">
                     <tr class="flex w-full px-2">
-                        <th class="w-1/12">Luxotica</th>
+                        {{-- <th class="w-1/12">Luxottica</th> --}}
+                        <th class="w-1/12">Country</th>
                         <th class="w-1/12">Store</th>
                         <th class="w-2/12">Nombre</th>
                         <th class="w-3/12">eMail</th>

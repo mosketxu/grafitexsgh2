@@ -18,7 +18,7 @@
                 <div class="flex">
                     <input type="button" value=">>" wire:click="asociartodos()" class="w-full text-lg border transform hover:bg-gray-200 hover:text-2xl">
                 </div>
-                <div class="bg-grey-light flex flex-col overflow-y-scroll w-full" style="height: 27vh;">
+                <div class="bg-grey-light flex flex-col overflow-y-scroll w-full overflow-hidden" style="height: 27vh;">
                     @forelse ($disponibles as $disponible)
                         <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y hover:bg-gray-200" style="cursor: pointer" wire:loading.class.delay="opacity-50">
                             <div class="w-full pl-2 " wire:click="asocia({{ $disponible }},'1')" >{{ $titulo=='Stores' ? ($disponible->ident . ' ' .$disponible->name) :  $disponible->ident }} </div>
@@ -46,7 +46,7 @@
                 <div class="flex">
                     <input type="button" value="<<" wire:click="disociartodos()" class="w-full text-lg border transform hover:bg-gray-200 hover:text-2xl">
                 </div>
-                <div class="bg-grey-light flex flex-col  overflow-y-scroll w-full" style="height: 50vh;">
+                <div class="bg-grey-light flex flex-col  overflow-y-scroll w-full  overflow-hidden" style="height: 50vh;">
                     @forelse ($asociadas as $asociada)
                     <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y hover:bg-gray-200" style="cursor: pointer" wire:loading.class.delay="opacity-50">
                         <div class="w-full pl-2" wire:click="disocia({{ $asociada->id }},'1')">{{ $asociada->campo }}  {{ $asociada->name }}</div>

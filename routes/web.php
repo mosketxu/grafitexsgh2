@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //campaign.php
     Route::group(['prefix' => 'campaign'], function () {
         Route::post('generarcampaign/{tipo}/{campaign}', [CampaignController::class,'generarcampaign'])->name('campaign.generar')->middleware('can:campaign.create');
+        Route::get('/{campaign}/plan', [CampaignController::class,'plan'])->name('campaign.plan')->middleware('can:plan.index');
         Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')->middleware('can:campaign.edit');
         Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')->middleware('can:campaign.index');
         Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportadresses'])->name('campaign.exportaddresses')->middleware('can:campaign.index');

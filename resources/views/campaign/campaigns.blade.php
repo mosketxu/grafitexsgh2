@@ -62,6 +62,11 @@
                             <a href="{{route('campaign.conteo', $campaign->id ) }}" title="Estadísticas"><x-icon.chart-column class="text-orange-500 w-7"/></a>
                         </div>
                     @endcan
+                    @can('plan.index')
+                        <div class="">
+                            <a href="{{route('campaign.plan', $campaign->id ) }}" title="Planificacion"><x-icon.calendar-days class="w-6 text-cyan-500 -500"/></a>
+                        </div>
+                    @endcan
                     @can('campaign.delete')
                         <form  action="{{route('campaign.delete',$campaign->id)}}" method="post">
                             @csrf

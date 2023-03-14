@@ -30,7 +30,8 @@
                                 </div>
                                 {{-- luxotica --}}
                                 <div class="w-full form-item">
-                                    <x-jet-label for="country">Luxotica</x-jet-label>
+                                    {{-- <x-jet-label for="country">Luxotica</x-jet-label> --}}
+                                    <x-jet-label for="country">Country</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="luxotica" selectname="luxotica" name="luxotica" >
                                         <option value="Oliver Peoples" {{old('luxotica','ES'==$store->luxotica) ? 'selected' : ''}}>Oliver Peoples</option>
                                         <option value="Ray-Ban Store" {{old('country','PT'==$store->country) ? 'selected' : ''}}>Ray-Ban Store</option>

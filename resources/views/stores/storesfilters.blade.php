@@ -3,7 +3,8 @@
         <div class="w-full col-span-11 space-y-1 ">
             <div class="flex space-x-1 text-xs">
                 <div class="w-full">
-                    <select class="" id="lux" name="lux[]" data-placeholder="Luxotica" multiple>
+                    {{-- <select class="" id="lux" name="lux[]" data-placeholder="Luxottica" multiple> --}}
+                    <select class="" id="lux" name="lux[]" data-placeholder="Country" multiple>
                         <option value="Oliver Peoples" {{ empty($lux) ? "" : (in_array("Oliver Peoples", $lux) ? "selected" : "")}}>Oliver Peoples</option>
                         <option value="Ray-Ban Store" {{ empty($lux) ? "" : (in_array("Ray-Ban Store", $lux) ? "selected" : "")}}>Ray-Ban Store</option>
                         <option value="Sunglass Hut" {{ empty($lux) ? "" : (in_array("Sunglass Hut", $lux) ? "selected" : "")}}>Sunglass Hut</option>

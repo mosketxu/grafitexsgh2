@@ -10,7 +10,8 @@
         </div>
         <div class="space-y-1 border rounded-md">
             <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
-                <div class="w-1/12 text-left">Luxotica</div>
+                {{-- <div class="w-1/12 text-left">Luxottica</div> --}}
+                <div class="w-1/12 text-left">Country</div>
                 <div class="w-1/12 text-left">Store</div>
                 <div class="w-2/12 text-left">Nombre</div>
                 <div class="w-2/12 text-left">Dirección</div>
