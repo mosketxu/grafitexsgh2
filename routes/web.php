@@ -131,9 +131,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //Entidades
     Route::get('/entidad/nuevocontacto/{entidad}', [EntidadController::class, 'createcontacto'])->name('entidad.createcontacto');
     Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
-    Route::resource('entidad', EntidadController::class)->only('index','edit','update','create');
-
-
+    Route::resource('entidad', EntidadController::class)->only('index','show','edit','update','create');
 });
 
 

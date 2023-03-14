@@ -21,10 +21,15 @@
                 <div class="w-1/12 text-left">Cluster</div>
                 <div class="w-1/12 text-left">Concepto</div>
                 <div class="w-1/12 text-left">Furniture Type</div>
+                <div class="w-1/12 text-left">
+                    @can('entidad.index')
+                        Montador
+                    @endcan
+                </div>
                 {{-- @hasanyrole('admin|grafitex')
                     <div class="w-1/12 text-left">Prov.Fav</div>
                 @endhasanyrole --}}
-                <div class="w-10 text-left"></div>
+                <div class="w-1/12 text-left"></div>
             </div>
             <div class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 60vh;">
                 @foreach ($stores as $store)
@@ -42,6 +47,14 @@
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->store_cluster}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->concep->storeconcept}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->furniture_type}}</div>
+                        <div class="flex-wrap w-1/12 my-2 text-left">
+                            @can('entidad.index')
+                                @if($store->proveedor_id)
+                                    <a href="{{ route('entidad.show',$store->proveedor_id) }}" class="text-blue-600 underline">{{$store->proveedor->entidad}}</a>
+                                @endif
+                            @endcan
+                        </div>
+
                         {{-- @hasanyrole('admin|grafitex')
                             <div class="w-1/12 text-left">
                                 @if($store->proveedor_id)
@@ -50,22 +63,16 @@
                             </div>
                         @endhasanyrole --}}
 
-                        <div class="flex justify-between w-10 my-2 ml-2text-center">
+                        <div class="flex w-1/12 text-center">
                             @can('stores.edit')
-                                <div class="">
-                                    <a href="{{ route('stores.edit',$store) }}" title="Editar tienda"><x-icon.edit class="w-6 text-blue-600"/></a>
-                                </div>
+                                <x-icon.edit-a href="{{ route('stores.edit',$store) }}" class="w-6 text-blue-600" title="Editar tienda"/>
                             @endcan
                             @can('storeelementos.index')
-                                <div class="">
-                                    <a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos"><x-icon.cubes class="w-6 text-green-600"/></a>
-                                </div>
+                                <x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600"/>
                             @endcan
-                            @can('store.delete')
-                                <div class="">
-                                    @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
-                                </div>
-                            @endcan
+                            {{-- @can('store.delete') --}}
+                                @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
+                            {{-- @endcan --}}
                         </div>
                     </div>
                 </form>

@@ -25,109 +25,80 @@ class Store extends Model
         //     return $this->hasMany(CampaignElemento::class,'store_id');
         // }
 
-    public function campaigntiendas()
-    {
-        return $this->hasMany(CampaignTienda::class);
-    }
+    public function campaigntiendas(){return $this->hasMany(CampaignTienda::class);}
+    public function storeelementos(){return $this->hasMany(StoreElemento::class);}
+    public function are(){return $this->belongsTo(Area::class,'area_id');}
+    public function concep(){return $this->belongsTo(Storeconcept::class,'concepto_id');}
+    public function proveedor(){return $this->hasOne(Entidad::class,'id','proveedor_id');}
 
-
-    public function storeelementos()
-    {
-        return $this->hasMany(StoreElemento::class);
-    }
-
-    public function are()
-    {
-        return $this->belongsTo(Area::class,'area_id');
-    }
-
-
-    public function concep()
-    {
-        return $this->belongsTo(Storeconcept::class,'concepto_id');
-    }
-
-
-    public function scopeSeg($query,$campaignId)
-    {
+    public function scopeSeg($query,$campaignId){
         if (CampaignSegmento::where('campaign_id',$campaignId)->count()>0){
             return $query->whereIn('segmento',function($q) use($campaignId){
                 $q->select('segmento')->from('campaign_segmentos')->where('campaign_id',$campaignId);
             });}
     }
 
-    public function scopeLux($query,$lux)
-    {
+    public function scopeLux($query,$lux){
         if (!empty($lux)){
             return $query->whereIn('luxotica',$lux);
         }
     }
 
-    public function scopeSto($query,$sto)
-    {
+    public function scopeSto($query,$sto){
         if (!empty($sto)){
             return $query->whereIn('id',$sto);
         }
     }
 
-    public function scopeNam($query,$nam)
-    {
+    public function scopeNam($query,$nam){
         if (!empty($nam)){
             return $query->whereIn('name',$nam);
         }
     }
 
-    public function scopeCoun($query,$coun)
-    {
+    public function scopeCoun($query,$coun){
         if (!empty($coun)){
             return $query->whereIn('country',$coun);
         }
     }
 
-    public function scopeAre($query,$are)
-    {
+    public function scopeAre($query,$are){
         if (!empty($are)){
             return $query->whereIn('area',$are);
         }
     }
 
-    public function scopeSegmen($query,$segmen)
-    {
+    public function scopeSegmen($query,$segmen){
         if (!empty($segmen)){
             return $query->whereIn('segmento',$segmen);
         }
     }
 
-    public function scopeCha($query,$cha)
-    {
+    public function scopeCha($query,$cha){
         if (!empty($cha)){
             return $query->whereIn('channel',$cha);
         }
     }
 
-    public function scopeClu($query,$clu)
-    {
+    public function scopeClu($query,$clu){
         if (!empty($clu)){
             return $query->whereIn('cluster',$clu);
         }
     }
 
-    public function scopeConce($query,$conce)
-    {
+    public function scopeConce($query,$conce){
         if (!empty($conce)){
             return $query->whereIn('concepto',$conce);
         }
     }
 
-    public function scopeFur($query,$fur)
-    {
+    public function scopeFur($query,$fur){
         if (!empty($fur)){
             return $query->whereIn('furniture_type',$fur);
         }
     }
 
-    static function subirImagen($storeId,$imagen)
-    {
+    static function subirImagen($storeId,$imagen){
         //Por si me interesa estos datos de la imagen
         $extension=$imagen->getClientOriginalExtension();
         $tipo=$imagen->getClientMimeType();
