@@ -25,6 +25,7 @@ use App\Models\{
 use App\Exports\CampaignStoresExport;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -111,9 +112,13 @@ class CampaignController extends Controller{
         $campaign = Campaign::find($id);
         //Si empiezo de 0 borrar todo lo generado y regenerar
         if($tipo=="0"){
+            if(CampaignStore::where('campaign_id',$id)->count()>0){
+                CampaignStore::where('campaign_id','=',$id)->delete();
+                // elimna en cascada CampaignStore
+            }
             if(CampaignTienda::where('campaign_id',$id)->count()>0){
                 CampaignTienda::where('campaign_id','=',$id)->delete();
-                // elimna en cascada CampaignElemento
+                // elimna en cascada CampaignTienda
             }
             if(CampaignGaleria::where('campaign_id','=',$id)->count()>0){
                 CampaignGaleria::where('campaign_id','=',$id)->delete();
@@ -288,21 +293,49 @@ class CampaignController extends Controller{
     }
 
 
-    public function plan(Request $request){
-        $busqueda = '';
-        if ($request->busca) $busqueda = $request->busca;
+    public function plan(Request $request,Campaign $campaign){
+        $busquedaname = '';
+        if ($request->buscaname) $busquedaname = $request->buscaname;
+        $busquedastoreid = '';
+        if ($request->buscastoreid) $busquedastoreid = $request->buscastoreid;
+        $habilitado=Auth::user()->can('plan.edit') ? '' :'disabled';
+        $color=Auth::user()->can('plan.edit') ? 'bg-white' :'bg-gray-100';
 
-        $campaigns=Campaign::search2($request->busca)
-            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-            ->paginate(10);
+        $campaigntiendas=CampaignTienda::join('stores','campaign_tiendas.store_id','=','stores.id')
+            ->select('campaign_tiendas.*','stores.name')
+            ->search('store_id',$busquedastoreid)
+            ->orSearch('stores.name',$busquedaname)
+            ->where('campaign_id',$campaign->id)
+            ->paginate(30);
 
-        return view('campaign.plan.index',compact('campaigns','busqueda'));
-        // tienda.indexrecepcion
+        return view('campaign.plan.index',compact('campaign','campaigntiendas','busquedaname','busquedastoreid','habilitado','color'));
     }
 
+    public function generarplan(Campaign $campaign){
+        $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
+        foreach($campaigntiendas as $camptienda){
+            $camptienda->update(
+            [
+                'fechainiprev' => $campaign->fechainstalini,
+                'fechafinprev' => $campaign->fechainstalfin,
+                'proveedor_id' => $camptienda->tienda->proveedor_id,
+                ]
+            );
+        }
+        return redirect()->route('campaign.plan',$campaign)->with('message','Planificacion realizada');
+    }
 
+    public function planupdate(Request $request,Campaign $campaign){
 
+        $campaign->update(
+            [
+                'fechainstalini' => $request->fechainstalini,
+                'fechainstalfin' => $request->fechainstalfin
+                ]
+            );
 
+        return redirect()->route('campaign.plan',$campaign)->with('message','Fechas actualizadas ');
+    }
 
     /**
      * Remove the specified resource from storage.

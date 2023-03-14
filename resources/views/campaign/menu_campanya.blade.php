@@ -21,6 +21,9 @@
             @can('campaign.index')
             <x-icon.chart-column-a  href="{{route('campaign.conteo',$campaign->id) }}" title="Estadísticas" class="pt-1 mx-4 text-orange-500 w-7"/>
             @endcan
+            @can('plan.index')
+            <x-icon.calendar-days-a href="{{route('campaign.plan', $campaign->id ) }}" title="Planificacion" class="w-6 text-cyan-500 -500"/>
+            @endcan
         </div>
     </div>
 </nav>
