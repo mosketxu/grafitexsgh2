@@ -63,9 +63,9 @@
                             </div>
                         @endhasanyrole --}}
 
-                        <div class="flex w-1/12 text-center">
+                        <div class="flex items-center w-1/12 space-x-1 text-center">
                             @can('stores.edit')
-                                <x-icon.edit-a href="{{ route('stores.edit',$store) }}" class="w-6 text-blue-600" title="Editar tienda"/>
+                                <x-icon.edit-a href="{{ route('stores.edit',$store) }}" class="w-5 text-blue-600" title="Editar tienda"/>
                             @endcan
                             @can('storeelementos.index')
                                 <x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600"/>

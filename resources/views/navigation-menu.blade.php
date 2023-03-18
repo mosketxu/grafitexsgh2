@@ -80,7 +80,7 @@
                 @can('entidad.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{route('entidad.index') }}" :active="request()->routeIs('entidad.index')">
-                            {{ __('Proveedores') }}
+                            {{ __('Montadores') }}
                         </x-jet-nav-link>
                     </div>
                 @endcan
@@ -188,7 +188,7 @@
             @endcan
             @can('campaign.index')
             <x-jet-responsive-nav-link href="{{ route('entidad.index') }}" :active="request()->routeIs('entidad.index')">
-                {{ __('Proveedores') }}
+                {{ __('Montadores') }}
             </x-jet-responsive-nav-link>
             @endcan
             @can('tarifa.index')

@@ -38,5 +38,4 @@ class CampaignTienda extends Model
       ->where('campaign_id',$campaignid)
       ;
     }
-
 }

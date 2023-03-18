@@ -12,14 +12,14 @@
                 </div>
                 <div class="w-full">
                     <select class="" id="sto" name="sto[]" data-placeholder="store code" multiple>
-                        @foreach ($stores as $store )
+                        @foreach ($storestodoscode as $store )
                             <option value="{{$store->id}}" {{ empty($sto) ? "" : (in_array($store->id, $sto) ? "selected" : "")}}>{{$store->id}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="w-full">
                     <select class="" id="nam" name="nam[]" data-placeholder="store name" multiple>
-                        @foreach ($stores as $store )
+                        @foreach ($storestodos as $store )
                             <option value="{{$store->name}}" {{ empty($nam) ? "" : (in_array($store->name, $nam) ? "selected" : "")}}>{{$store->name}}</option>
                         @endforeach
                     </select>

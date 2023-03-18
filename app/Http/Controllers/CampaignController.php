@@ -14,7 +14,10 @@ use App\Models\{
     CampaignElemento,
     CampaignGaleria,
     CampaignTienda,
+    Country,
+    Entidad,
     Medida,
+    Provincia,
     Segmento,
     Tarifa,
     VCampaignGaleria,
@@ -292,7 +295,6 @@ class CampaignController extends Controller{
         return view('campaign.conteosindex',compact('campaign','busqueda'));
     }
 
-
     public function plan(Request $request,Campaign $campaign){
         $busquedaname = '';
         if ($request->buscaname) $busquedaname = $request->buscaname;
@@ -306,12 +308,13 @@ class CampaignController extends Controller{
             ->search('store_id',$busquedastoreid)
             ->orSearch('stores.name',$busquedaname)
             ->where('campaign_id',$campaign->id)
-            ->paginate(30);
+            ->paginate(10);
 
         return view('campaign.plan.index',compact('campaign','campaigntiendas','busquedaname','busquedastoreid','habilitado','color'));
     }
 
     public function generarplan(Campaign $campaign){
+
         $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
         foreach($campaigntiendas as $camptienda){
             $camptienda->update(
@@ -325,8 +328,7 @@ class CampaignController extends Controller{
         return redirect()->route('campaign.plan',$campaign)->with('message','Planificacion realizada');
     }
 
-    public function planupdate(Request $request,Campaign $campaign){
-
+    public function updateplanfechas(Request $request,Campaign $campaign){
         $campaign->update(
             [
                 'fechainstalini' => $request->fechainstalini,
@@ -335,6 +337,33 @@ class CampaignController extends Controller{
             );
 
         return redirect()->route('campaign.plan',$campaign)->with('message','Fechas actualizadas ');
+    }
+
+    public function editplantienda(Request $request, $camptienda){
+        $filtroarea = '';
+        if ($request->filtroarea) $filtroarea = $request->filtroarea;
+
+        $camptienda=CampaignTienda::with('campaign')->find($camptienda);
+        $montadores=Entidad::join('entidad_areas','entidades.id','entidad_areas.entidad_id')
+            ->select('entidades.id','entidades.entidad','entidad_areas.area_id')
+            ->when(!empty($filtroarea),function($query) use($filtroarea){return $query->where('entidad_areas.area_id','=',$filtroarea);})
+            ->orderBy('entidad')->get();
+
+        $areas=Area::orderBy('area')->get();
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores'));
+    }
+
+    public function updateplantienda(Request $request,CampaignTienda $camptienda){
+        $camptienda->update(
+            [
+                'fechainimontador' => $request->fechainimontador,
+                'fechafinmontador' => $request->fechafinmontador,
+                'proveedor_id' => $request->proveedor_id,
+                'observacionesmontador' => $request->observacionesmontador
+                ]
+            );
+
+        return redirect()->route('campaign.tienda',$camptienda)->with('message','Datos actualizadas ');
     }
 
     /**

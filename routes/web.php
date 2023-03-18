@@ -53,10 +53,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //campaign.php
     Route::group(['prefix' => 'campaign'], function () {
-        Route::put('campaignplanupdate/{campaign}', [CampaignController::class,'planupdate'])->name('campaign.planupdate')->middleware('can:plan.edit');
         Route::post('generarcampaign/{tipo}/{campaign}', [CampaignController::class,'generarcampaign'])->name('campaign.generar')->middleware('can:campaign.create');
-        Route::get('generar/{campaign}/plan', [CampaignController::class,'generarplan'])->name('campaign.generarplan')->middleware('can:plan.edit');
-        Route::get('/{campaign}/plan', [CampaignController::class,'plan'])->name('campaign.plan')->middleware('can:plan.index');
         Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')->middleware('can:campaign.edit');
         Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')->middleware('can:campaign.index');
         Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportadresses'])->name('campaign.exportaddresses')->middleware('can:campaign.index');
@@ -64,7 +61,16 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('/{campaign}/conteo', [CampaignController::class,'conteo'])->name('campaign.conteo')->middleware('can:campaign.index');
         Route::resource('campaign', CampaignController::class)->only('index','edit','update');
 
-        //Elementos de la campaña
+        // plan
+        Route::group(['prefix' => 'campaignplan'], function () {
+            Route::put('/update/{campaign}', [CampaignController::class,'updateplanfechas'])->name('campaign.updateplanfechas')->middleware('can:plan.edit');
+            Route::put('/{camptienda}/update/', [CampaignController::class,'updateplantienda'])->name('campaign.updateplantienda')->middleware('can:plan.edit');
+            Route::get('/{campaigntienda}/editplan', [CampaignController::class,'editplantienda'])->name('campaign.editplantienda')->middleware('can:plan.edit');
+            Route::get('/{campaign}/generar', [CampaignController::class,'generarplan'])->name('campaign.generarplan')->middleware('can:plan.edit');
+            Route::get('/{campaign}', [CampaignController::class,'plan'])->name('campaign.plan')->middleware('can:plan.index');
+        });
+
+            //Elementos de la campaña
         Route::group(['prefix' => 'elementos'], function () {
             Route::get('/{campaignelemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')->middleware('can:campaign.index');
             Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignElementoController::class,'editelemento'])->name('campaign.elemento.editelemento')->middleware('can:campaign.edit');

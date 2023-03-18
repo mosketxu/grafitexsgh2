@@ -174,15 +174,19 @@
                                 </div>
                             </div>
                             @hasanyrole('admin|grafitex')
-                            <div class="flex flex-col mx-2 space-y-1 md:space-y-0 md:flex-row md:space-x-2">
-                                <x-jet-label for="furniture_type">Proveedor favorito</x-jet-label>
-                                <x-select class="w-full py-1.5 border-blue-300"  id="proveedor_id" selectname="proveedor_id" name="proveedor_id" >
-                                    <option value="">-- Selecciona el proveedor favorito--</option>
-                                    @foreach($proveedores as $proveedor )
-                                    <option value="{{$proveedor->id}}" {{old('proveedor_id',$proveedor->id==$store->proveedor_id) ? 'selected' : ''}}>{{$proveedor->entidad}}</option>
-                                    @endforeach
-                                </x-select>
-                        </div>
+                            <div class="flex flex-col mx-2 space-y-1 bg-green-400 rounded-md md:space-y-0 md:flex-row md:space-x-2">
+                                <div class="flex w-full m-1 space-x-1 rounded-b-md">
+                                    <div class="items-center w-2/12 my-auto ml-2 text-center">
+                                        <x-jet-label for="furniture_type">Proveedor favorito</x-jet-label>
+                                    </div>
+                                    <x-select class="w-10/12 py-1.5 border-blue-300"  id="proveedor_id" selectname="proveedor_id" name="proveedor_id" >
+                                        <option value="">-- Selecciona el proveedor favorito--</option>
+                                        @foreach($proveedores as $proveedor )
+                                        <option value="{{$proveedor->id}}" {{old('proveedor_id',$proveedor->id==$store->proveedor_id) ? 'selected' : ''}}>{{$proveedor->entidad}}</option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                            </div>
                             @endhasanyrole
                         </div>
                         <div class="3/12">

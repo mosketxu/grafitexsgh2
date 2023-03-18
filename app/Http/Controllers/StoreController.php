@@ -51,21 +51,18 @@ class StoreController extends Controller
             ->orderBy('id')
             ->paginate('25');
 
+        $storestodos=Store::orderby('name')->get();
+        $storestodoscode=Store::orderby('id')->get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
 
-        // $roles = Auth::user()->getRoleNames();
-        // dd($roles);
-        // dd(Auth::user()->hasRole('admin','sgh'));
-
-
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
         else
             return view('stores.index',
-                    compact('stores','stores','areas','segmentos','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
+                    compact('stores','storestodos','storestodoscode','areas','segmentos','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
 
     }
 

@@ -129,9 +129,9 @@ class CampaignGaleria extends Component{
         // verifico que realmente llega un fichero
         if ($files=$this->imagenelemento) {
              // for save the original
-             $imageUpload=Image::make($files)->encode('jpg');
-             $originalPath='galeria/'.$this->campaign->id.'/';
-             $imageUpload->save($originalPath.$file_name);
+            $imageUpload=Image::make($files)->encode('jpg');
+            $originalPath='galeria/'.$this->campaign->id.'/';
+            $imageUpload->save($originalPath.$file_name);
              //redimensionando
             Image::make($this->imagenelemento)
             ->resize(null,144,function($constraint){

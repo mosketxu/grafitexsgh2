@@ -1,15 +1,18 @@
 <div class="">
+    <div class="">
+        @include('errores')
+    </div>
     <div class="p-1 mx-2">
         <div class="text-sm text-gray-500 border border-blue-300 rounded shadow-md">
             <div class="flex w-full p-1 space-x-2 bg-gray-100 rounded-md">
-                <div class="w-6/12 rounded-md">
+                <div class="w-5/12 rounded-md">
                     <div class="">
                         <label for="campaign_name">Campaña</label>
                         <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
                             name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
                             disabled />
                     </div>
-                    <div class="flex">
+                    <div class="flex space-x-2">
                         <div class="w-6/12">
                             <label for="campaign_initdate">F.Ini.Prod.</label>
                             <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
@@ -26,11 +29,11 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('campaign.planupdate',$campaign) }}"  method="post" class="w-3/12">
+                <form action="{{ route('campaign.updateplanfechas',$campaign) }}"  method="post" class="w-4/12">
                     @csrf
                     @method('PUT')
                     <div class="flex space-x-2">
-                        <div class="w-8/12">
+                        <div class="w-7/12">
                             <div class="w-full">
                                 <label for="fechainstalini">F.Ini.Montaje Prev.</label>
                                 <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstalini"
@@ -44,14 +47,18 @@
                                 value="{{ old('fechainstalfin',$campaign->fechainstalfin) }}"/>
                             </div>
                         </div>
-                        <div class="w-4/12 my-auto">
+                        <div class="w-5/12 ">
+                            <label for="fechainstalini">Paso 1</label>
                             <x-jet-button type="submit"
                                 class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar Fechas') }}</x-jet-button>
-                        </div>
+                            <label for="fechainstalini">Paso 2</label>
+                            <x-jet-button type="button"
+                                class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('campaign.generarplan',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
+                                </div>
                     </div>
                 </form>
-                <div class="flex w-3/12 space-x-2">
-                    <div class="w-8/12 my-auto space-y-2">
+                <div class="flex flex-row-reverse w-3/12 space-x-2">
+                    <div class="w-full my-auto space-y-2">
                         <form method="GET" action="{{route('campaign.plan',$campaign) }}">
                             <input id="buscaname" name="buscaname" type="search" value='{{$busquedaname}}' placeholder="Buscar por nombre..."
                             class="w-full py-1 text-sm transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300']"/>
@@ -62,21 +69,13 @@
                         </form>
                     </div>
                     <div class="w-4/12 my-auto">
-                        <x-jet-button type="button"
-                            class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('campaign.generarplan',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="">
-        @include('errores')
-    </div>
-    <div class="">
         <div class="w-full px-2">
-            <div class="m-2">
-                {{ $campaigntiendas->appends(request()->except('page'))->links() }}
-            </div>
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">
                     <tr class="flex w-full mx-2">
@@ -100,7 +99,7 @@
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
                     @foreach ($campaigntiendas as $camptienda)
-                    <tr class="flex w-full mx-2">
+                    <tr class="flex w-full py-1 mx-2 hover:bg-gray-100 hover:cursor-pointer" onclick="location.href = '{{ route('campaign.editplantienda',$camptienda) }}'" color="gray" >
                         {{-- {{ $camptienda }} --}}
                         <td class="w-1/12">{{$camptienda->store_id}}</td>
                         <td class="w-1/12">{{$camptienda->tienda->name}}</td>
@@ -124,6 +123,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mx-2 ">
+                {{ $campaigntiendas->appends(request()->except('page'))->links() }}
+            </div>
         </div>
     </div>
 </div>
