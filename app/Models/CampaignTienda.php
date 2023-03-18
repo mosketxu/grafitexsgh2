@@ -19,6 +19,7 @@ class CampaignTienda extends Model
     public function montador(){return $this->belongsTo(Entidad::class,'proveedor_id');}
 
     public function elementos(){return $this->hasMany(CampaignElemento::class,'tienda_id');}
+    public function galeria(){return $this->hasMany(CampaignTiendaGaleria::class,'campaigntienda_id','id');}
 
     // SCOPES
     public function scopeSearch2($query, $busca){
