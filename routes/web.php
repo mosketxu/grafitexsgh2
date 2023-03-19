@@ -64,7 +64,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         // plan
         Route::group(['prefix' => 'campaignplan'], function () {
             Route::put('/update/{campaign}', [CampaignController::class,'updateplanfechas'])->name('campaign.updateplanfechas')->middleware('can:plan.edit');
-            Route::put('/{camptienda}/update/', [CampaignController::class,'updateplantienda'])->name('campaign.updateplantienda')->middleware('can:plan.edit');
+            Route::put('/fechas/{camptienda}/update/', [CampaignController::class,'updateplantiendafecha'])->name('campaign.updateplantiendafecha')->middleware('can:plan.edit');
+            Route::put('/montador/{camptienda}/update/', [CampaignController::class,'updateplantiendamontador'])->name('campaign.updateplantiendamontador')->middleware('can:plan.edit');
             Route::get('/{campaigntienda}/editplan', [CampaignController::class,'editplantienda'])->name('campaign.editplantienda')->middleware('can:plan.edit');
             Route::get('/{campaign}/generar', [CampaignController::class,'generarplan'])->name('campaign.generarplan')->middleware('can:plan.edit');
             Route::get('/{campaign}', [CampaignController::class,'plan'])->name('campaign.plan')->middleware('can:plan.index');

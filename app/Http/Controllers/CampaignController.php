@@ -14,6 +14,7 @@ use App\Models\{
     CampaignElemento,
     CampaignGaleria,
     CampaignTienda,
+    CampaignTiendaGaleria,
     Country,
     Entidad,
     Medida,
@@ -350,20 +351,28 @@ class CampaignController extends Controller{
             ->orderBy('entidad')->get();
 
         $areas=Area::orderBy('area')->get();
+        $galeria=CampaignTiendaGaleria::where('campaigntienda_id',$camptienda->id)->get();
         return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores'));
     }
 
-    public function updateplantienda(Request $request,CampaignTienda $camptienda){
+    public function updateplantiendafecha(Request $request,CampaignTienda $camptienda){
         $camptienda->update(
             [
                 'fechainimontador' => $request->fechainimontador,
                 'fechafinmontador' => $request->fechafinmontador,
-                'proveedor_id' => $request->proveedor_id,
                 'observacionesmontador' => $request->observacionesmontador
                 ]
             );
+        return redirect()->route('campaign.editplantienda',$camptienda)->with('message','Datos actualizadas ');
+    }
 
-        return redirect()->route('campaign.tienda',$camptienda)->with('message','Datos actualizadas ');
+    public function updateplantiendamontador(Request $request,CampaignTienda $camptienda){
+        $camptienda->update(
+            [
+                'proveedor_id' => $request->proveedor_id,
+                ]
+            );
+        return redirect()->route('campaign.editplantienda',$camptienda)->with('message','Datos actualizadas ');
     }
 
     /**
