@@ -29,7 +29,7 @@
             @can('plan.create')
             <div class="w-2/12">Montadores por Area</div>
             <div class="w-5/12">
-                <form method="GET" action="{{route('campaign.editplantienda',$camptienda) }}">
+                <form method="GET" action="{{route('plam.tiendaedit',$camptienda) }}">
                     <x-select  selectname="filtroarea" class="w-full py-1 text-sm border-blue-300" id="filtroarea" name="filtroarea" >
                         <option value="">--Area montador--</option>
                         @foreach ($areas as $area )
@@ -39,7 +39,7 @@
                 </form>
             </div>
             <div  class="w-5/12">
-                <form action="{{ route('campaign.updateplantiendamontador',$camptienda) }}"  method="post" class="w-full">
+                <form action="{{ route('plan.updateamontadortienda',$camptienda) }}"  method="post" class="w-full">
                     @csrf
                     @method('PUT')
                     <x-select  selectname="proveedor_id" class="w-full py-1 text-sm border-blue-300" id="proveedor_id" name="proveedor_id" >
@@ -53,7 +53,7 @@
             @endcan
         </div>
         <div class="">
-            <form action="{{ route('campaign.updateplantiendafecha',$camptienda) }}"  method="post" class="w-full">
+            <form action="{{ route('plan.updatetiendafecha',$camptienda) }}"  method="post" class="w-full">
                 @csrf
                 @method('PUT')
                 <div class="flex space-x-2 p-2">
@@ -86,9 +86,9 @@
                 </div>
             </form>
         </div>
-        <div class="flex w-full p-2 space-x-2 bg-blue-50 rounded-md">
-            Galeria
-        </div>
+    </div>
+    <div class="w-full p-2 space-x-2 bg-blue-50 rounded-md">
+        <input type="file" name="imagen" id="imagen" />
     </div>
 </div>
 
@@ -105,6 +105,23 @@ var select = document.getElementById('proveedor_id');
 select.onchange = function(){
     this.form.submit();
 };
+
+
+</script>
+
+<script>
+    // Get a reference to the file input element
+    const inputElement = document.querySelector('input[id="imagen"]');
+    // Create a FilePond instance
+    const pond = FilePond.create(inputElement);
+    FilePond.setOptions({
+    server: {
+        url:'/upload',
+        headers:{
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    }
+});
 
 
 </script>

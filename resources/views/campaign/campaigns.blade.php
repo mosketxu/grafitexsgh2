@@ -64,7 +64,7 @@
                     @endcan
                     @can('plan.index')
                         <div class="">
-                            <a href="{{route('campaign.plan', $campaign->id ) }}" title="Planificacion"><x-icon.calendar-days class="w-6 text-cyan-500 -500"/></a>
+                            <a href="{{route('plan.index', $campaign->id ) }}" title="Planificacion"><x-icon.calendar-days class="w-6 text-cyan-500 -500"/></a>
                         </div>
                     @endcan
                     @can('campaign.delete')

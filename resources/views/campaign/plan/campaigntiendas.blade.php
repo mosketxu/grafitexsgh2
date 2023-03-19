@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('campaign.updateplanfechas',$campaign) }}"  method="post" class="w-4/12">
+                <form action="{{ route('plan.updatefechas',$campaign) }}"  method="post" class="w-4/12">
                     @csrf
                     @method('PUT')
                     <div class="flex space-x-2">
@@ -53,17 +53,17 @@
                                 class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar Fechas') }}</x-jet-button>
                             <label for="fechainstalini">Paso 2</label>
                             <x-jet-button type="button"
-                                class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('campaign.generarplan',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
+                                class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('plan.generar',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
                                 </div>
                     </div>
                 </form>
                 <div class="flex flex-row-reverse w-3/12 space-x-2">
                     <div class="w-full my-auto space-y-2">
-                        <form method="GET" action="{{route('campaign.plan',$campaign) }}">
+                        <form method="GET" action="{{route('plan.index',$campaign) }}">
                             <input id="buscaname" name="buscaname" type="search" value='{{$busquedaname}}' placeholder="Buscar por nombre..."
                             class="w-full py-1 text-sm transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300']"/>
                         </form>
-                        <form method="GET" action="{{route('campaign.plan',$campaign) }}">
+                        <form method="GET" action="{{route('plan.index',$campaign) }}">
                             <input id="buscastoreid" name="buscastoreid" type="search" value='{{$busquedastoreid}}' placeholder="Buscar por store code..."
                             class="w-full py-1 text-sm transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300']"/>
                         </form>
@@ -99,7 +99,7 @@
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
                     @foreach ($campaigntiendas as $camptienda)
-                    <tr class="flex w-full py-1 mx-2 hover:bg-gray-100 hover:cursor-pointer" onclick="location.href = '{{ route('campaign.editplantienda',$camptienda) }}'" color="gray" >
+                    <tr class="flex w-full py-1 mx-2 hover:bg-gray-100 hover:cursor-pointer" onclick="location.href = '{{ route('plam.tiendaedit',$camptienda) }}'" color="gray" >
                         {{-- {{ $camptienda }} --}}
                         <td class="w-1/12">{{$camptienda->store_id}}</td>
                         <td class="w-1/12">{{$camptienda->tienda->name}}</td>

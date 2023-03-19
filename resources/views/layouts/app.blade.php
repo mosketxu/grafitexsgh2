@@ -14,6 +14,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"  rel="stylesheet" />
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
+
         @livewireStyles
 
         <!-- Scripts -->
@@ -59,6 +62,8 @@
 
                 <!-- jQuery UI 1.11.4 -->
                 <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
+                <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
         @yield('script')
         @stack('scriptchosen')
