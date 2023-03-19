@@ -8,18 +8,18 @@
         <title>{{ config('app.name', 'GrafitexSgh V2') }}</title>
 
         <!-- Fonts -->
-        {{-- <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"> --}}
+        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        {{-- <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"  rel="stylesheet" /> --}}
+        <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"  rel="stylesheet" />
         @livewireStyles
 
         <!-- Scripts -->
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
-        {{-- <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script> --}}
+        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
     </head>
     <body class="font-sans antialiased">
@@ -55,10 +55,10 @@
         @livewireScripts
 
                 <!-- jQuery -->
-                {{-- <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script> --}}
+                <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 
                 <!-- jQuery UI 1.11.4 -->
-                {{-- <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script> --}}
+                <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
         @yield('script')
         @stack('scriptchosen')

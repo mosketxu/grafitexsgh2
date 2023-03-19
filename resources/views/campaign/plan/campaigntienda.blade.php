@@ -88,11 +88,6 @@
         </div>
         <div class="flex w-full p-2 space-x-2 bg-blue-50 rounded-md">
             Galeria
-            <div class="flex space-x-2 p-2">
-                {{-- @livewire('campaigns.plan-imagen',['planimagen'=>$imagen,'camptienda'=>$camptienda,'ruta'=>'campaign.galeria'],key($imagen->id)) --}}
-                @livewire('campaigns.plan.plan-imagen')
-            </div>
-
         </div>
     </div>
 </div>
