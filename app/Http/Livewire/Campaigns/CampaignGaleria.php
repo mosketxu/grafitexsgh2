@@ -35,7 +35,6 @@ class CampaignGaleria extends Component{
     }
 
     public function render(){
-
         $vista= $this->ruta=="campaign.galeria.edit" ? 'livewire.campaigns.campaign-galeriaedit' : 'livewire.campaigns.campaign-galeria' ;
         return view($vista);
     }
@@ -44,56 +43,11 @@ class CampaignGaleria extends Component{
         $this->validate();
         if ($this->ruta=="campaign.galeria.edit")
             $this->saveimgindex();
-            else
+        else
             $this->saveimgindex();
             // $this->saveimg();
     }
 
-    public function saveimgBorrar(){
-
-        //  creo    que no lo uso
-        $this->validate();
-
-        $campGal=$this->campelemento;
-
-        //Por si me interesa estos datos de la imagen
-        $extension=$this->imagenelemento->getClientOriginalExtension();
-        $tipo=$this->imagenelemento->getClientMimeType();
-        $nombre=$this->imagenelemento->getClientOriginalName();
-        $tamayo=$this->imagenelemento->getSize();
-
-        // Genero el nombre que le pondré a la imagen
-        $file_name=$campGal->elemento.'-'.$campGal->campaign_id.'.'.$extension;
-        // verifico si existe la imagen y la borro si existe. Busco el nombre que debería tener.
-        $mi_imagen = public_path().'/galeria/'.$file_name;
-        $mi_imagenthumb = public_path().'/galeria/thumbails/thumb-'.$file_name;
-        if (@getimagesize($mi_imagen)) {
-            unlink($mi_imagen);
-        }
-        if (@getimagesize($mi_imagenthumb)) {
-            unlink($mi_imagenthumb);
-        }
-
-        // verifico que realmente llega un fichero
-        if ($files=$this->imagenelemento) {
-            // for save the original image
-            // for save the original
-            $imageUpload=Image::make($files);
-            $originalPath='galeria/';
-            $imageUpload->save($originalPath.$file_name);
-            //redimensionando
-            Image::make($this->imagenelemento)
-            ->resize(null,144,function($constraint){
-                $constraint->aspectRatio();
-            })
-            ->save('galeria/thumbnails/thumb-'.$file_name);
-        }
-        dd($file_name);
-
-        // $campaigngaleria=CampaignGaleria::find($campGal->id);
-        $this->campelemento->imagen=$file_name;
-        $this->campelemento->save();
-    }
 
     public function saveimgindex(){
         $this->validate();
@@ -106,46 +60,37 @@ class CampaignGaleria extends Component{
 
         // Genero el nombre que le pondré a la imagen
         $file_name=$campGal->elemento.'.jpg';
+        $originalPath='storage/galeria/'.$this->campaign->id.'/';
 
         // Si no existe la carpeta la creo
-        $ruta = public_path().'/galeria/'.$this->campaign->id;
-
-        if (!file_exists($ruta)) {
-            mkdir($ruta, 0777, true);
-            mkdir($ruta.'/thumbnails', 0777, true);
+        // $ruta = public_path().'storage/galeria/'.$this->campaign->id;
+        if (!file_exists($originalPath)) {
+            mkdir($originalPath, 0777, true);
+            mkdir($originalPath.'thumbnails', 0777, true);
         }
 
         // verifico si existe la imagen y la borro si existe. Busco el nombre que debería tener.
-        $mi_imagen = $ruta.'/'.$file_name;
-        $mi_imagenthumb = $ruta.'/thumbails/'.$file_name;
+        $mi_imagen = public_path().$originalPath.$file_name;
+        $mi_imagenthumb = public_path().$originalPath.'thumbnails/thumb_'.$file_name;
+        if (@getimagesize($mi_imagen)) unlink($mi_imagen);
+        if (@getimagesize($mi_imagenthumb)) unlink($mi_imagenthumb);
 
-        if (@getimagesize($mi_imagen)) {
-            unlink($mi_imagen);
-        }
-        if (@getimagesize($mi_imagenthumb)) {
-            unlink($mi_imagenthumb);
-        }
 
         // verifico que realmente llega un fichero
         if ($files=$this->imagenelemento) {
              // for save the original
             $imageUpload=Image::make($files)->encode('jpg');
-            $originalPath='galeria/'.$this->campaign->id.'/';
+            // $originalPath='storage/galeria/'.$this->campaign->id.'/';
             $imageUpload->save($originalPath.$file_name);
              //redimensionando
             Image::make($this->imagenelemento)
             ->resize(null,144,function($constraint){
                 $constraint->aspectRatio();
             })
-            ->save('galeria/'.$this->campaign->id.'/thumbnails/thumb-'.$file_name);
+            ->save($originalPath.'thumbnails/thumb-'.$file_name);
         }
-
-        // $campaigngaleria=CampaignGaleria::find($campGal->id);
-        // $campaigngaleria->imagen = $file_name;
-        // $campaigngaleria->save();
         $this->campelemento->imagen=$file_name;
         $this->campelemento->save();
-
     }
 
 }

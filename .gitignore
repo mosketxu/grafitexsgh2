@@ -3,6 +3,7 @@
 /public/storage
 /public/galeria
 /public/store
+/public/plan
 /storage/*.key
 /vendor
 .env

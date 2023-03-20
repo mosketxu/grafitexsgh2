@@ -111,12 +111,12 @@
                             </div>
                         </td>
                         <td class="w-2/12 mx-auto text-center">
-                            @if(file_exists( 'galeria/'.$campaign->id.'/'.$elemento->imagen ))
-                                <img src="{{asset('galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}"
+                            @if(file_exists( 'storage/galeria/'.$campaign->id.'/'.$elemento->imagen ))
+                                <img src="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}"
                                     alt={{$elemento->imagen}} title={{$elemento->imagen}} id="original"
                                     class="p-1 mx-auto border-2 rounded-md shadow-md" style="height: 60px"/>
                             @else
-                                <img src="{{asset('galeria/pordefecto.jpg')}}" alt={{$elemento->imagen}}
+                                <img src="{{asset('storage/galeria/pordefecto.jpg')}}" alt={{$elemento->imagen}}
                                     title={{$elemento->imagen}} id="original" class="p-1 mx-auto border-2 rounded-md shadow-md"
                                     style="height: 60px"/>
                             @endif

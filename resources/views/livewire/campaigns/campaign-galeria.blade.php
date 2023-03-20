@@ -2,14 +2,14 @@
     @can('campaign.edit')
     <input type="file" id="file{{ $campelemento->id }}" class="sr-only" wire:model="imagenelemento" />
     @endcan
-    @if(file_exists( 'galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen ))
+    @if(file_exists( 'storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen ))
     <label for="file{{ $campelemento->id }}" class="cursor-pointer">
-        <img src="{{asset('galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen.'?'.time())}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
+        <img src="{{asset('storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen.'?'.time())}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
         class="h-11 mx-auto"/>
     </label>
     @else
     <label for="file{{ $campelemento->id }}" class="cursor-pointer">
-        <img src="{{asset('galeria/thumbnails/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
+        <img src="{{asset('storage/galeria/thumbnails/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
         class="h-11  mx-auto"/>
     </label>
     @endif

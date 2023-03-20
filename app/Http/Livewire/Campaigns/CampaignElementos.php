@@ -73,20 +73,20 @@ class CampaignElementos extends Component{
         $nombre=$this->imagenelemento->getClientOriginalName();
         $tamanyo=$this->imagenelemento->getSize();
 
+        // Genero el nombre y la ruta que le pondré a la imagen
         $file_name=$nombre;
+        $originalPath='storage/galeria/'.$campaignId.'/';
 
 
         // Si no existe la carpeta la creo
-        $ruta = public_path().'/galeria/'.$campaignId;
-        if (!file_exists($ruta)) {
-            mkdir($ruta, 0777, true);
-            mkdir($ruta.'/thumbnails', 0777, true);
+        // $ruta = public_path().'/galeria/'.$campaignId;
+        if (!file_exists($originalPath)) {
+            mkdir($originalPath, 0777, true);
+            mkdir($originalPath.'/thumbnails', 0777, true);
         }
-
         // verifico si existe la imagen y la borro si existe. Busco el nombre que debería tener.
-        $mi_imagen = $ruta.'/'.$file_name;
-        $mi_imagenthumb = $ruta.'/thumbails/'.$file_name;
-
+        $mi_imagen = public_path().$originalPath.$file_name;
+        $mi_imagenthumb = public_path().$originalPath.'thumbnails/thumb_'.$file_name;
         if (@getimagesize($mi_imagen))  unlink($mi_imagen);
         if (@getimagesize($mi_imagenthumb)) unlink($mi_imagenthumb);
 
@@ -94,18 +94,18 @@ class CampaignElementos extends Component{
         if ($files=$this->imagenelemento) {
             // for save the original image
             $imageUpload=Image::make($files)->encode('jpg');
-            $originalPath='galeria/'.$campaignId.'/';
+            // $originalPath='galeria/'.$campaignId.'/';
             $imageUpload->save($originalPath.$file_name);
             $this->campelemento->update([
                 'imagen'=>$nombre,
             ]);
-
+            //redimensionado
             Image::make($this->imagenelemento)
             ->resize(null, 144, function ($constraint) {
                 $constraint->aspectRatio();
             })
                 ->encode('jpg')
-                ->save('galeria/'.$campaignId.'/thumbnails/thumb-'.$file_name);
+                ->save($originalPath.'thumbnails/thumb-'.$file_name);
         }
     }
 }

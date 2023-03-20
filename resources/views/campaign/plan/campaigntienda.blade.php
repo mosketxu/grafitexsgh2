@@ -87,9 +87,32 @@
             </form>
         </div>
     </div>
-    <div class="w-full p-2 space-x-2 bg-blue-50 rounded-md">
+    {{-- <div class="w-full p-2 space-x-2 bg-blue-50 rounded-md">
         <input type="file" name="imagen" id="imagen" />
-    </div>
+    </div> --}}
+    {{-- @can('plan.imagen') --}}
+    {{-- @endcan --}}
+    <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
+    @csrf
+        <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
+        <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
+        <div class="m-2">
+            <input type="file" id="inputFile{{$camptienda->id}}" name="imagen" >
+            <x-button type="submit" class="bg-blue-700 text-white">Upload</x-button>
+        </div>
+        <div class="mx-2">
+            <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
+            <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
+        </div>
+    </form>
+    @foreach ($galeria as $imagen )
+    <label for="{{ $imagen->id }}" class="cursor-pointer">
+        <img id="{{ $imagen->id }}" src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/thumbnails/thumb-'.$imagen->imagen.'?'.time())}}" alt={{$imagen->imagen}} title={{$imagen->imagen}}
+        class="h-11 mx-auto"/>
+    </label>
+
+
+    @endforeach
 </div>
 
 @push('scriptchosen')

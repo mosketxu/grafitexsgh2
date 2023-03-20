@@ -72,7 +72,7 @@ class CampaignPlanController extends Controller{
 
         $areas=Area::orderBy('area')->get();
         $galeria=CampaignTiendaGaleria::where('campaigntienda_id',$camptienda->id)->get();
-        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores'));
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria'));
     }
 
     public function updatetiendafecha(Request $request,CampaignTienda $camptienda){

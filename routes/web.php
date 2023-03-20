@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
 
 
 Route::get('/', function () {
@@ -101,14 +101,16 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         });
         // plan
         Route::group(['prefix' => 'plan'], function () {
-                    Route::put('/update/{campaign}', [CampaignPlanController::class,'updatefechas'])->name('plan.updatefechas')->middleware('can:plan.edit');
-                    Route::put('/fechas/{camptienda}/update/', [CampaignPlanController::class,'updatetiendafecha'])->name('plan.updatetiendafecha')->middleware('can:plan.edit');
-                    Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatetiendamontador'])->name('plan.updateamontadortienda')->middleware('can:plan.edit');
-                    Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edittienda'])->name('plam.tiendaedit')->middleware('can:plan.edit');
-                    Route::get('/{campaign}/generar', [CampaignPlanController::class,'generarplan'])->name('plan.generar')->middleware('can:plan.edit');
-                    Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
-                });
+            Route::put('/update/{campaign}', [CampaignPlanController::class,'updatefechas'])->name('plan.updatefechas')->middleware('can:plan.edit');
+            Route::put('/fechas/{camptienda}/update/', [CampaignPlanController::class,'updatetiendafecha'])->name('plan.updatetiendafecha')->middleware('can:plan.edit');
+            Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatetiendamontador'])->name('plan.updateamontadortienda')->middleware('can:plan.edit');
+            Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edittienda'])->name('plam.tiendaedit')->middleware('can:plan.edit');
+            Route::get('/{campaign}/generar', [CampaignPlanController::class,'generarplan'])->name('plan.generar')->middleware('can:plan.edit');
+            Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
 
+            // PlanGaleria
+            Route::post('/{campaigntienda}/updateimagentiena', [ CampaignPlanGaleriaController::class, 'updateimagentienda' ])->name('plan.uploadimagentienda');
+        });
     });
 
     //store.php
@@ -141,8 +143,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
     Route::resource('entidad', EntidadController::class)->only('index','show','edit','update','create');
 
-    //upload
-    Route::post('upload',[UploadController::class,'store']);
+
 
 });
 

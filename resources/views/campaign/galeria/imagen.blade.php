@@ -82,10 +82,8 @@
             <div class="pb-2 mx-2 my-2">
                 @can('campaign.edit')
                 <x-button.primary type="submit">ACTUALIZAR</x-button.primary>
-                {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
                 @endcan
                 <x-button.secondary  class="uppercase bg-white hover:bg-gray-200" onclick="location.href = '{{ route('campaign.galeria',$campaign) }}'" color="gray" >{{ __('Volver') }}</x-button.secondary>
-                {{-- <a class="btn btn-default" href="{{route('campaign.galeria',$campaigngaleria->campaign_id)}}" title="Ir la página anterior">Volver</a> --}}
             </div>
         </div>
     </form>
