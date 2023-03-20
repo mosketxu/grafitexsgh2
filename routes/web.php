@@ -109,7 +109,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
 
             // PlanGaleria
-            Route::post('/{campaigntienda}/updateimagentiena', [ CampaignPlanGaleriaController::class, 'updateimagentienda' ])->name('plan.uploadimagentienda');
+            Route::post('/{campaigntienda}/updateimagentienda', [ CampaignPlanGaleriaController::class, 'updateimagentienda' ])->name('plan.uploadimagentienda');
         });
     });
 
@@ -143,6 +143,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
     Route::resource('entidad', EntidadController::class)->only('index','show','edit','update','create');
 
+    //
+    Route::post('upload',[UploadController::class,'store']);
+    Route::get('permisos',[UploadController::class,'permisos'])->name('perm');
 
 
 });

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex">
             <div class="w-full">
-                <h2 class="text-xl font-semibold leading-tight text-gray-800">Planificacion de la campaña {{ $camptienda->campaign->campaign_name }}</h2>
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">Planificacion de la campaña: {{ $camptienda->campaign->campaign_name }}</h2>
             </div>
         </div>
     </x-slot>

@@ -25,7 +25,7 @@
                     disabled />
             </div>
         </div>
-        <div class="flex w-full p-2 space-x-2 bg-blue-50 rounded-md">
+        <div class="flex w-full p-2 space-x-2 rounded-md bg-blue-50">
             @can('plan.create')
             <div class="w-2/12">Montadores por Area</div>
             <div class="w-5/12">
@@ -56,7 +56,7 @@
             <form action="{{ route('plan.updatetiendafecha',$camptienda) }}"  method="post" class="w-full">
                 @csrf
                 @method('PUT')
-                <div class="flex space-x-2 p-2">
+                <div class="flex p-2 space-x-2">
                     <div class="w-full">
                         <label for="Montador">Montador</label>
                         <div class="flex">
@@ -67,7 +67,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="flex space-x-2 p-2">
+                <div class="flex p-2 space-x-2">
                     <div class="w-6/12">
                         <label for="fechainimontador">F.Ini.Montaje Real.</label>
                         <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm" id="fechainimontador"
@@ -85,34 +85,45 @@
                     <x-jet-button type="submit" class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar') }}</x-jet-button>
                 </div>
             </form>
+            {{-- <div class="w-full p-2 space-x-2 rounded-md bg-blue-50">
+                <input type="file" name="imagen" id="imagen" />
+            </div> --}}
+            {{-- @can('plan.imagen') --}}
+            {{-- @endcan --}}
+            <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
+            @csrf
+                <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
+                <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
+                {{-- <div class="m-2">
+                    <input type="file" name="imagen" id="imagen">
+                    <x-button type="submit" class="text-white bg-blue-700">Upload</x-button>
+                </div> --}}
+                <div class="m-2">
+                    <input type="file" name="imagen" id="imagen" />
+                </div>
+                <div class="mx-2">
+                    <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
+                    <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
+                </div>
+            </form>
+            <form action="{{ route('perm') }}" method="get">
+
+                <x-button type="submit">perm</x-button>
+            </form>
+            <div class="mx-auto ">
+                <div class="flex-none md:flex ">
+                    @foreach ($galeria as $imagen )
+                        <div class="w-full mx-2 my-2 md:w-60">
+                            <img alt={{$imagen->imagen}}
+                                class="object-cover w-full border-2 rounded-md shadow-md"
+                                src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/thumbnails/thumb-'.$imagen->imagen.'?'.time())}}" />
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
-    {{-- <div class="w-full p-2 space-x-2 bg-blue-50 rounded-md">
-        <input type="file" name="imagen" id="imagen" />
-    </div> --}}
-    {{-- @can('plan.imagen') --}}
-    {{-- @endcan --}}
-    <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
-    @csrf
-        <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
-        <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
-        <div class="m-2">
-            <input type="file" id="inputFile{{$camptienda->id}}" name="imagen" >
-            <x-button type="submit" class="bg-blue-700 text-white">Upload</x-button>
-        </div>
-        <div class="mx-2">
-            <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
-            <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
-        </div>
-    </form>
-    @foreach ($galeria as $imagen )
-    <label for="{{ $imagen->id }}" class="cursor-pointer">
-        <img id="{{ $imagen->id }}" src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/thumbnails/thumb-'.$imagen->imagen.'?'.time())}}" alt={{$imagen->imagen}} title={{$imagen->imagen}}
-        class="h-11 mx-auto"/>
-    </label>
 
-
-    @endforeach
 </div>
 
 @push('scriptchosen')
@@ -141,7 +152,7 @@ select.onchange = function(){
     server: {
         url:'/upload',
         headers:{
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            'X-CSRF-TOKEN' : '{{ csrf_token() }}'
         }
     }
 });
