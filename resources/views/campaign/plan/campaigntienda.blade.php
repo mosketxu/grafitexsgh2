@@ -85,30 +85,23 @@
                     <x-jet-button type="submit" class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar') }}</x-jet-button>
                 </div>
             </form>
-            {{-- <div class="w-full p-2 space-x-2 rounded-md bg-blue-50">
-                <input type="file" name="imagen" id="imagen" />
-            </div> --}}
-            {{-- @can('plan.imagen') --}}
-            {{-- @endcan --}}
-            <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
+            {{-- <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
             @csrf
                 <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
                 <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
-                {{-- <div class="m-2">
+                <div class="m-2">
                     <input type="file" name="imagen" id="imagen">
                     <x-button type="submit" class="text-white bg-blue-700">Upload</x-button>
-                </div> --}}
-                <div class="m-2">
-                    <input type="file" name="imagen" id="imagen" />
                 </div>
                 <div class="mx-2">
                     <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
                     <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
                 </div>
-            </form>
-            <form action="{{ route('perm') }}" method="get">
-
-                <x-button type="submit">perm</x-button>
+            </form> --}}
+            <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
+                    method="POST"
+                    class="dropzone"
+                    id="my-awesome-dropzone">
             </form>
             <div class="mx-auto ">
                 <div class="flex-none md:flex ">
@@ -144,19 +137,13 @@ select.onchange = function(){
 </script>
 
 <script>
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[id="imagen"]');
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-    server: {
-        url:'/upload',
-        headers:{
-            'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-        }
-    }
-});
-
+Dropzone.options.myAwesomeDropzone = {
+    headers:{
+        'X-CSRF-TOKEN' : "{{ csrf_token() }}"
+    },
+    paramName: "imagen", // The name that will be used to transfer the file
+    maxFilesize: 2, // MB
+  };
 
 </script>
 

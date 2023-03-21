@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Livewire\Campaigns\CampaignGaleria;
+
+use App\Models\CampaignTienda;
 use App\Models\CampaignTiendaGaleria;
 use Illuminate\Http\Request;
 use Image;
@@ -11,21 +13,14 @@ use Image;
 class CampaignPlanGaleriaController extends Controller
 {
 
-    public function updateimagentienda(Request $request){
-
+    public function uploadimagentienda(Request $request, CampaignTienda $campaigntienda){
         $request->validate([
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //Por si me interesa estos datos de la imagen
-        $extension=$request->file('imagen')->getClientOriginalExtension();
-        $tipo=$request->file('imagen')->getClientMimeType();
-        $nombre=$request->file('imagen')->getClientOriginalName();
-        $tamayo=$request->file('imagen')->getSize();
-
         // Genero el nombre y la ruta que le pondré a la imagen
         $file_name = time().'.'.$request->imagen->extension();
-        $originalPath='storage/plan/'.$request->campaignid.'/'.$request->camptiendaid.'/';
+        $originalPath='storage/plan/'.$campaigntienda->campaign_id.'/'.$campaigntienda->id.'/';
 
         // Si no existe la carpeta la creo
         if (!file_exists($originalPath)) {
@@ -48,13 +43,14 @@ class CampaignPlanGaleriaController extends Controller
                 ->resize(null,144,function($constraint){
                     $constraint->aspectRatio();
                 })
+                // ->save($originalPath.'thumb-'.$file_name);
                 ->save($originalPath.'thumbnails/thumb-'.$file_name);
         }
 
         CampaignTiendaGaleria::create([
-            'campaigntienda_id'=>$request->camptiendaid,
+            'campaigntienda_id'=>$campaigntienda->id,
             'imagen'=>$file_name,
-            'observaciones'=>$request->observaciones,
+            // 'observaciones'=>$request->observaciones,
         ]);
 
         $notification = array(
