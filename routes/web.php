@@ -145,7 +145,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //
     Route::post('upload',[UploadController::class,'store']);
-    Route::get('permisos',[UploadController::class,'permisos'])->name('perm');
+    // Route::get('permisos',[UploadController::class,'permisos'])->name('perm');
 
 
 });

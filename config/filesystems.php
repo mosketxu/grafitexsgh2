@@ -57,12 +57,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'plan' => [
-            'driver' => 'local',
-            'root' => storage_path('app/upload'),
-            'url' => env('APP_URL').'/upload',
-            'visibility' => 'public',
-        ],
 
         // 'public' => [
         //     'driver' => 'local',

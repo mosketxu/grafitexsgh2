@@ -20,27 +20,19 @@ class UploadController extends Controller
 
                 // dd('ls');
 
-        if($request->hasFile('imagen')){
-            $file=$request->file('imagen');
+        if($request->hasFile('imagenfilepond')){
+            $file=$request->file('imagenfilepond');
             $filename=$file->getClientOriginalName();
             $folder=uniqid().'-'.now()->timestamp;
-            $file->storeAs('upload/tmp'.$folder,$filename);
+            $file->storeAs('upload/tmp/'.$folder,$filename);
             return $folder;
         }
 
         return '';
     }
 
-    public function permisos()
-    {
-        // dd('d');
-                // Genero el nombre y la ruta que le pondré a la imagen
-                // $file_name = time().'.'.$request->imagen->extension();
-                $originalPath='storage/upload/';
-
-                // Si no existe la carpeta la creo
-                    mkdir($originalPath, 0777, true);
-
-                // dd('ls');
-    }
+    // public function permisos(){
+    //     $originalPath='storage/upload/';
+    //     mkdir($originalPath, 0777, true);
+    // }
 }

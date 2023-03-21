@@ -94,22 +94,21 @@
             @csrf
                 <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
                 <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
-                {{-- <div class="m-2">
+                <div class="m-2">
                     <input type="file" name="imagen" id="imagen">
                     <x-button type="submit" class="text-white bg-blue-700">Upload</x-button>
-                </div> --}}
+                </div>
                 <div class="m-2">
-                    <input type="file" name="imagen" id="imagen" />
+                    <input type="file" name="imagenfilepond" id="imagenfilepond" />
                 </div>
                 <div class="mx-2">
                     <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
                     <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
                 </div>
             </form>
-            <form action="{{ route('perm') }}" method="get">
-
+            {{-- <form action="{{ route('perm') }}" method="get">
                 <x-button type="submit">perm</x-button>
-            </form>
+            </form> --}}
             <div class="mx-auto ">
                 <div class="flex-none md:flex ">
                     @foreach ($galeria as $imagen )
@@ -145,7 +144,7 @@ select.onchange = function(){
 
 <script>
     // Get a reference to the file input element
-    const inputElement = document.querySelector('input[id="imagen"]');
+    const inputElement = document.querySelector('input[id="imagenfilepond"]');
     // Create a FilePond instance
     const pond = FilePond.create(inputElement);
     FilePond.setOptions({
