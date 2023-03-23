@@ -83,14 +83,12 @@
                     <div class="w-4/12 form-item">
                         <x-jet-label for="provincia">{{ __('Provincia') }}</x-jet-label>
                         <select wire:model.defer="entidad.provincia"
-                        class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-gray-400 focus:outline-none">
+                            class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-gray-400 focus:outline-none">
                             <option value="">-- selecciona --</option>
                             @foreach ($provincias as $provincia )
                             <option value={{ $provincia->id}} >{{ $provincia->provincia }}</option>
                             @endforeach
-                    </select>
-
-                        {{-- <x-jet-input  wire:model.defer="entidad.provincia" type="text" id="provincia" name="provincia" :value="old('provincia')" class="w-full"/> --}}
+                        </select>
                     </div>
                     <div class="w-3/12 form-item">
                         <x-jet-label for="pais">{{ __('Pais') }}</x-jet-label>
@@ -150,6 +148,22 @@
                         <x-jet-label for="observaciones">{{ __('Observaciones') }}</x-jet-label>
                         <textarea wire:model.defer="entidad.observaciones" class="w-full text-sm border-gray-300 rounded-md" rows="1">{{ old('observaciones') }} </textarea>
                         <x-jet-input-error for="observaciones" class="mt-2" />
+                    </div>
+                </div>
+                <div class="px-2 mx-2 my-2 rounded-md bg-blue-50">
+                    <h3 class="font-semibold ">Datos Acceso Usuario {{ $entidad->user_id }}</h3>
+                </div>
+                <div class="flex flex-col pl-2 mx-2 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
+                    <div class="w-full form-item">
+                        <x-jet-label for="useremail" >{{ __('User Email') }} {{ $entidad->user_id }}</x-jet-label>
+                        <x-jet-input  wire:model.defer="entidad.useremail" type="email" id="useremail" name="useremail" :value="old('useremail')" class="w-full"/>
+                    </div>
+                    <div class="w-full form-item">
+                        <x-jet-label for="password" >{{ __('Password') }}</x-jet-label>
+                        <x-jet-input  wire:model.defer="entidad.password" type="text" id="password" name="password" :value="old('password')" class="w-full"/>
+                    </div>
+                    <div class="w-1/12 form-item">
+                        <x-icon.trash class="mt-4 text-red-500" id="borraracceso" title="Borrar datos de acceso" wire:click.prevent="deletedatosacceso({{ $entidad }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()"/>
                     </div>
                 </div>
 

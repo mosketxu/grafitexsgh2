@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
-
+// use HasRoles;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,8 +28,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             return redirect()->route('tienda.index');
         }
         elseif(Auth::user()->hasRole('proveedor')){
-            dd('5');
-            return redirect()->route('tienda.index');
+            // dd('El Montador solo ve sus campañas');
+            dd(Auth::user());
+            return redirect()->route('tienda.indexmontador',Auth::user());
         }
         else{
             dd(Auth::user());
@@ -138,6 +139,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
     Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
     Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
+    // tienda montador
+    Route::get('tienda/{$montador}/montador',[TiendaController::class,'indexmontador'])->name('tienda.indexmontador')->middleware('can:tiendas.index');
 
     //Entidades
     Route::get('/entidad/nuevocontacto/{entidad}', [EntidadController::class, 'createcontacto'])->name('entidad.createcontacto');

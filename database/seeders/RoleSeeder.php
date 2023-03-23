@@ -23,6 +23,6 @@ class RoleSeeder extends Seeder
         $role2=Role::create(['name'=>'grafitex']);
         $role3=Role::create(['name'=>'sgh']);
         $role4=Role::create(['name'=>'tienda']);
-        $role5=Role::create(['name'=>'proveedor']);
+        $role5=Role::create(['name'=>'montador']);
     }
 }

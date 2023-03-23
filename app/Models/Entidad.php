@@ -16,10 +16,13 @@ class Entidad extends Model
                         'nif','tfno','emailgral','emailadm','emailaux','web',
                         'banco1','iban1','banco2','iban2',
                         'vencimientofechafactura',
-                        'metodopago_id','diavencimiento','observaciones'];
+                        'metodopago_id','diavencimiento','observaciones',
+                        'user_id','useremail','password'
+                    ];
 
     public function pais(){ return $this->belongsTo(Pais::class);}
     public function provinci(){ return $this->belongsTo(Provincia::class,'provincia','id');}
+    public function user(){ return $this->belongsTo(User::class);}
     public function entidadareaprincipal(){return $this->belongsTo(Area::class,'area_id');}
     public function entidadareas(){return $this->hasMany(EntidadArea::class,'entidad_id');}
     public function metodopago(){return $this->belongsTo(MetodoPago::class);}

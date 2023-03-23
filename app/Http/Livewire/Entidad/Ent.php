@@ -7,6 +7,7 @@ use App\Models\{Area, Entidad, EntidadArea, EntidadContacto,  MetodoPago,Pais,Pr
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
+// use HasRoles;
 
 class Ent extends Component
 {
@@ -48,6 +49,9 @@ class Ent extends Component
             'entidad.empresacredito'=>'nullable',
             'entidad.vigenciacredito'=>'nullable',
             'entidad.observaciones'=>'nullable',
+            'entidad.user_id'=>'nullable',
+            'entidad.useremail'=>'nullable|email',
+            'entidad.password'=>'nullable',
         ];
     }
 
@@ -60,6 +64,7 @@ class Ent extends Component
             'entidad.cuentactblecli.numeric' => 'La cuenta contable del cliente debe ser numérica',
             'entidad.cp.max' => 'El código postal debe ser inferior a 8 caracteres',
             'entidad.diafactura.diavencimiento' => 'El dia de vencimiento debe ser numérico',
+            'entidad.useremail.email'=>'El mail del usuario debe ser válido'
         ];
     }
 
@@ -77,6 +82,7 @@ class Ent extends Component
         $entidad=$this->entidad;
         $contacto=$this->contacto;
         $this->contactoId=$contacto->id;
+
 
         $metodopagos=MetodoPago::all();
         $provincias=Provincia::all();
@@ -102,6 +108,10 @@ class Ent extends Component
                     'nullable',
                     'max:12',
                     Rule::unique('entidades','nif')->ignore($this->entidad->id)],
+                'entidad.email'=>[
+                    'nullable',
+                    'email',
+                    Rule::unique('entidades','email')],
                 ]
             );
             $mensaje="Proveedor actualizado satisfactoriamente";
@@ -111,13 +121,15 @@ class Ent extends Component
                 'entidad.nif'=>'nullable|max:12|unique:entidades,nif',
                 'entidad.cuentactblepro'=>'nullable|numeric|unique:entidades,cuentactblepro',
                 'entidad.cuentactblecli'=>'nullable|numeric|unique:entidades,cuentactblecli',
+                'entidad.email'=>[
+                    'nullable',
+                    'email',
+                    Rule::unique('entidades','email')->ignore($this->entidad->id)],
                 ]
             );
             $i=$this->entidad->id;
             $mensaje="Proveedor creado satisfactoriamente";
         }
-
-
         $ent=Entidad::updateOrCreate([
             'id'=>$i
             ],
@@ -146,25 +158,102 @@ class Ent extends Component
             'importecredito'=>$this->entidad->importecredito,
             'vigenciacredito'=>$this->entidad->vigenciacredito,
             'observaciones'=>$this->entidad->observaciones,
+            // 'user_id'=>$this->entidad->user_id,
+            // 'useremail'=>$this->entidad->useremail,
+            // 'password'=>$this->entidad->password,
             ]
         );
         if(!$this->entidad->id){
             $this->entidad->id=$ent->id;
         }
 
+        //Añado contacto si existe
         if($this->contactoId){
             EntidadContacto::create([
-                 'contacto_id'=>$this->entidad->id,
-                 'entidad_id'=>$this->contactoId,
-                 'departamento'=>$this->departamento,
-                 'comentarios'=>$this->comentario,
+                'contacto_id'=>$this->entidad->id,
+                'entidad_id'=>$this->contactoId,
+                'departamento'=>$this->departamento,
+                'comentarios'=>$this->comentario,
             ]);
             $this->dispatchBrowserEvent('notify', 'Contacto añadido con éxito');
         }
+        //Creo o actualizo el usuario si existe
+        $respuesta="";
+        if($this->entidad->useremail!='') $respuesta=$this->saveuseracces();
 
-        $this->emitSelf('notify-saved');
-        // $this->dispatchBrowserEvent('notify', $mensaje);
+        if($respuesta=="OK")
+            $notification = array('message' => 'Operación ejecutada con éxito!','alert-type' => 'success');
+        else
+            $notification = array('message' => 'El mail ya esta en uso!','alert-type' => 'alarm');
+
+        return redirect()->route('entidad.edit',$this->entidad)->with($notification);
     }
+
+    public function saveuseracces(){
+        //valido en Entidad
+        $this->validate([
+            'entidad.password'=>'required',
+            'entidad.useremail'=>[
+                'email',
+                Rule::unique('entidades','useremail')->ignore($this->entidad->id)],
+            ]);
+
+        //valido en Users
+        //miro si el mailexiste en la base de datos
+        $mailexiste=User::where('email',$this->entidad->useremail)->first();
+
+        if($this->entidad->user_id){// tiene user_id asi que existe en USERS y tiene ya un mail
+            // dd('tiene user_id');
+            //busco el user con ese user_id
+            $userexiste=User::find($this->entidad->user_id);
+            //si el nuevo mail no existe actualizo
+            if(!$mailexiste){
+                $userexiste->update([
+                    'name'=>$this->entidad->entidad,
+                    'email'=>$this->entidad->useremail,
+                    'password'=>bcrypt($this->entidad->password),
+                    'updated_at'=>now(),
+                ]);
+                $user=$userexiste;
+            }// si el mail existe busco si coinciden los id del USER que tiene ese mail y de ENT
+            elseif($userexiste->id == $mailexiste->id){
+                $userexiste->update([
+                    'name'=>$this->entidad->entidad,
+                    'email'=>$this->entidad->useremail,
+                    'password'=>bcrypt($this->entidad->password),
+                    'updated_at'=>now(),
+                ]);
+                $user=$userexiste;
+            }else{
+                return "Mal";
+            }
+        }else{ //dd('no tiene user_id');
+            if(!$mailexiste){// como no hay problema lo creo
+                $user=User::create([
+                    'name'=>$this->entidad->entidad,
+                    'email'=>$this->entidad->useremail,
+                    'password'=>bcrypt($this->entidad->password),
+                    'created_at'=>now(),
+                    'updated_at'=>now(),
+                ]);
+            }else{
+                return "Mal";
+            }
+        }
+        $entidad= Entidad::find($this->entidad->id);
+
+        $entidad->update([
+            'user_id'=>$user->id,
+            'useremail'=>$this->entidad->useremail,
+            'password'=>$this->entidad->password,
+            ]
+        );
+
+        $user->assignRole('montador');
+        return "OK";
+    }
+
+
 
     public function savearea(){
         $i='';
@@ -194,7 +283,20 @@ class Ent extends Component
         $this->dispatchBrowserEvent('notify', $mensaje);
     }
 
+    public function deletedatosacceso(Entidad $entidad){
 
+        $user=User::find($entidad->user_id);
+        if($user) $user->delete();
+        $entidad->update([
+            'user_id'=>null,
+            'useremail'=>null,
+            'password'=>null
+        ]);
+
+
+        return redirect()->route('entidad.edit',$entidad)->with('message','Datos de acceso eliminados');
+
+    }
 
     public function delete($areaId){
         $entare=EntidadArea::find($areaId);
