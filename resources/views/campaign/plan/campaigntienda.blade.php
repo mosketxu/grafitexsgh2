@@ -85,40 +85,22 @@
                     <x-jet-button type="submit" class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar') }}</x-jet-button>
                 </div>
             </form>
-            {{-- <div class="w-full p-2 space-x-2 rounded-md bg-blue-50">
-                <input type="file" name="imagen" id="imagen" />
-            </div> --}}
-            {{-- @can('plan.imagen') --}}
-            {{-- @endcan --}}
-            <form id="formimagen" role="form" method="post" action="{{ route('plan.uploadimagentienda',$camptienda) }}" enctype="multipart/form-data" id="uploadimage">
-            @csrf
-                <input type="hidden" class="" id="camptiendaid" name="camptiendaid" value="{{$camptienda->id}}">
-                <input type="hidden" class="" id="campaign" name="campaignid" value="{{$camptienda->campaign_id}}">
-                <div class="m-2">
-                    <input type="file" name="imagen" id="imagen">
-                    <x-button type="submit" class="text-white bg-blue-700">Upload</x-button>
-                </div>
-                <div class="m-2">
-                    <input type="file" name="imagenfilepond" id="imagenfilepond" />
-                </div>
-                <div class="mx-2">
-                    <label for="Observaciones" class="text-sm text-gray-700">Observaciones</label>
-                    <textarea class="w-full text-sm border-blue-300 rounded-md" name="observaciones" id="observaciones" cols="" rows="2"></textarea>
-                </div>
+            <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
+                    method="POST"
+                    class="dropzone"
+                    id="my-awesome-dropzone">
             </form>
-            {{-- <form action="{{ route('perm') }}" method="get">
-                <x-button type="submit">perm</x-button>
-            </form> --}}
-            <div class="mx-auto ">
-                <div class="flex-none md:flex ">
-                    @foreach ($galeria as $imagen )
-                        <div class="w-full mx-2 my-2 md:w-60">
-                            <img alt={{$imagen->imagen}}
-                                class="object-cover w-full border-2 rounded-md shadow-md"
-                                src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/thumbnails/thumb-'.$imagen->imagen.'?'.time())}}" />
-                        </div>
-                    @endforeach
-                </div>
+            <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
+                @foreach ($galeria as $imagen )
+                    <form action="{{ route('plan.deleteimagentienda', [$camptienda,$imagen]) }}" method ="POST" >
+                    @csrf
+                    {{ method_field('DELETE') }}
+                        <img alt={{$imagen->imagen}} class="object-cover w-full border-2 rounded-md shadow-md cursor-pointer"
+                            src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen.'?'.time())}}"
+                            onclick="location.href = '{{ asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen) }}'" target="_blank"/>
+                        <button type="submit" class="ml-5"><x-icon.trash class="text-red-500 " /></button>
+                    </form>
+                @endforeach
             </div>
         </div>
     </div>
@@ -143,19 +125,22 @@ select.onchange = function(){
 </script>
 
 <script>
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[id="imagenfilepond"]');
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-    server: {
-        url:'/upload',
-        headers:{
-            'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-        }
-    }
-});
+Dropzone.options.myAwesomeDropzone = {
+    headers:{
+        'X-CSRF-TOKEN' : "{{ csrf_token() }}"
+    },
+    paramName: "imagen", // The name that will be used to transfer the file
+    maxFilesize: 4, // MB
+    dictDefaultMessage:"Arrastra tus archivos aqui o haz clic para subir",
+    acceptedFiles:"image/*",
+  };
 
+</script>
+
+<script>
+    function EliminarRegistro(value){
+        action = confirm(value) ? true: event.preventDefault()
+    }
 
 </script>
 

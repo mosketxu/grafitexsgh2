@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Livewire\Campaigns\CampaignGaleria;
+
+use App\Models\Campaign;
+use App\Models\CampaignTienda;
 use App\Models\CampaignTiendaGaleria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Image;
 
 
 class CampaignPlanGaleriaController extends Controller
 {
 
-    public function updateimagentienda(Request $request){
-
+    public function uploadimagentienda(Request $request, CampaignTienda $campaigntienda){
         $request->validate([
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //Por si me interesa estos datos de la imagen
-        $extension=$request->file('imagen')->getClientOriginalExtension();
-        $tipo=$request->file('imagen')->getClientMimeType();
-        $nombre=$request->file('imagen')->getClientOriginalName();
-        $tamayo=$request->file('imagen')->getSize();
-
         // Genero el nombre y la ruta que le pondré a la imagen
         $file_name = time().'.'.$request->imagen->extension();
-        $originalPath='storage/plan/'.$request->campaignid.'/'.$request->camptiendaid.'/';
+        $file_name = uniqid().now()->timestamp.'.'.$request->imagen->extension();
+
+
+        $originalPath='storage/plan/'.$campaigntienda->campaign_id.'/'.$campaigntienda->id.'/';
 
         // Si no existe la carpeta la creo
         if (!file_exists($originalPath)) {
@@ -48,13 +48,14 @@ class CampaignPlanGaleriaController extends Controller
                 ->resize(null,144,function($constraint){
                     $constraint->aspectRatio();
                 })
+                // ->save($originalPath.'thumb-'.$file_name);
                 ->save($originalPath.'thumbnails/thumb-'.$file_name);
         }
 
         CampaignTiendaGaleria::create([
-            'campaigntienda_id'=>$request->camptiendaid,
+            'campaigntienda_id'=>$campaigntienda->id,
             'imagen'=>$file_name,
-            'observaciones'=>$request->observaciones,
+            // 'observaciones'=>$request->observaciones,
         ]);
 
         $notification = array(
@@ -62,5 +63,27 @@ class CampaignPlanGaleriaController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
+    }
+
+    // public function deleteimagentienda(CampaignTienda $camptienda, CampaignTiendaGaleria $imagen){
+        //
+
+    public function deleteimagentienda($camptienda, $imagen){
+        $img=CampaignTiendaGaleria::find($imagen);
+        if($img){
+            CampaignTiendaGaleria::where('id','=',$img->id)->delete();
+            $camp=CampaignTienda::find($img->campaigntienda_id);
+            $ruta=$camp->campaign_id.'/'.$img->campaigntienda_id.'/';
+            $exists = Storage::disk('plan')->exists($ruta.$img->imagen);
+            if ($exists) {
+                Storage::disk('plan')->delete($ruta.$img->imagen);
+                Storage::disk('plan')->delete($ruta.'/thumbnails/thumb-'.$img->imagen);
+            }
+            $notification = array('message' => 'La imagen ha sido borrada.','alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        }else{
+            $notification = array('message' => 'La imagen no existe.','alert-type' => 'alarm');
+            return redirect()->back()->with($notification);
+        }
     }
 }

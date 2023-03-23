@@ -14,7 +14,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css"  rel="stylesheet" />
-        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 
         @livewireStyles
@@ -23,6 +23,7 @@
         {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
     </head>
     <body class="font-sans antialiased">
@@ -63,7 +64,6 @@
                 <!-- jQuery UI 1.11.4 -->
                 <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-                <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
         @yield('script')
         @stack('scriptchosen')
