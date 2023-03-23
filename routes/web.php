@@ -110,6 +110,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
             // PlanGaleria
             Route::post('/{campaigntienda}/updateimagentienda', [ CampaignPlanGaleriaController::class, 'uploadimagentienda' ])->name('plan.uploadimagentienda');
+            Route::delete('/{campaigntienda}/deleteimagentienda/{imagen}', [ CampaignPlanGaleriaController::class, 'deleteimagentienda' ])->name('plan.deleteimagentienda');
         });
     });
 

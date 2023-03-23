@@ -38,39 +38,34 @@ return [
 
         'galeria' => [
             'driver' => 'local',
-            'root' => storage_path('app/galeria'),
+            'root' => storage_path('app/public/galeria'),
             'url' => env('APP_URL').'/galeria',
             'visibility' => 'public',
         ],
 
         'store' => [
             'driver' => 'local',
-            'root' => storage_path('app/store'),
+            'root' => storage_path('app/public/store'),
             'url' => env('APP_URL').'/store',
             'visibility' => 'public',
         ],
 
         'plan' => [
             'driver' => 'local',
-            'root' => storage_path('app/plan'),
+            'root' => storage_path('app/public/plan'),
             'url' => env('APP_URL').'/plan',
             'visibility' => 'public',
         ],
 
-        'plan' => [
-            'driver' => 'local',
-            'root' => storage_path('app/upload'),
-            'url' => env('APP_URL').'/upload',
-            'visibility' => 'public',
-        ],
 
-        // 'public' => [
-        //     'driver' => 'local',
-        //     'root' => storage_path('app/public'),
-        //     'url' => env('APP_URL').'/storage',
-        //     'visibility' => 'public',
-        //     'throw' => false,
-        // ],
+
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
         // 's3' => [
         //     'driver' => 's3',
