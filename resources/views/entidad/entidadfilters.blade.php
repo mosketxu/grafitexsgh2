@@ -2,7 +2,7 @@
     <div class="flex w-4/12 text-sm">
         <div class="w-full">
             <label class="px-1 text-sm text-gray-600">
-                Proveedor
+                montador
             </label>
             <div class="flex">
                 <input type="search" wire:model="search" class="w-full py-1 text-sm border border-blue-100 rounded-lg" placeholder="Búsqueda por nombre" autofocus/>

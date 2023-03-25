@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         elseif(Auth::user()->hasRole('tienda')){
             return redirect()->route('tienda.index');
         }
-        elseif(Auth::user()->hasRole('proveedor')){
+        elseif(Auth::user()->hasRole('montador')){
             dd('5');
             return redirect()->route('tienda.index');
         }

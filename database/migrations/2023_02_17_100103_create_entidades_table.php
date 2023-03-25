@@ -16,6 +16,7 @@ class CreateEntidadesTable extends Migration
         Schema::create('entidades', function (Blueprint $table) {
             $table->id();
             $table->string('entidad')->unique();
+            $table->boolean('montador')->nullable();
             $table->string('nif', 12)->nullable()->unique();
             $table->string('direccion', 100)->nullable();
             $table->string('cp', 10)->nullable();
@@ -35,6 +36,9 @@ class CreateEntidadesTable extends Migration
             $table->integer('diavencimiento')->nullable()->default(10);
             $table->integer('vencimientofechafactura')->nullable();
             $table->string('observaciones')->nullable();
+            $table->bigInteger('user_id')->nullable();
+            $table->string('useremail')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

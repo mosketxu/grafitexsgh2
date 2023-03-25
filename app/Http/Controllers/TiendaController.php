@@ -12,7 +12,7 @@ class TiendaController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:tiendas.index')->only('index','control');
+        $this->middleware('can:tiendas.index')->only('index','indexmontador','control');
         $this->middleware('can:tiendas.edit')->only('edit','show','update','destroy','campaginstores');
     }
 
@@ -32,17 +32,17 @@ class TiendaController extends Controller
 
     public function indexmontador(Request $request, $user){
         dd('montador');
-        $busqueda = '';
-        if ($request->busca) $busqueda = $request->busca;
+        // $busqueda = '';
+        // if ($request->busca) $busqueda = $request->busca;
 
-        $storeId=(auth()->user()->name);
-        $store=Store::find(auth()->user()->name);
+        // $storeId=(auth()->user()->name);
+        // $store=Store::find(auth()->user()->name);
 
-        $campaigns=Campaign::search2($request->busca)
-            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-            ->paginate(10);
+        // $campaigns=Campaign::search2($request->busca)
+        //     ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
+        //     ->paginate(10);
 
-        return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
+        // return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
 
     public function editrecepcion($camp,$sto, Request $request){
@@ -155,7 +155,7 @@ class TiendaController extends Controller
                 'obsrecepcion'=>$request->obsrecepcion,
                 'updated_by'=>auth()->user()->id,
                 'fecharecepcion'=>now(),
-             ]
+            ]
             );
 
             $notification = array(

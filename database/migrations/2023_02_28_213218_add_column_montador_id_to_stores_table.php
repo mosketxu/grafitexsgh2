@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\ForeignKeyDefinition;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,11 +14,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('temporary_files', function (Blueprint $table) {
-            $table->id();
-            $table->string('folder');
-            $table->string('file');
-            $table->timestamps();
+        Schema::table('stores', function (Blueprint $table) {
+            $table->foreignId('montador_id')->nullable()->constrained('entidades')->after('imagen');
         });
     }
 
@@ -28,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temporary_files');
+        Schema::table('stores', function (Blueprint $table) {
+            $table->dropColumn('montador_id');
+        });
     }
 };

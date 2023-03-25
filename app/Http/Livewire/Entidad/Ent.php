@@ -19,6 +19,8 @@ class Ent extends Component
     public $contacto;
     public $area='';
     public $observaciones='';
+    public $escontacto='';
+    public $ruta='';
 
     protected function rules()
     {
@@ -26,6 +28,7 @@ class Ent extends Component
             'entidad.id'=>'nullable',
             'entidad.entidad'=>'required',
             'entidad.responsable'=>'nullable|numeric',
+            'entidad.montador'=>'nullable',
             'entidad.nif'=>'nullable|max:12',
             'entidad.direccion'=>'nullable',
             'entidad.cp'=>'nullable|max:10',
@@ -60,7 +63,7 @@ class Ent extends Component
         return [
             'entidad.entidad.required' => 'El nombre de la entidad es necesario',
             'entidad.nif.max' => 'El Nif debe ser inferior a 12 caracteres',
-            'entidad.cuentactblepro.numeric' => 'La cuenta contable del proveedor debe ser numérica',
+            'entidad.cuentactblepro.numeric' => 'La cuenta contable del montador debe ser numérica',
             'entidad.cuentactblecli.numeric' => 'La cuenta contable del cliente debe ser numérica',
             'entidad.cp.max' => 'El código postal debe ser inferior a 8 caracteres',
             'entidad.diafactura.diavencimiento' => 'El dia de vencimiento debe ser numérico',
@@ -68,16 +71,15 @@ class Ent extends Component
         ];
     }
 
-    public function mount(Entidad $entidad, Entidad $contacto)
-    {
+    public function mount(Entidad $entidad, Entidad $contacto, $escontacto,$ruta){
         $this->entidad=$entidad;
         $this->contacto=$contacto;
         $this->fechacli=$this->entidad->fechacliente;
+        $this->escontacto=$escontacto;
+        $this->ruta=$ruta;
     }
 
-
-    public function render()
-    {
+    public function render(){
         if (!$this->entidad->estado) $this->entidad->estado=0;
         $entidad=$this->entidad;
         $contacto=$this->contacto;
@@ -114,7 +116,7 @@ class Ent extends Component
                     Rule::unique('entidades','email')],
                 ]
             );
-            $mensaje="Proveedor actualizado satisfactoriamente";
+            $mensaje="montador actualizado satisfactoriamente";
         }else{
             $this->validate([
                 'entidad.entidad'=>'required|unique:entidades,entidad',
@@ -128,7 +130,7 @@ class Ent extends Component
                 ]
             );
             $i=$this->entidad->id;
-            $mensaje="Proveedor creado satisfactoriamente";
+            $mensaje="montador creado satisfactoriamente";
         }
         $ent=Entidad::updateOrCreate([
             'id'=>$i
@@ -137,6 +139,7 @@ class Ent extends Component
             'entidad'=>$this->entidad->entidad,
             'responsable'=>$this->entidad->responsable,
             'nif'=>$this->entidad->nif,
+            'montador'=>$this->entidad->montador,
             'direccion'=>$this->entidad->direccion,
             'cp'=>$this->entidad->cp,
             'localidad'=>$this->entidad->localidad,
@@ -175,10 +178,10 @@ class Ent extends Component
                 'departamento'=>$this->departamento,
                 'comentarios'=>$this->comentario,
             ]);
-            $this->dispatchBrowserEvent('notify', 'Contacto añadido con éxito');
+            // $this->dispatchBrowserEvent('notify', 'Contacto añadido con éxito');
         }
         //Creo o actualizo el usuario si existe
-        $respuesta="";
+        $respuesta="OK";
         if($this->entidad->useremail!='') $respuesta=$this->saveuseracces();
 
         if($respuesta=="OK")
@@ -252,8 +255,6 @@ class Ent extends Component
         $user->assignRole('montador');
         return "OK";
     }
-
-
 
     public function savearea(){
         $i='';

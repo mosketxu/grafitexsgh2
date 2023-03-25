@@ -14,9 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->date('fechainstalini')->nullable();
-            $table->date('fechainstalfin')->nullable();
-            $table->boolean('estadoinstalacion')->nullable()->default('0');
+            $table->date('fechainstal1')->nullable();
+            $table->date('fechainstal2')->nullable();
+            $table->date('fechainstal3')->nullable();
+            $table->string('monta_desmonta1')->nullable();
+            $table->string('monta_desmonta2')->nullable();
+            $table->string('monta_desmonta3')->nullable();
         });
     }
 
@@ -27,10 +30,13 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('campaign', function (Blueprint $table) {
-            $table->dropColumn('fechainstalini');
-            $table->dropColumn('fechainstalfin');
-            $table->dropColumn('estadoinstalacion');
+        Schema::table('campaigns', function (Blueprint $table) {
+            $table->dropColumn('fechainstal1');
+            $table->dropColumn('monta_desmonta1');
+            $table->dropColumn('fechainstal2');
+            $table->dropColumn('monta_desmonta2');
+            $table->dropColumn('fechainstal3');
+            $table->dropColumn('monta_desmonta3');
 
         });
     }

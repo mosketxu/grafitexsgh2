@@ -14,7 +14,7 @@ class Store extends Model
         'country','zona','area_id','area','idioma','segmento',
         'concepto_id','concepto','imagen',
         'channel','store_cluster','furniture_type','winterschedule','summerschedule',
-        'deliverytime','observaciones','proveedor_id'
+        'deliverytime','observaciones','montador_id'
     ];
 
     protected $with=['are','concep','storeelementos'];
@@ -29,7 +29,7 @@ class Store extends Model
     public function storeelementos(){return $this->hasMany(StoreElemento::class);}
     public function are(){return $this->belongsTo(Area::class,'area_id');}
     public function concep(){return $this->belongsTo(Storeconcept::class,'concepto_id');}
-    public function proveedor(){return $this->hasOne(Entidad::class,'id','proveedor_id');}
+    public function montador(){return $this->hasOne(Entidad::class,'id','montador_id');}
 
     public function scopeSeg($query,$campaignId){
         if (CampaignSegmento::where('campaign_id',$campaignId)->count()>0){

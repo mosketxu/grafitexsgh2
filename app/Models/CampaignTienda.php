@@ -10,13 +10,13 @@ class CampaignTienda extends Model
     use HasFactory;
 
     protected $fillable=['campaign_id','store_id',
-        'proveedor_id','fechainiprev','fechafinprev','fechainimontador','fechafinmontador','observacionesmontador'];
+        'montador_id','fechaprev1','fechaprev2','fechaprev3','monta_desmonta1','monta_desmonta2','monta_desmonta3','fechamontador1','fechamontador2','fechamontador3','observacionesmontador'];
 
     // protected $with=['campaign','tienda'];
 
     public function campaign(){return $this->belongsTo(Campaign::class,'campaign_id');}
     public function tienda(){return $this->belongsTo(Store::class,'store_id');}
-    public function montador(){return $this->belongsTo(Entidad::class,'proveedor_id');}
+    public function montador(){return $this->belongsTo(Entidad::class,'montador_id');}
 
     public function elementos(){return $this->hasMany(CampaignElemento::class,'tienda_id');}
     public function galeria(){return $this->hasMany(CampaignTiendaGaleria::class,'campaigntienda_id','id');}

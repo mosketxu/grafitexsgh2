@@ -18,18 +18,15 @@ class EntContactos extends Component
     public $conts;
     public $ruta='entidad.contacto';
 
-    public function render()
-    {
-
+    public function render(){
         $ent=$this->entidad;
         $contactos = EntidadContacto::where('entidad_id',$this->entidad->id)
         ->join('entidades','entidad_contactos.contacto_id','=','entidades.id')
-        ->select('entidad_contactos.*', 'entidades.entidad', 'entidades.nif', 'entidades.tfno','entidades.emailgral')
+        ->select('entidad_contactos.*', 'entidades.entidad', 'entidades.nif','entidades.montador', 'entidades.tfno','entidades.emailgral')
         ->search('entidades.entidad',$this->search)
         ->orderBy('entidades.entidad')
         ->get();
 
-        // dd($contactos);
         $excludedContactos = EntidadContacto::where('entidad_id',$this->entidad->id)->pluck('contacto_id');
         $excludedContactos->push($this->entidad->id);
         $entidades=Entidad::whereNotIn('id',$excludedContactos)->orderBy('entidad')->get();

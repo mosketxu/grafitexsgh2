@@ -12,7 +12,7 @@ class Entidad extends Model
 {
     use HasFactory;
     protected $table = 'entidades';
-    protected $fillable=['entidad','direccion','cp','localidad','provincia','pais_id','area_id',
+    protected $fillable=['entidad','montador','direccion','cp','localidad','provincia','pais_id','area_id',
                         'nif','tfno','emailgral','emailadm','emailaux','web',
                         'banco1','iban1','banco2','iban2',
                         'vencimientofechafactura',

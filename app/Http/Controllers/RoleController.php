@@ -27,7 +27,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $permissions=Permission::all();
+        $permissions=Permission::orderBy('name')->get();
         return view('seguridad.rolepermisos',compact('role','permissions'));
     }
 

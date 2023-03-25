@@ -22,7 +22,7 @@ class PermissionSeeder extends Seeder
         $grafitex=Role::find('2');
         $sgh=Role::find('3');
         $tienda=Role::find('4');
-        $proveedor=Role::find('5');
+        $montador=Role::find('5');
 
         // Users
         Permission::create(['name'=>'user.index'])->syncRoles($admin, $grafitex);
@@ -144,10 +144,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'plan.delete'])->syncRoles($admin, $grafitex);
 
         // plantienda
-        Permission::create(['name'=>'plantienda.index'])->syncRoles($admin, $grafitex,$sgh,$proveedor);
+        Permission::create(['name'=>'plantienda.index'])->syncRoles($admin, $grafitex,$sgh,$montador);
         Permission::create(['name'=>'plantienda.create'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'plantienda.edit'])->syncRoles($admin, $grafitex,$proveedor);
-        Permission::create(['name'=>'plantienda.update'])->syncRoles($admin, $grafitex,$proveedor);
+        Permission::create(['name'=>'plantienda.edit'])->syncRoles($admin, $grafitex,$montador);
+        Permission::create(['name'=>'plantienda.update'])->syncRoles($admin, $grafitex,$montador);
         Permission::create(['name'=>'plantienda.delete'])->syncRoles($admin, $grafitex);
     }
 }

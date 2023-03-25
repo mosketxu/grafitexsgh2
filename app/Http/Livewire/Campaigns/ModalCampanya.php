@@ -13,12 +13,25 @@ class ModalCampanya extends Component
     public $campaign_name='';
     public $campaign_initdate='';
     public $campaign_enddate='';
+    public $fechainstal1;
+    public $fechainstal2;
+    public $fechainstal3;
+    public $monta_desmonta1;
+    public $monta_desmonta2;
+    public $monta_desmonta3;
+
 
     protected function rules(){
         return [
             'campaign_name'=>'required|unique:campaigns',
             'campaign_initdate'=>'required',
             'campaign_enddate'=>'required',
+            'fechainstal1'=>'nullable',
+            'fechainstal2'=>'nullable',
+            'fechainstal3'=>'nullable',
+            'monta_desmonta1'=>'nullable',
+            'monta_desmonta2'=>'nullable',
+            'monta_desmonta3'=>'nullable',
         ];
     }
 
@@ -55,11 +68,23 @@ class ModalCampanya extends Component
             'slug'=>$slug,
             'campaign_initdate'=>$this->campaign_initdate,
             'campaign_enddate'=>$this->campaign_enddate,
+            'fechainstal1'=>$this->fechainstal1,
+            'fechainstal2'=>$this->fechainstal2,
+            'fechainstal3'=>$this->fechainstal3,
+            'monta_desmonta1'=>$this->monta_desmonta1,
+            'monta_desmonta2'=>$this->monta_desmonta2,
+            'monta_desmonta3'=>$this->monta_desmonta3,
         ]);
 
         $this->campaign_name='';
         $this->campaign_initdate='';
         $this->campaign_enddate='';
+        $this->fechainstal1='';
+        $this->fechainstal2='';
+        $this->fechainstal3='';
+        $this->monta_desmonta1='';
+        $this->monta_desmonta2='';
+        $this->monta_desmonta3='';
 
         return redirect()->route('campaign.edit',$campaign);
     }

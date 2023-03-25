@@ -13,43 +13,38 @@ class EntidadController extends Controller
         $this->middleware('can:entidad.edit')->only('show','edit','update','create');
     }
 
-    public function index()
-    {
-        return view('entidad.index');
+    public function index(){
+        $montador='1';
+        return view('entidad.index',compact('montador'));
     }
 
-    public function create(){
-        return view('entidad.create');
+    public function create(){return view('entidad.create');
     }
 
-        /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id){
         if(Auth::user()->can('entidad.edit'))
             $entidad=Entidad::find($id);
             return view('entidad.edit',compact('entidad'));
     }
 
-    public function edit(Entidad $entidad)
-    {
-        return view('entidad.edit',compact('entidad'));
+    public function edit(Entidad $entidad){
+        $ruta="entidad";
+        return view('entidad.edit',compact('entidad','ruta'));
     }
 
-    public function contactos(Entidad $entidad)
-    {
+    public function editcontacto(Entidad $entidad,$ruta){
+        // La ruta es el id del contacto origen
+        return view('entidad.edit',compact('entidad','ruta'));
+    }
+
+    public function contactos(Entidad $entidad){
         return view('entidad.contactos',compact('entidad'));
     }
 
-
-    public function createcontacto($contactoId)
-    {
+    public function createcontacto($contactoId){
         $contacto=Entidad::find($contactoId);
+
         return view('entidad.createcontacto',compact('contacto'));
     }
-
 
 }

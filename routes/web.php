@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, RoleController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
 // use HasRoles;
 
 Route::get('/', function () {
@@ -27,10 +27,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         elseif(Auth::user()->hasRole('tienda')){
             return redirect()->route('tienda.index');
         }
-        elseif(Auth::user()->hasRole('proveedor')){
+        elseif(Auth::user()->hasRole('montador')){
             // dd('El Montador solo ve sus campañas');
-            dd(Auth::user());
-            return redirect()->route('tienda.indexmontador',Auth::user());
+            // return redirect()->route('tienda.indexmontador',Auth::user());
+            return redirect()->route('montador.index');
         }
         else{
             dd(Auth::user());
@@ -106,13 +106,15 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             Route::put('/fechas/{camptienda}/update/', [CampaignPlanController::class,'updatetiendafecha'])->name('plan.updatetiendafecha')->middleware('can:plan.edit');
             Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatetiendamontador'])->name('plan.updateamontadortienda')->middleware('can:plan.edit');
             Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edittienda'])->name('plam.tiendaedit')->middleware('can:plan.edit');
-            Route::get('/{campaign}/generar', [CampaignPlanController::class,'generarplan'])->name('plan.generar')->middleware('can:plan.edit');
+            //  Route::get('/{campaign}/generar', [CampaignPlanController::class,'generarplan'])->name('plan.generar')->middleware('can:plan.edit');
             Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
 
             // PlanGaleria
             Route::post('/{campaigntienda}/updateimagentienda', [ CampaignPlanGaleriaController::class, 'uploadimagentienda' ])->name('plan.uploadimagentienda');
             Route::delete('/{campaigntienda}/deleteimagentienda/{imagen}', [ CampaignPlanGaleriaController::class, 'deleteimagentienda' ])->name('plan.deleteimagentienda');
         });
+
+
     });
 
     //store.php
@@ -140,11 +142,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
     Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
     // tienda montador
-    Route::get('tienda/{$montador}/montador',[TiendaController::class,'indexmontador'])->name('tienda.indexmontador')->middleware('can:tiendas.index');
+    Route::get('montador',[MontadorController::class,'index'])->name('montador.index')->middleware('can:montador.index');
 
     //Entidades
     Route::get('/entidad/nuevocontacto/{entidad}', [EntidadController::class, 'createcontacto'])->name('entidad.createcontacto');
     Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
+    Route::get('/entidad/{entidad}/contacto/{ruta}', [EntidadController::class, 'editcontacto'])->name('entidad.editcontacto');
     Route::resource('entidad', EntidadController::class)->only('index','show','edit','update','create');
 
 

@@ -3,7 +3,7 @@
         <div class="flex">
             <div class="w-2/12">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Proveedores
+                    Montadores
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-10/12">

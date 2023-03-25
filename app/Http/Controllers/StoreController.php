@@ -142,9 +142,9 @@ class StoreController extends Controller
         $segmentos=Segmento::orderBy('segmento')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
-        $proveedores=Entidad::orderBy('entidad')->get();
+        $montadores=Entidad::orderBy('entidad')->get();
 
-        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','proveedores'));
+        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores'));
     }
 
     /**
@@ -205,7 +205,7 @@ class StoreController extends Controller
             'deliverytime'=>$request->deliverytime,
             'imagen'=>$imagen,
             'observaciones'=>$request->observaciones,
-            'proveedor_id'=>$request->proveedor_id,
+            'montador_id'=>$request->montador_id,
              ]
         );
 

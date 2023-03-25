@@ -35,22 +35,27 @@
                     <div class="flex space-x-2">
                         <div class="w-7/12">
                             <div class="w-full">
-                                <label for="fechainstalini">F.Ini.Montaje Prev.</label>
-                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstalini"
-                                name="fechainstalini"
-                                value="{{ old('fechainstalini',$campaign->fechainstalini) }}"/>
+                                <label for="fechainstal1">Fecha de {{ $monta_desmonta }}</label>
+                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal1"
+                                name="fechainstal1"
+                                value="{{ old('fechainstal1',$campaign->fechainstal1) }}"/>
                             </div>
                             <div class="w-full">
-                                <label for="fechainstalfin">F.Fin Montaje Prev.</label>
-                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstalfin"
-                                name="fechainstalfin"
-                                value="{{ old('fechainstalfin',$campaign->fechainstalfin) }}"/>
+                                <label for="fechainstal2">Fecha de {{ $monta_desmonta2 }}</label>
+                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal2"
+                                name="fechainstal2"
+                                value="{{ old('fechainstal2',$campaign->fechainstal2) }}"/>
+                            </div>
+                            <div class="w-full">
+                                <label for="fechainstal3">Fecha de {{ $monta_desmonta3 }}</label>
+                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal3"
+                                name="fechainstal3"
+                                value="{{ old('fechainstal3',$campaign->fechainstal3) }}"/>
                             </div>
                         </div>
                         <div class="w-5/12 ">
-                            <label for="fechainstalini">Paso 1</label>
                             <x-jet-button type="submit"
-                                class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Guardar Fechas') }}</x-jet-button>
+                                class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Generar Plan') }}</x-jet-button>
                             <label for="fechainstalini">Paso 2</label>
                             <x-jet-button type="button"
                                 class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('plan.generar',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
@@ -90,10 +95,12 @@
                                 Montador
                             @endcan
                         </th>
-                        <th class="w-1/12">F.Ini prev</th>
-                        <th class="w-1/12">F.fin prev</th>
-                        <th class="w-1/12">F.Ini Real</th>
-                        <th class="w-1/12">F.Fin Real</th>
+                        <th class="w-1/12">F.Prev 1</th>
+                        <th class="w-1/12">F.Prev 2</th>
+                        <th class="w-1/12">F.Prev 3</th>
+                        <th class="w-1/12">F.Real 1</th>
+                        <th class="w-1/12">F.Real 2</th>
+                        <th class="w-1/12">F.Real 3</th>
                         <th class="w-1/12">Obs.Montaje</th>
                     </tr>
                 </thead>
@@ -109,15 +116,17 @@
                         <td class="w-1/12">{{$camptienda->tienda->city}}</td>
                         <td  class="w-1/12">
                             @can('entidad.index')
-                                @if($camptienda->proveedor_id)
-                                    <a href="{{ route('entidad.show',$camptienda->proveedor_id) }}" class="text-blue-600 underline">{{$camptienda->montador->entidad}}</a>
+                                @if($camptienda->montador_id)
+                                    <a href="{{ route('entidad.show',$camptienda->montador_id) }}" class="text-blue-600 underline">{{$camptienda->montador->entidad}}</a>
                                 @endif
                             @endcan
                         </td>
-                        <td class="w-1/12">{{$camptienda->fechainiprev}}</td>
-                        <td class="w-1/12">{{$camptienda->fechafinprev}}</td>
-                        <td class="w-1/12">{{$camptienda->fechainimontador}}</td>
-                        <td class="w-1/12">{{$camptienda->fechafinmontador}}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev1}} {{ $camptienda->monta_desmonta1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev2}} {{ $camptienda->monta_desmonta1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev3}} {{ $camptienda->monta_desmonta1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador1}}  {{ $camptienda->monta_desmonta1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador2}}  {{ $camptienda->monta_desmonta2 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador3}}  {{ $camptienda->monta_desmonta3 }}</td>
                         <td class="w-1/12">{{$camptienda->observacionesmontador}}</td>
                     </tr>
                     @endforeach

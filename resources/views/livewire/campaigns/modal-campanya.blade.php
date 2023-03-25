@@ -27,6 +27,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-sm space-y-1">
+                    <div class="text-blue-900 my-2 text-base underline">Fechas Montaje</div>
+                    <div class="w-full flex items-center space-x-2 ">
+                        <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
+                        <x-input.text type="date" wire:model.defer="fechainstal1" class="w-7/12 py-1" id="fechainstal1" name="fechainstal1" :value="old('fechainstal1') "/>
+                        <x-select  selectname="monta_desmonta1" class="w-4/12 py-1.5 border-blue-300" id="monta_desmonta1">
+                            <option value="">-Selecciona-</option>
+                            <option value="M">Montaje</option>
+                            <option value="D">Desmontaje</option>
+                        </x-select>
+                    </div>
+                    <div class="w-full flex items-center space-x-2 ">
+                        <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
+                        <x-input.text type="date" wire:model.defer="fechainstal2" class="w-7/12 py-1" id="fechainstal2" name="fechainstal2" :value="old('fechainstal2') "/>
+                        <x-select  selectname="monta_desmonta2" class="w-4/12 py-1.5 border-blue-300" id="monta_desmonta2">
+                            <option value="">-Selecciona-</option>
+                            <option value="M">Montaje</option>
+                            <option value="D">Desmontaje</option>
+                        </x-select>
+                    </div>
+                    <div class="w-full flex items-center space-x-2 ">
+                        <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
+                        <x-input.text type="date" wire:model.defer="fechainstal3" class="w-7/12 py-1" id="fechainstal3" name="fechainstal3" :value="old('fechainstal3') "/>
+                        <x-select  selectname="monta_desmonta3" class="w-4/12 py-1.5 border-blue-300" id="monta_desmonta3">
+                            <option value="">-Selecciona-</option>
+                            <option value="M">Montaje</option>
+                            <option value="D">Desmontaje</option>
+                        </x-select>
+                    </div>
+                </div>
                 <div class="mt-5 ">
                     <x-jet-secondary-button wire:click="cambiamodal()">
                         {{ __('Cancelar') }}

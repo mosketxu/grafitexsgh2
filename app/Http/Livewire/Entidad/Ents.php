@@ -27,6 +27,7 @@ class Ents extends Component
                 $query->whereHas('entidadareas',function($query){
                     $query->where('area_id', $this->filtroarea);
                 });})
+            ->where('montador','1')
             ->orderBy('entidad','asc')
             ->get();
 

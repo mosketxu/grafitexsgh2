@@ -32,29 +32,49 @@ class CampaignPlanController extends Controller{
         return view('campaign.plan.index',compact('campaign','campaigntiendas','busquedaname','busquedastoreid','habilitado','color'));
     }
 
-    public function generarplan(Campaign $campaign){
+    // public function generarplan(Campaign $campaign){
 
-        $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
-        foreach($campaigntiendas as $camptienda){
-            $camptienda->update(
-            [
-                'fechainiprev' => $campaign->fechainstalini,
-                'fechafinprev' => $campaign->fechainstalfin,
-                'proveedor_id' => $camptienda->tienda->proveedor_id,
-                ]
-            );
-        }
-        return redirect()->route('plan.index',$campaign)->with('message','Planificacion realizada');
-    }
+    //     $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
+    //     foreach($campaigntiendas as $camptienda){
+    //         $camptienda->update(
+    //         [
+    //             'fechainiprev' => $campaign->fechainstal1,
+    //             'fechafinprev' => $campaign->fechainstal2,
+    //             'montador_id' => $camptienda->tienda->montador_id,
+    //             ]
+    //         );
+    //     }
+    //     return redirect()->route('plan.index',$campaign)->with('message','Planificacion realizada');
+    // }
 
 
     public function updatefechas(Request $request,Campaign $campaign){
         $campaign->update(
             [
-                'fechainstalini' => $request->fechainstalini,
-                'fechainstalfin' => $request->fechainstalfin
+                'fechainstal1' => $request->fechainstal1,
+                'fechainstal2' => $request->fechainstal2,
+                'fechainstal3' => $request->fechainstal3,
+                'monta_desmonta1' => $request->monta_desmonta1,
+                'monta_desmonta2' => $request->monta_desmonta2,
+                'monta_desmonta3' => $request->monta_desmonta3
                 ]
             );
+
+        $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
+            foreach($campaigntiendas as $camptienda){
+                $camptienda->update(
+                [
+                    'fecha1prev' => $campaign->fechainstal1,
+                    'fecha2prev' => $campaign->fechainstal2,
+                    'fecha3prev' => $campaign->fechainstal3,
+                    'monta_desmonta1' => $campaign->monta_desmonta1,
+                    'monta_desmonta2' => $campaign->monta_desmonta2,
+                    'monta_desmonta3' => $campaign->monta_desmonta3,
+
+                    'montador_id' => $camptienda->tienda->montador_id,
+                    ]
+                );
+            }
 
         return redirect()->route('plan.index',$campaign)->with('message','Fechas actualizadas ');
     }
@@ -89,7 +109,7 @@ class CampaignPlanController extends Controller{
     public function updatetiendamontador(Request $request,CampaignTienda $camptienda){
         $camptienda->update(
             [
-                'proveedor_id' => $request->proveedor_id,
+                'montador_id' => $request->montador_id,
                 ]
             );
         return redirect()->route('plam.tiendaedit',$camptienda)->with('message','Datos actualizadas ');

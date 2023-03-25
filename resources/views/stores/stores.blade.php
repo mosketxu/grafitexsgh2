@@ -49,16 +49,16 @@
                         <div class="flex-wrap w-1/12 my-2 text-left">{{$store->furniture_type}}</div>
                         <div class="flex-wrap w-1/12 my-2 text-left">
                             @can('entidad.index')
-                                @if($store->proveedor_id)
-                                    <a href="{{ route('entidad.show',$store->proveedor_id) }}" class="text-blue-600 underline">{{$store->proveedor->entidad}}</a>
+                                @if($store->montador_id)
+                                    <a href="{{ route('entidad.show',$store->montador_id) }}" class="text-blue-600 underline">{{$store->montador->entidad}}</a>
                                 @endif
                             @endcan
                         </div>
 
                         {{-- @hasanyrole('admin|grafitex')
                             <div class="w-1/12 text-left">
-                                @if($store->proveedor_id)
-                                <a href="{{ route('entidad.edit',$store->proveedor->id) }}">{{ $store->proveedor->entidad }}</a>
+                                @if($store->montador_id)
+                                <a href="{{ route('entidad.edit',$store->montador->id) }}">{{ $store->montador->entidad }}</a>
                                 @endif
                             </div>
                         @endhasanyrole --}}

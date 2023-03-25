@@ -16,6 +16,7 @@
                     <div class="flex py-2 pl-2 text-sm text-left text-gray-500 bg-blue-100 rounded-t-md">
                         <div class="flex w-4/12 lg:w-4/12" >{{ __('Contacto') }}</div>
                         <div class="hidden w-2/12 lg:flex" >{{ __('Nif') }}</div>
+                        <div class="hidden w-2/12 lg:flex" >{{ __('Montador') }}</div>
                         <div class="hidden w-1/12 lg:flex" >{{ __('Tfno.') }}</div>
                         <div class="flex w-3/12 lg:w-1/12" >{{ __('Email Gral.') }}</div>
                         <div class="flex w-3/12 lg:w-4/12" >{{ __('Departamento') }}</div>
@@ -30,6 +31,11 @@
                             </div>
                             <div class="w-2/12 lg:flex">
                                 <input type="text" value="{{ $contacto->nif  }}" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" readonly/>
+                            </div>
+                            <div class="w-2/12 lg:flex">
+                                @if($contacto->montador==1)
+                                    <circle-check class="text-green-600">
+                                @endif
                             </div>
                             <div class="hidden w-1/12 lg:flex">
                                     <input type="text" value="{{ $contacto->tfno }}" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md"
@@ -47,9 +53,9 @@
                                     <input type="email" value="{{ $contacto->comentarios }}" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md"
                                         readonly/>
                                 </div>
-                                <div class="flex w-1/12 ">
-                                    <x-icon.edit-a href="{{ route('entidad.edit',$contacto->contacto_id) }}"  title="Editar"/>
-                                    <x-icon.delete-a wire:click.prevent="delete({{ $contacto['id'] }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()" class="pl-1"  title="Eliminar contacto"/>
+                                <div class="flex w-1/12 items-center flex justify-between mx-2">
+                                    <x-icon.edit-a href="{{ route('entidad.editcontacto',[$contacto->contacto_id,$ent->id]) }}"  title="Editar Contacto"/>
+                                    <x-icon.delete-a class="text-red-500 w-6" wire:click.prevent="delete({{ $contacto['id'] }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()" title="Eliminar contacto"/>
                                 </div>
                             </div>
                         @empty
