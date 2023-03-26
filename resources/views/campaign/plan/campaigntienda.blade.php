@@ -11,17 +11,17 @@
         </div>
         <div class="flex w-full p-2 space-x-2 bg-gray-100 rounded-md">
             <div class="w-4/12">
-                <label for="fechaprev1">Fecha de {{ $camptienda->monta_desmonta1 }}</label>
+                <label for="fechaprev1">Fecha de {{ $camptienda->montaje1 }}</label>
                 <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="fechaprev1"
                     name="fechaprev1"  value="{{ old('fechaprev1',$camptienda->fechaprev1) }}" disabled />
             </div>
             <div class="w-4/12">
-                <label for="fechaprev2">Fecha de {{ $camptienda->monta_desmonta2 }}</label>
+                <label for="fechaprev2">Fecha de {{ $camptienda->montaje2 }}</label>
                 <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="fechaprev2"
                     name="fechaprev2" value="{{ old('fechaprev2',$camptienda->fechaprev2) }}" disabled />
             </div>
             <div class="w-4/12">
-                <label for="fechaprev3">Fecha de {{ $camptienda->monta_desmonta3 }}</label>
+                <label for="fechaprev3">Fecha de {{ $camptienda->montaje3 }}</label>
                 <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="fechaprev3"
                     name="fechaprev3" value="{{ old('fechaprev3',$camptienda->fechaprev3) }}" disabled />
             </div>

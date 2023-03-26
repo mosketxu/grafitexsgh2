@@ -54,9 +54,9 @@ class CampaignPlanController extends Controller{
                 'fechainstal1' => $request->fechainstal1,
                 'fechainstal2' => $request->fechainstal2,
                 'fechainstal3' => $request->fechainstal3,
-                'monta_desmonta1' => $request->monta_desmonta1,
-                'monta_desmonta2' => $request->monta_desmonta2,
-                'monta_desmonta3' => $request->monta_desmonta3
+                'montaje1' => $request->montaje1,
+                'montaje2' => $request->montaje2,
+                'montaje3' => $request->montaje3
                 ]
             );
 
@@ -67,9 +67,9 @@ class CampaignPlanController extends Controller{
                     'fecha1prev' => $campaign->fechainstal1,
                     'fecha2prev' => $campaign->fechainstal2,
                     'fecha3prev' => $campaign->fechainstal3,
-                    'monta_desmonta1' => $campaign->monta_desmonta1,
-                    'monta_desmonta2' => $campaign->monta_desmonta2,
-                    'monta_desmonta3' => $campaign->monta_desmonta3,
+                    'montaje1' => $campaign->montaje1,
+                    'montaje2' => $campaign->montaje2,
+                    'montaje3' => $campaign->montaje3,
 
                     'montador_id' => $camptienda->tienda->montador_id,
                     ]

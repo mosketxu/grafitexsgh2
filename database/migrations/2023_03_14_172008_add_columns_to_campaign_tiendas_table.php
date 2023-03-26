@@ -21,10 +21,10 @@ return new class extends Migration
             $table->date('fechamontador1')->nullable()->after('fechaprev3');
             $table->date('fechamontador2')->nullable()->after('fechamontador1');
             $table->date('fechamontador3')->nullable()->after('fechamontador2');
-            $table->string('monta_desmonta1')->nullable()->after('fechamontador3');
-            $table->string('monta_desmonta2')->nullable()->after('monta_desmonta1');
-            $table->string('monta_desmonta3')->nullable()->after('monta_desmonta2');
-            $table->date('observacionesmontador')->nullable()->after('monta_desmonta3');
+            $table->string('montaje1')->nullable()->after('fechamontador3');
+            $table->string('montaje2')->nullable()->after('montaje1');
+            $table->string('montaje3')->nullable()->after('montaje2');
+            $table->date('observacionesmontador')->nullable()->after('montaje3');
         });
     }
 
@@ -43,9 +43,9 @@ return new class extends Migration
             $table->dropColumn('fechamontador1');
             $table->dropColumn('fechamontador2');
             $table->dropColumn('fechamontador3');
-            $table->dropColumn('monta_desmonta1');
-            $table->dropColumn('monta_desmonta2');
-            $table->dropColumn('monta_desmonta3');
+            $table->dropColumn('montaje1');
+            $table->dropColumn('montaje2');
+            $table->dropColumn('montaje3');
             $table->dropColumn('observacionesmontador');
         });
     }

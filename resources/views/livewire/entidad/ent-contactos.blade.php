@@ -53,7 +53,7 @@
                                     <input type="email" value="{{ $contacto->comentarios }}" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md"
                                         readonly/>
                                 </div>
-                                <div class="flex w-1/12 items-center flex justify-between mx-2">
+                                <div class="flex w-1/12 items-center justify-between mx-2">
                                     <x-icon.edit-a href="{{ route('entidad.editcontacto',[$contacto->contacto_id,$ent->id]) }}"  title="Editar Contacto"/>
                                     <x-icon.delete-a class="text-red-500 w-6" wire:click.prevent="delete({{ $contacto['id'] }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()" title="Eliminar contacto"/>
                                 </div>

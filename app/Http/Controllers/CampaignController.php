@@ -2,42 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{
-    Store,StoreElemento,Area,Mobiliario,
-    Campaign,
-    CampaignStore,
-    CampaignMedida,
-    CampaignMobiliario,
-    CampaignUbicacion,
-    CampaignSegmento,
-    CampaignArea,
-    CampaignElemento,
-    CampaignGaleria,
-    CampaignTienda,
-    CampaignTiendaGaleria,
-    Country,
-    Entidad,
-    Medida,
-    Provincia,
-    Segmento,
-    Tarifa,
-    VCampaignGaleria,
-    TarifaFamilia,
-    Ubicacion,
+use App\Models\{Store,StoreElemento,Area,Mobiliario,Campaign,
+    CampaignStore,CampaignMedida,CampaignMobiliario,
+    CampaignUbicacion,CampaignSegmento,CampaignArea,CampaignElemento,
+    Medida,Segmento,TarifaFamilia,Ubicacion,
     };
 
 use App\Exports\CampaignStoresExport;
-
+use App\Http\Requests\CampaignUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CampaignController extends Controller{
 
     public function __construct(){
-        $this->middleware('can:campaign.index')->only('index','addresses','exportaddresses');
-        $this->middleware('can:campaign.edit')->only('edit','filtrar','show','update','destroy','generarcampaign','conteo');
+        $this->middleware('can:campaign.index')->only('index','edit','addresses','exportaddresses');
+        $this->middleware('can:campaign.edit')->only('filtrar','show','update','destroy','generarcampaign','conteo');
         $this->middleware('can:campaign.delete')->only('destroy');
     }
      /**
@@ -57,8 +40,9 @@ class CampaignController extends Controller{
     }
 
     public function edit($campid){
+        $deshabilitado=Auth::user()->can('campaign.edit') ? '' : 'disabled' ;
         $campaign=Campaign::find($campid);
-        return view('campaign.edit',compact('campaign'));
+        return view('campaign.edit',compact('campaign','deshabilitado'));
     }
 
     public function addresses($id){
@@ -93,12 +77,20 @@ class CampaignController extends Controller{
         return view('campaign.indexfiltrar', compact('campaign','elementos','busqueda'));
     }
 
+    // public function update(CampaignUpdateRequest $request,$id){
     public function update(Request $request,$id){
+
         $request->validate([
             'campaign_name' => 'required',
-            'campaign_initdate' => 'required',
-            'campaign_enddate' => 'required',
+            'campaign_initdate' => 'date|required',
+            'campaign_enddate' => 'date|required',
             'campaign_state' => 'required',
+            'fechainstal1'=>['nullable','date',Rule::requiredIf($request->montaje1!='')],
+            'fechainstal2'=>['nullable','date',Rule::requiredIf($request->montaje2!='')],
+            'fechainstal3'=>['nullable','date',Rule::requiredIf($request->montaje3!='')],
+            'montaje1'=>['nullable',Rule::requiredIf($request->fechainstal1!='')],
+            'montaje2'=>['nullable',Rule::requiredIf($request->fechainstal2!='')],
+            'montaje3'=>['nullable',Rule::requiredIf($request->fechainstal3!='')],
         ]);
 
         $campaign=Campaign::find($id);
@@ -106,7 +98,14 @@ class CampaignController extends Controller{
             'campaign_name' => $request->campaign_name,
             'campaign_initdate' => $request->campaign_initdate,
             'campaign_enddate' => $request->campaign_enddate,
-            'campaign_state' => $request->campaign_state,]
+            'campaign_state' => $request->campaign_state,
+            'fechainstal1' => $request->fechainstal1,
+            'fechainstal2' => $request->fechainstal2,
+            'fechainstal3' => $request->fechainstal2,
+            'montaje1' => $request->montaje1,
+            'montaje2' => $request->montaje2,
+            'montaje3' => $request->montaje1,
+            ]
         );
         return redirect()->route('campaign.edit',$campaign)->with('message','Registro actualizado satisfactoriamente');
     }

@@ -10,73 +10,50 @@
     <div class="pb-0 mx-2 space-y-1 border rounded-md">
         {{-- Datos campañas --}}
         {{-- titulos --}}
-        <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-t-md ">
-            <div class="w-1/12">#</div>
-            <div class="w-3/12">Campaña</div>
-            <div class="w-2/12">Fecha Inicio</div>
-            <div class="w-2/12">Fecha Fin Prevista</div>
-            <div class="w-1/12">Estado</div>
-            <div class="w-3/12"></div>
+        <div class="flex">
+            <div class="flex w-9/12 pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-tl-md">
+                <div class="w-3/12">Campaña</div>
+                <div class="w-3/12 flex-none md:flex">
+                    <div class="w-full text-center md:text-right md:w-6/12">F.Inicio</div>
+                    <div class="w-full text-center md:text-right md:w-6/12">F.Fin</div>
+                </div>
+                <div class="w-4/12 flex-none md:flex">
+                    <div class="w-full text-center md:text-right md:w-4/12">F.Montaje 1</div>
+                    <div class="w-full text-center md:text-right md:w-4/12">F.Montaje 2</div>
+                    <div class="w-full text-center md:text-right md:w-4/12">F.Montaje 3</div>
+                </div>
+                <div class="w-2/12 text-center">Estado</div>
+            </div>
+            <div class="w-3/12  pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-tr-md">
+
+            </div>
         </div>
-        {{-- {{ $campaigns }} --}}
         @foreach ($campaigns as $campaign)
-            <div class="flex w-full py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1">
-                <div class="w-1/12">{{$campaign->id}}</div>
+        <div class="flex">
+            <div onclick="location.href = '{{ route('campaign.edit', $campaign->id) }}'"
+                class="flex w-9/12 py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1 items-center cursor-pointer hover:bg-gray-200">
                 <div class="w-3/12">{{$campaign->campaign_name}}</div>
-                <div class="w-2/12">{{$campaign->campaign_initdate}}</div>
-                <div class="w-2/12">{{$campaign->campaign_enddate}}</div>
-                <div class="w-1/12">{{$campaign->campaign_state}}</div>
-                <div class="flex justify-between w-3/12">
-                    @can('campaign.edit')
-                        <div class="">
-                        <a href="{{route('campaign.edit', $campaign->id )}}" title="Edit"><x-icon.edit class="w-6 text-blue-500"/></a>
-                        </div>
-                        <div class="">
-                            <a href="{{route('campaign.filtrar', $campaign) }}" title="Filtrar"><x-icon.filter class="text-black transform w-7 hover:text-black hover:scale-125"/></a>
-                        </div>
-                    @endcan
-                    @can('campaign.index')
-                        <div class="">
-                            <a href="{{route('campaign.elementos', $campaign->id ) }}" title="Elementos"><x-icon.cubes class="text-green-500 w-7 "/></a>
-                        </div>
-                        <div class="">
-                            <a href="{{route('campaign.galeria', $campaign->id ) }}" title="Galeria"><x-icon.images class="text-purple-700 w-7"/></a>
-                        </div>
-                        <div class="">
-                            <a href="{{route('campaign.etiquetas.pdf', $campaign->id ) }}" title="Etiquetas PDF"><x-icon.tags class="text-pink-700 w-7"/></a>
-                        </div>
-                        <div class="">
-                            <a href="{{route('campaign.etiquetas.index',$campaign->id) }}" target="_blank" title="Etiquetas HTML"><x-icon.code class="text-indigo-500 w-7"/></a>
-                        </div>
-                        <div class="">
-                            <a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones"><x-icon.location-dot class="w-5 text-teal-600"/></a>
-                        </div>
-                        @endcan
-                    @can('presupuestos.index')
-                    <div class="">
-                        <a href="{{route('campaign.presupuesto', $campaign->id ) }}" title="Presupuesto"><x-icon.money class="w-8 text-pink-500"/></a>
-                    </div>
-                    @endcan
-                    @can('campaign.index')
-                        <div class="">
-                            <a href="{{route('campaign.conteo', $campaign->id ) }}" title="Estadísticas"><x-icon.chart-column class="text-orange-500 w-7"/></a>
-                        </div>
-                    @endcan
-                    @can('plan.index')
-                        <div class="">
-                            <a href="{{route('plan.index', $campaign->id ) }}" title="Planificacion"><x-icon.calendar-days class="w-6 text-cyan-500 -500"/></a>
-                        </div>
-                    @endcan
-                    @can('campaign.delete')
-                        <form  action="{{route('campaign.delete',$campaign->id)}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="tokenCampaign">
-                            <button type="submit" class="enlace"><x-icon.trash class="text-blue-500"/></a></button>
-                        </form>
-                    @endcan
+                <div class="w-3/12 flex-none md:flex">
+                    <div class="w-full text-center md:text-right md:w-6/12">{{$campaign->campaign_initdate}}</div>
+                    <div class="w-full text-center md:text-right md:w-6/12">{{$campaign->campaign_enddate}}</div>
+                </div>
+                <div class="w-4/12 flex-none md:flex">
+                    <div class="w-full text-center md:text-right md:w-4/12">{{$campaign->fechainstal1}} {{ $campaign->montaje1  }}</div>
+                    <div class="w-full text-center md:text-right md:w-4/12">{{$campaign->fechainstal2}} {{ $campaign->montaje2  }}</div>
+                    <div class="w-full text-center md:text-right md:w-4/12">{{$campaign->fechainstal3}} {{ $campaign->montaje3  }}</div>
+                </div>
+                <div class="w-2/12 text-center">{{$campaign->campaign_state}}</div>
+            </div>
+            <div class="w-3/12 flex">
+                <div class="hidden md:flex ">
+                    @include('campaign.acciones')
+                </div>
+                <div class="flex md:hidden">
+                    @livewire('campaigns.modal-acciones',['campaign'=>$campaign])
                 </div>
             </div>
+        </div>
+
         @endforeach
     </div>
 </div>

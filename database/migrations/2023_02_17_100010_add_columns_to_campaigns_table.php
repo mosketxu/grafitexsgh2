@@ -17,9 +17,9 @@ return new class extends Migration
             $table->date('fechainstal1')->nullable();
             $table->date('fechainstal2')->nullable();
             $table->date('fechainstal3')->nullable();
-            $table->string('monta_desmonta1')->nullable();
-            $table->string('monta_desmonta2')->nullable();
-            $table->string('monta_desmonta3')->nullable();
+            $table->string('montaje1')->nullable();
+            $table->string('montaje2')->nullable();
+            $table->string('montaje3')->nullable();
         });
     }
 
@@ -32,11 +32,11 @@ return new class extends Migration
     {
         Schema::table('campaigns', function (Blueprint $table) {
             $table->dropColumn('fechainstal1');
-            $table->dropColumn('monta_desmonta1');
+            $table->dropColumn('montaje1');
             $table->dropColumn('fechainstal2');
-            $table->dropColumn('monta_desmonta2');
+            $table->dropColumn('montaje2');
             $table->dropColumn('fechainstal3');
-            $table->dropColumn('monta_desmonta3');
+            $table->dropColumn('montaje3');
 
         });
     }

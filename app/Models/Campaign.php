@@ -11,7 +11,7 @@ class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable=['campaign_name','campaign_initdate','campaign_enddate','campaign_state','slug','fechainstal1','fechainstal2','fechainstal3','monta_desmonta1','monta_desmonta2','monta_desmonta3'];
+    protected $fillable=['campaign_name','campaign_initdate','campaign_enddate','campaign_state','slug','fechainstal1','fechainstal2','fechainstal3','montaje1','montaje2','montaje3'];
     protected $dates = ['deleted_at'];
 
     // public function stores(){return $this->hasMany(Store::class);}

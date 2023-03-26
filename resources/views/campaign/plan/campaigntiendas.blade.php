@@ -35,19 +35,19 @@
                     <div class="flex space-x-2">
                         <div class="w-7/12">
                             <div class="w-full">
-                                <label for="fechainstal1">Fecha de {{ $monta_desmonta }}</label>
+                                <label for="fechainstal1">Fecha de {{ $montaje1 }}</label>
                                 <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal1"
                                 name="fechainstal1"
                                 value="{{ old('fechainstal1',$campaign->fechainstal1) }}"/>
                             </div>
                             <div class="w-full">
-                                <label for="fechainstal2">Fecha de {{ $monta_desmonta2 }}</label>
+                                <label for="fechainstal2">Fecha de {{ $montaje2 }}</label>
                                 <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal2"
                                 name="fechainstal2"
                                 value="{{ old('fechainstal2',$campaign->fechainstal2) }}"/>
                             </div>
                             <div class="w-full">
-                                <label for="fechainstal3">Fecha de {{ $monta_desmonta3 }}</label>
+                                <label for="fechainstal3">Fecha de {{ $montaje3 }}</label>
                                 <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal3"
                                 name="fechainstal3"
                                 value="{{ old('fechainstal3',$campaign->fechainstal3) }}"/>
@@ -121,12 +121,12 @@
                                 @endif
                             @endcan
                         </td>
-                        <td class="w-1/12">{{$camptienda->fechaprev1}} {{ $camptienda->monta_desmonta1 }}</td>
-                        <td class="w-1/12">{{$camptienda->fechaprev2}} {{ $camptienda->monta_desmonta1 }}</td>
-                        <td class="w-1/12">{{$camptienda->fechaprev3}} {{ $camptienda->monta_desmonta1 }}</td>
-                        <td class="w-1/12">{{$camptienda->fechamontador1}}  {{ $camptienda->monta_desmonta1 }}</td>
-                        <td class="w-1/12">{{$camptienda->fechamontador2}}  {{ $camptienda->monta_desmonta2 }}</td>
-                        <td class="w-1/12">{{$camptienda->fechamontador3}}  {{ $camptienda->monta_desmonta3 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev1}} {{ $camptienda->montaje1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev2}} {{ $camptienda->montaje1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechaprev3}} {{ $camptienda->montaje1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador1}}  {{ $camptienda->montaje1 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador2}}  {{ $camptienda->montaje2 }}</td>
+                        <td class="w-1/12">{{$camptienda->fechamontador3}}  {{ $camptienda->montaje3 }}</td>
                         <td class="w-1/12">{{$camptienda->observacionesmontador}}</td>
                     </tr>
                     @endforeach
