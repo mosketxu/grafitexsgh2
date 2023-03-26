@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\{Store,StoreElemento,Area,Mobiliario,Campaign,
     CampaignStore,CampaignMedida,CampaignMobiliario,
     CampaignUbicacion,CampaignSegmento,CampaignArea,CampaignElemento,
+    CampaignGaleria,
+    CampaignTienda,
     Medida,Segmento,TarifaFamilia,Ubicacion,
     };
 
@@ -20,7 +22,7 @@ class CampaignController extends Controller{
 
     public function __construct(){
         $this->middleware('can:campaign.index')->only('index','edit','addresses','exportaddresses');
-        $this->middleware('can:campaign.edit')->only('filtrar','show','update','destroy','generarcampaign','conteo');
+        $this->middleware('can:campaign.edit')->only('filtrar','show','update','generarcampaign','conteo');
         $this->middleware('can:campaign.delete')->only('destroy');
     }
      /**
@@ -293,7 +295,6 @@ class CampaignController extends Controller{
         $totalstores=CampaignTienda::where('campaign_id',$campaignId)->count();
         return view('campaign.conteosindex',compact('campaign','busqueda'));
     }
-
 
     /**
      * Remove the specified resource from storage.

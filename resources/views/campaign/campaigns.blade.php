@@ -45,7 +45,7 @@
                 <div class="w-2/12 text-center">{{$campaign->campaign_state}}</div>
             </div>
             <div class="w-3/12 flex">
-                <div class="hidden md:flex ">
+                <div class="hidden md:flex md:w-full md:justify-between">
                     @include('campaign.acciones')
                 </div>
                 <div class="flex md:hidden">

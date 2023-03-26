@@ -58,10 +58,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')->middleware('can:campaign.edit');
         Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')->middleware('can:campaign.index');
         Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportadresses'])->name('campaign.exportaddresses')->middleware('can:campaign.index');
-        Route::delete('/delete/{campaign}', [CampaignController::class,'destroy'])->name('campaign.delete')->middleware('can:campaign.destroy');
+        // Route::delete('/delete/{campaign}', [CampaignController::class,'destroy'])->name('campaign.delete')->middleware('can:campaign.destroy');
         Route::get('/{campaign}/conteo', [CampaignController::class,'conteo'])->name('campaign.conteo')->middleware('can:campaign.index');
-        Route::resource('campaign', CampaignController::class)->only('index','edit','update');
-            //Elementos de la campaña
+        Route::resource('campaign', CampaignController::class)->only('index','edit','update','destroy');
+
+        //Elementos de la campaña
         Route::group(['prefix' => 'elementos'], function () {
             Route::get('/{campaignelemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')->middleware('can:campaign.index');
             Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignElementoController::class,'editelemento'])->name('campaign.elemento.editelemento')->middleware('can:campaign.edit');

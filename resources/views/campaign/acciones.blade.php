@@ -19,11 +19,11 @@
     <x-icon.calendar-days-a href="{{route('plan.index', $campaign->id ) }}" title="Planificacion" class="mr-1 text-cyan-500 transform w-6 hover:text-cyan-700 hover:scale-125"/></a>
     @endcan
     @can('campaign.delete')
-    <form  action="{{route('campaign.delete',$campaign->id)}}" method="post">
+    <form  action="{{route('campaign.destroy',$campaign->id)}}" method="post">
         @csrf
         @method('DELETE')
         <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="tokenCampaign">
-        <button type="submit" class="enlace"><x-icon.trash class="text-blue-500"/></a></button>
+        <button type="submit" class="enlace"><x-icon.trash class=" text-red-500 transform w-6 hover:text-red-700 hover:scale-125"/></a></button>
     </form>
     @endcan
 {{-- </div> --}}
