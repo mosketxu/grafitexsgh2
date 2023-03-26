@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\{Area,Campaign,CampaignTienda,CampaignTiendaGaleria,Entidad};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Validation\Rule;
 
 class CampaignPlanController extends Controller{
 
     public function __construct(){
         $this->middleware('can:plan.index')->only('index');
-        $this->middleware('can:plan.index')->only('index');
+        $this->middleware('can:plan.edit')->only('edit','update');
     }
 
     public function index(Request $request,Campaign $campaign){
@@ -48,7 +48,17 @@ class CampaignPlanController extends Controller{
     // }
 
 
-    public function updatefechas(Request $request,Campaign $campaign){
+    public function update(Request $request,$campaignid){
+        $request->validate([
+            'fechainstal1'=>['required',Rule::requiredIf($request->montaje1!='')],
+            'fechainstal2'=>['nullable','date',Rule::requiredIf($request->montaje2!='')],
+            'fechainstal3'=>['nullable','date',Rule::requiredIf($request->montaje3!='')],
+            'montaje1'=>['required',Rule::requiredIf($request->fechainstal1!='')],
+            'montaje2'=>['nullable',Rule::requiredIf($request->fechainstal2!='')],
+            'montaje3'=>['nullable',Rule::requiredIf($request->fechainstal3!='')],
+        ]);
+
+        $campaign=Campaign::find($campaignid);
         $campaign->update(
             [
                 'fechainstal1' => $request->fechainstal1,
@@ -60,13 +70,13 @@ class CampaignPlanController extends Controller{
                 ]
             );
 
-        $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
+            $campaigntiendas=CampaignTienda::where('campaign_id',$campaign->id)->get();
             foreach($campaigntiendas as $camptienda){
                 $camptienda->update(
                 [
-                    'fecha1prev' => $campaign->fechainstal1,
-                    'fecha2prev' => $campaign->fechainstal2,
-                    'fecha3prev' => $campaign->fechainstal3,
+                    'fechaprev1' => $campaign->fechainstal1,
+                    'fechaprev2' => $campaign->fechainstal2,
+                    'fechaprev3' => $campaign->fechainstal3,
                     'montaje1' => $campaign->montaje1,
                     'montaje2' => $campaign->montaje2,
                     'montaje3' => $campaign->montaje3,

@@ -29,40 +29,51 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('plan.updatefechas',$campaign) }}"  method="post" class="w-4/12">
+                <form action="{{ route('plan.update',$campaign) }}"  method="post" class="w-4/12">
                     @csrf
                     @method('PUT')
-                    <div class="flex space-x-2">
-                        <div class="w-7/12">
-                            <div class="w-full">
-                                <label for="fechainstal1">Fecha de {{ $montaje1 }}</label>
-                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal1"
-                                name="fechainstal1"
-                                value="{{ old('fechainstal1',$campaign->fechainstal1) }}"/>
-                            </div>
-                            <div class="w-full">
-                                <label for="fechainstal2">Fecha de {{ $montaje2 }}</label>
-                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal2"
-                                name="fechainstal2"
-                                value="{{ old('fechainstal2',$campaign->fechainstal2) }}"/>
-                            </div>
-                            <div class="w-full">
-                                <label for="fechainstal3">Fecha de {{ $montaje3 }}</label>
-                                <input type="date" class="w-full text-sm py-1 {{ $color }} rounded-md form-control form-control-sm" id="fechainstal3"
-                                name="fechainstal3"
-                                value="{{ old('fechainstal3',$campaign->fechainstal3) }}"/>
-                            </div>
+                    <div class="text-sm space-y-0.5">
+                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
+                            <button type="submit" class="w-full items-center bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                {{ __('Actualizar fechas instalación') }}
+                            </button>
                         </div>
-                        <div class="w-5/12 ">
-                            <x-jet-button type="submit"
-                                class="w-full py-1.5 bg-blue-600 border-blue-900 hover:bg-blue-800"  >{{ __('Generar Plan') }}</x-jet-button>
-                            <label for="fechainstalini">Paso 2</label>
-                            <x-jet-button type="button"
-                                class="w-full py-1.5 bg-green-600 border-blue-900 hover:bg-blue-800" onclick="location.href = '{{ route('plan.generar',$campaign) }}'"  >{{ __('Generar Plan') }}</x-jet-button>
-                                </div>
+                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
+                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje1 ">Fecha de </x-jet-label>
+                                <x-select  selectname="montaje1" id="montaje1" name="montaje1"
+                                    class="w-4/12 py-0.5 text-sm border-blue-300">
+                                    <option value="">-Sel.--</option>
+                                    <option value="M" {{ $campaign->montaje1=='M' ? 'selected' : '' }}>Montaje</option>
+                                    <option value="D" {{ $campaign->montaje1=='D'  ? 'selected' : '' }}>Desmontaje</option>
+                                </x-select>
+                            <input type="date" id="fechainstal1" name="fechainstal1" value="{{ old('fechainstal1',$campaign->fechainstal1) }}"
+                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
+                        </div>
+                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
+                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje2 ">Fecha de </x-jet-label>
+                                <x-select  selectname="montaje2" id="montaje2" name="montaje2"
+                                    class="w-4/12 py-0.5  text-sm  border-blue-300">
+                                    <option value="">-Sel.--</option>
+                                    <option value="M" {{ $campaign->montaje2=='M' ? 'selected' : '' }}>Montaje</option>
+                                    <option value="D" {{ $campaign->montaje2=='D'  ? 'selected' : '' }}>Desmontaje</option>
+                                </x-select>
+                            <input type="date" id="fechainstal2" name="fechainstal2" value="{{ old('fechainstal2',$campaign->fechainstal2) }}"
+                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
+                        </div>
+                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
+                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje3 ">Fecha de </x-jet-label>
+                                <x-select  selectname="montaje3" id="montaje3" name="montaje3"
+                                    class="w-4/12 py-0.5  text-sm  border-blue-300">
+                                    <option value="">-Sel.--</option>
+                                    <option value="M" {{ $campaign->montaje3=='M' ? 'selected' : '' }}>Montaje</option>
+                                    <option value="D" {{ $campaign->montaje3=='D'  ? 'selected' : '' }}>Desmontaje</option>
+                                </x-select>
+                            <input type="date" id="fechainstal3" name="fechainstal3" value="{{ old('fechainstal3',$campaign->fechainstal3) }}"
+                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
+                        </div>
                     </div>
                 </form>
-                <div class="flex flex-row-reverse w-3/12 space-x-2">
+                <div class="flex w-3/12">
                     <div class="w-full my-auto space-y-2">
                         <form method="GET" action="{{route('plan.index',$campaign) }}">
                             <input id="buscaname" name="buscaname" type="search" value='{{$busquedaname}}' placeholder="Buscar por nombre..."
@@ -72,8 +83,6 @@
                             <input id="buscastoreid" name="buscastoreid" type="search" value='{{$busquedastoreid}}' placeholder="Buscar por store code..."
                             class="w-full py-1 text-sm transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300']"/>
                         </form>
-                    </div>
-                    <div class="w-4/12 my-auto">
                     </div>
                 </div>
             </div>
