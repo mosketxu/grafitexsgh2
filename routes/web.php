@@ -105,9 +105,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::group(['prefix' => 'plan'], function () {
             // Route::put('/update/{campaign}', [CampaignPlanController::class,'updatefechas'])->name('plan.updatefechas')->middleware('can:plan.edit');
             Route::put('/fechas/{camptienda}/update/', [CampaignPlanController::class,'update'])->name('plan.update')->middleware('can:plan.update');
-            Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatetiendamontador'])->name('plan.updateamontadortienda')->middleware('can:plan.edit');
-            Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edittienda'])->name('plam.tiendaedit')->middleware('can:plan.edit');
-            //  Route::get('/{campaign}/generar', [CampaignPlanController::class,'generarplan'])->name('plan.generar')->middleware('can:plan.edit');
+            // Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatemontaje'])->name('plan.updateamontaje')->middleware('can:plan.edit');
+            Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edit'])->name('plan.edit')->middleware('can:plan.edit');
             Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
 
             // PlanGaleria
@@ -142,8 +141,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
     Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
     Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
+
     // tienda montador
     Route::get('montador',[MontadorController::class,'index'])->name('montador.index')->middleware('can:montador.index');
+    Route::put('/montador/{camptienda}/updatefecha/', [MontadorController::class,'updatefechasmontador'])->name('montador.updatefechasmontador')->middleware('can:montador.update');
+    Route::put('/montador/{camptienda}/updatemontador/', [MontadorController::class,'updatemontadortienda'])->name('montador.updatemontadortienda')->middleware('can:plan.edit');
+
 
     //Entidades
     Route::get('/entidad/nuevocontacto/{entidad}', [EntidadController::class, 'createcontacto'])->name('entidad.createcontacto');
