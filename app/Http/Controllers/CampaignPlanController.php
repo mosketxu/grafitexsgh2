@@ -75,10 +75,15 @@ class CampaignPlanController extends Controller{
         if ($request->filtroarea) $filtroarea = $request->filtroarea;
 
         $camptienda=CampaignTienda::with('campaign')->find($camptienda);
-        $montadores=Entidad::join('entidad_areas','entidades.id','entidad_areas.entidad_id')
-            ->select('entidades.id','entidades.entidad','entidad_areas.area_id')
-            ->when(!empty($filtroarea),function($query) use($filtroarea){return $query->where('entidad_areas.area_id','=',$filtroarea);})
-            ->orderBy('entidad')->get();
+
+        if($filtroarea=='')
+            $montadores=Entidad::select('entidades.id','entidades.entidad')->where('montador','1')->orderBy('entidad')->get();
+        else
+            $montadores=Entidad::join('entidad_areas','entidades.id','entidad_areas.entidad_id')
+                ->select('entidades.id','entidades.entidad','entidad_areas.area_id')
+                ->where('montador','1')
+                ->when(!empty($filtroarea),function($query) use($filtroarea){return $query->where('entidad_areas.area_id','=',$filtroarea);})
+                ->orderBy('entidad')->get();
 
         $areas=Area::orderBy('area')->get();
         $galeria=CampaignTiendaGaleria::where('campaigntienda_id',$camptienda->id)->get();
