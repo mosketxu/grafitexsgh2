@@ -3,7 +3,7 @@
         @include('errores')
     </div>
     {{-- form fechas previstas --}}
-    <form action="{{ route('montador.updatefechasmontador',$camptienda) }}"  method="post">
+    <form action="{{ route('montador.updatefechasplan',$camptienda) }}"  method="post">
         @csrf
         @method('PUT')
         <div class="text-sm text-gray-500 border border-blue-300 rounded shadow-md">

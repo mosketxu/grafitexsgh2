@@ -79,17 +79,29 @@ class MontadorController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function updatefechasplan(Request $request,CampaignTienda $camptienda){
+        // dd($request);
+        $request->validate([
+            'fechaprev1'=>'required',
+            'fechaprev2'=>'nullable|date',
+            'fechaprev3'=>'nullable|date',
+        ]);
+
+        $montaje2=$request->fechaprev2=='' ? null : $request->montaje2;
+        $montaje3=$request->fechaprev2=='' ? null : $request->montaje3;
+
+        $camptienda->update([
+            'fechaprev1'=>$request->fechaprev1,
+            'fechaprev2'=>$request->fechaprev2,
+            'fechaprev3'=>$request->fechaprev3,
+            'montaje2'=>$montaje2,
+            'montaje3'=>$montaje3,
+            ]
+        );
+        return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
+    }
 
     public function updatefechasmontador(Request $request,CampaignTienda $camptienda){
-
-        // dd($request);
         $request->validate([
             'fechamontador1'=>'required',
             'fechamontador2'=>'nullable|date',

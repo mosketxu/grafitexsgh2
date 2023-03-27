@@ -144,8 +144,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     // tienda montador
     Route::get('montador',[MontadorController::class,'index'])->name('montador.index')->middleware('can:montador.index');
-    Route::put('/montador/{camptienda}/updatefecha/', [MontadorController::class,'updatefechasmontador'])->name('montador.updatefechasmontador')->middleware('can:montador.update');
+    Route::put('/montador/{camptienda}/updatefechasmontador/', [MontadorController::class,'updatefechasmontador'])->name('montador.updatefechasmontador')->middleware('can:montador.update');
     Route::put('/montador/{camptienda}/updatemontador/', [MontadorController::class,'updatemontadortienda'])->name('montador.updatemontadortienda')->middleware('can:plan.edit');
+    Route::put('/montador/{camptienda}/updatefechasplan/', [MontadorController::class,'updatefechasplan'])->name('montador.updatefechasplan')->middleware('can:plan.edit');
 
 
     //Entidades
