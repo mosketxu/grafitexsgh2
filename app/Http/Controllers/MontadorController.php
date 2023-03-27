@@ -86,9 +86,29 @@ class MontadorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+
+    public function updatefechasmontador(Request $request,CampaignTienda $camptienda){
+
+        // dd($request);
+        $request->validate([
+            'fechamontador1'=>'required',
+            'fechamontador2'=>'nullable|date',
+            'fechamontador3'=>'nullable|date',
+        ]);
+
+        $camptienda->update([
+            'fechamontador1'=>$request->fechamontador1,
+            'fechamontador2'=>$request->fechamontador2,
+            'fechamontador3'=>$request->fechamontador3,
+            ]
+        );
+        return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
+    }
+
+
+    public function updatemontadortienda(Request $request,CampaignTienda $camptienda){
+        $camptienda->update(['montador_id' => $request->montador_id,]);
+        return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
     }
 
     /**

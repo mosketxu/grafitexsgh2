@@ -22,9 +22,9 @@ class EntidadController extends Controller
     }
 
     public function show($id){
-        if(Auth::user()->can('entidad.edit'))
-            $entidad=Entidad::find($id);
-            return view('entidad.edit',compact('entidad'));
+        $ruta='entidad';
+        if(Auth::user()->can('entidad.edit')) $entidad=Entidad::find($id);
+        return view('entidad.edit',compact('entidad','ruta'));
     }
 
     public function edit(Entidad $entidad){

@@ -17,8 +17,7 @@ class CampaignPresupuesto extends Model
 
     protected $dates = ['fecha'];
 
-    public function scopeSearch2($query, $busca)
-    {
+    public function scopeSearch2($query, $busca){
         return $query->where('referencia', 'LIKE', "%$busca%")
             ->orWhere('fecha', 'LIKE', "%$busca%")
             ->orWhere('atencion', 'LIKE', "%$busca%")
@@ -27,14 +26,8 @@ class CampaignPresupuesto extends Model
             ;
     }
 
-
-    public function campaign(){
-    return $this->belongsTo(Campaign::class);
-    }
-
-    public function extras(){
-        return $this->hasMany(CampaignPresupuestoExtra::class);
-    }
+    public function campaign(){return $this->belongsTo(Campaign::class);}
+    public function extras(){return $this->hasMany(CampaignPresupuestoExtra::class);}
 
     public function getStatusAttribute(){
         return [
@@ -45,8 +38,7 @@ class CampaignPresupuesto extends Model
         ][$this->estado] ?? ['text-gray-100','Desconocido'];
     }
 
-    public function getFechapreAttribute()
-    {
+    public function getFechapreAttribute(){
         if ($this->fecha) {
             return Carbon::parse($this->fecha)->format('d/m/Y');
         } else {
@@ -54,8 +46,7 @@ class CampaignPresupuesto extends Model
         }
     }
 
-    public function getFechaprestrAttribute()
-    {
+    public function getFechaprestrAttribute(){
         if ($this->fecha) {
             return Carbon::parse($this->fecha)->format('Y-m-d');
         } else {

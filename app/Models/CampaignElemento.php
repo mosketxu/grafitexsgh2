@@ -23,8 +23,7 @@ class CampaignElemento extends Model
         return $this->belongsTo(Tarifa::class,'familia');
     }
 
-    public function scopeSearch2($query, $busca)
-    {
+    public function scopeSearch2($query, $busca){
       return $query->where('campaign_elementos.store_id', 'LIKE', "%$busca%")
       ->orWhere('name', 'LIKE', "%$busca%")
       ->orWhere('country', 'LIKE', "%$busca%")
@@ -42,15 +41,13 @@ class CampaignElemento extends Model
       ;
     }
 
-    public function scopeTienda($query, $campaignid)
-    {
+    public function scopeTienda($query, $campaignid){
       return $query->join('campaign_tiendas','campaign_tiendas.id','tienda_id')
       ->where('campaign_id',$campaignid)
       ;
     }
 
-    public function scopeOK($query, $busca)
-    {
+    public function scopeOK($query, $busca){
       if($busca=='OK')
         return $query->where('estadorecepcion', '1');
       elseif($busca=='KO')
@@ -59,9 +56,7 @@ class CampaignElemento extends Model
         return $query->where('estadorecepcion', '0');
     }
 
-
-    static function asignElementosPrecio($campaignId)
-    {
+    static function asignElementosPrecio($campaignId){
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->select('campaign_elementos.id as id','precio','familia')
         ->where('campaign_id',$campaignId)
@@ -78,8 +73,7 @@ class CampaignElemento extends Model
         return $total;
     }
 
-    static function getGaleria($campaignId)
-    {
+    static function getGaleria($campaignId){
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->where('campaign_id',$campaignId)
         ->select('campaign_id','mobiliario','carteleria','medida','ECI','elemento','imagen')
@@ -95,14 +89,12 @@ class CampaignElemento extends Model
         ->get();
     }
 
-
     static function getPromedios($campaignId){
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->where('campaign_id',$campaignId)
         ->select('campaign_id','zona','campaign_elementos.store_id as store_id',DB::raw('SUM(unitxprop * precio) as tot'))
         ->groupBy('campaign_id','zona','campaign_elementos.store_id')
         ->get();
-
     }
 
     public function campelementoUrl(){

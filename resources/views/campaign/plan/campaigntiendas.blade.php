@@ -115,7 +115,7 @@
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
                     @foreach ($campaigntiendas as $camptienda)
-                    <tr class="flex w-full py-1 mx-2 hover:bg-gray-100 hover:cursor-pointer" onclick="location.href = '{{ route('plam.tiendaedit',$camptienda) }}'" color="gray" >
+                    <tr class="flex w-full py-1 mx-2 hover:bg-gray-100 hover:cursor-pointer" onclick="location.href = '{{ route('plan.edit',$camptienda) }}'" color="gray" >
                         {{-- {{ $camptienda }} --}}
                         <td class="w-1/12">{{$camptienda->store_id}}</td>
                         <td class="w-1/12">{{$camptienda->tienda->name}}</td>

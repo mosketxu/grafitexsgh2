@@ -181,6 +181,8 @@
                         </x-jet-button>
                         @if($ruta=="entidad")
                             <x-jet-secondary-button  onclick="location.href = '{{route('entidad.index' )}}'">{{ __('Volver') }}</x-jet-secondary-button>
+                        @elseif($ruta=="plan")
+                            <x-jet-secondary-button  onclick="location.href = '{{route('plan.index',[$ruta] )}}'">{{ __('Volver') }}</x-jet-secondary-button>
                         @else
                             <x-jet-secondary-button  onclick="location.href = '{{route('entidad.edit',[$ruta] )}}'">{{ __('Volver') }}</x-jet-secondary-button>
                         @endif
