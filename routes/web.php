@@ -105,7 +105,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::group(['prefix' => 'plan'], function () {
             // Route::put('/update/{campaign}', [CampaignPlanController::class,'updatefechas'])->name('plan.updatefechas')->middleware('can:plan.edit');
             Route::put('/fechas/{camptienda}/update/', [CampaignPlanController::class,'update'])->name('plan.update')->middleware('can:plan.update');
-            // Route::put('/montador/{camptienda}/update/', [CampaignPlanController::class,'updatemontaje'])->name('plan.updateamontaje')->middleware('can:plan.edit');
             Route::get('/{campaigntienda}/editplan', [CampaignPlanController::class,'edit'])->name('plan.edit')->middleware('can:plan.edit');
             Route::get('/{campaign}', [CampaignPlanController::class,'index'])->name('plan.index')->middleware('can:plan.index');
 
@@ -143,7 +142,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
 
     // tienda montador
+    Route::get('montador/{campaigntienda}/edit', [MontadorController::class,'edit'])->name('montador.edittienda')->middleware('can:montador.update');
     Route::get('montador',[MontadorController::class,'index'])->name('montador.index')->middleware('can:montador.index');
+    Route::put('/montador/{camptienda}/updateestadomontaje/{ruta}', [MontadorController::class,'updateestadomontaje'])->name('montador.updateestadomontaje')->middleware('can:montador.update');
     Route::put('/montador/{camptienda}/updatefechasmontador/', [MontadorController::class,'updatefechasmontador'])->name('montador.updatefechasmontador')->middleware('can:montador.update');
     Route::put('/montador/{camptienda}/updatemontador/', [MontadorController::class,'updatemontadortienda'])->name('montador.updatemontadortienda')->middleware('can:plan.edit');
     Route::put('/montador/{camptienda}/updatefechasplan/', [MontadorController::class,'updatefechasplan'])->name('montador.updatefechasplan')->middleware('can:plan.edit');

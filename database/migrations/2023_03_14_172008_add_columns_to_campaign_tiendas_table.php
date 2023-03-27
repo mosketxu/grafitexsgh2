@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('montaje2')->nullable()->after('montaje1');
             $table->string('montaje3')->nullable()->after('montaje2');
             $table->date('observacionesmontador')->nullable()->after('montaje3');
+            $table->integer('estadomontaje')->nullable()->default('0')->after('observacionesmontador');
         });
     }
 
@@ -47,6 +48,7 @@ return new class extends Migration
             $table->dropColumn('montaje2');
             $table->dropColumn('montaje3');
             $table->dropColumn('observacionesmontador');
+            $table->dropColumn('estado');
         });
     }
 };

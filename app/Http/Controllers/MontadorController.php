@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Campaign;
 use App\Models\CampaignTienda;
+use App\Models\CampaignTiendaGaleria;
 use App\Models\Entidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MontadorController extends Controller
 {
@@ -20,63 +23,53 @@ class MontadorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $busqueda = '';
-        if ($request->busca) $busqueda = $request->busca;
-
+        $filtroestadomontaje=is_null($request->filtroestadomontaje) ? '3' : $request->filtroestadomontaje;
+        // dd($filtroestadomontaje);
         $montador=Entidad::where('user_id',Auth()->user()->id)->first();
-        $tiendas=CampaignTienda::where('montador_id',$montador->id)->get();
+        $camptiendas=CampaignTienda::with('campaign','montador')
+        ->where('montador_id',$montador->id)
+        ->when($filtroestadomontaje!='t',function($query) use($filtroestadomontaje){
+            if($filtroestadomontaje=='3'){
+                // dd('es 3');
+                return $query->where('estadomontaje','<>','2');}
+            else{
+                // dd('es menor de 3');
+                return $query->where('estadomontaje','=',$filtroestadomontaje);}
+        })
+        ->paginate(20);
 
-        dd($tiendas);
-
-
-        $campaigns=Campaign::search2($request->busca)
-            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-            ->paginate(10);
-
-        return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
+        return view('montador.index',compact('camptiendas','filtroestadomontaje'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function edit(Request $request, $camptienda){
+        $filtroarea = '';
+        if ($request->filtroarea) $filtroarea = $request->filtroarea;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $camptienda=CampaignTienda::with('campaign')->find($camptienda);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        if($filtroarea=='')
+            $montadores=Entidad::select('entidades.id','entidades.entidad')->where('montador','1')->orderBy('entidad')->get();
+        else
+            $montadores=Entidad::join('entidad_areas','entidades.id','entidad_areas.entidad_id')
+                ->select('entidades.id','entidades.entidad','entidad_areas.area_id')
+                ->where('montador','1')
+                ->when(!empty($filtroarea),function($query) use($filtroarea){return $query->where('entidad_areas.area_id','=',$filtroarea);})
+                ->orderBy('entidad')->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $areas=Area::orderBy('area')->get();
+        $galeria=CampaignTiendaGaleria::where('campaigntienda_id',$camptienda->id)->get();
+
+        if(Auth::user()->can('plan.create')){
+            $deshabilitado='';
+            $deshabilitadocolor='bg-white';
+        }else{
+            $deshabilitado='disabled';
+            $deshabilitadocolor='bg-gray-100';
+        }
+
+        $ruta='montador.index';
+
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','ruta'));
     }
 
     public function updatefechasplan(Request $request,CampaignTienda $camptienda){
@@ -117,6 +110,10 @@ class MontadorController extends Controller
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
     }
 
+    public function updateestadomontaje(Request $request,CampaignTienda $camptienda,$ruta){
+        $camptienda->update(['estadomontaje' => $request->estadomontaje,]);
+        return redirect()->route($ruta,[$camptienda,$ruta])->with('message','Datos actualizadas ');
+    }
 
     public function updatemontadortienda(Request $request,CampaignTienda $camptienda){
         $camptienda->update(['montador_id' => $request->montador_id,]);

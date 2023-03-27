@@ -2,6 +2,20 @@
     <div class="">
         @include('errores')
     </div>
+    {{-- <div class="flex-row-reverse 2/12">
+        @can('montador.update')
+        <form action="{{ route('montador.updateestadomontaje',$camptienda) }}"  method="post" class="w-full">
+            @csrf
+            @method('PUT')
+            <x-jet-label class="mr-2">Estado</x-jet-label> {{ $camptienda->estadomontaje }}
+            <x-select  selectname="estadomontaje" class="w-full py-1 text-sm border-blue-300" id="estadomontaje"  >
+                <option value="0" {{ $camptienda->estadomontaje== '0' ? 'selected' : '' }}>Sin iniciar</option>
+                <option value="1" {{ $camptienda->estadomontaje== '1' ? 'selected' : '' }}>En curso</option>
+                <option value="2" {{ $camptienda->estadomontaje== '2' ? 'selected' : '' }}>Finalizado</option>
+            </x-select>
+        </form>
+        @endcan
+    </div> --}}
     {{-- form fechas previstas --}}
     <form action="{{ route('montador.updatefechasplan',$camptienda) }}"  method="post">
         @csrf
@@ -10,12 +24,12 @@
             {{-- store --}}
             <div class="w-full px-2 bg-gray-100 rounded-md">
                 <label for="store">Store</label>
-                <div class="w-full p-1 text-sm bg-gray-100 border border-gray-500 form-control form-control-sm rounded-md">
+                <div class="w-full p-1 text-sm bg-gray-100 border border-gray-500 rounded-md form-control form-control-sm">
                     {{ $camptienda->tienda->name }} ({{ $camptienda->tienda->city }})
                 </div>
             </div>
             {{-- fechas previstas --}}
-            <div class="flex-none w-full p-2 bg-gray-100 space-y-2 md:flex md:space-y-0 md:space-x-2">
+            <div class="flex-none w-full p-2 space-y-2 bg-gray-100 md:flex md:space-y-0 md:space-x-2">
                 <div class="w-full md:w-4/12">
                     <label for="fechaprev1">Fecha de <span class="font-bold underline"> {{ $camptienda->monta1  }} </span> prevista</label>
                     <input type="hidden" name="montaje1" value="{{ $camptienda->montaje1 }}">
@@ -41,13 +55,13 @@
             </div>
             <div class="flex w-full p-2 space-x-2 bg-gray-100 ">
                 @can('plan.create')
-                <x-button type="submit" class="bg-blue-500 text-white">Actualiza fechas previstas</x-button>
+                <x-button type="submit" class="text-white bg-blue-500">Actualiza fechas previstas</x-button>
                 @endcan
             </div>
         </div>
     </form>
     {{-- Seleccion de Montador --}}
-    <div class="flex-none w-full p-2 space-y-2 bg-blue-50 rounded-md md:flex md:space-x-2">
+    <div class="flex-none w-full p-2 space-y-2 rounded-md bg-blue-50 md:flex md:space-x-2">
         @can('plan.create')
         <div class="w-full md:w-2/12">Selección de Montadores por Area</div>
         <div class="w-full md:w-5/12 ">
@@ -105,7 +119,7 @@
                 @endif
             </div>
             <div class="w-full p-2">
-                <button type="submit" class="w-full text-center  items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25 transition">{{ __('Guardar') }}</button>
+                <button type="submit" class="items-center w-full px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-blue-800 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25">{{ __('Guardar') }}</button>
             </div>
         </div>
     </form>
@@ -114,7 +128,7 @@
             class="dropzone"
             id="my-awesome-dropzone">
     </form>
-    <div class="grid grid-cols-1 gap-2 m-2  md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($galeria as $imagen )
             <form action="{{ route('plan.deleteimagentienda', [$camptienda,$imagen]) }}" method ="POST" >
             @csrf
@@ -127,8 +141,9 @@
         @endforeach
     </div>
     <div class="my-2">
-        <button type="button" onclick="location.href = '{{ route('plan.index',$camptienda->campaign_id) }}'"
-            class="text-center  items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+        {{ $ruta }}
+        <button type="button" onclick="location.href = '{{ route($ruta,$camptienda->campaign_id) }}'"
+            class="items-center px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25">
             {{ __('Volver') }}
         </button>
     </div>
@@ -137,6 +152,11 @@
 @push('scriptchosen')
 
 <script>
+
+var select = document.getElementById('estadomontaje');
+select.onchange = function(){
+    this.form.submit();
+};
 
 var select = document.getElementById('filtroarea');
 select.onchange = function(){

@@ -10,7 +10,9 @@ class CampaignTienda extends Model
     use HasFactory;
 
     protected $fillable=['campaign_id','store_id',
-        'montador_id','fechaprev1','fechaprev2','fechaprev3','montaje1','montaje2','montaje3','fechamontador1','fechamontador2','fechamontador3','observacionesmontador'];
+        'montador_id','fechaprev1','fechaprev2','fechaprev3','montaje1','montaje2','montaje3',
+        'fechamontador1','fechamontador2','fechamontador3','observacionesmontador',
+        'estadomontaje'];
 
     public function campaign(){return $this->belongsTo(Campaign::class, 'campaign_id');}
     public function tienda(){return $this->belongsTo(Store::class, 'store_id');}
@@ -40,4 +42,10 @@ class CampaignTienda extends Model
     public function getMonta1Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje1] ?? '';}
     public function getMonta2Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje2] ?? '';}
     public function getMonta3Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje3] ?? '';}
-}
+    public function getEstadomontaAttribute(){
+        return [
+            '0'=>'Sin Iniciar',
+            '1'=>'En Curso',
+            '2'=>'Finalizada',
+            ][$this->estadomontaje] ?? 'Sin Iniciar';}
+        }

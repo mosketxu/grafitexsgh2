@@ -63,6 +63,7 @@ class CampaignPlanController extends Controller{
                 'montaje2' => $campaign->montaje2,
                 'montaje3' => $campaign->montaje3,
                 'montador_id' => $camptienda->tienda->montador_id,
+                'estadomontaje' => '0',
                 ]
             );
         }
@@ -96,7 +97,9 @@ class CampaignPlanController extends Controller{
             $deshabilitadocolor='bg-gray-100';
         }
 
-        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor'));
+        $ruta='plan.index';
+
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','ruta'));
     }
 
 
