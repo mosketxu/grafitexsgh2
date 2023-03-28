@@ -4,8 +4,8 @@
     </div>
     <div class="p-1 mx-2">
         <div class="text-sm text-gray-500 border border-blue-300 rounded shadow-md">
-            <div class="flex w-full p-1 space-x-2 bg-gray-100 rounded-md">
-                <div class="w-5/12 rounded-md">
+            <div class="flex-none w-full p-1  bg-gray-100 rounded-md md:flex md:space-x-2">
+                <div class="w-full rounded-md md:w-5/12">
                     <div class="">
                         <label for="campaign_name">Campaña</label>
                         <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
@@ -29,52 +29,16 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('plan.update',$campaign) }}"  method="post" class="w-4/12">
-                    @csrf
-                    @method('PUT')
-                    <div class="text-sm space-y-0.5">
-                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
-                            <button type="submit" class="w-full items-center bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                                {{ __('Actualizar fechas instalación') }}
-                            </button>
-                        </div>
-                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
-                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje1 ">Fecha de </x-jet-label>
-                                <x-select  selectname="montaje1" id="montaje1" name="montaje1"
-                                    class="w-4/12 py-0.5 text-sm border-blue-300">
-                                    <option value="">-Sel.--</option>
-                                    <option value="M" {{ $campaign->montaje1=='M' ? 'selected' : '' }}>Montaje</option>
-                                    <option value="D" {{ $campaign->montaje1=='D'  ? 'selected' : '' }}>Desmontaje</option>
-                                </x-select>
-                            <input type="date" id="fechainstal1" name="fechainstal1" value="{{ old('fechainstal1',$campaign->fechainstal1) }}"
-                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
-                        </div>
-                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
-                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje2 ">Fecha de </x-jet-label>
-                                <x-select  selectname="montaje2" id="montaje2" name="montaje2"
-                                    class="w-4/12 py-0.5  text-sm  border-blue-300">
-                                    <option value="">-Sel.--</option>
-                                    <option value="M" {{ $campaign->montaje2=='M' ? 'selected' : '' }}>Montaje</option>
-                                    <option value="D" {{ $campaign->montaje2=='D'  ? 'selected' : '' }}>Desmontaje</option>
-                                </x-select>
-                            <input type="date" id="fechainstal2" name="fechainstal2" value="{{ old('fechainstal2',$campaign->fechainstal2) }}"
-                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
-                        </div>
-                        <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 ">
-                            <x-jet-label class="w-2/12 mx-2 text-sm" for="montaje3 ">Fecha de </x-jet-label>
-                                <x-select  selectname="montaje3" id="montaje3" name="montaje3"
-                                    class="w-4/12 py-0.5  text-sm  border-blue-300">
-                                    <option value="">-Sel.--</option>
-                                    <option value="M" {{ $campaign->montaje3=='M' ? 'selected' : '' }}>Montaje</option>
-                                    <option value="D" {{ $campaign->montaje3=='D'  ? 'selected' : '' }}>Desmontaje</option>
-                                </x-select>
-                            <input type="date" id="fechainstal3" name="fechainstal3" value="{{ old('fechainstal3',$campaign->fechainstal3) }}"
-                                class="w-6/12 text-sm  py-0.5 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"/>
-                        </div>
-                    </div>
-                </form>
-                <div class="flex w-3/12">
+                @can('plan.edit')
+                    @include('campaign.plan.fechasactualiza')
+                @else
+                    @include('campaign.plan.fechasmuestra')
+                @endif
+                <div class="w-full flex-none md:flex md:w-3/12">
                     <div class="w-full my-auto space-y-2">
+                    <div class="w-full my-2 bg-gray-400 text-center border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest ">
+                        {{ __('Filtros') }}
+                    </div>
                         <form method="GET" action="{{route('plan.index',$campaign) }}">
                             <input id="buscaname" name="buscaname" type="search" value='{{$busquedaname}}' placeholder="Buscar por nombre..."
                             class="w-full py-1 text-sm transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300']"/>
@@ -91,7 +55,7 @@
     <div class="">
         <div class="w-full px-2">
             <table class="w-full text-xs text-left">
-                <thead class="flex flex-col w-full text-white bg-black">
+                <thead class="flex flex-col w-full text-white bg-black rounded-t-md">
                     <tr class="flex w-full mx-2">
                         <th class="w-1/12">Store</th>
                         <th class="w-1/12">Name</th>

@@ -42,6 +42,7 @@ class CampaignTienda extends Model
     public function getMonta1Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje1] ?? '';}
     public function getMonta2Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje2] ?? '';}
     public function getMonta3Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje3] ?? '';}
+
     public function getEstadomontaAttribute(){
         return [
             '0'=>'Sin Iniciar',

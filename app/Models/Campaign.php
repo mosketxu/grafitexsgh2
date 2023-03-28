@@ -16,6 +16,10 @@ class Campaign extends Model
 
     // public function stores(){return $this->hasMany(Store::class);}
     public function campstores(){return $this->hasMany(CampaignStore::class);}
+    public function tiendas(){return $this->hasMany(CampaignTienda::class,'campaign_id');}
+    public function tiendaselementos(){return $this->hasMany(CampaignTienda::class,'campaign_id')->with('elementos');}
+    public function campaignPresupuestos(){return $this->hasMany(CampaignPresupuesto::class);}
+    public function campaignPromedios(){return $this->hasMany(VCampaignPromedio::class);}
 
 
     // public static function boot()
@@ -31,8 +35,7 @@ class Campaign extends Model
     //      });
     // }
 
-    public function scopeSearch2($query, $busca)
-    {
+    public function scopeSearch2($query, $busca){
       return $query->where('campaign_name', 'LIKE', "%$busca%")
       ->orWhere('campaign_initdate', 'LIKE', "%$busca%")
       ->orWhere('campaign_initdate', 'LIKE', "%$busca%")
@@ -52,24 +55,7 @@ class Campaign extends Model
             DB::table($tabla)->insert($dataSet);
         }
     }
-    public function tiendas(){
-        return $this->hasMany(CampaignTienda::class,'campaign_id');
-    }
-
-    public function tiendaselementos(){
-        return $this->hasMany(CampaignTienda::class,'campaign_id')->with('elementos');
-    }
-
-    public function campaignPresupuestos(){
-        return $this->hasMany(CampaignPresupuesto::class);
-    }
-
-    public function campaignPromedios(){
-        return $this->hasMany(VCampaignPromedio::class);
-    }
-
-    static function getConteoFamiliaPrecio($campaignId)
-    {
+    static function getConteoFamiliaPrecio($campaignId){
         return CampaignElemento::where('campaign_id',$campaignId)
             ->select('familia','precio',DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
             ->groupBy('familia','precio')
@@ -77,12 +63,25 @@ class Campaign extends Model
 
     }
 
-    static function getConteoZonaFamiliaPrecio($campaignId)
-    {
+    static function getConteoZonaFamiliaPrecio($campaignId){
         return CampaignElemento::where('campaign_id',$campaignId)
             ->select('zona','familia','precio',DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
             ->groupBy('zona','familia','precio')
             ->get();
 
     }
+
+    public function getStateAttribute(){
+        return [
+            '0'=>['text-blue-500','Creada'],
+            '1'=>['text-yellow-500','Iniciada'],
+            '2'=>['text-green-500','Finalizada'],
+            '3'=>['text-red-500','Cancelada']
+        ][$this->campaign_state] ?? ['text-gray-100','Desconocido'];
+    }
+
+    public function getMonta1Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje1] ?? '';}
+    public function getMonta2Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje2] ?? '';}
+    public function getMonta3Attribute(){return ['D'=>'Desmontaje','M'=>'Montaje',][$this->montaje3] ?? '';}
+
 }

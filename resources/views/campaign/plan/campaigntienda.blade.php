@@ -100,48 +100,56 @@
             <div class="flex-none p-2 space-y-2 md:space-x-2 md:flex md:space-y-0">
                 <div class="w-full md:w-4/12">
                     <label for="fechamontador1">Fecha <span class="font-bold underline"> {{ $camptienda->monta1 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm" id="fechamontador1"
-                        name="fechamontador1" value="{{ old('fechamontador1',$camptienda->fechamontador1) }}"/>
+                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador1"
+                        name="fechamontador1" value="{{ old('fechamontador1',$camptienda->fechamontador1) }}"
+                        {{ $deshabilitadofechamontador }}/>
                 </div>
                 @if($camptienda->fechaprev2!='')
                 <div class="w-full md:w-4/12">
                     <label for="fechamontador2">Fecha <span class="font-bold underline"> {{ $camptienda->monta2 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm" id="fechamontador2"
-                        name="fechamontador2" value="{{ old('fechamontador2',$camptienda->fechamontador2) }}"/>
+                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador2"
+                        name="fechamontador2" value="{{ old('fechamontador2',$camptienda->fechamontador2) }}"
+                        {{ $deshabilitadofechamontador }}/>
                 </div>
                 @endif
                 @if($camptienda->fechaprev3!='')
                 <div class="w-full md:w-4/12">
                     <label for="fechamontador3">Fecha <span class="font-bold underline"> {{ $camptienda->monta3 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm" id="fechamontador3"
-                        name="fechamontador3" value="{{ old('fechamontador3',$camptienda->fechamontador3) }}"/>
+                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador3"
+                        name="fechamontador3" value="{{ old('fechamontador3',$camptienda->fechamontador3) }}"
+                        {{ $deshabilitadofechamontador }}/>
                 </div>
                 @endif
             </div>
+            @if($deshabilitado!='disabled')
             <div class="w-full p-2">
                 <button type="submit" class="items-center w-full px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-blue-800 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25">{{ __('Guardar') }}</button>
             </div>
+            @endif
         </div>
     </form>
+    @can('plantienda.update')
     <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
             method="POST"
             class="dropzone"
             id="my-awesome-dropzone">
     </form>
+    @endcan
     <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($galeria as $imagen )
             <form action="{{ route('plan.deleteimagentienda', [$camptienda,$imagen]) }}" method ="POST" >
             @csrf
             {{ method_field('DELETE') }}
-                <img alt={{$imagen->imagen}} class="object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-[20rem] md:max-h-[10rem] lg:max-h-[20rem]"
-                    src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen.'?'.time())}}"
-                    onclick="location.href = '{{ asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen) }}'" target="_blank"/>
+            <img alt={{$imagen->imagen}} class="object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-[20rem] md:max-h-[10rem] lg:max-h-[20rem]"
+                src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen.'?'.time())}}"
+                onclick="location.href = '{{ asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen) }}'" target="_blank"/>
+            @can('plantienda.delete')
                 <button type="submit" class="ml-5"><x-icon.trash class="text-red-500 " /></button>
+            @endcan
             </form>
         @endforeach
     </div>
     <div class="my-2">
-        {{ $ruta }}
         <button type="button" onclick="location.href = '{{ route($ruta,$camptienda->campaign_id) }}'"
             class="items-center px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25">
             {{ __('Volver') }}

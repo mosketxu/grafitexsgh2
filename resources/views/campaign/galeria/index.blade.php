@@ -6,7 +6,7 @@
                     Galeria de la Campaña
                 </h2>
             </div>
-            @can('elemento.create')
+            @can('campaign.index')
             <div class="flex flex-row-reverse w-8/12 ">
                 @include('campaign.menu_campanya')
             </div>

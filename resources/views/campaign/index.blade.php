@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-10/12">
-                @can('elemento.create')
+                @can('campaign.index')
                     @include('campaign.menu_campanyas')
                 @endcan
             </div>

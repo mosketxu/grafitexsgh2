@@ -37,10 +37,11 @@
             <div class="py-1 my-0 ">
                 {{ $stores->appends(request()->except('page'))->links() }}
             </div>
+            http://grafitexsgh2.test/stores/1/edit
             <table class="w-full text-xs text-left px-1 rounded-md">
                 <thead class="flex flex-col w-full text-white bg-black rounded-t-md ">
                     <tr class="flex w-full">
-                        <th class="w-1/12">Luxotica</th>
+                        <th class="w-1/12 ml-2">Luxotica</th>
                         <th class="w-1/12">Store</th>
                         <th class="w-2/12">Address</th>
                         <th class="w-2/12">City-CP-Province</th>
@@ -52,8 +53,12 @@
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
                     @foreach ($stores as $store)
-                    <tr class="flex w-full border border-b-1">
-                        <td class="w-1/12">{{$store->luxotica}}</td>
+                    @if(Auth::user()->can('stores.edit'))
+                    <tr class="flex w-full border border-b-1 hover:bg-gray-300" onclick="location.href = '{{ route('stores.edit', $store) }}'">
+                    @else
+                    <tr class="flex w-full border border-b-1 hover:bg-gray-300" >
+                    @endif
+                        <td class="w-1/12 ml-2">{{$store->luxotica}}</td>
                         <td class="w-1/12">{{$store->id}} {{$store->name}}</td>
                         <td class="w-2/12">{{$store->address}}</td>
                         <td class="w-2/12">{{$store->city}} {{$store->cp!='' ? '- '.$store->cp : ''}} {{$store->province!='' ? '- '.$store->province : '' }}</td>

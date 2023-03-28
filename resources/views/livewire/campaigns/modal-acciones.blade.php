@@ -1,7 +1,8 @@
 <div>
-    <div class="flex text-right">
-        <button wire:click="cambiamodalacciones()" class="mt-6 ml-8 text-blue-500 underline my-auto " type="button" data-modal-toggle="defaultModal">Acciones</button>
-
+    <div class="">
+        <button wire:click="cambiamodalacciones()" class=" text-blue-500 underline  " type="button" data-modal-toggle="defaultModal">
+            <x-icon.bars-solid class="mx-auto my-auto text-right"/>
+        </button>
     </div>
     <x-modal.datos wire:model="muestramodalacciones" >
         <x-slot name="title">

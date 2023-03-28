@@ -11,7 +11,8 @@ class CampaignPlanController extends Controller{
 
     public function __construct(){
         $this->middleware('can:plan.index')->only('index');
-        $this->middleware('can:plan.edit')->only('edit','update');
+        $this->middleware('can:plan.edit')->only('update');
+        $this->middleware('can:plantienda.index')->only('edit');
     }
 
     public function index(Request $request,Campaign $campaign){
@@ -96,10 +97,17 @@ class CampaignPlanController extends Controller{
             $deshabilitado='disabled';
             $deshabilitadocolor='bg-gray-100';
         }
+        if(Auth::user()->can('plantienda.update')){
+            $deshabilitadofechamontador='';
+            $deshabilitadofechamontadorcolor='bg-white';
+        }else{
+            $deshabilitadofechamontador='disabled';
+            $deshabilitadofechamontadorcolor='bg-gray-100';
+        }
 
         $ruta='plan.index';
 
-        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','ruta'));
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','deshabilitadofechamontador','deshabilitadofechamontadorcolor','ruta'));
     }
 
 

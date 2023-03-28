@@ -11,8 +11,12 @@
             @can('campaign.index')
             <x-icon.cubes-a  href="{{route('campaign.elementos',$campaign) }}"  title="Elementos" class="pt-1 mx-4 text-green-500 w-7"/>
             <x-icon.images-a  href="{{route('campaign.galeria',$campaign->id) }}" title="Galeria" class="pt-1 mx-4 text-purple-700 w-7"/>
+            @endcan
+            @can('campaign.edit')
             <x-icon.tags-a  href="{{route('campaign.etiquetas.pdf',$campaign->id) }}" title="Etiquetas PDF" class="pt-1 mx-4 text-pink-700 w-7"/>
             <x-icon.code-a  href="{{route('campaign.etiquetas.index',$campaign->id) }}" target="_blank" title="Etiquetas HTML" class="pt-1 mx-4 text-indigo-500 w-7"/>
+            @endcan
+            @can('campaign.index')
             <x-icon.location-dot-a  href="{{route('campaign.addresses',$campaign->id) }}" title="Direcciones" class="w-5 pt-1 mx-4 text-teal-600 "/>
             @endcan
             @can('presupuestos.index')

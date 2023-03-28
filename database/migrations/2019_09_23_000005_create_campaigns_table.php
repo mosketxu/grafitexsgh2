@@ -18,7 +18,7 @@ class CreateCampaignsTable extends Migration
             $table->string('campaign_name', 100)->unique('campaigns_campaign_name_unique');
             $table->date('campaign_initdate');
             $table->date('campaign_enddate');
-            $table->string('campaign_state')->default('Creada');
+            $table->integer('campaign_state')->default('0');
             $table->string('slug');
             $table->timestamps();
         });

@@ -67,9 +67,16 @@ class MontadorController extends Controller
             $deshabilitadocolor='bg-gray-100';
         }
 
+        if(Auth::user()->can('plantienda.update')){
+            $deshabilitadofechamontador='';
+            $deshabilitadofechamontadorcolor='bg-white';
+        }else{
+            $deshabilitadofechamontador='disabled';
+            $deshabilitadofechamontadorcolor='bg-gray-100';
+        }
         $ruta='montador.index';
 
-        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','ruta'));
+        return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','deshabilitadofechamontador','deshabilitadofechamontadorcolor','ruta'));
     }
 
     public function updatefechasplan(Request $request,CampaignTienda $camptienda){

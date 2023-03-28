@@ -49,6 +49,7 @@
 
         <footer>
             <div class="p-2 text-xs">powered by  <a href="mailto:alex.arregui@hotmail.es" class="text-blue-800 underline">alex.arregui@hotmail.es</a></div>
+            <div class="w-11/12"></div> {{-- es por el npm runwatch --}}
         </footer>
 
         <x-notification />

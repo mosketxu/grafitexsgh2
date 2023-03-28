@@ -94,10 +94,10 @@
                 <x-select  selectname="campaign_state" id="campaign_state" name="campaign_state"
                     class="w-full py-1 text-lg border-blue-300">
                     <option value="{{$campaign->campaign_state}}">{{$campaign->campaign_state}}</option>
-                    <option value="Creada">Creada</option>
-                    <option value="Iniciada">Iniciada</option>
-                    <option value="Finalizada">Finalizada</option>
-                    <option value="Cancelada">Cancelada</option>
+                    <option value="0">Creada</option>
+                    <option value="1">Iniciada</option>
+                    <option value="2">Finalizada</option>
+                    <option value="3">Cancelada</option>
                 </x-select>
                 @else
                     <input type="text"  name="estado" value="{{$campaign->campaign_state}}"

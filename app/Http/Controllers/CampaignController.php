@@ -21,8 +21,8 @@ use Maatwebsite\Excel\Facades\Excel;
 class CampaignController extends Controller{
 
     public function __construct(){
-        $this->middleware('can:campaign.index')->only('index','edit','addresses','exportaddresses');
-        $this->middleware('can:campaign.edit')->only('filtrar','show','update','generarcampaign','conteo');
+        $this->middleware('can:campaign.index')->only('index','edit','addresses','exportaddresses','conteo');
+        $this->middleware('can:campaign.edit')->only('filtrar','show','update','generarcampaign');
         $this->middleware('can:campaign.delete')->only('destroy');
     }
      /**
@@ -31,14 +31,23 @@ class CampaignController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
+        // dd($request->filtrocampaign);
         $busqueda = '';
+        $filtrocampaign = '';
         if ($request->search) $busqueda = $request->search;
+        if ($request->filtrocampaign) $filtrocampaign = $request->filtrocampaign;
 
-        $campaigns=Campaign::search2($request->search)
+        $campaigns=Campaign::query()
+        // ->search2($request->search)
+        ->when(!empty($busqueda),function($query) use($busqueda){return $query->where('campaign_name','=',$busqueda);})
+        ->when(!empty($filtrocampaign),function($query) use($filtrocampaign){return $query->where('campaign_state','=',$filtrocampaign);})
         ->orderBy('id','DESC')
         ->paginate(15);
 
-        return view('campaign.index',compact('campaigns','busqueda'));
+        $ancho1= Auth::user()->hasRole('sgh') ? 'w-11/12' : 'w-9/12';
+        $ancho2= Auth::user()->hasRole('sgh') ? 'w-1/12' : 'w-3/12';
+
+        return view('campaign.index',compact('campaigns','busqueda','filtrocampaign','ancho1','ancho2'));
     }
 
     public function edit($campid){
