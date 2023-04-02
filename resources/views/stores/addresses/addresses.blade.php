@@ -8,42 +8,40 @@
         <div class="">
             @include('stores.addresses.addressesfilters')
         </div>
-        <div class="space-y-1 border rounded-md">
-            <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
-                {{-- <div class="w-1/12 text-left">Luxottica</div> --}}
-                <div class="w-1/12 text-left">Country</div>
-                <div class="w-1/12 text-left">Store</div>
-                <div class="w-2/12 text-left">Nombre</div>
-                <div class="w-2/12 text-left">Dirección</div>
-                <div class="w-1/12 text-left">City</div>
-                <div class="w-1/12 text-left">Province</div>
-                <div class="w-1/12 text-left">Postal Code</div>
-                <div class="w-1/12 text-left">Phone</div>
-                <div class="w-1/12 text-left">email</div>
-                @can('stores.edit')
-                    <div class="w-10" ></div>
-                @endcan
-            </div>
-            <div class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 60vh;">
-                @foreach ($stores as $store)
-                <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y " wire:loading.class.delay="opacity-50">
-                    <input type="hidden" id="id" name="id" value="{{$store->id}}">
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->luxotica}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->id}}</div>
-                    <div class="flex-wrap w-2/12 my-2 text-left">{{$store->name}}</div>
-                    <div class="flex-wrap w-2/12 my-2 text-left">{{$store->address}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->city}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->province}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->cp}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left">{{$store->phone}}</div>
-                    <div class="flex-wrap w-1/12 my-2 text-left break-words">{{$store->email}}</div>
-                    @can('stores.edit')
-                    <div class="w-10 pl-3 mt-2">
-                        <a href="{{route('stores.edit',$store)}}" class="text-blue-500 scale-125 hover:text-blue-900 hover:" ><x-icon.edit  title="Editar tienda"/></a>
-                    </div>
-                    @endcan
+        <div class="flex-col space-y-4">
+            <div>
+                <div class="flex w-full py-1 mt-1 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
+                    <div class="w-2/12 pl-2 text-left md:w-1/12">Luxottica</div>
+                    <div class="w-1/12 pl-2 text-left md:w-1/12">Store</div>
+                    <div class="w-3/12 pl-2 text-left md:w-1/12">Nombre</div>
+                    <div class="hidden pl-2 text-left md:w-2/12 md:flex">Dirección</div>
+                    <div class="w-2/12 pl-2 text-left md:w-1/12">City</div>
+                    <div class="hidden pl-2 text-left md:w-2/12 md:flex">Province</div>
+                    <div class="hidden pl-2 text-left md:w-1/12">Postal Code</div>
+                    <div class="hidden pl-2 text-left md:w-1/12">Phone</div>
+                    <div class="w-3/12 pl-2 text-left md:w-2/12">email</div>
                 </div>
-                @endforeach
+                {{-- <div style="height: 60vh;" > --}}
+                <div  >
+                    @foreach ($stores as $store)
+                    @can('stores.edit')
+                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-y hover:bg-gray-100 hover:cursor-pointer" wire:loading.class.delay="opacity-50" onclick="location.href = '{{ route('stores.edit',$store) }}'">
+                    @else
+                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-y hover:bg-gray-100 hover:cursor-pointer" wire:loading.class.delay="opacity-50">
+                    @endcan
+                        <input type="hidden" id="id" name="id" value="{{$store->id}}">
+                        <div class="w-2/12 pl-2 text-left md:w-1/12">{{$store->luxotica}}</div>
+                        <div class="w-1/12 pl-2 text-left md:w-1/12">{{$store->id}}</div>
+                        <div class="w-3/12 pl-2 text-left md:w-2/12">{{$store->name}}</div>
+                        <div class="hidden pl-2 text-left md:w-2/12 md:flex">{{$store->address}}</div>
+                        <div class="w-2/12 pl-2 text-left md:w-1/12 md:flex">{{$store->city}}</div>
+                        <div class="hidden pl-2 text-left md:w-1/12 md:flex">{{$store->province}}</div>
+                        <div class="hidden pl-2 text-left md:w-1/12">{{$store->cp}}</div>
+                        <div class="hidden pl-2 text-left md:w-1/12">{{$store->phone}}</div>
+                        <div class="w-3/12 pl-2 text-left break-words md:w-1/12">{{$store->email}}</div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
             <div class="">
                 {{ $stores->appends(request()->except('page'))->links() }}

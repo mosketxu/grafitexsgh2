@@ -26,8 +26,8 @@
                     <div class="text-center">
                         <label for="xls">Hay {{$stores->total()}} stores. </label>
                     </div>
-                    <div class="text-center mx-auto">
-                        <x-icon.xls-a id="xls" href="{{route('campaign.exportaddresses',$campaign->id)}}" class="text-green-700 w-6" title="Exporta Excel"/>
+                    <div class="mx-auto text-center">
+                        <x-icon.xls-a id="xls" href="{{route('campaign.exportaddresses',$campaign->id)}}" class="w-6 text-green-700" title="Exporta Excel"/>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 {{ $stores->appends(request()->except('page'))->links() }}
             </div>
             http://grafitexsgh2.test/stores/1/edit
-            <table class="w-full text-xs text-left px-1 rounded-md">
+            <table class="w-full px-1 text-xs text-left rounded-md">
                 <thead class="flex flex-col w-full text-white bg-black rounded-t-md ">
                     <tr class="flex w-full">
                         <th class="w-1/12 ml-2">Luxotica</th>
