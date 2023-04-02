@@ -16,6 +16,7 @@ class StoreElementosController extends Controller
     }
 
     public function elementos($storeId, Request $request){
+
         $ubi=$request->ubi;
         $mobi=$request->mobi;
         $prop=$request->prop;
@@ -40,10 +41,21 @@ class StoreElementosController extends Controller
         ->when(!empty($med),function($query) use($med){$query->whereHas('elemento',function($query) use($med){return $query->where('medida','=',$med);});})
         ->when(!empty($mat),function($query) use($mat){$query->whereHas('elemento',function($query) use($mat){return $query->where('material','=',$mat);});})
         ->where('store_id',$storeId)
-        ->paginate('10');
+        ->get();
+
+        $elementosdisponibles=Elemento::query()
+            ->whereNotIn('id',$storeelementos->pluck('elemento_id'))
+            ->when(!empty($ubi),function($query) use($ubi){return $query->where('ubicacion','=',$ubi);})
+            ->when(!empty($mobi),function($query) use($mobi){return $query->where('mobiliario','=',$mobi);})
+            ->when(!empty($car),function($query) use($car){return $query->where('carteleria','=',$car);})
+            ->when(!empty($prop),function($query) use($prop){return $query->where('propxelemento','=',$prop);})
+            ->when(!empty($med),function($query) use($med){return $query->where('medida','=',$med);})
+            ->when(!empty($mat),function($query) use($mat){return $query->where('material','=',$mat);})
+            ->get();
 
         return view('stores.storeelementos.index',compact('ubicaciones','mobiliarios','props','cartelerias','medidas','materiales',
-            'store','storeelementos','ubi','mobi','prop','car','med','mat'));
+            'store','storeelementos','ubi','mobi','prop','car','med','mat',
+            'elementosdisponibles'));
     }
 
     /**
@@ -110,6 +122,21 @@ class StoreElementosController extends Controller
         return view('stores.storeelementos.edit',compact('store','elementosDisp',
             'ubi','prop','car','med','mat',
         'areas','ubicaciones','mobiliarios','props','cartelerias','medidas','materiales'));
+    }
+
+    public function addtostore(Elemento $elemento,Store $store){
+        StoreElemento::create([
+            'store_id'=>$store->id,
+            'elemento_id'=>$elemento->id,
+            'elementificador'=>$elemento->elementificador,
+        ]);
+
+        $notification = array(
+            'message' => 'Producto añadido satisfactoriamente!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
     /**
