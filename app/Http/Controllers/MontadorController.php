@@ -89,6 +89,7 @@ class MontadorController extends Controller
 
         $montaje2=$request->fechaprev2=='' ? null : $request->montaje2;
         $montaje3=$request->fechaprev2=='' ? null : $request->montaje3;
+        $preciomontador=$request->preciomontador=='' ? null : $request->preciomontador;
 
         $camptienda->update([
             'fechaprev1'=>$request->fechaprev1,
@@ -96,6 +97,7 @@ class MontadorController extends Controller
             'fechaprev3'=>$request->fechaprev3,
             'montaje2'=>$montaje2,
             'montaje3'=>$montaje3,
+            'preciomontador'=>$preciomontador,
             ]
         );
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
@@ -112,8 +114,10 @@ class MontadorController extends Controller
             'fechamontador1'=>$request->fechamontador1,
             'fechamontador2'=>$request->fechamontador2,
             'fechamontador3'=>$request->fechamontador3,
+            'preciomontador'=>$request->preciomontador,
             ]
         );
+
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
     }
 

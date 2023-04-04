@@ -2,20 +2,7 @@
     <div class="">
         @include('errores')
     </div>
-    {{-- <div class="flex-row-reverse 2/12">
-        @can('montador.update')
-        <form action="{{ route('montador.updateestadomontaje',$camptienda) }}"  method="post" class="w-full">
-            @csrf
-            @method('PUT')
-            <x-jet-label class="mr-2">Estado</x-jet-label> {{ $camptienda->estadomontaje }}
-            <x-select  selectname="estadomontaje" class="w-full py-1 text-sm border-blue-300" id="estadomontaje"  >
-                <option value="0" {{ $camptienda->estadomontaje== '0' ? 'selected' : '' }}>Sin iniciar</option>
-                <option value="1" {{ $camptienda->estadomontaje== '1' ? 'selected' : '' }}>En curso</option>
-                <option value="2" {{ $camptienda->estadomontaje== '2' ? 'selected' : '' }}>Finalizado</option>
-            </x-select>
-        </form>
-        @endcan
-    </div> --}}
+
     {{-- form fechas previstas --}}
     <form action="{{ route('montador.updatefechasplan',$camptienda) }}"  method="post">
         @csrf
@@ -84,18 +71,28 @@
                     <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
                     @endforeach
                 </x-select>
+                @endif
             </form>
         </div>
-        @endcan
     </div>
     <form action="{{ route('montador.updatefechasmontador',$camptienda) }}"  method="post">
         @csrf
         @method('PUT')
         <div class="">
-            <div class="p-2 ">
-                <label for="Montador">Montador</label>
-                <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="montador_id"
+            <div class="flex p-2 space-x-2">
+                @can('plantienda.edit') <div class="w-10/12">
+                @elsecan('plantienda.edit') <div class="w-full">
+                @endcan
+                    <x-jet-label for="Montador">Montador</x-jet-label>
+                    <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="montador_id"
                     name="montador_id" value="{{ $camptienda->montador->entidad ?? '' }}" disabled />
+                </div>
+                @can('plantienda.edit')
+                <div class="w-2/12">
+                    <x-jet-label>Precio montador</x-jet-label>
+                    <x-input.text type="number" step="any" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="preciomontador" value="{{ $camptienda->preciomontador }}"></x-input.text>
+                </div>
+                @endcan
             </div>
             <div class="flex-none p-2 space-y-2 md:space-x-2 md:flex md:space-y-0">
                 <div class="w-full md:w-4/12">

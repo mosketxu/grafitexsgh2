@@ -10,7 +10,7 @@ class CampaignTienda extends Model
     use HasFactory;
 
     protected $fillable=['campaign_id','store_id',
-        'montador_id','fechaprev1','fechaprev2','fechaprev3','montaje1','montaje2','montaje3',
+        'montador_id','fechaprev1','fechaprev2','fechaprev3','montaje1','montaje2','montaje3','preciomontador',
         'fechamontador1','fechamontador2','fechamontador3','observacionesmontador',
         'estadomontaje'];
 

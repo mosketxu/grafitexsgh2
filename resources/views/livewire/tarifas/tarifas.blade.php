@@ -27,18 +27,24 @@
         </div>
         <div class="w-full overflow-y-scroll bg-grey-light " style="height: 40vh;">
             @forelse($tarifas as $detalle)
-                <div class="flex items-center w-full px-6">
+                <div class="flex items-center w-full px-6 hover:bg-gray-100">
                     <div class="w-6/12 text-sm text-gray-600">{{ ucfirst($detalle->$campo)}}</div>
                     <div class="w-5/12 mt-0.5">
-                        <input type="text" value="{{ $detalle->tarifa1 }}"
-                        wire:change="changeCampo({{ $detalle }},'tarifa1',$event.target.value)"
-                        class="py-1 text-sm text-gray-600 transition duration-150 border border-blue-300 rounded-md form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"/>
+                        @can('tarifa.create')
+                            <input type="text" value="{{ $detalle->tarifa1 }}"
+                            wire:change="changeCampo({{ $detalle }},'tarifa1',$event.target.value)"
+                            class="py-1 text-sm text-gray-600 transition duration-150 border border-blue-300 rounded-md form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"/>
+                        @elsecan('tarifa.create')
+                            {{ $detalle->tarifa1 }}
+                            {{-- <input type="text" value="{{ $detalle->tarifa1 }}"
+                                class="py-1 text-sm text-gray-600 transition duration-150 border border-blue-300 rounded-md form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300" disabled/> --}}
+                        @endcan
                     </div>
                     <div class="">
                         <div class="flex items-center justify-between mt-1 space-x-3 text-right">
-                            @can('tarifa.create')
+                            {{-- @can('tarifa.create')
                             <x-icon.edit-a href="{{ route('tarifa.edit',$detalle->id) }}" class="w-6" title="Edit"/>
-                            @endcan
+                            @endcan --}}
                             @can('tarifa.delete')
                             @if($titulo=='Tarifas materiales')
                                 <form id="form_id" role="form" method="post" action="{{ route('tarifa.destroy',$detalle->id) }}">

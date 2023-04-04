@@ -12,7 +12,8 @@ class TarifaController extends Controller
     public function __construct()
     {
         $this->middleware('can:tarifa.index')->only('index');
-        $this->middleware('can:tarifa.edit')->only('update','store');
+        $this->middleware('can:tarifa.edit')->only('edit','store');
+        $this->middleware('can:tarifa.update')->only('update','store');
         $this->middleware('can:tarifa.delete')->only('destroy');
     }
 
@@ -53,38 +54,15 @@ class TarifaController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Update the specified resource in storage.
+        /**
+     * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
-        if($request->tipo===0)
-            $request->validate([
-                'familia' => 'required',
-                'tramo1' => 'required|numeric',
-                'tarifa1' => 'required|numeric',
-                // 'tramo2' => 'required|numeric',
-                // 'tarifa2' => 'required|numeric',
-                // 'tramo3' => 'required|numeric',
-                // 'tarifa3' => 'required|numeric',
-            ]);
-        else
-            $request->validate([
-            'tarifa1' => 'required|numeric'
-        ]);
-        tarifa::find($id)->update($request->all());
-
-        $notification = array(
-            'message' => 'Tarifa actualizada satisfactoriamente!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('tarifa.index')->with($notification);
-
-        // return redirect()->route('tarifa.index')->with('success','tarifa actualizada satisfactoriamente');
+    public function edit($id){
+        $tarifa=Tarifa::find($id);
+        return view('tarifa.edit',compact('tarifa'));
     }
 
     /**

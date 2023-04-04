@@ -102,6 +102,7 @@ class CampaignController extends Controller{
             'montaje1'=>['nullable',Rule::requiredIf($request->fechainstal1!='')],
             'montaje2'=>['nullable',Rule::requiredIf($request->fechainstal2!='')],
             'montaje3'=>['nullable',Rule::requiredIf($request->fechainstal3!='')],
+            'preciomontador' => 'nullable',
         ]);
 
         $campaign=Campaign::find($id);
@@ -115,7 +116,8 @@ class CampaignController extends Controller{
             'fechainstal3' => $request->fechainstal2,
             'montaje1' => $request->montaje1,
             'montaje2' => $request->montaje2,
-            'montaje3' => $request->montaje1,
+            'montaje3' => $request->montaje3,
+            'preciomontador' => $request->preciomontador,
             ]
         );
         return redirect()->route('campaign.edit',$campaign)->with('message','Registro actualizado satisfactoriamente');

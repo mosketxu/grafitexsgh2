@@ -4,7 +4,7 @@
     </div>
     <div class="p-1 mx-2">
         <div class="text-sm text-gray-500 border border-blue-300 rounded shadow-md">
-            <div class="flex-none w-full p-1  bg-gray-100 rounded-md md:flex md:space-x-2">
+            <div class="flex-none w-full p-1 bg-gray-100 rounded-md md:flex md:space-x-2">
                 <div class="w-full rounded-md md:w-5/12">
                     <div class="">
                         <label for="campaign_name">Campaña</label>
@@ -34,9 +34,9 @@
                 @else
                     @include('campaign.plan.fechasmuestra')
                 @endif
-                <div class="w-full flex-none md:flex md:w-3/12">
+                <div class="flex-none w-full md:flex md:w-3/12">
                     <div class="w-full my-auto space-y-2">
-                    <div class="w-full my-2 bg-gray-400 text-center border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest ">
+                    <div class="w-full my-2 text-xs font-semibold tracking-widest text-center text-white uppercase bg-gray-400 border border-transparent rounded-md ">
                         {{ __('Filtros') }}
                     </div>
                         <form method="GET" action="{{route('plan.index',$campaign) }}">

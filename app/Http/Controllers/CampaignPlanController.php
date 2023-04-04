@@ -50,7 +50,8 @@ class CampaignPlanController extends Controller{
                 'fechainstal3' => $request->fechainstal3,
                 'montaje1' => $request->montaje1,
                 'montaje2' => $request->montaje2,
-                'montaje3' => $request->montaje3
+                'montaje3' => $request->montaje3,
+                'preciomontador' => $request->preciomontador
                 ]
             );
 
@@ -63,6 +64,7 @@ class CampaignPlanController extends Controller{
                 'montaje1' => $campaign->montaje1,
                 'montaje2' => $campaign->montaje2,
                 'montaje3' => $campaign->montaje3,
+                'preciomontador' => $campaign->preciomontador,
                 'montador_id' => $camptienda->tienda->montador_id,
                 'estadomontaje' => '0',
                 ]
@@ -74,6 +76,7 @@ class CampaignPlanController extends Controller{
 
     public function edit(Request $request, $camptienda){
         $filtroarea = '';
+
         if ($request->filtroarea) $filtroarea = $request->filtroarea;
 
         $camptienda=CampaignTienda::with('campaign')->find($camptienda);

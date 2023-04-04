@@ -160,12 +160,12 @@ class StoreElementosController extends Controller
             'alert-type' => 'success'
         );
 
-        if($request->ajax()){
-            return response()->json([
-                'id'=>$id,
-                'notificacion'=>$notification,
-            ]);
-        }
+        // if($request->ajax()){
+        //     return response()->json([
+        //         'id'=>$id,
+        //         'notificacion'=>$notification,
+        //     ]);
+        // }
         return redirect()->back()->with($notification);
 
     }

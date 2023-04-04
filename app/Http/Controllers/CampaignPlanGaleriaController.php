@@ -17,7 +17,7 @@ class CampaignPlanGaleriaController extends Controller
 
     public function uploadimagentienda(Request $request, CampaignTienda $campaigntienda){
         $request->validate([
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:12288',
         ]);
 
         // Genero el nombre y la ruta que le pondré a la imagen
