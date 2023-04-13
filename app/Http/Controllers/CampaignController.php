@@ -65,7 +65,7 @@ class CampaignController extends Controller{
         return view('campaign.indexaddresses',compact('stores','campaign'));
     }
 
-    public function exportadresses($campaignId){
+    public function exportaddresses($campaignId){
         return Excel::download(new CampaignStoresExport($campaignId), 'direcciones.xlsx');
     }
 

@@ -57,7 +57,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         // Route::post('u/{campaign}/update', [CampaignController::class,'update'])->name('campaign.update')->middleware('can:campaign.edit');
         Route::get('/{campaign}/filtro', [CampaignController::class,'filtrar'])->name('campaign.filtrar')->middleware('can:campaign.edit');
         Route::get('/{campaign}/address', [CampaignController::class,'addresses'])->name('campaign.addresses')->middleware('can:campaign.index');
-        Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportadresses'])->name('campaign.exportaddresses')->middleware('can:campaign.index');
+        Route::get('/{campaign}/exportaddresses', [CampaignController::class,'exportaddresses'])->name('campaign.exportaddresses')->middleware('can:campaign.index');
         Route::delete('/delete/{campaign}', [CampaignController::class,'destroy'])->name('campaign.delete')->middleware('can:campaign.destroy');
         Route::get('/{campaign}/conteo', [CampaignController::class,'conteo'])->name('campaign.conteo')->middleware('can:campaign.index');
         Route::resource('campaign', CampaignController::class)->only('index','edit','update');
@@ -116,7 +116,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //store.php
     Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('stores.updatetiendas')->middleware('can:stores.edit');
-    Route::get('store/adresses',[StoreController::class,'adresses'])->name('stores.addresses')->middleware('can:stores.index');
+    Route::get('store/addresses',[StoreController::class,'addresses'])->name('stores.addresses')->middleware('can:stores.index');
     // Route::post('store/updateimagenindex', [StoreController::class,'updateimagenindex'])->name('stores.updateimagenindex')->middleware('can:store.create');
     Route::resource('stores', StoreController::class)->only('index','edit','update');
 

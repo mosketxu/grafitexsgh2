@@ -45,6 +45,6 @@ class CampaignStoresExport implements FromCollection,WithHeadings
             ->select('luxotica','store_id','name','country','address','city','province','cp','phone','email','winterschedule','summerschedule','deliverytime','observaciones')
             ->where('campaign_id', '=', $this->campaign)
             ->get();
-        return view('campaign.adresses',compact('stores','campaign'));
+        return view('campaign.addresses',compact('stores','campaign'));
     }
 }

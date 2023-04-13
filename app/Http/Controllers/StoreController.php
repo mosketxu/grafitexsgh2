@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, Storeconcept};
-use App\Imports\StoreAdressesImport;
+use App\Imports\StoreaddressesImport;
 use App\Exports\StoreExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,7 +17,7 @@ class StoreController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('can:stores.index')->only('index','adresses');
+        $this->middleware('can:stores.index')->only('index','addresses');
         $this->middleware('can:stores.edit')->only('store','edit','update','updateimagenindex','destroy');
     }
 
@@ -66,7 +66,7 @@ class StoreController extends Controller
 
     }
 
-    public function adresses(Request $request){
+    public function addresses(Request $request){
         $sto=$request->get('sto');
         $nam=$request->get('nam');
 
