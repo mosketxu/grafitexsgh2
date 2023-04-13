@@ -19,6 +19,12 @@ class CreateCampaignsTable extends Migration
             $table->date('campaign_initdate');
             $table->date('campaign_enddate');
             $table->integer('campaign_state')->default('0');
+            $table->date('fechainstal1')->nullable();
+            $table->date('fechainstal2')->nullable();
+            $table->date('fechainstal3')->nullable();
+            $table->string('montaje1')->nullable();
+            $table->string('montaje2')->nullable();
+            $table->string('montaje3')->nullable();
             $table->string('slug');
             $table->timestamps();
         });

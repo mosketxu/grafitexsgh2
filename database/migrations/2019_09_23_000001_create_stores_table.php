@@ -30,6 +30,7 @@ class CreateStoresTable extends Migration
             $table->string('furniture_type')->nullable();
             $table->string('observaciones',50)->nullable();
             $table->string('imagen',100)->default('SGH.jpg');
+            $table->foreignId('montador_id')->nullable()->constrained('entidades')->after('imagen');
             $table->timestamps();
 
 
