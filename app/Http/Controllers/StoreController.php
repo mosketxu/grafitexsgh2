@@ -17,7 +17,7 @@ class StoreController extends Controller
 {
 
     public function __construct(){
-        // $this->middleware('can:stores.index')->only('index','addresses');
+        $this->middleware('can:stores.index')->only('index','addresses');
         $this->middleware('can:stores.edit')->only('store','edit','update','updateimagenindex','destroy');
     }
 
