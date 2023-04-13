@@ -1,8 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
-namespace Database\Seeders;
 
 class MaterialMedidasSeeder extends Seeder
 {

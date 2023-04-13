@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\TarifaFamilia;
+use App\Models\TarifaFamilia;
 use Illuminate\Database\Seeder;
 
 class TarifaFamiliasSeeder extends Seeder
