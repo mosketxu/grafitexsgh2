@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,6 +15,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('users')->delete();
 
         User::create(['name' => 'Administrador','email' => 'admin@admin.com','password' => bcrypt('12345678'),
         ])->assignRole('admin');

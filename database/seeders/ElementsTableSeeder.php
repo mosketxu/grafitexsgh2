@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ElementsTableSeeder extends Seeder
 {
@@ -11,9 +14,9 @@ class ElementsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('elements')->delete();
+        DB::table('elementos')->delete();
 
-        DB::table('elements')->insert([
+        DB::table('elementos')->insert([
             ['id'=>'1','element_ubicacion'=>'FRONT DOOR','element_mobiliario'=>'FD Focal Unit (1)','element_propiedad'=>'10x10','element_carteleria'=>'MKS ','element_medida'=>'254x254 mm','element_material'=>'Couché','element_unit_x_prop'=>'2','element_price'=>'77.25'],
             ['id'=>'2','element_ubicacion'=>'FRONT DOOR','element_mobiliario'=>'FD Focal Unit (1)','element_propiedad'=>'Base Tray ','element_carteleria'=>'Large gogo cling','element_medida'=>'406x63 mm','element_material'=>'Glasspack','element_unit_x_prop'=>'1','element_price'=>'153'],
             ['id'=>'3','element_ubicacion'=>'FRONT DOOR','element_mobiliario'=>'FD Focal Unit (1)','element_propiedad'=>'Base Tray ','element_carteleria'=>'Large tray insert ','element_medida'=>'387x387 mm','element_material'=>'Pet','element_unit_x_prop'=>'1','element_price'=>'229'],
