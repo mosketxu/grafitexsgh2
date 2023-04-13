@@ -18,7 +18,9 @@ class EntidadController extends Controller
         return view('entidad.index',compact('montador'));
     }
 
-    public function create(){return view('entidad.create');
+    public function create(){
+        $ruta="entidades";
+        return view('entidad.create',compact('ruta'));
     }
 
     public function show($id){
