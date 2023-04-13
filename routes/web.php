@@ -109,7 +109,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //store.php
         Route::post('store/updatetiendas',[StoredataController::class,'import'])->name('stores.updatetiendas')->middleware('can:stores.edit');
-        Route::get('store/addresses',[StoreController::class,'addresses'])->name('stores.addresses')->middleware('can:stores.index');
+        Route::get('store/addresses',[StoreController::class,'addresses'])->name('stores.addresses');//->middleware('can:stores.index');
         Route::resource('stores', StoreController::class)->only('index','edit','update');
 
     //store elementos
