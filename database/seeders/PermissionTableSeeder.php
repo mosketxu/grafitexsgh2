@@ -32,6 +32,13 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name'=>'Permisos Editar','slug'=>'permission.edit','description'=>'Edita cada permiso del sistema',]);
         Permission::create(['name'=>'Permisos Eliminar','slug'=>'permission.destroy','description'=>'Elimina el permiso del sistema',]);
 
+        //Seguridad
+        Permission::create(['name'=>'Seguridad Navegar','slug'=>'seguridadindex','description'=>'Lista todos los Seguridad del sistema',]);
+        Permission::create(['name'=>'Seguridad Ver detalle','slug'=>'seguridadshow','description'=>'Ver en detalle cada seguridad del sistema',]);
+        Permission::create(['name'=>'Seguridad Crear','slug'=>'seguridadcreate','description'=>'Crea un seguridad en el sistema',]);
+        Permission::create(['name'=>'Seguridad Editar','slug'=>'seguridadedit','description'=>'Edita cada seguridad del sistema',]);
+        Permission::create(['name'=>'Seguridad Eliminar','slug'=>'seguridaddestroy','description'=>'Elimina el seguridad del sistema',]);
+
         //campaign
         Permission::create(['name'=>'Campañas Navegar','slug'=>'campaign.index','description'=>'Lista todos los Campañas del sistema',]);
         Permission::create(['name'=>'Campañas Ver detalle','slug'=>'campaign.show','description'=>'Ver en detalle cada campaña del sistema',]);
@@ -93,6 +100,64 @@ class PermissionTableSeeder extends Seeder
         Permission::create(['name'=>'Auxiliares Ver detalle','slug'=>'auxiliares.show','description'=>'Ver en detalle cada Auxiliares del sistema',]);
         Permission::create(['name'=>'Auxiliares Crear','slug'=>'auxiliares.create','description'=>'Crea un Auxiliares en el sistema',]);
         Permission::create(['name'=>'Auxiliares Editar','slug'=>'auxiliares.edit','description'=>'Edita cada Auxiliares del sistema',]);
-        Permission::create(['name'=>'Auxiliares Eliminar','slug'=>'auxiliares.destroy','description'=>'Elimina el Maestro del sistema',]);
+        Permission::create(['name'=>'Auxiliares Eliminar','slug'=>'auxiliares.destroy','description'=>'Elimina el Auxiliar del sistema',]);
+
+        //Entidad
+        Permission::create(['name'=>'Entidades Navegar','slug'=>'entidad.index','description'=>'Lista todos las Entidades del sistema',]);
+        Permission::create(['name'=>'Entidades Ver detalle','slug'=>'entidad.show','description'=>'Ver en detalle cada Entidades del sistema',]);
+        Permission::create(['name'=>'Entidades Crear','slug'=>'entidad.create','description'=>'Crea una Entidad en el sistema',]);
+        Permission::create(['name'=>'Entidades Editar','slug'=>'entidad.edit','description'=>'Edita cada Entidad del sistema',]);
+        Permission::create(['name'=>'Entidades Eliminar','slug'=>'entidad.destroy','description'=>'Elimina la entidad del sistema',]);
+
+        //Entidad contacto
+        Permission::create(['name'=>'Contactos Navegar','slug'=>'entidadcontacto.index','description'=>'Lista todos los Contactos del sistema',]);
+        Permission::create(['name'=>'Contactos Ver detalle','slug'=>'entidadcontacto.show','description'=>'Ver en detalle cada Contacto del sistema',]);
+        Permission::create(['name'=>'Contactos Crear','slug'=>'entidadcontacto.create','description'=>'Crea un Contacto en el sistema',]);
+        Permission::create(['name'=>'Contactos Editar','slug'=>'entidadcontacto.edit','description'=>'Edita cada Contacto del sistema',]);
+        Permission::create(['name'=>'Contactos Eliminar','slug'=>'entidadcontacto.destroy','description'=>'Elimina el Contacto del sistema',]);
+
+        //Tiendas
+        Permission::create(['name'=>'Tiendas Navegar','slug'=>'tiendasindex','description'=>'Lista todos las Tiendas del sistema',]);
+        Permission::create(['name'=>'Tiendas Ver detalle','slug'=>'tiendasshow','description'=>'Ver en detalle cada Tienda del sistema',]);
+        Permission::create(['name'=>'Tiendas Crear','slug'=>'tiendascreate','description'=>'Crea una Tienda en el sistema',]);
+        Permission::create(['name'=>'Tiendas Editar','slug'=>'tiendasedit','description'=>'Edita cada Tienda del sistema',]);
+        Permission::create(['name'=>'Tiendas Eliminar','slug'=>'tiendasdestroy','description'=>'Elimina la Tienda del sistema',]);
+
+        //Plan
+        Permission::create(['name'=>'Plan Navegar','slug'=>'plan.index','description'=>'Lista todos los Plan del sistema',]);
+        Permission::create(['name'=>'Plan Ver detalle','slug'=>'plan.show','description'=>'Ver en detalle cada Plan del sistema',]);
+        Permission::create(['name'=>'Plan Crear','slug'=>'plan.create','description'=>'Crea un Plan en el sistema',]);
+        Permission::create(['name'=>'Plan Editar','slug'=>'plan.edit','description'=>'Edita cada Plan del sistema',]);
+        Permission::create(['name'=>'Plan Eliminar','slug'=>'plan.destroy','description'=>'Elimina el Plan del sistema',]);
+
+        //Plantienda
+        Permission::create(['name'=>'Plantienda Navegar','slug'=>'plantienda.index','description'=>'Lista todos los Plantienda del sistema',]);
+        Permission::create(['name'=>'Plantienda Ver detalle','slug'=>'plantienda.show','description'=>'Ver en detalle cada Plantienda del sistema',]);
+        Permission::create(['name'=>'Plantienda Crear','slug'=>'plantienda.create','description'=>'Crea un Plantienda en el sistema',]);
+        Permission::create(['name'=>'Plantienda Editar','slug'=>'plantienda.edit','description'=>'Edita cada Plantienda del sistema',]);
+        Permission::create(['name'=>'Plantienda Eliminar','slug'=>'plantienda.destroy','description'=>'Elimina el Plantienda del sistema',]);
+
+        //Dashboard
+        Permission::create(['name'=>'Dashboard Navegar','slug'=>'dashboard.index','description'=>'Lista todos los Dashboard del sistema',]);
+        Permission::create(['name'=>'Dashboard Ver detalle','slug'=>'dashboard.show','description'=>'Ver en detalle cada Dashboard del sistema',]);
+        Permission::create(['name'=>'Dashboard Crear','slug'=>'dashboard.create','description'=>'Crea un Dashboard en el sistema',]);
+        Permission::create(['name'=>'Dashboard Editar','slug'=>'dashboard.edit','description'=>'Edita cada Dashboard del sistema',]);
+        Permission::create(['name'=>'Dashboard Eliminar','slug'=>'dashboard.destroy','description'=>'Elimina el Dashboard del sistema',]);
+
+        //Montador
+        Permission::create(['name'=>'Montador Navegar','slug'=>'montador.index','description'=>'Lista todos los Montador del sistema',]);
+        Permission::create(['name'=>'Montador Ver detalle','slug'=>'montador.show','description'=>'Ver en detalle cada Montador del sistema',]);
+        Permission::create(['name'=>'Montador Crear','slug'=>'montador.create','description'=>'Crea un Montador en el sistema',]);
+        Permission::create(['name'=>'Montador Editar','slug'=>'montador.edit','description'=>'Edita cada Montador del sistema',]);
+        Permission::create(['name'=>'Montador Eliminar','slug'=>'montador.destroy','description'=>'Elimina el Montador del sistema',]);
+
+        //SGH
+        Permission::create(['name'=>'SGH Navegar','slug'=>'sgh.index','description'=>'Lista todos los SGH del sistema',]);
+        Permission::create(['name'=>'SGH Ver detalle','slug'=>'sgh.show','description'=>'Ver en detalle cada SGH del sistema',]);
+        Permission::create(['name'=>'SGH Crear','slug'=>'sgh.create','description'=>'Crea un SGH en el sistema',]);
+        Permission::create(['name'=>'SGH Editar','slug'=>'sgh.edit','description'=>'Edita cada SGH del sistema',]);
+        Permission::create(['name'=>'SGH Eliminar','slug'=>'sgh.destroy','description'=>'Elimina el SGH del sistema',]);
+
+
     }
 }
