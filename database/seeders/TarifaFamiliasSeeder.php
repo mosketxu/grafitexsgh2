@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\TarifaFamilia;
 use Illuminate\Database\Seeder;
 

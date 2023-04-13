@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -196,5 +198,5 @@ class usuariostiendas extends Seeder
             ['name'=>'12391','email'=>'rb12391@ray-ban.com','password'=>bcrypt('12391@6342')]
         ]);
     }
-   
+
 }
