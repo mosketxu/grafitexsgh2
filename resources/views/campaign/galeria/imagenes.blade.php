@@ -33,7 +33,7 @@
     <div class="">
         <div class="w-full px-2">
             <div class="m-2">
-                {{-- {{ $campaigngaleria->appends(request()->except('page'))->links() }} --}}
+                {{ $campaigngaleria->appends(request()->except('page'))->links() }}
             </div>
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">

@@ -22,8 +22,8 @@ class CampaignGaleriaController extends Controller
         $campaigngaleria=CampaignGaleria::search2($request->busca)
         ->where('campaign_id',$campaignId)
         ->orderBy('elemento')
-        // ->paginate('10')->onEachSide(2);
-        ->get();
+        ->paginate('10')->onEachSide(2);
+        // ->get();
 
         $totalGaleria=$campaigngaleria->count();
 
