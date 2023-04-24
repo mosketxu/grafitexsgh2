@@ -2,6 +2,7 @@
     @can('campaign.edit')
     <input type="file" id="file{{ $campelemento->id }}" class="sr-only" wire:model="imagenelemento" />
     @endcan
+    {{-- <p>{{ 'storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen }}</p> --}}
     @if(file_exists( 'storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen ))
     <label for="file{{ $campelemento->id }}" class="cursor-pointer">
         <img src="{{asset('storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$campelemento->imagen.'?'.time())}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}

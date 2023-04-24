@@ -20,7 +20,7 @@
     </x-slot>
     <div class="p-2">
         <div class="max-w-full mx-auto">
-            <div class=" bg-white shadow-xl sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
                 @include('campaign.galeria.imagenes')
             </div>
         </div>

@@ -31,7 +31,10 @@
         </div>
     </div>
     <div class="">
-        <div class="w-full h-3/5">
+        <div class="w-full px-2">
+            <div class="m-2">
+                {{-- {{ $campaigngaleria->appends(request()->except('page'))->links() }} --}}
+            </div>
             <table class="w-full text-xs text-left">
                 <thead class="flex flex-col w-full text-white bg-black">
                     <tr class="flex w-full">
@@ -49,14 +52,15 @@
                 </thead>
                 <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 70vh;">
                     @foreach ($campaigngaleria as $imagen)
-                    <tr class="flex w-full  items-center">
+                    {{-- {{ $imagen }} --}}
+                    <tr class="flex items-center w-full">
                         <td class="w-1/12 pl-2">{{$imagen->id}}</td>
                         <td class="w-2/12">{{$imagen->mobiliario}}</td>
                         <td class="w-2/12">{{$imagen->carteleria}}</td>
                         <td class="w-2/12">{{$imagen->medida}}</td>
                         {{-- <td class="w-1/12">{{$imagen->elemento}}</td> --}}
                         <td class="w-2/12">{{$imagen->observaciones}}</td>
-                        <td class="w-1/12">{{$imagen->eci}}</td>
+                        <td class="w-1/12">{{$imagen->ECI}}</td>
                         {{-- <td class="w-2/12" id="imagen{{$imagen->id}}">{{$imagen->imagen}}</td> --}}
                         <td class="w-1/12">
                             @livewire('campaigns.campaign-galeria',['campelemento'=>$imagen,'campaign'=>$campaign,'ruta'=>'campaign.galeria'],key($imagen->id))
