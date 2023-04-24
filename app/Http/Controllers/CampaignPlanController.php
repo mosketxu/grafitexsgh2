@@ -113,6 +113,4 @@ class CampaignPlanController extends Controller{
         return view('campaign.plan.edit',compact('camptienda','areas','filtroarea','montadores','galeria','deshabilitado','deshabilitadocolor','deshabilitadofechamontador','deshabilitadofechamontadorcolor','ruta'));
     }
 
-
-
 }

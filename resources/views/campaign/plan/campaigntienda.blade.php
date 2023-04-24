@@ -1,7 +1,7 @@
 <div class="p-1 mx-2">
-    <div class="">
+    {{-- <div class="">
         @include('errores')
-    </div>
+    </div> --}}
 
     {{-- form fechas previstas --}}
     <form action="{{ route('montador.updatefechasplan',$camptienda) }}"  method="post">
@@ -51,7 +51,7 @@
     <div class="flex-none w-full p-2 space-y-2 rounded-md bg-blue-50 md:flex md:space-x-2">
         @can('plan.create')
         <div class="w-full md:w-2/12">Selección de Montadores por Area</div>
-        <div class="w-full md:w-5/12 ">
+        <div class="w-full md:w-4/12 ">
             <form method="GET" action="{{route('plan.edit',$camptienda) }}">
                 <x-select  selectname="filtroarea" class="w-full py-1 text-sm border-blue-300" id="filtroarea" name="filtroarea" >
                     <option value="">--Area montador--</option>
@@ -61,93 +61,36 @@
                 </x-select>
             </form>
         </div>
-        <div  class="w-full md:w-5/12">
+        <div  class="w-full md:w-6/12">
             <form action="{{ route('montador.updatemontadortienda',$camptienda) }}"  method="post" class="w-full">
                 @csrf
                 @method('PUT')
-                <x-select  selectname="montador_id" class="w-full py-1 text-sm border-blue-300" id="montador_id" name="montador_id" >
-                    <option value="">--Selecciona el montador--</option>
-                    @foreach ($montadores as $montador )
-                    <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
-                    @endforeach
-                </x-select>
-                @endif
+                <div class="flex space-x-2">
+                    <div class="w-8/12">
+                        <x-select  selectname="montador_id" class="w-full py-1 text-sm border-blue-300" id="montador_id" name="montador_id" >
+                            <option value="">--Selecciona el montador--</option>
+                            @foreach ($montadores as $montador )
+                            <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
+                            @endforeach
+                        </x-select>
+                    </div>
+                    <div class="flex w-4/12">
+                        <x-jet-label class="mx-2 text-base">€</x-jet-label>
+                        <x-input.text type="number" step="any" id="preciomontador" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="preciomontador" value="{{ $camptienda->preciomontador }}"></x-input.text>
+                    </div>
+                    @endif
+                </div>
             </form>
         </div>
     </div>
-    <form action="{{ route('montador.updatefechasmontador',$camptienda) }}"  method="post">
-        @csrf
-        @method('PUT')
-        <div class="">
-            <div class="flex p-2 space-x-2">
-                @can('plantienda.edit') <div class="w-10/12">
-                @elsecan('plantienda.edit') <div class="w-full">
-                @endcan
-                    <x-jet-label for="Montador">Montador</x-jet-label>
-                    <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="montador_id"
-                    name="montador_id" value="{{ $camptienda->montador->entidad ?? '' }}" disabled />
-                </div>
-                @can('plantienda.edit')
-                <div class="w-2/12">
-                    <x-jet-label>Precio montador</x-jet-label>
-                    <x-input.text type="number" step="any" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="preciomontador" value="{{ $camptienda->preciomontador }}"></x-input.text>
-                </div>
-                @endcan
-            </div>
-            <div class="flex-none p-2 space-y-2 md:space-x-2 md:flex md:space-y-0">
-                <div class="w-full md:w-4/12">
-                    <label for="fechamontador1">Fecha <span class="font-bold underline"> {{ $camptienda->monta1 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador1"
-                        name="fechamontador1" value="{{ old('fechamontador1',$camptienda->fechamontador1) }}"
-                        {{ $deshabilitadofechamontador }}/>
-                </div>
-                @if($camptienda->fechaprev2!='')
-                <div class="w-full md:w-4/12">
-                    <label for="fechamontador2">Fecha <span class="font-bold underline"> {{ $camptienda->monta2 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador2"
-                        name="fechamontador2" value="{{ old('fechamontador2',$camptienda->fechamontador2) }}"
-                        {{ $deshabilitadofechamontador }}/>
-                </div>
-                @endif
-                @if($camptienda->fechaprev3!='')
-                <div class="w-full md:w-4/12">
-                    <label for="fechamontador3">Fecha <span class="font-bold underline"> {{ $camptienda->monta3 }} </span> Real</label>
-                    <input type="date" class="w-full py-1 text-sm border-blue-300 rounded-md form-control form-control-sm {{ $deshabilitadofechamontadorcolor }}" id="fechamontador3"
-                        name="fechamontador3" value="{{ old('fechamontador3',$camptienda->fechamontador3) }}"
-                        {{ $deshabilitadofechamontador }}/>
-                </div>
-                @endif
-            </div>
-            @if($deshabilitado!='disabled')
-            <div class="w-full p-2">
-                <button type="submit" class="items-center w-full px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-blue-800 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25">{{ __('Guardar') }}</button>
-            </div>
-            @endif
-        </div>
-    </form>
-    @can('plantienda.update')
-    {{-- <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
-            method="POST"
-            class="dropzone"
-            id="my-awesome-dropzone">
-    </form> --}}
-    @livewire('upload-image',['campaigntienda'=>$camptienda])
-
-    @endcan
-    <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
-        @foreach ($galeria as $imagen )
-            <form action="{{ route('plan.deleteimagentienda', [$camptienda,$imagen]) }}" method ="POST" >
-            @csrf
-            {{ method_field('DELETE') }}
-            <img alt={{$imagen->imagen}} class="object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-[20rem] md:max-h-[10rem] lg:max-h-[20rem]"
-                src="{{asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen.'?'.time())}}"
-                onclick="location.href = '{{ asset('storage/plan/'.$camptienda->campaign_id.'/'.$camptienda->id.'/'.$imagen->imagen) }}'" target="_blank"/>
-            @can('plantienda.delete')
-                <button type="submit" class="ml-5"><x-icon.trash class="text-red-500 " /></button>
-            @endcan
-            </form>
-        @endforeach
+    <div class="flex items-center w-full p-2 ">
+        <x-jet-label for="Montador" class="mr-2">Montador</x-jet-label>
+        <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="montador_id"
+            name="montador_id" value="{{ $camptienda->montador->entidad ?? '' }}" disabled />
     </div>
+    {{-- @can('plantienda.update') --}}
+        @livewire('campaigns.plan.update-plan',['campaigntienda'=>$camptienda])
+    {{-- @endcan --}}
     <div class="my-2">
         <button type="button" onclick="location.href = '{{ route($ruta,$camptienda->campaign_id) }}'"
             class="items-center px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25">
@@ -166,6 +109,11 @@ select.onchange = function(){
 };
 
 var select = document.getElementById('filtroarea');
+select.onchange = function(){
+    this.form.submit();
+};
+
+var select = document.getElementById('preciomontador');
 select.onchange = function(){
     this.form.submit();
 };

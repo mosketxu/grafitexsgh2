@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Campaigns\Plan;
 
 use App\Models\CampaignTienda;
 use App\Models\CampaignTiendaGaleria;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
-class UploadImage extends Component
+class UpdatePlan extends Component
 {
 
     use WithFileUploads;
@@ -17,6 +18,9 @@ class UploadImage extends Component
     public $imagen;
     public $imagenes=[];
     public $campaigntienda;
+    public $fechamontador1;
+    public $fechamontador2;
+    public $fechamontador3;
 
 
     protected function rules(){
@@ -34,32 +38,61 @@ class UploadImage extends Component
         ];
     }
 
+    protected $listeners = [ 'refreshupdateplan' => '$refresh'];
+
     public function mount(CampaignTienda $campaigntienda){
         $this->campaigntienda=$campaigntienda;
+        $this->fechamontador1=$campaigntienda->fechamontador1;
+        $this->fechamontador2=$campaigntienda->fechamontador2;
+        $this->fechamontador3=$campaigntienda->fechamontador3;
     }
-
-
 
     public function render(){
-        // dd($this->campaigntienda);
-        return view('livewire.upload-image');
-    }
+        if(Auth::user()->can('plan.create')){
+            $deshabilitado='';
+            $deshabilitadocolor='bg-white';
+        }else{
+            $deshabilitado='disabled';
+            $deshabilitadocolor='bg-gray-100';
+        }
+        if(Auth::user()->can('plantienda.update')){
+            $deshabilitadofechamontador='';
+            $deshabilitadofechamontadorcolor='bg-white';
+        }else{
+            $deshabilitadofechamontador='disabled';
+            $deshabilitadofechamontadorcolor='bg-gray-100';
+        }
 
-    // public function updatedImagen(){
-        // dd('sdf');
-        // $this->validate(['imagen'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:12288']);
-    // }
+        $galeria=CampaignTiendaGaleria::where('campaigntienda_id',$this->campaigntienda->id)->get();
+
+        return view('livewire.campaigns.plan.update-plan',compact(['galeria','deshabilitado','deshabilitadocolor','deshabilitadofechamontador','deshabilitadofechamontadorcolor']));
+    }
 
     public function save(){
-        // dd($this->imagenes);
         foreach ($this->imagenes as $imagen) {
             $this->imagen=$imagen;
-            $this->saveuna();
+            $this->saveimagen();
         }
+
+        $this->campaigntienda->fechamontador1=$this->fechamontador1;
+        $this->campaigntienda->fechamontador2=$this->fechamontador2;
+        $this->campaigntienda->fechamontador3=$this->fechamontador3;
+        $this->campaigntienda->save();
+
+        $notification = array(
+            'message' => 'Operación realizada satisfactoriamente!',
+            'alert-type' => 'success'
+        );
+        // return back()->with($notification);
+        $mensaje="Actualizado";
+        $this->dispatchBrowserEvent('notify', $mensaje);
+
+        return redirect()->route('montador.edittienda',$this->campaigntienda)->with($notification);
+        // $this->emit('refreshupdateplan');
     }
 
-    public function saveuna(){
-        // $this->validate();
+    public function saveimagen(){
+        $this->validate();
 
         // Genero el nombre y la ruta que le pondré a la imagen
         $file_name = time().'.'.$this->imagen->extension();
@@ -98,10 +131,10 @@ class UploadImage extends Component
             // 'observaciones'=>$request->observaciones,
         ]);
 
-        $notification = array(
-            'message' => 'Imágen subida satisfactoriamente!',
-            'alert-type' => 'success'
-        );
-        return back()->with($notification);
+        // $notification = array(
+        //     'message' => 'Imágen subida satisfactoriamente!',
+        //     'alert-type' => 'success'
+        // );
+        // return back()->with($notification);
     }
 }

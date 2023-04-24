@@ -127,7 +127,8 @@ class MontadorController extends Controller
     }
 
     public function updatemontadortienda(Request $request,CampaignTienda $camptienda){
-        $camptienda->update(['montador_id' => $request->montador_id,]);
+        $preciomontador= $request->preciomontador=='' ? '0.00' : $request->preciomontador;
+        $camptienda->update(['montador_id' => $request->montador_id,'preciomontador'=>$preciomontador]);
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
     }
 
