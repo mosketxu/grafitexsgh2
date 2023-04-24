@@ -59,7 +59,7 @@ class UploadImage extends Component
     }
 
     public function saveuna(){
-        $this->validate();
+        // $this->validate();
 
         // Genero el nombre y la ruta que le pondré a la imagen
         $file_name = time().'.'.$this->imagen->extension();
