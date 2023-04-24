@@ -5,11 +5,11 @@ namespace App\Http\Livewire\Campaigns;
 // use App\Models\CampaignStore;
 use App\Models\StoreElemento;
 use Livewire\Component;
-use Livewire\WithPagination;
+// use Livewire\WithPagination;
 
 class CampaignAsociarstores extends Component
 {
-    use WithPagination;
+    // use WithPagination;
 
     public $visible=false;
     public $campaign;

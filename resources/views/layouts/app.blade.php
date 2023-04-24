@@ -30,6 +30,13 @@
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
+            {{-- los pongo porque sino run dev me los quita en componentes livewire --}}
+            <div class="bg-blue-500"></div>
+            <div class="bg-green-500"></div>
+            <div class="bg-yellow-500"></div>
+            <div class="bg-gray-500"></div>
+            <div class="bg-indigo-500"></div>
+
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
