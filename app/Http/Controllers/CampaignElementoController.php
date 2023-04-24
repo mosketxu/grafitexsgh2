@@ -15,7 +15,6 @@ class CampaignElementoController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index($campaignId, Request $request){
-
         $busqueda = '';
         if ($request->busca) $busqueda = $request->busca;
 

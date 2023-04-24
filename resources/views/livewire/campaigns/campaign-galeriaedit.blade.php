@@ -9,8 +9,8 @@
     </label>
     @else
     <label for="file{{ $campelemento->id }}" class="cursor-pointer">
-        <img src="{{asset('storage/galeria/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
-        class="h-56  mx-auto"/>
+        <img src="{{asset('storage/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
+        class="h-56 mx-auto"/>
     </label>
     @endif
     @error('imagenelemento') <span class="text-red-500">{{ $message }} </span>@enderror

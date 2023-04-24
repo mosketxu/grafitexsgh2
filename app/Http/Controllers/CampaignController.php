@@ -84,8 +84,6 @@ class CampaignController extends Controller{
         ->campstomob($campaign->id)
         ->campstomed($campaign->id)
         ->paginate(15);
-        // ->get();
-
 
         return view('campaign.indexfiltrar', compact('campaign','elementos','busqueda'));
     }
