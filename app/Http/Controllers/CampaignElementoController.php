@@ -33,37 +33,6 @@ class CampaignElementoController extends Controller{
         return view('campaign.elementos.index', compact('campaign','elementos','busqueda'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -78,8 +47,7 @@ class CampaignElementoController extends Controller{
         return view('campaign.elementos.edit',compact('campaign','campaignelemento'));
     }
 
-    public function editelemento($campaignId,$elementoId)
-    {
+    public function editelemento($campaignId,$elementoId){
         $campaign=Campaign::find($campaignId);
         $campaignelemento=CampaignElemento::where('id',$elementoId)->first();
 
@@ -95,8 +63,7 @@ class CampaignElementoController extends Controller{
      * dd(@param);
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         // solo actulizo los campos, la imagen no lo hago desde aquí;
         $campElem=json_decode($request->campaignelemento);
         $campaignelem=CampaignElemento::find($campElem->id);
@@ -114,19 +81,8 @@ class CampaignElementoController extends Controller{
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
-    public function updateimagenindex(Request $request)
-    {
+    public function updateimagenindex(Request $request){
 
         $request->validate([
             'photo' => 'required|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',

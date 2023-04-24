@@ -126,11 +126,13 @@
         </div>
     </form>
     @can('plantienda.update')
-    <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
+    {{-- <form action="{{ route('plan.uploadimagentienda',$camptienda) }}"
             method="POST"
             class="dropzone"
             id="my-awesome-dropzone">
-    </form>
+    </form> --}}
+    @livewire('upload-image',['campaigntienda'=>$camptienda])
+
     @endcan
     <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
         @foreach ($galeria as $imagen )
@@ -177,15 +179,15 @@ select.onchange = function(){
 </script>
 
 <script>
-Dropzone.options.myAwesomeDropzone = {
-    headers:{
-        'X-CSRF-TOKEN' : "{{ csrf_token() }}"
-    },
-    paramName: "imagen", // The name that will be used to transfer the file
-    maxFilesize: 4, // MB
-    dictDefaultMessage:"Arrastra tus archivos aqui o haz clic para subir",
-    // acceptedFiles:"image/*",
-  };
+// Dropzone.options.myAwesomeDropzone = {
+//     headers:{
+//         'X-CSRF-TOKEN' : "{{ csrf_token() }}"
+//     },
+//     paramName: "imagen", // The name that will be used to transfer the file
+//     maxFilesize: 4, // MB
+//     dictDefaultMessage:"Arrastra tus archivos aqui o haz clic para subir",
+//     acceptedFiles:"image/*",
+//   };
 
 </script>
 
