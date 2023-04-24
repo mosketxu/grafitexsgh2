@@ -184,7 +184,7 @@ Dropzone.options.myAwesomeDropzone = {
     paramName: "imagen", // The name that will be used to transfer the file
     maxFilesize: 4, // MB
     dictDefaultMessage:"Arrastra tus archivos aqui o haz clic para subir",
-    acceptedFiles:"image/*",
+    // acceptedFiles:"image/*",
   };
 
 </script>
