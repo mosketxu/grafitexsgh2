@@ -24,8 +24,11 @@ class MontadorController extends Controller
      */
     public function index(Request $request){
         $filtroestadomontaje=is_null($request->filtroestadomontaje) ? '3' : $request->filtroestadomontaje;
-        // dd($filtroestadomontaje);
         $montador=Entidad::where('user_id',Auth()->user()->id)->first();
+
+        // si no hay montador mando a la pantalla inicial
+        // if(!$montador) return redirect('login');
+
         $camptiendas=CampaignTienda::with('campaign','montador')
         ->where('montador_id',$montador->id)
         ->when($filtroestadomontaje!='t',function($query) use($filtroestadomontaje){

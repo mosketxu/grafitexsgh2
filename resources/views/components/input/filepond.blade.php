@@ -10,6 +10,8 @@
                     @this.upload('{{ $attributes['wire:model'] }}',file,load,error, progress)
                 },
                 revert: (filename, load) => {
+                    const image = new Image();
+                    image.src = URL.createObjectURL(file);
                     @this.removeUpload('{{ $attributes['wire:model'] }}',filename,load)
                 },
             },

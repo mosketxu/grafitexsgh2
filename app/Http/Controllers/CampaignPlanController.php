@@ -16,6 +16,7 @@ class CampaignPlanController extends Controller{
     }
 
     public function index(Request $request,Campaign $campaign){
+
         $busquedaname = '';
         if ($request->buscaname) $busquedaname = $request->buscaname;
         $busquedastoreid = '';

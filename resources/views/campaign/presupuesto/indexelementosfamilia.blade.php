@@ -3,7 +3,7 @@
         <div class="flex">
             <div class="w-4/12">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Cotización del presupuesto
+                    Cotización del presupuestos
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-8/12">
@@ -24,7 +24,7 @@
                 @include('campaign.presupuesto.elementosfamilia')
             </div>
         </div>
-        <div class="m-2 flex justify-between">
+        <div class="flex justify-between m-2">
             <div class="">
                 <x-jet-button type="button" class="py-2 text-gray-800 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.presupuesto.cotizacion',$presupuesto) }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
             </div>

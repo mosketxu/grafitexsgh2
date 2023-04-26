@@ -68,7 +68,6 @@
 @push('scriptchosen')
 
 <script>
-
 </script>
 
 @endpush
