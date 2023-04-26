@@ -40,7 +40,7 @@
             <div class="bg-green-500"></div>
             <div class="bg-yellow-500"></div>
             <div class="bg-gray-500"></div>
-            <div class="bg-indigo-500"></div>
+            <div class="bg-orange-500"></div>
 
             @livewire('navigation-menu')
 
