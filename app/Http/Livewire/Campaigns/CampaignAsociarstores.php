@@ -40,14 +40,13 @@ class CampaignAsociarstores extends Component
 
         $disponibles = $this->rowsdisp;
         $asociadas = $this->rowsaso;
-
         return view('livewire.campaigns.campaign-asociarstores',compact('disponibles','asociadas'));
-
     }
 
     public function cambiavisible(){$this->visible= $this->visible=='0' ? '1' : '0';}
 
     public function asocia($disponible,$unotodos){
+        // dd('asocia');
         $existe=$this->model1::where('campaign_id',$this->campaignid)->where($this->model1c1,$disponible['ident'])->first();
         if(!$existe)
             $this->model1::create([
@@ -63,10 +62,12 @@ class CampaignAsociarstores extends Component
         foreach ($todos as $uno) {
             $this->asocia($uno,'0');
         }
+        $this->emit('refresh');
         // return redirect()->route('campaign.filtrar',$this->campaign);
     }
 
     public function disocia($asociada,$unotodos){
+        // dd('disocia');
         $borrar=$this->model1::find($asociada);
         if($borrar) $borrar->delete();
         // if($unotodos=='1') return redirect()->route('campaign.filtrar',$this->campaign);
@@ -77,13 +78,11 @@ class CampaignAsociarstores extends Component
         foreach ($todos as $uno) {
             $this->disocia($uno->id,'0');
         }
-        return redirect()->route('campaign.filtrar',$this->campaign);
+        $this->emit('refresh');
+        // return redirect()->route('campaign.filtrar',$this->campaign);
     }
 
     public function getRowsdispProperty(){
-
-        // $a="where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%')";
-        // dd($a);
 
         if($this->model1c1=='store_id'){
             return StoreElemento::join('stores','stores.id','store_id')

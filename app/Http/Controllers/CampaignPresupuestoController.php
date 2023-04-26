@@ -18,8 +18,7 @@ class CampaignPresupuestoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Request $request, $campaignId)
-    {
+    public function index( Request $request, $campaignId){
         $busqueda = '';
         if ($request->busca)
             $busqueda = $request->busca;
@@ -35,23 +34,12 @@ class CampaignPresupuestoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'referencia' => 'required',
             'version' => 'required',
@@ -131,18 +119,6 @@ class CampaignPresupuestoController extends Controller
         return redirect()->back()->with($notification);
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -158,24 +134,32 @@ class CampaignPresupuestoController extends Controller
     }
 
     public function cotizacion($id){
-
         $campaignpresupuesto=CampaignPresupuesto::find($id);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
-
-        return view('campaign.presupuesto.indexcotizacion',
-            compact(
-                'campaign','campaignpresupuesto',
-                ));
+        return view('campaign.presupuesto.indexcotizacion',compact('campaign','campaignpresupuesto',));
     }
 
     public function elementosfamilia($campaignId,$familiaId,$presupuestoId){
 
+        // $elementos=CampaignElemento::join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
+        // ->where('campaign_id',$campaignId)
+        // ->where('familia',$familiaId)
+        // ->orderBy('material','asc')
+        // ->orderBy('medida','asc')
+        // ->paginate(13);
+
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
+        ->join('elementos','campaign_elementos.elemento_id','elementos.id')
         ->where('campaign_id',$campaignId)
         ->where('familia',$familiaId)
-        ->orderBy('material','asc')
-        ->orderBy('medida','asc')
+        ->select('campaign_id','elementificador','campaign_elementos.material as material','campaign_elementos.medida as medida','campaign_elementos.familia as familia',)
+        ->orderBy('campaign_elementos.material','asc')
+        ->orderBy('campaign_elementos.medida','asc')
+        ->groupBy('campaign_id','elementificador','material','medida','familia')
         ->paginate(13);
+
+
+        // dd($elementos);
 
         $presupuesto=CampaignPresupuesto::find($presupuestoId);
 
@@ -193,8 +177,7 @@ class CampaignPresupuestoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $request->validate([
             'referencia' => 'required',
             'version' => 'required',
@@ -214,16 +197,19 @@ class CampaignPresupuestoController extends Controller
     }
 
     public function updateelemento(Request $request){
-
         $precio=Tarifa::where('id',$request->familia)->first()->tarifa1;
 
-        $campaignelem=CampaignElemento::where('elemento_id',$request->elemento_id)
+        $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
+        ->join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
+        ->where('campaign_id',$request->campaign_id)
+        ->where('elementificador',$request->elementificador)
         ->update([
             'familia'=>$request->familia,
             'precio'=>$precio]
         );
 
-        $campaignelem=CampaignElemento::where('elemento_id',$request->elemento_id)->first();
+        $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
+        ->where('elementificador',$request->elementificador)->first();
 
         Elemento::where('material',$campaignelem->material)
         ->where('medida',$campaignelem->medida)

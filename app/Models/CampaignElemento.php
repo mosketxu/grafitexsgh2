@@ -16,12 +16,10 @@ class CampaignElemento extends Model
         'propxlemento','carteleria','medida','material','familia','matmed','unitxprop','imagen','observaciones','precio','validado','motivo','otros','updated_by'
     ];
 
+    public function tarifa(){return $this->belongsTo(Tarifa::class,'familia');}
+    public function elemento(){return $this->belongsTo(Elemento::class,'elemento_id','id');}
+    public function camptienda(){return $this->belongsTo(CampaignTienda::class,'tienda_id','id');}
 
-
-    public function tarifa()
-    {
-        return $this->belongsTo(Tarifa::class,'familia');
-    }
 
     public function scopeSearch2($query, $busca){
       return $query->where('campaign_elementos.store_id', 'LIKE', "%$busca%")

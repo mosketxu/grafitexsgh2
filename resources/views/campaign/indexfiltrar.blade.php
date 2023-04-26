@@ -3,7 +3,7 @@
         <div class="flex">
             <div class="w-2/12">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Filtros campaña
+                    Filtros campaña {{ $campaign->id }}
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-8/12">

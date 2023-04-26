@@ -90,7 +90,6 @@ class CampaignController extends Controller{
 
     // public function update(CampaignUpdateRequest $request,$id){
     public function update(Request $request,$id){
-
         $request->validate([
             'campaign_name' => 'required',
             'campaign_initdate' => 'date|required',
@@ -127,10 +126,10 @@ class CampaignController extends Controller{
         $campaign = Campaign::find($id);
         //Si empiezo de 0 borrar todo lo generado y regenerar
         if($tipo=="0"){
-            if(CampaignStore::where('campaign_id',$id)->count()>0){
-                CampaignStore::where('campaign_id','=',$id)->delete();
-                // elimna en cascada CampaignStore
-            }
+            // CampaignStore NO SE ELEMINA PORQUE ES UN FILTRO!!!!
+            // if(CampaignStore::where('campaign_id',$id)->count()>0){
+            //     CampaignStore::where('campaign_id','=',$id)->delete();
+            // }
             if(CampaignTienda::where('campaign_id',$id)->count()>0){
                 CampaignTienda::where('campaign_id','=',$id)->delete();
                 // elimna en cascada CampaignTienda
@@ -141,30 +140,10 @@ class CampaignController extends Controller{
         }
 
         // Si no se ha seleccionado ningun Area entiendo que los quiero todos
-        if(CampaignArea::where('campaign_id','=',$id)->count()==0){
-            $areas=Area::select('area')->get();
-            Campaign::inserta('campaign_areas',$areas,'area',$id);
-        }
-        // Si no se ha seleccionado ningun Medida entiendo que los quiero todos
-        if(CampaignMedida::where('campaign_id','=',$id)->count()==0){
-            $medidas=Medida::select('medida')->get();
-            Campaign::inserta('campaign_medidas',$medidas,'medida',$id);
-        }
-        // Si no se ha seleccionado ningun Mobiliario entiendo que los quiero todos
-        if(CampaignMobiliario::where('campaign_id','=',$id)->count()==0){
-            $mobiliarios=Mobiliario::select('mobiliario')->get();
-            Campaign::inserta('campaign_mobiliarios',$mobiliarios,'mobiliario',$id);
-        }
-        // Si no se ha seleccionado ningun segmento entiendo que los quiero todos
-        if(CampaignSegmento::where('campaign_id','=',$id)->count()==0){
-            $segmentos=Segmento::select('segmento')->get();
-            Campaign::inserta('campaign_segmentos',$segmentos,'segmento',$id);
-        }
-        // Si no se ha seleccionado ningun ubicacion entiendo que los quiero todos
-        if(CampaignUbicacion::where('campaign_id','=',$id)->count()==0){
-            $ubicacions=Ubicacion::select('ubicacion')->get();
-            Campaign::inserta('campaign_ubicacions',$ubicacions,'ubicacion',$id);
-        }
+        // if(CampaignArea::where('campaign_id','=',$id)->count()==0){
+        //     $areas=Area::select('area')->get();
+        //     Campaign::inserta('campaign_areas',$areas,'area',$id);
+        // }
 
         // Si no se ha seleccionado ningun store entiendo que los quiero todos
         if(CampaignStore::where('campaign_id','=',$id)->count()==0){
@@ -181,6 +160,30 @@ class CampaignController extends Controller{
                 }
             });
         }
+
+        // Si no se ha seleccionado ningun segmento entiendo que los quiero todos
+        if(CampaignSegmento::where('campaign_id','=',$id)->count()==0){
+            $segmentos=Segmento::select('segmento')->get();
+            Campaign::inserta('campaign_segmentos',$segmentos,'segmento',$id);
+        }
+
+        // Si no se ha seleccionado ningun Medida entiendo que los quiero todos
+        if(CampaignMedida::where('campaign_id','=',$id)->count()==0){
+            $medidas=Medida::select('medida')->get();
+            Campaign::inserta('campaign_medidas',$medidas,'medida',$id);
+        }
+        // Si no se ha seleccionado ningun Mobiliario entiendo que los quiero todos
+        if(CampaignMobiliario::where('campaign_id','=',$id)->count()==0){
+            $mobiliarios=Mobiliario::select('mobiliario')->get();
+            Campaign::inserta('campaign_mobiliarios',$mobiliarios,'mobiliario',$id);
+        }
+
+        // Si no se ha seleccionado ningun ubicacion entiendo que los quiero todos
+        if(CampaignUbicacion::where('campaign_id','=',$id)->count()==0){
+            $ubicacions=Ubicacion::select('ubicacion')->get();
+            Campaign::inserta('campaign_ubicacions',$ubicacions,'ubicacion',$id);
+        }
+
 
         // Separo en una tabla los stores y en otra todo los elementos de la store
         // $tiendas=Maestro::CampaignTiendas($id)->get();

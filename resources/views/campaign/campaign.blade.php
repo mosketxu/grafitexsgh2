@@ -13,26 +13,26 @@
             <div class="w-full rounded-md">
                 <x-jet-label class="ml-1 text-base" for="campaign_name">Campaña</x-jet-label>
                 <input type="text" id="campaign_name" name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
-                    class="flex-1 p-1 pl-2 form-input border border-blue-300 block w-full transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                    class="flex-1 block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                     {{ $deshabilitado }}/>
             </div>
-            <div class="flex  space-x-2">
+            <div class="flex space-x-2">
                 <div class="w-full rounded-md">
                     <x-jet-label class="ml-1 text-base" for="campaign_initdate">Fecha Inicio</x-jet-label>
                     <input type="date" id="campaign_initdate" name="campaign_initdate" value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
-                    class="p-1 pl-2 form-input border border-blue-300 block w-full transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                    class="block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                     {{ $deshabilitado }}/>
                 </div>
                 <div class="w-full rounded-md">
                     <x-jet-label class="ml-1 text-base" for="campaign_enddate">Fecha Fin Prevista</x-jet-label>
                     <input type="date"  id="campaign_enddate" name="campaign_enddate" value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
-                    class="p-1 pl-2 form-input border border-blue-300 block w-full transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                    class="block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                     {{ $deshabilitado }}/>
                 </div>
             </div>
-            <div class="text-blue-900 underline text-base ml-2">Fechas de instalación previstas</div>
+            <div class="ml-2 text-base text-blue-900 underline">Fechas de instalación previstas</div>
             <div class="flex-none space-y-2 text-base md:flex md:justify-between md:space-y-0">
-                <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 p-2 mx-1">
+                <div class="flex items-center w-full p-2 mx-1 space-x-2 bg-gray-100 rounded-lg">
                     <x-jet-label class="w-2/12 mx-2 text-base" for="montaje1 ">Fecha de </x-jet-label>
                     @if($deshabilitado=='')
                         <x-select  selectname="montaje1" id="montaje1" name="montaje1"
@@ -43,14 +43,14 @@
                         </x-select>
                     @else
                         <input type="text"  name="montaje1" value="{{$campaign->montaje1}}"
-                            class="flex-1 p-1 pl-2 form-input border border-blue-300 block w-6/12 text-base transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                            class="flex-1 block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                             {{ $deshabilitado }}/>
                     @endif
                     <input type="date" id="fechainstal1" name="fechainstal1" value="{{ old('fechainstal1',$campaign->fechainstal1) }}"
-                        class="w-6/12 text-base  p-1 pl-2 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                        class="block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                         {{ $deshabilitado }}/>
                 </div>
-                <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 p-2 mx-1">
+                <div class="flex items-center w-full p-2 mx-1 space-x-2 bg-gray-100 rounded-lg">
                     <x-jet-label class="w-2/12 mx-2 text-base" for="montaje2 ">Fecha de </x-jet-label>
                     @if($deshabilitado=='')
                         <x-select  selectname="montaje2" id="montaje2" name="montaje2"
@@ -61,14 +61,14 @@
                         </x-select>
                     @else
                         <input type="text"  name="montaje2" value="{{$campaign->montaje2}}"
-                            class="flex-1 p-1 pl-2 form-input border border-blue-300 block w-6/12 text-base transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                            class="flex-1 block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                             {{ $deshabilitado }}/>
                     @endif
                     <input type="date" id="fechainstal2" name="fechainstal2" value="{{ old('fechainstal2',$campaign->fechainstal2) }}"
-                        class="w-6/12 text-base  p-1 pl-2 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                        class="block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                         {{ $deshabilitado }}/>
                 </div>
-                <div class="w-full rounded-lg flex items-center space-x-2 bg-gray-100 p-2 mx-1">
+                <div class="flex items-center w-full p-2 mx-1 space-x-2 bg-gray-100 rounded-lg">
                     <x-jet-label class="w-2/12 mx-2 text-base" for="montaje3 ">Fecha de </x-jet-label>
                     @if($deshabilitado=='')
                         <x-select  selectname="montaje3" id="montaje3" name="montaje3"
@@ -79,11 +79,11 @@
                         </x-select>
                     @else
                         <input type="text"  name="montaje3" value="{{$campaign->montaje3}}"
-                            class="flex-1 p-1 pl-2 form-input border border-blue-300 block w-6/12 text-base transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                            class="flex-1 block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                             {{ $deshabilitado }}/>
                     @endif
                     <input type="date" id="fechainstal3" name="fechainstal3" value="{{ old('fechainstal3',$campaign->fechainstal3) }}"
-                        class="w-6/12 text-base  p-1 pl-2 form-input border border-blue-300 block transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                        class="block w-6/12 p-1 pl-2 text-base transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                         {{ $deshabilitado }}/>
                 </div>
             </div>
@@ -93,15 +93,15 @@
                 @if($deshabilitado=='')
                 <x-select  selectname="campaign_state" id="campaign_state" name="campaign_state"
                     class="w-full py-1 text-lg border-blue-300">
-                    <option value="{{$campaign->campaign_state}}">{{$campaign->campaign_state}}</option>
-                    <option value="0">Creada</option>
-                    <option value="1">Iniciada</option>
-                    <option value="2">Finalizada</option>
-                    <option value="3">Cancelada</option>
+                    {{-- <option value="{{$campaign->campaign_state}}">{{$campaign->campaign_state}}</option> --}}
+                    <option value="0" {{ $campaign->campaign_state =='0' ? 'selected' : '' }}>Creada</option>
+                    <option value="1" {{ $campaign->campaign_state =='1' ? 'selected' : '' }}>Iniciada</option>
+                    <option value="2" {{ $campaign->campaign_state =='2' ? 'selected' : '' }}>Finalizada</option>
+                    <option value="3" {{ $campaign->campaign_state =='3' ? 'selected' : '' }}>Cancelada</option>
                 </x-select>
                 @else
                     <input type="text"  name="estado" value="{{$campaign->campaign_state}}"
-                        class="flex-1 p-1 pl-2 form-input border border-blue-300 block w-full transition rounded-lg duration-150 hover:border-blue-300 focus:border-blue-300  active:border-blue-300"
+                        class="flex-1 block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                         {{ $deshabilitado }}/>
                 @endif
             </div>

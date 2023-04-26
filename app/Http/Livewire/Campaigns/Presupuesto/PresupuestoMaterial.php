@@ -19,7 +19,7 @@ class PresupuestoMaterial extends Component
     }
 
     public function render(){
-$materiales=VCampaignResumenElemento::where('campaign_id',$this->campaign->id)->get();
+        $materiales=VCampaignResumenElemento::where('campaign_id',$this->campaign->id)->get();
         $totalMateriales=CampaignPresupuestoDetalle::where('presupuesto_id',$this->presupuesto->id)->sum('total');
 
         return view('livewire.campaigns.presupuesto.presupuesto-material',compact('materiales','totalMateriales'));
