@@ -1,12 +1,14 @@
 <nav x-data="{ open: false }" class="rounded-md ">
-    <div class="flex w-full px-2 ">
+    <div class="">
+        <div class="hidden md:flex md:w-full md:space-x-4 lg:space-x-8">
+            @include('campaign.acciones')
+        </div>
+        <div class="text-center md:hidden">
+            @livewire('campaigns.modal-acciones',['campaign'=>$campaign])
+        </div>
+    </div>
+    {{-- <div class="flex w-full px-2 ">
         <div class="flex w-full sm:space-x-1 md:space-x-4 lg:space-x-8">
-            {{-- <div class="bg-blue-500"></div>
-            <div class="bg-green-500"></div>
-            <div class="bg-yellow-500"></div>
-            <div class="bg-gray-500"></div>
-            <div class="text-orange-500"></div> --}}
-
             @can('campaign.index')
                 <a  href="{{route('campaign.index') }}" title="Campañas"><x-icon.campground  class="pt-1 text-orange-500 w-7"/></a>
             @endcan
@@ -35,5 +37,5 @@
             <x-icon.calendar-days-a href="{{route('plan.index', $campaign->id ) }}" title="Planificacion" class="w-6 text-cyan-500 -500"/>
             @endcan
         </div>
-    </div>
+    </div> --}}
 </nav>
