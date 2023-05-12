@@ -5,9 +5,13 @@ namespace App\Http\Livewire\Campaigns\Conteos;
 use App\Models\CampaignElemento;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 class Storeconcepts extends Component
 {
+    use WithPagination;
+
     public $campaign;
     public $visible=false;
     public $titulo='Por Store Concepts';

@@ -5,8 +5,12 @@ namespace App\Http\Livewire\Campaigns\Conteos;
 use App\Models\CampaignElemento;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 class Detallado extends Component{
+
+    use WithPagination;
 
     public $campaign;
     public $visible=false;

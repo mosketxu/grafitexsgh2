@@ -5,8 +5,11 @@ namespace App\Http\Livewire\Campaigns\Conteos;
 use App\Models\CampaignElemento;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 
 class Cartelerias extends Component{
+    use WithPagination;
 
     public $campaign;
     public $visible=false;
