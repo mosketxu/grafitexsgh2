@@ -162,17 +162,17 @@
             </x-jet-responsive-nav-link>
             @endcan
             @can('tiendas.index')
-            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"> --}}
                 @if(Auth::user()->hasRole('tienda'))
-                <x-jet-responsive-nav-link href="{{ route('tienda.index') }}" :active="request()->routeIs('tiendas.index')">
-                    {{ __('Control recepción') }}
-                </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('tienda.index') }}" :active="request()->routeIs('tiendas.index')">
+                        {{ __('Control recepción') }}
+                    </x-jet-responsive-nav-link>
                 @else
-                <x-jet-responsive-nav-link href="{{ route('tienda.control') }}" :active="request()->routeIs('tiendas.control')">
-                    {{ __('Control recepción') }}
-                </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('tienda.control') }}" :active="request()->routeIs('tiendas.control')">
+                        {{ __('Control recepción') }}
+                    </x-jet-responsive-nav-link>
                 @endif
-            </div>
+            {{-- </div> --}}
             @endcan
             @can('elemento.index')
             <x-jet-responsive-nav-link href="{{ route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
