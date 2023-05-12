@@ -3,7 +3,7 @@
         <div class="flex">
             <div class="w-full">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Elemento: {{ $elemento->elementificador }}
+                    Edición del Elemento:
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
