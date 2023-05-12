@@ -2,7 +2,9 @@
     <x-slot name="header">
         <div class="flex">
             <div class="w-full">
-                {{-- <h2 class="text-xl font-semibold leading-tight text-gray-800">Campañas de la tienda <span class="text-blue-600"> {{ $store->id }} -{{ $store->name }} </span></h2> --}}
+                @if($store)
+                    <h2 class="text-xl font-semibold leading-tight text-gray-800">Campañas de la tienda <span class="text-blue-600"> {{ $store->id }} -{{ $store->name }} </span></h2>
+                @endif
             </div>
         </div>
     </x-slot>
