@@ -30,12 +30,12 @@
 
     <x-input.filepond wire:model="imagenes" multiple/>
 
-    <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-3 lg:grid-cols-5">
         @foreach ($galeria as $imagen )
             <form action="{{ route('plan.deleteimagentienda', [$campaigntienda,$imagen]) }}" method ="POST" >
             @csrf
             {{ method_field('DELETE') }}
-            <img alt={{$imagen->imagen}} class="object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-[20rem] md:max-h-[10rem] lg:max-h-[20rem]"
+            <img alt={{$imagen->imagen}} class="object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-40 md:h-40"
                 src="{{asset('storage/plan/'.$campaigntienda->campaign_id.'/'.$campaigntienda->id.'/'.$imagen->imagen.'?'.time())}}"
                 onclick="location.href = '{{ asset('storage/plan/'.$campaigntienda->campaign_id.'/'.$campaigntienda->id.'/'.$imagen->imagen) }}'" target="_blank"/>
             @can('plantienda.delete')

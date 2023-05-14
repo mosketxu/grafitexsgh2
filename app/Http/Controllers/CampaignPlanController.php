@@ -52,7 +52,8 @@ class CampaignPlanController extends Controller{
                 'montaje1' => $request->montaje1,
                 'montaje2' => $request->montaje2,
                 'montaje3' => $request->montaje3,
-                'preciomontador' => $request->preciomontador
+                'preciomontador' => $request->preciomontador,
+                'pedidocliente' => $request->pedidocliente
                 ]
             );
 
@@ -66,6 +67,7 @@ class CampaignPlanController extends Controller{
                 'montaje2' => $campaign->montaje2,
                 'montaje3' => $campaign->montaje3,
                 'preciomontador' => $campaign->preciomontador,
+                'pedidocliente' => $campaign->pedidocliente,
                 'montador_id' => $camptienda->tienda->montador_id,
                 'estadomontaje' => '0',
                 ]

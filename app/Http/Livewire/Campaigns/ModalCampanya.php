@@ -21,6 +21,7 @@ class ModalCampanya extends Component
     public $montaje2;
     public $montaje3;
     public $preciomontador;
+    public $pedidocliente;
 
     protected function rules(){
         return [
@@ -34,6 +35,7 @@ class ModalCampanya extends Component
             'montaje2'=>['nullable',Rule::requiredIf($this->fechainstal2!='')],
             'montaje3'=>['nullable',Rule::requiredIf($this->fechainstal3!='')],
             'preciomontador'=>'nullable',
+            'pedidocliente'=>'nullable',
         ];
     }
 
@@ -83,6 +85,7 @@ class ModalCampanya extends Component
             'montaje2'=>$this->montaje2,
             'montaje3'=>$this->montaje3,
             'preciomontador'=>$this->preciomontador,
+            'pedidocliente'=>$this->pedidocliente,
         ]);
 
         $this->campaign_name='';
@@ -95,6 +98,7 @@ class ModalCampanya extends Component
         $this->montaje2='';
         $this->montaje3='';
         $this->preciomontador='0';
+        $this->pedidocliente='';
 
         return redirect()->route('campaign.edit',$campaign);
     }

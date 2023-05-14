@@ -48,11 +48,11 @@
         </div>
     </form>
     {{-- Seleccion de Montador --}}
-    <div class="flex-none w-full p-2 space-y-2 rounded-md bg-blue-50 md:flex md:space-x-2">
+    <div class="w-full mt-2 rounded-md bg-blue-50 ">
         @can('plan.create')
-        <div class="w-full md:w-2/12">Selección de Montadores por Area</div>
-        <div class="w-full md:w-4/12 ">
-            <form method="GET" action="{{route('plan.edit',$camptienda) }}">
+        <div class="w-full mx-2">Selección de Montadores por Area</div>
+        <div class="flex-none w-full p-2 space-y-2 md:flex md:space-x-2 md:space-y-0">
+            <form method="GET" action="{{route('plan.edit',$camptienda) }}" class="w-full md:w-4/12">
                 <x-select  selectname="filtroarea" class="w-full py-1 text-sm border-blue-300" id="filtroarea" name="filtroarea" >
                     <option value="">--Area montador--</option>
                     @foreach ($areas as $area )
@@ -60,28 +60,30 @@
                     @endforeach
                 </x-select>
             </form>
-        </div>
-        <div  class="w-full md:w-6/12">
-            <form action="{{ route('montador.updatemontadortienda',$camptienda) }}"  method="post" class="w-full">
-                @csrf
-                @method('PUT')
-                <div class="flex space-x-2">
-                    <div class="w-8/12">
-                        <x-select  selectname="montador_id" class="w-full py-1 text-sm border-blue-300" id="montador_id" name="montador_id" >
-                            <option value="">--Selecciona el montador--</option>
-                            @foreach ($montadores as $montador )
-                            <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
-                            @endforeach
-                        </x-select>
-                    </div>
-                    <div class="flex w-4/12">
-                        <x-jet-label class="mx-2 text-base">€</x-jet-label>
-                        <x-input.text type="number" step="any" id="preciomontador" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="preciomontador" value="{{ $camptienda->preciomontador }}"></x-input.text>
-                    </div>
-                    @endif
-                </div>
+            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="w-full md:w-4/12">
+            @csrf
+            @method('PUT')
+                <x-select  selectname="montador_id" class="w-full py-1 text-sm border-blue-300" id="montador_id" name="montador_id" >
+                    <option value="">--Selecciona el montador--</option>
+                    @foreach ($montadores as $montador )
+                        <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
+                    @endforeach
+                </x-select>
             </form>
+            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="flex w-full md:w-4/12">
+            @csrf
+            @method('PUT')
+                <div class="w-1/12"><x-jet-label class="mx-2 text-base">€</x-jet-label></div>
+                <div class="w-11/12"><x-input.text type="number" step="any" id="preciomontador" class="w-full py-1 text-sm rounded-md " name="preciomontador" value="{{ $camptienda->preciomontador }}"/></div>
+            </form>
+            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="flex w-full md:w-4/12">
+            @csrf
+            @method('PUT')
+                <div class="w-2/12"><x-jet-label class="mx-2 text-base">Pedido</x-jet-label></div>
+                <div class="w-10/12"><x-input.text type="text" id="pedidocliente" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="pedidocliente" value="{{ $camptienda->pedidocliente }}"/></div>
+           </form>
         </div>
+        @endif
     </div>
     <div class="flex items-center w-full p-2 ">
         <x-jet-label for="Montador" class="mr-2">Montador</x-jet-label>

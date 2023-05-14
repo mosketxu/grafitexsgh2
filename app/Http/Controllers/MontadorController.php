@@ -93,6 +93,7 @@ class MontadorController extends Controller
         $montaje2=$request->fechaprev2=='' ? null : $request->montaje2;
         $montaje3=$request->fechaprev2=='' ? null : $request->montaje3;
         $preciomontador=$request->preciomontador=='' ? null : $request->preciomontador;
+        $pedidocliente=$request->pedidocliente=='' ? null : $request->pedidocliente;
 
         $camptienda->update([
             'fechaprev1'=>$request->fechaprev1,
@@ -101,6 +102,7 @@ class MontadorController extends Controller
             'montaje2'=>$montaje2,
             'montaje3'=>$montaje3,
             'preciomontador'=>$preciomontador,
+            'pedidocliente'=>$pedidocliente,
             ]
         );
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
@@ -118,6 +120,7 @@ class MontadorController extends Controller
             'fechamontador2'=>$request->fechamontador2,
             'fechamontador3'=>$request->fechamontador3,
             'preciomontador'=>$request->preciomontador,
+            'pedidocliente'=>$request->pedidocliente,
             ]
         );
 
@@ -131,7 +134,8 @@ class MontadorController extends Controller
 
     public function updatemontadortienda(Request $request,CampaignTienda $camptienda){
         $preciomontador= $request->preciomontador=='' ? '0.00' : $request->preciomontador;
-        $camptienda->update(['montador_id' => $request->montador_id,'preciomontador'=>$preciomontador]);
+        $pedidocliente= $request->pedidocliente=='' ? '' : $request->pedidocliente;
+        $camptienda->update(['montador_id' => $request->montador_id,'preciomontador'=>$preciomontador,'pedidocliente'=>$pedidocliente]);
         return redirect()->route('plan.edit',$camptienda)->with('message','Datos actualizadas ');
     }
 
