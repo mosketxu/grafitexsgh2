@@ -64,11 +64,32 @@
                     </div>
                 @endcan
                 @can('tarifa.index')
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link  href="{{route('tarifa.index') }}" :active="request()->routeIs('tarifa.index')">
-                            {{ __('Tarifas') }}
-                        </x-jet-nav-link>
-                    </div>
+                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10  ">
+                    <x-jet-dropdown  align="left"  >
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                    Tarifas
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
+                        <x-slot name="content">
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{ route('tarifa.index') }}" class="text-left">
+                                    {{ __('Tarifas') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{ route('tarifafamilia.index') }}" class="text-left">
+                                    {{ __('Familias') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                        </x-slot>
+                    </x-jet-dropdown>
+                </div>
                 @endcan
                 @can('maestro.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -127,7 +148,7 @@
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                        @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
@@ -195,9 +216,30 @@
             </x-jet-responsive-nav-link>
             @endcan
             @can('tarifa.index')
-            <x-jet-responsive-nav-link href="{{ route('tarifa.index') }}" :active="request()->routeIs('tarifa.index')">
-                {{ __('Tarifas') }}
-            </x-jet-responsive-nav-link>
+            <div class="relative mt-3 ml-3">
+                <x-jet-dropdown align="right" >
+                    <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                            <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                Tarifas
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </span>
+                    </x-slot>
+                    <x-slot name="content">
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('tarifa.index') }}" class="text-right">
+                                {{ __('Tarifas') }}
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('tarifafamilia.index') }}" class="text-right">
+                                {{ __('Familias') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                    </x-slot>
+                </x-jet-dropdown>
+            </div>
             @endcan
             @can('maestro.index')
             <x-jet-responsive-nav-link href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">

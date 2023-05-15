@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, RoleController, SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TiendaController, UploadController, UserController};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, RoleController, SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController, TiendaController, UploadController, UserController};
 // use HasRoles;
 
 Route::get('/', function () {
@@ -121,6 +121,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     // tarifa.php
         Route::resource('tarifa', TarifaController::class)->only('index','store','edit','destroy');
+    // familias.php
+        Route::resource('tarifafamilia', TarifaFamiliaController::class);
 
     //Auxiliares
         Route::get('auxiliares', [AuxiliaresController::class,'index'])->name('auxiliares.index')->middleware('can:auxiliares.index');
