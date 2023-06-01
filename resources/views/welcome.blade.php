@@ -30,13 +30,12 @@
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Iniciar</a>
                         <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 underline" onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }} </a>
                     </form>
+            @else
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                    @endif
                     @endauth
                 </div>
             @endif

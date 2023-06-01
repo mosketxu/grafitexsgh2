@@ -64,7 +64,7 @@
                     </div>
                 @endcan
                 @can('tarifa.index')
-                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10  ">
+                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10 ">
                     <x-jet-dropdown  align="left"  >
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
@@ -147,10 +147,11 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
-                                        @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
-                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link
+                                    href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }}
+                            </x-jet-dropdown-link>
+
                             </form>
                         </x-slot>
                     </x-jet-dropdown>
