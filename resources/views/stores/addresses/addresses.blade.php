@@ -25,9 +25,9 @@
                 <div  >
                     @foreach ($stores as $store)
                     @can('stores.edit')
-                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-y hover:bg-gray-100 hover:cursor-pointer" wire:loading.class.delay="opacity-50" onclick="location.href = '{{ route('stores.edit',$store) }}'">
+                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100" wire:loading.class.delay="opacity-50" onclick="location.href = '{{ route('stores.edit',$store) }}'">
                     @else
-                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-y hover:bg-gray-100 hover:cursor-pointer" wire:loading.class.delay="opacity-50">
+                    <div class="flex w-full text-sm text-gray-500 border-t-0 border-b hover:bg-gray-100" wire:loading.class.delay="opacity-50">
                     @endcan
                         <input type="hidden" id="id" name="id" value="{{$store->id}}">
                         <div class="w-2/12 pl-2 text-left md:w-1/12">{{$store->luxotica}}</div>
