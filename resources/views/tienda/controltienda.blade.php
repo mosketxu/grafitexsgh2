@@ -53,10 +53,10 @@
                         <td class="w-1/12">{{$store->tienda->id}}</td>
                         <td class="w-2/12">{{$store->tienda->name}}</td>
                         <td class="w-3/12"><a href="mailto:{{$store->tienda->email}}"><span class="text-blue-500 underline">{{$store->tienda->email}}</span>  </a></td>
-                        <td class="w-1/12 text-right">{{$store->total}}</td>
-                        <td class="w-1/12 pr-2 text-right">{{$store->total-$store->OK-$store->KO}}</td>
-                        <td class="w-1/12 pr-2 text-right">{{$store->OK}}</td>
-                        <td class="w-1/12 pr-2 text-right">{{$store->KO}}</td>
+                        <td class="w-1/12 text-right">{{$store->elementos_count}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->elementos_count-$store->elementosok_count-$store->elementosko_count}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->elementosok_count}}</td>
+                        <td class="w-1/12 pr-2 text-right">{{$store->elementosko_count}}</td>
                         <td class="flex flex-row-reverse w-1/12 pr-2">
                             @can('tiendas.index')
                                 <a href="{{ route('tienda.show',[$campaign,$store->tienda->id]) }}" title="Editar tienda"><x-icon.arrow-right class="text-green-500"/></a>

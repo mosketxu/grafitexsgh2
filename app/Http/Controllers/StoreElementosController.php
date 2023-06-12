@@ -125,6 +125,8 @@ class StoreElementosController extends Controller
     }
 
     public function addtostore(Elemento $elemento,Store $store){
+
+        // dd('sdf');
         StoreElemento::create([
             'store_id'=>$store->id,
             'elemento_id'=>$elemento->id,

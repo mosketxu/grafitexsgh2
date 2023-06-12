@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Campaigns\CampaignElementos;
 use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, Store};
 // use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -80,7 +82,7 @@ class TiendaController extends Controller
 
         $campaign = Campaign::find($camp);
         $store=Store::find($sto);
-
+        dd($camp ,$sto);
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->where('campaign_id',$camp)
         ->where('campaign_elementos.store_id',$sto)
@@ -104,25 +106,70 @@ class TiendaController extends Controller
 
     public function control(Request $request){
         $busqueda='';
+        $ok='';
+        $ko='';
         if ($request->busca) $busqueda = $request->busca;
+        if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
+        if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
 
-        $campaigns=CampaignTienda::search2($busqueda)
-        ->with('campaign')
-        ->with('tienda')
-        ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
-        ->select('campaign_name','campaign_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
+        $campaigns=CampaignTienda::with('campaign')
         ->groupBy('campaign_id')
         ->paginate(10);
 
-        return view('tienda.index',compact('campaigns','busqueda'));
+        $campaigns=CampaignTienda::with('campaign')
+        ->with('elementos' ,function($query) {
+            $query->where('KO', '1');
+        })
+        ->groupBy('campaign_id')
+        ->paginate(10);
+
+        // $posts = App\Post::whereHas('comments', function (Builder $query) {
+        //     $query->where('content', 'like', 'foo%');
+        // })->get();
+
+        $campaigns=CampaignTienda::with('campaign')
+        ->when($ok!='',function ($q){
+            $q->whereHas('elementos', function ($query) {$query->where('OK', '1');});
+        })
+        ->when($ko!='',function ($q){
+            $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
+        })
+        // ->whereHas('elementos',function($query){
+        //     $query->where('OK','1');
+        // })
+        ->groupBy('campaign_id')
+        ->paginate(10);
+
+
+        // dd($campaigns);
+        // dd($campaigns);
+
+        // $users = User::with('products' => function($query) {
+        //     $query->where('isGlobal', 1);
+        // })->get();
+
+        // $campaigns=CampaignTienda::search2($busqueda)
+        // ->with('campaign')
+        // ->with('tienda')
+        // ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
+        // ->select('campaign_name','campaign_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
+        // ->when($ok!='', function ($query) use($ok){
+        //     $query->whereHas('elementos', function ($query) use($ok){$query->where('OK', $ok);});
+        //     })
+        // ->when($ko!='', function ($query){
+        //     $query->where('KO','>','0');
+        //     })
+        // ->groupBy('campaign_id')
+        // ->paginate(10);
+
+        return view('tienda.index',compact('campaigns','busqueda','ok','ko'));
     }
 
     public function controlstores($campaignId){
+
         $campaign=Campaign::find($campaignId);
-        $stores=CampaignTienda::with('campaign')->with('tienda')
-        ->join('campaign_elementos','campaign_tiendas.store_id','campaign_elementos.store_id')
-        ->select('campaign_id','campaign_tiendas.store_id',DB::raw('count(*) as total'),DB::raw('count(OK) as OK'),DB::raw('count(KO) as KO'))
-        ->groupBy('campaign_id','campaign_tiendas.store_id')
+
+        $stores=CampaignTienda::with('campaign')
         ->where('campaign_id',$campaignId)
         ->paginate(10);
 

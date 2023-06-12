@@ -20,6 +20,10 @@ class CampaignTienda extends Model
     public function elementos(){return $this->hasMany(CampaignElemento::class, 'tienda_id');}
     public function galeria(){return $this->hasMany(CampaignTiendaGaleria::class, 'campaigntienda_id', 'id');}
 
+    protected function getElementosCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count();}
+    protected function getElementosokCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('OK','1');}
+    protected function getElementoskoCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('KO','1');}
+
     // SCOPES
     public function scopeSearch2($query, $busca){
         return $query->join('campaigns', 'campaigns.id', 'campaign_tiendas.campaign_id')

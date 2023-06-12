@@ -51,7 +51,13 @@
                     <div class="w-1/12">{{$elemento->elemento->material}}</div>
                     <div class="w-1/12 text-center">{{$elemento->elemento->unitxprop}}</div>
                     <div class="w-2/12">{{$elemento->elemento->observaciones}}</div>
-                    <div  class="w-10 text-right">
+                    <div  class="flex text-center w-15">
+                        @can('storeelementos.update')
+                        <form method="post" action="{{ route('storeelementos.addtostore',[$elemento->elemento_id,$store]) }}">
+                        @csrf
+                            <button type="submit"><x-icon.copy-a class="text-blue-500" title="Copiar elemento"/></button>
+                        </form>
+                        @endcan
                         @can('storeelementos.delete')
                             @livewire('stores.store-elementos.store-elemento-eliminar',['elemento'=>$elemento],key($elemento->id))
                         @endcan

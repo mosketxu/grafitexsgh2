@@ -9,6 +9,8 @@
             @include('maestro.maestrofilters')
         </div>
         <div class="mx-2 space-y-1 border rounded-md">
+            {{ $maestros->appends(request()->except('page'))->links() }}
+
             <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
                 <div class="w-1/12 text-left">Store</div>
                 <div class="w-1/12 text-left">Name</div>
@@ -49,15 +51,16 @@
                 <div class="flex-wrap w-1/12 my-2 text-left">{{$maestro->observaciones}}</div>
             </div>
             @endforeach
-            <div class="mt-2 ml-2">
+            {{-- <div class="mt-2 ml-2">
                 {{$maestros->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
 @push('scriptchosen')
 <script>
     function borrarFiltros(){
+        alert('sdf');
         $("#sto").val('');
         $("#nam").val('');
         $("#coun").val('');

@@ -111,6 +111,7 @@
                                 <div class="w-full form-item">
                                     <x-jet-label for="furniture_type">Furniture Type</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="furniture_type" selectname="furniture_type" name="furniture_type" >
+                                        {{-- {{ $furnitures }} --}}
                                         @foreach($furnitures as $furniture )
                                         <option value="{{$furniture->furniture_type}}" {{old('furniture_type',$furniture->furniture_type==$store->furniture_type) ? 'selected' : ''}}>{{$furniture->furniture_type}}</option>
                                         @endforeach

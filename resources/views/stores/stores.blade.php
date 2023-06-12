@@ -27,7 +27,7 @@
                         <div class="hidden md:text-left md:w-2/12 md:flex">Concepto</div>
                         <div class="hidden md:text-left md:w-1/12 md:flex">Furniture Type</div>
                         @can('montador.index')
-                            <div class="w-1/12 text-left border-2 border-red-500">Montador</div>
+                            <div class="w-1/12 text-left ">Montador</div>
                         @endcan
                     </div>
                     <div class="w-1/12 text-left">

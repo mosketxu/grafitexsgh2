@@ -1,7 +1,7 @@
 <div class="">
-    <div class="p-1 mx-2">
+    <div class="mx-2">
         <div class="text-gray-500 border border-blue-300 rounded shadow-md">
-            <div class="flex w-full p-1 bg-gray-100 rounded-md">
+            <div class="flex w-full bg-gray-100 rounded-md">
                 <div class="w-6/12 rounded-md">
                     <label for="campaign_name">Campaña</label>
                     <input type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
@@ -41,9 +41,7 @@
                         <th class="w-1/12">Material</th>
                         <th class="w-1/12">Unit x Prop</th>
                         <th class="w-3/12 text-center">
-                            <div class="">
-                                Estado
-                            </div>
+                            <div class="">Estado</div>
                             <div class="flex justify-between">
                                 <div class="flex w-3/12 ">
                                     <form action="{{route('tienda.show',[$campaign,$store])}}" class="mx-auto">

@@ -190,6 +190,7 @@ return [
          Intervention\Image\ImageServiceProvider::class,
          Maatwebsite\Excel\ExcelServiceProvider::class,
          Barryvdh\DomPDF\ServiceProvider::class,
+         Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -220,6 +221,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
 
     ])->toArray(),
 

@@ -17,31 +17,74 @@
             </div>
         </div>
         <div class="mx-2 space-y-1 border rounded-md">
-            <div class="flex w-full pt-2 pb-0 pl-2 space-x-1 text-sm font-bold tracking-tighter text-gray-500 bg-blue-100 rounded-t-md">
-                <div class="w-1/12 text-left">#</div>
-                <div class="w-4/12 text-left">Campaña</div>
-                <div class="w-1/12 text-left">Fecha Inicio</div>
-                <div class="w-1/12 text-left">Fecha Fin Prevista</div>
-                <div class="w-1/12 text-right">Total</div>
-                <div class="flex flex-row-reverse w-1/12"><x-icon.question class="w-2 mb-1 text-black "/></div>
-                <div class="flex flex-row-reverse w-1/12"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"></x-icon.thumbs-up></div>
-                <div class="flex flex-row-reverse w-1/12"><x-icon.thumbs-down class="w-4 mb-1 text-red-500"></x-icon.thumbs-down></div>
-                <div class="flex flex-row-reverse w-1/12"></div>
-            </div>
+            {{-- <form method="GET" action="{{ route('tiendas.index') }}">
+                @csrf
+                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Iniciar</a>
+                <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 underline" onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }} </a>
+            </form> --}}
+            <form action="{{ route('tienda.control') }}" method="GET">
+                @csrf
+                <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
+                    {{-- <div class="w-1/12 pl-2">#</div> --}}
+                    <div class="w-3/12 pl-2 ">Campaña</div>
+                    <div class="w-2/12 flex-none lg:flex ">
+                        <div class="w-full text-center lg:w-6/12">F.Inicio</div>
+                        <div class="w-full text-center lg:w-6/12">F.Fin</div>
+                    </div>
+                    <div class="w-3/12 flex-none lg:flex ">
+                        <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 1">F.Mon.1</div>
+                        <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 2">F.Mon.2</div>
+                        <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 2">F.Mon.3</div>
+                    </div>
+                    <div class="w-1/12 text-center ">nº Elementos</div>
+                    <div class="w-3/12 text-center flex-none lg:flex  "">
+                        <div class="w-full flex ml-2">
+                            <x-icon.question class="w-2 mb-1 text-black "/>
+                        </div>
+                        <div class="w-full flex ml-2">
+                            <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
+                            <input type="checkbox" {{ $ok=="1" ? 'checked' : '' }} name="ok" value="ok" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
+                            {{ $ok }}
+                        </div>
+                        <div class="w-full flex ml-2">
+                            <x-icon.thumbs-down class="w-4 mb-1 text-red-500"/>
+                            <input type="checkbox" {{ $ko=="1" ? 'checked' : '' }} name="ko" value="ko" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
+                            {{ $ko }}
+                        </div>
+                    </div>
+                </div>
+            </form>
             @foreach($campaigns as $campaign)
-            <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y ">
-                <div class="flex-wrap w-1/12 pl-2 my-2 text-left">{{$campaign->campaign->id}}</div>
-                <div class="flex-wrap w-4/12 my-2 text-left">{{$campaign->campaign->campaign_name}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->campaign_initdate}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-left">{{$campaign->campaign->campaign_enddate}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-right">{{$campaign->total}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-right">{{$campaign->total-$campaign->OK-$campaign->KO}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-right">{{$campaign->OK}}</div>
-                <div class="flex-wrap w-1/12 my-2 text-right">{{$campaign->KO}}</div>
-                <div class="flex flex-row-reverse w-1/12 pr-2">
-                    @can('tiendas.index')
-                        <a href="{{route('tienda.controlstores',$campaign->campaign ) }}" title="tiendas de la campaña"><x-icon.arrow-right class="text-green-500"/></a>
-                    @endcan
+            @can('tiendas.index')
+                <div onclick="location.href = '{{ route('tienda.controlstores',$campaign->campaign) }}'" class="flex w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
+            @else
+                <div class="flex w-full text-sm text-gray-500 border-t-0 border-b hover:bg-gray-100 ">
+            @endcan
+                {{-- <div class="w-1/12 pl-2 text-left">{{$campaign->campaign->id}}</div> --}}
+                <div class="w-3/12 pl-2 text-left ">{{$campaign->campaign->campaign_name}}</div>
+                <div class="w-2/12 flex-none lg:flex  ">
+                    <div class="w-full text-center lg:w-6/12">{{$campaign->campaign->campaign_initdate}}</div>
+                    <div class="w-full text-center lg:w-6/12">{{$campaign->campaign->campaign_enddate}}</div>
+                </div>
+                <div class="w-3/12 text-center flex-none lg:flex  ">
+                    <div class="w-full text-center lg:w-4/12">
+                        <div class="text-center ">{{$campaign->campaign->fechainstal1}}</div>
+                        <div class="text-center ">{{ $campaign->campaign->montaje1  }}</div>
+                    </div>
+                    <div class="w-full text-center lg:w-4/12">
+                        <div class="text-center ">{{$campaign->campaign->fechainstal2}}</div>
+                        <div class="text-center ">{{ $campaign->campaign->montaje2  }}</div>
+                    </div>
+                    <div class="w-full text-center lg:w-4/12">
+                        <div class="text-center ">{{$campaign->campaign->fechainstal3}}</div>
+                        <div class="text-center ">{{ $campaign->campaign->montaje3  }}</div>
+                    </div>
+                </div>
+                <div class="w-1/12 text-center ">{{$campaign->elementos_count}}</div>
+                <div class="w-3/12 text-center flex-none lg:flex  ">
+                    <div class="w-full flex ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$campaign->elementos_count-$campaign->elementosok_count-$campaign->elementosko_count}}</div>
+                    <div class="w-full flex ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$campaign->elementosok_count}}</div>
+                    <div class="w-full flex ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$campaign->elementosko_count}}</div>
                 </div>
             </div>
             @endforeach

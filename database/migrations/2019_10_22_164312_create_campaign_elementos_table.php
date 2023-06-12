@@ -43,8 +43,8 @@ class CreateCampaignElementosTable extends Migration
             $table->integer('estadorecepcion')->default(0);
             $table->string('obsrecepcion')->nullable();
             $table->dateTime('fecharecepcion')->nullable();
-            $table->string('OK')->nullable();
-            $table->string('KO')->nullable();
+            $table->boolean('OK')->nullable()->default(0);
+            $table->boolean('KO')->nullable()->default(0);
             $table->timestamp('deleted_at')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
