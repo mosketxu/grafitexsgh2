@@ -41,7 +41,7 @@
             <table class="w-full px-1 text-xs text-left rounded-md">
                 <thead class="flex flex-col w-full text-white bg-black rounded-t-md ">
                     <tr class="flex w-full">
-                        <th class="w-1/12 ml-2">Luxotica</th>
+                        <th class="w-1/12 ml-2">Luxottica</th>
                         <th class="w-1/12">Store</th>
                         <th class="w-2/12">Address</th>
                         <th class="w-2/12">City-CP-Province</th>

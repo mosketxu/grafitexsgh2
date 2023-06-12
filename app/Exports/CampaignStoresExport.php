@@ -17,7 +17,7 @@ class CampaignStoresExport implements FromCollection,WithHeadings
     public function headings(): array
     {
         return [
-            'Luxotica',
+            'Luxottica',
             'Store',
             'Nombre',
             'País',

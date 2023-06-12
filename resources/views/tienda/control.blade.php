@@ -17,11 +17,6 @@
             </div>
         </div>
         <div class="mx-2 space-y-1 border rounded-md">
-            {{-- <form method="GET" action="{{ route('tiendas.index') }}">
-                @csrf
-                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Iniciar</a>
-                <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 underline" onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }} </a>
-            </form> --}}
             <form action="{{ route('tienda.control') }}" method="GET">
                 @csrf
                 <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
@@ -37,19 +32,17 @@
                         <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 2">F.Mon.3</div>
                     </div>
                     <div class="w-1/12 text-center ">nº Elementos</div>
-                    <div class="w-3/12 text-center flex-none lg:flex  "">
+                    <div class="w-3/12 text-center flex-none lg:flex  ">
                         <div class="w-full flex ml-2">
                             <x-icon.question class="w-2 mb-1 text-black "/>
                         </div>
                         <div class="w-full flex ml-2">
                             <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
                             <input type="checkbox" {{ $ok=="1" ? 'checked' : '' }} name="ok" value="ok" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
-                            {{ $ok }}
                         </div>
                         <div class="w-full flex ml-2">
                             <x-icon.thumbs-down class="w-4 mb-1 text-red-500"/>
                             <input type="checkbox" {{ $ko=="1" ? 'checked' : '' }} name="ko" value="ko" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
-                            {{ $ko }}
                         </div>
                     </div>
                 </div>
