@@ -25,7 +25,7 @@ class Mobiliarios extends Component
         $mobiliarios=CampaignElemento::tienda($this->campaign->id)
         ->select('mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('mobiliario')
-        ->paginate(10);
+        ->get();
 
         return view('livewire.campaigns.conteos.mobiliarios',compact('mobiliarios'));
     }

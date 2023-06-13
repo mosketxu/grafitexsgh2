@@ -25,7 +25,7 @@ class Storeconcepts extends Component
         $conceptos=CampaignElemento::tienda($this->campaign->id)
         ->select('storeconcept', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('storeconcept')
-        ->paginate(10);
+        ->get();
 
         return view('livewire.campaigns.conteos.storeconcepts',compact('conceptos'));
     }

@@ -25,7 +25,7 @@ class Detallado extends Component{
         $conteodetallado=CampaignElemento::tienda($this->campaign->id)
         ->select('segmento','ubicacion','medida','mobiliario','area','material', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('segmento','ubicacion','medida','mobiliario','area','material')
-        ->paginate('20');
+        ->get();
         return view('livewire.campaigns.conteos.detallado',compact('conteodetallado'));
     }
 

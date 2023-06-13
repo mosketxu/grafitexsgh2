@@ -64,6 +64,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
                 Route::get('/{campaignelemento}', [CampaignElementoController::class,'index'])->name('campaign.elementos')->middleware('can:campaign.index');
                 Route::get('/{campaign}/{campaigngaleria}/edit', [CampaignElementoController::class,'editelemento'])->name('campaign.elemento.editelemento')->middleware('can:campaign.edit');
                 Route::get('/export/campaignelementos/{campaign}', [CampaignElementoController::class,'exportCampaignElementos'])->name('campaign.elementos.export')->middleware('can:campaign.index');
+
+                // Exporacion estadistiscas
+                Route::get('/export/conteoidimatmedmob/{campaign}', [CampaignElementoController::class,'exportConteoIdiomaMatMedMob'])->name('campaign.conteo.export')->middleware('can:campaign.index');
+                Route::get('/export/campaignelementos/{campaign}', [CampaignElementoController::class,'exportCampaignElementos'])->name('campaign.elementos.export')->middleware('can:campaign.index');
+                Route::get('/export/campaignelementosmat/{campaign}', [CampaignElementoController::class,'exportCampaignElementosMat'])->name('campaign.elementosmat.export')->middleware('can:campaign.index');
+                Route::get('/export/campaignelementosmatmed/{campaign}', [CampaignElementoController::class,'exportCampaignElementosMatMed'])->name('campaign.elementosmatmed.export')->middleware('can:campaign.index');
             });
             // galeria
             Route::group(['prefix' => 'galeria'], function () {

@@ -7,9 +7,9 @@
     </div>
     @if($visible=='1')
     <div class="">
-        <div class="pl-2">
+        {{-- <div class="pl-2">
             {{ $propxelementos->appends(request()->except('page'))->links() }}
-        </div>
+        </div> --}}
         <div class="">
             <div class="flex w-full text-white bg-black">
                 <div class="w-6/12 pl-2">Prop x Elemento</div>

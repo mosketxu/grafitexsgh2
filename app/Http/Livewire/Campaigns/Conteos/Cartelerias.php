@@ -23,7 +23,7 @@ class Cartelerias extends Component{
         $cartelerias=CampaignElemento::tienda($this->campaign->id)
         ->select('carteleria', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('carteleria')
-        ->paginate(10);
+        ->get();
 
         return view('livewire.campaigns.conteos.cartelerias',compact('cartelerias'));
     }

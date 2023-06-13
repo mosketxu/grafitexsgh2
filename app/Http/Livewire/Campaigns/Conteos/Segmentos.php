@@ -25,7 +25,7 @@ class Segmentos extends Component
         $segmentos= CampaignElemento::tienda($this->campaign->id)
         ->select('segmento', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('segmento')
-        ->paginate(10);
+        ->get();
 
         return view('livewire.campaigns.conteos.segmentos',compact('segmentos'));
     }

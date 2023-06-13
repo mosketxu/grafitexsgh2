@@ -25,7 +25,7 @@ class Propxelementos extends Component
         $propxelementos=CampaignElemento::tienda($this->campaign->id)
         ->select('propxelemento', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('propxelemento')
-        ->paginate(10);
+        ->get();
 
         return view('livewire.campaigns.conteos.propxelementos',compact('propxelementos'));
     }

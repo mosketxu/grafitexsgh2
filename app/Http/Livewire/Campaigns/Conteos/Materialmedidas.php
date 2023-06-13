@@ -24,9 +24,11 @@ class Materialmedidas extends Component
         $materialmedidas=CampaignElemento::tienda($this->campaign->id)
         ->join('tarifas','tarifas.id','campaign_elementos.familia')
         ->select('tarifas.familia as tfam','campaign_elementos.familia','matmed','material','medida', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
-        ->groupBy('tarifas.familia','familia','matmed','material','medida')
-        ->paginate(10);
+        ->groupBy('tarifas.familia','matmed','material','medida')
+        // ->first();
+        ->get();
 
+        // dd($materialmedidas);
         return view('livewire.campaigns.conteos.materialmedidas', compact('materialmedidas'));
     }
     public function cambiavisible(){$this->visible= $this->visible=='0' ? '1' : '0';}

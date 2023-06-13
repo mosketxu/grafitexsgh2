@@ -21,8 +21,9 @@ class Medidas extends Component
         $medidas=CampaignElemento::tienda($this->campaign->id)
         ->select('medida', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('medida')
-        ->paginate(10);
+        ->get();
 
+        // dd($medidas);
         return view('livewire.campaigns.conteos.medidas',compact('medidas'));
     }
 

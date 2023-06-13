@@ -25,7 +25,7 @@ class Tiendaszonas extends Component
         $tiendaszonas= CampaignTienda::storeElemento($this->campaign->id)
         ->select('campaign_elementos.country as country','campaign_elementos.area as area', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('country','area')
-        ->paginate(10);
+        ->get();
 
 
         return view('livewire.campaigns.conteos.tiendaszonas',compact('tiendaszonas'));

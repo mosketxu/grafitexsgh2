@@ -146,23 +146,19 @@ class CampaignElementoController extends Controller{
         return response()->json($campElem);
     }
 
-    public function exportConteoIdiomaMatMedMob($campaignId)
-    {
+    public function exportConteoIdiomaMatMedMob($campaignId){
         return Excel::download(new CampaignElemenIdiMatMedMobExport($campaignId), 'estadistica.xlsx');
     }
 
-    public function exportCampaignElementos($campaignId)
-    {
+    public function exportCampaignElementos($campaignId){
         return Excel::download(new CampaignElementosExport($campaignId), 'campaignelementos.xlsx');
     }
 
-    public function exportCampaignElementosMat($campaignId)
-    {
+    public function exportCampaignElementosMat($campaignId){
         return Excel::download(new CampaignElemenMatExport($campaignId), 'materiales.xlsx');
     }
 
-    public function exportCampaignElementosMatMed($campaignId)
-    {
+    public function exportCampaignElementosMatMed($campaignId){
         return Excel::download(new CampaignElemenMatMedExport($campaignId), 'materialesmedidas.xlsx');
     }
 
