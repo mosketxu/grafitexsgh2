@@ -56,7 +56,13 @@ class TiendaController extends Controller
 
     public function editrecepcion($camp,$sto, Request $request){
         $busqueda = '';
+        $ok='';
+        $ko='';
+        $nose='';
         if ($request->busca) $busqueda = $request->busca;
+        if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
+        if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
+        if ($request->nose) $nose= $request->nose=='1' ? '0' : '1';
 
         $campaign = Campaign::find($camp);
         $store=Store::find($sto);
@@ -76,11 +82,18 @@ class TiendaController extends Controller
         ->search2($request->busca)
         ->where('campaign_id',$camp)
         ->where('campaign_elementos.store_id',$sto)
+        ->when($ko!='',function ($q){$q->where('KO', '1');})
+        ->when($ok!='',function ($q){$q->where('OK', '1');})
+        // ->when($nose!='',function ($q){$q->where('OK','');})
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
-            'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion')
-        ->paginate(8);
+            'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion','OK','KO')
+        ->paginate(10);
+        // dd($elementos);
 
-        return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
+
+        $estadosrecep=EstadoRecepcion::get();
+
+        return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar','estadosrecep','ok','nose','ko'));
     }
 
     public function show(CampaignTienda $campaigntienda,Request $request){
@@ -162,6 +175,7 @@ class TiendaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){
+
         $rules=[
             'estadorecepcion'=>'required|integer|min:1',
         ];
@@ -187,6 +201,7 @@ class TiendaController extends Controller
             'message' => 'Elemento actualizado satisfactoriamente!',
             'alert-type' => 'success',
         );
+
         return redirect()->route('tienda.editrecepcion',[$request->campaignId,$request->storeId])->with($notification);
 
     }
