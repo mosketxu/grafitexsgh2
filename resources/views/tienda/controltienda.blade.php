@@ -91,7 +91,8 @@
         </div>
         </form>
         @foreach ($stores as $store)
-            <div onclick="location.href = '{{ route('tienda.show',[$campaign,$store->tienda->id]) }}'"
+        {{-- {{ $store }} --}}
+            <div onclick="location.href = '{{ route('tienda.show',[$store]) }}'"
                 class="flex w-full py-1 text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
                 <div class="w-1/12 pl-2">{{$store->tienda->luxotica}}</div>
                 <div class="w-1/12">{{$store->tienda->id}}</div>

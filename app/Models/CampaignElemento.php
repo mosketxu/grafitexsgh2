@@ -19,6 +19,7 @@ class CampaignElemento extends Model
     public function tarifa(){return $this->belongsTo(Tarifa::class,'familia');}
     public function elemento(){return $this->belongsTo(Elemento::class,'elemento_id','id');}
     public function camptienda(){return $this->belongsTo(CampaignTienda::class,'tienda_id','id');}
+    public function estadorecep(){return $this->hasOne(EstadoRecepcion::class,'id','estadorecepcion');}
 
 
     public function scopeSearch2($query, $busca){

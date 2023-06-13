@@ -40,7 +40,7 @@ class CreateCampaignElementosTable extends Migration
             $table->string('ECI');
             $table->string('observaciones')->nullable();
             $table->decimal('precio', 8, 2)->nullable();
-            $table->integer('estadorecepcion')->default(0);
+            $table->integer('estadorecepcion')->default(1);
             $table->string('obsrecepcion')->nullable();
             $table->dateTime('fecharecepcion')->nullable();
             $table->boolean('OK')->nullable()->default(0);

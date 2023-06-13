@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Campaigns\CampaignElementos;
-use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, Store};
+use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, EstadoRecepcion, Store};
 // use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as Builder;
 use Illuminate\Http\Request;
@@ -27,7 +27,14 @@ class TiendaController extends Controller
 
         $campaigns=Campaign::search2($request->busca)
             ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-            ->paginate(10);
+            ->paginate(15);
+
+        $campaigns=CampaignTienda::with('campaign')
+            ->search2($request->busca)
+            ->where('store_id',$storeId)
+            // ->groupBy('campaign_id')
+            ->paginate(15);
+            // dd($campaigns);
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
@@ -76,32 +83,31 @@ class TiendaController extends Controller
         return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
     }
 
-    public function show($camp,$sto,Request $request){
+    public function show(CampaignTienda $campaigntienda,Request $request){
         $busqueda = '';
-        if ($request->busqueda) $busqueda = $request->busqueda;
+        $ok='';
+        $ko='';
+        $nose='';
+        if ($request->busca) $busqueda = $request->busca;
+        if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
+        if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
+        if ($request->nose) $nose= $request->nose=='1' ? '0' : '1';
 
-        $campaign = Campaign::find($camp);
-        $store=Store::find($sto);
-        dd($camp ,$sto);
-        $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->where('campaign_id',$camp)
-        ->where('campaign_elementos.store_id',$sto)
-        ->select('campaign_elementos.id as id','estadorecepcion')
-        ->get();
 
-        $total=$elementos->count();
-        $sinvalorar=$elementos->where('estadorecepcion','0')->count();
-        $incidencias=$elementos->where('estadorecepcion','>','1')->count();
-        $correctos=$elementos->where('estadorecepcion','1')->count();
+        $campaign = Campaign::find($campaigntienda->campaign_id);
+        $store=Store::find($campaigntienda->store_id);
+        $elementos= CampaignElemento::with('estadorecep')
+        ->where('tienda_id',$campaigntienda->id)
+        ->when($ok!='',function ($q){$q->where('OK', '1');})
+        ->when($ko!='',function ($q){$q->where('KO', '1');})
+        // ->when($nose!='',function ($q){$q->where('KO','<>','1');})
+        ->paginate(15);
+        // ->first();
 
-        $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-            ->OK($busqueda)
-            ->where('campaign_id',$camp)
-            ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
-                'material','familia','unitxprop','imagen','observaciones','OK','KO','estadorecepcion','obsrecepcion')
-            ->paginate(10);
+        // dd($elementos->estadorecep->id);
+        $estados=EstadoRecepcion::get();
 
-        return view('tienda.indexcampaignelementos', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar'));
+        return view('tienda.indexcampaignelementos', compact('campaigntienda','campaign','store','elementos','busqueda','ok','ko','estados','nose'));
     }
 
     public function control(Request $request){
@@ -121,7 +127,7 @@ class TiendaController extends Controller
             $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
         })
         ->groupBy('campaign_id')
-        ->paginate(10);
+        ->paginate(15);
 
         return view('tienda.index',compact('campaigns','busqueda','ok','ko'));
     }

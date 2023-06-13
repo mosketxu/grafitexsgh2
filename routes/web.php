@@ -130,7 +130,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //Tienda
         Route::put('tienda/update',[TiendaController::class,'update'])->name('tienda.update')->middleware('can:tiendas.edit');
         Route::get('tienda/{campaign}/controlstores',[TiendaController::class,'controlstores'])->name('tienda.controlstores')->middleware('can:tiendas.index');
-        Route::get('tienda/{campaign}/{store}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
+        // Route::get('tienda/{campaign}/{store}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
+        Route::get('tienda/{campaigntienda}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
         Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
         Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
         Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');

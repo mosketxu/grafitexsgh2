@@ -31,10 +31,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(StoreconceptsTableSeeder::class);
         // $this->call(AreasTableSeeder::class);
         // $this->call(CountriesTableSeeder::class);
-        $this->call(PaisesTableSeeder::class);
+        // $this->call(PaisesTableSeeder::class);
         // $this->call(TarifaSeeder::class);
         // $this->call(MaterialMedidasSeeder::class);
         // $this->call(TarifaFamiliasSeeder::class);
         // $this->call(Usuariostiendas::class);
+        $this->call(EstadosRecepcionSeeder::class);
     }
 }
