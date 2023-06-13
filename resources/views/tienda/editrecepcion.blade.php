@@ -79,11 +79,11 @@
                 </form>
                 {{-- <x-icon.arrows-rotate-a href="{{route('tienda.editrecepcion',[$campaign->id,$store->id])}}" class="text-blue-600"/> --}}
             </div>
-            <div class="flex flex-row-reverse w-6/12 space-x-2">
+            {{-- <div class="flex flex-row-reverse w-6/12 space-x-2">
                 {{ $elementos->appends(request()->except('page'))->links() }}
-            </div>
+            </div> --}}
         </div>
-        <div class="mx-2 mt-2 border rounded-md">
+        <div class="mx-2 my-2 border rounded-md">
             <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
                 <div class="w-1/12 pl-2">Ubicación</div>
                 <div class="w-1/12 ">Mobiliario</div>
@@ -126,7 +126,7 @@
                     <input type="hidden" name="storeId" value="{{$store->id}}">
                     <input type="hidden" name="elementoId" value="{{$elemento->id}}">
                     <input type="hidden" name="campaignId" value="{{$campaign->id}}">
-                    <div class="w-1/12">{{$elemento->ubicacion}}</div>
+                    <div class="w-1/12 pl-2">{{$elemento->ubicacion}}</div>
                     <div class="w-1/12">{{$elemento->mobiliario}}</div>
                     <div class="w-1/12">{{$elemento->propxelemento}}</div>
                     <div class="w-1/12">{{$elemento->carteleria}}</div>

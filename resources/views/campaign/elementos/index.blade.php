@@ -25,7 +25,7 @@
             <div class="flex flex-row-reverse w-2/12 ">
                 <div class="w-full">
                     <form method="GET" action="{{route('campaign.elementos',$campaign) }}">
-                        <x-input.text id="busca" name="busca"  type="text" class="w-full" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
+                        <x-input.text id="busca" name="busca"  type="text" class="w-full ml-2" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
                     </form>
                 </div>
             </div>

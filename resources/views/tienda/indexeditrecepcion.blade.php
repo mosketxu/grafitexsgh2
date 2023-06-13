@@ -15,7 +15,8 @@
             </div>
         </div>
         <div class="">
-            <x-jet-button type="button" class="py-2 mt-1 text-gray-800 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('tienda.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+            {{-- <x-jet-button type="button" class="py-2 mt-1 text-gray-800 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('tienda.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button> --}}
+            <x-button.secondary type="button" class="py-2 mt-1 text-gray-800 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('tienda.index') }}'" color="gray" >{{ __('Volver') }}</x-button.secondary>
         </div>
 
     </div>

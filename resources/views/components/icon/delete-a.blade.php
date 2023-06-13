@@ -1,4 +1,4 @@
-    <a {{ $attributes->merge(['type' => 'button', 'class' => 'text-red-500 transform hover:text-red-700 hover:scale-125']) }}  title="Eliminar">
+    <a {{ $attributes->merge(['type' => 'button', 'class' => 'w-7 text-red-500 transform hover:text-red-700 hover:scale-125']) }}  title="Eliminar">
         <svg xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

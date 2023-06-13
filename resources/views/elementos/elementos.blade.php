@@ -25,7 +25,7 @@
             </div>
             {{-- lista elementos --}}
             @foreach ($elementos as $elemento)
-                <div class="flex w-full py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1 items-center">
+                <div class="flex items-center w-full py-0 pl-2 mt-2 space-x-1 text-sm tracking-tighter text-gray-500 border-b border-1">
                     <div class="w-1/12">{{$elemento->id}}</div>
                     <div class="w-1/12">{{$elemento->ubicacion}}</div>
                     <div class="w-2/12">{{$elemento->mobiliario}}</div>
@@ -38,7 +38,7 @@
                     <div  class="flex w-1/12">
                         @can('elemento.edit')
                         <div class="">
-                            <a href="{{route('elemento.edit',$elemento->id)}}" title="Editar"><x-icon.edit class="text-blue-600 pb-1"></x-icon.edit></a>
+                            <a href="{{route('elemento.edit',$elemento->id)}}" title="Editar"><x-icon.edit class="pb-1 text-blue-600"></x-icon.edit></a>
                         </div>
                         @endcan
                         @can('elemento.delete')

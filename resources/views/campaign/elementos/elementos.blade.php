@@ -23,8 +23,8 @@
                         disabled />
                 </div>
                 <div class="w-2/12 text-center">
-                    <div class="text-center mx-auto">
-                        <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="text-green-700 w-6 mt-5" title="Exporta Excel"/>
+                    <div class="w-6 mx-auto mt-2 text-center">
+                        <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="w-6 mt-5 text-green-700" title="Exporta Excel"/>
                     </div>
                 </div>
             </div>

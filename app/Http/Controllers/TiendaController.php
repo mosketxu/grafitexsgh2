@@ -87,7 +87,8 @@ class TiendaController extends Controller
         // ->when($nose!='',function ($q){$q->where('OK','');})
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion','OK','KO')
-        ->paginate(10);
+        ->get();
+        // ->paginate(10);
         // dd($elementos);
 
 
@@ -189,8 +190,8 @@ class TiendaController extends Controller
             ->where('campaign_elementos.id',$request->elementoId)
             ->update([
                 'estadorecepcion'=>$request->estadorecepcion,
-                'OK'=>$request->estadorecepcion==1 ? '1' : null,
-                'KO'=>$request->estadorecepcion>1 ? '1' : null,
+                'OK'=>$request->estadorecepcion==1 ? '1' : '0',
+                'KO'=>$request->estadorecepcion>1 ? '1' : '0',
                 'obsrecepcion'=>$request->obsrecepcion,
                 'updated_by'=>auth()->user()->id,
                 'fecharecepcion'=>now(),
