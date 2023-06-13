@@ -83,13 +83,15 @@
                 <div class="w-10/12"><x-input.text type="text" id="pedidocliente" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="pedidocliente" value="{{ $camptienda->pedidocliente }}"/></div>
            </form>
         </div>
-        @endif
+        @endcan
     </div>
+    @can('plan.create')
     <div class="flex items-center w-full p-2 ">
         <x-jet-label for="Montador" class="mr-2">Montador</x-jet-label>
         <input type="text" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="montador_id"
             name="montador_id" value="{{ $camptienda->montador->entidad ?? '' }}" disabled />
     </div>
+    @endcan
     {{-- @can('plantienda.update') --}}
         @livewire('campaigns.plan.update-plan',['campaigntienda'=>$camptienda])
     {{-- @endcan --}}
