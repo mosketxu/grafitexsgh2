@@ -50,9 +50,9 @@
     {{-- Seleccion de Montador --}}
     <div class="w-full mt-2 rounded-md bg-blue-50 ">
         @can('plan.create')
-        <div class="w-full mx-2">Selección de Montadores por Area</div>
         <div class="flex-none w-full p-2 space-y-2 md:flex md:space-x-2 md:space-y-0">
             <form method="GET" action="{{route('plan.edit',$camptienda) }}" class="w-full md:w-4/12">
+                <div class="w-full ">Selección de Montadores por Area</div>
                 <x-select  selectname="filtroarea" class="w-full py-1 text-sm border-blue-300" id="filtroarea" name="filtroarea" >
                     <option value="">--Area montador--</option>
                     @foreach ($areas as $area )
@@ -60,28 +60,30 @@
                     @endforeach
                 </x-select>
             </form>
-            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="w-full md:w-4/12">
+            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="flex items-end w-full md:w-8/12">
             @csrf
             @method('PUT')
-                <x-select  selectname="montador_id" class="w-full py-1 text-sm border-blue-300" id="montador_id" name="montador_id" >
-                    <option value="">--Selecciona el montador--</option>
-                    @foreach ($montadores as $montador )
+                <div class="w-5/12">
+                    <div class="w-full ">Montador</div>
+                    <x-select  selectname="montador_id" class="w-full text-sm border-blue-300" id="montador_id" name="montador_id" >
+                        <option value="">--Selecciona el montador--</option>
+                        @foreach ($montadores as $montador )
                         <option value="{{ $montador->id }}" {{ $montador->id== $camptienda->montador_id ? 'selected' : '' }}>{{ $montador->entidad }}</option>
-                    @endforeach
-                </x-select>
+                        @endforeach
+                    </x-select>
+                </div>
+                <div class="w-3/12 ml-2">
+                    <div class="w-1/12"><x-jet-label class="text-base">€</x-jet-label></div>
+                    <div class="w-11/12"><x-input.text type="number" step="any" id="preciomontador" class="w-full text-sm rounded-md " name="preciomontador" value="{{ $camptienda->preciomontador }}"/></div>
+                </div>
+                <div class="w-3/12">
+                    <div class="w-2/12"><x-jet-label class="text-base">Pedido</x-jet-label></div>
+                    <div class="w-10/12"><x-input.text type="text" id="pedidocliente" class="w-full text-sm rounded-md " name="pedidocliente" value="{{ $camptienda->pedidocliente }}"/></div>
+                </div>
+                <div class="items-center w-1/12">
+                    <button type="submit"><x-icon.save class="w-5 text-blue-500"/></button>
+                </div>
             </form>
-            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="flex w-full md:w-4/12">
-            @csrf
-            @method('PUT')
-                <div class="w-1/12"><x-jet-label class="mx-2 text-base">€</x-jet-label></div>
-                <div class="w-11/12"><x-input.text type="number" step="any" id="preciomontador" class="w-full py-1 text-sm rounded-md " name="preciomontador" value="{{ $camptienda->preciomontador }}"/></div>
-            </form>
-            <form method="post" action="{{ route('montador.updatemontadortienda',$camptienda) }}" class="flex w-full md:w-4/12">
-            @csrf
-            @method('PUT')
-                <div class="w-2/12"><x-jet-label class="mx-2 text-base">Pedido</x-jet-label></div>
-                <div class="w-10/12"><x-input.text type="text" id="pedidocliente" class="w-full py-1 text-sm rounded-md form-control form-control-sm" name="pedidocliente" value="{{ $camptienda->pedidocliente }}"/></div>
-           </form>
         </div>
         @endcan
     </div>
@@ -117,15 +119,15 @@ select.onchange = function(){
     this.form.submit();
 };
 
-var select = document.getElementById('preciomontador');
-select.onchange = function(){
-    this.form.submit();
-};
+// var select = document.getElementById('preciomontador');
+// select.onchange = function(){
+//     this.form.submit();
+// };
 
-var select = document.getElementById('montador_id');
-select.onchange = function(){
-    this.form.submit();
-};
+// var select = document.getElementById('montador_id');
+// select.onchange = function(){
+//     this.form.submit();
+// };
 
 
 </script>
