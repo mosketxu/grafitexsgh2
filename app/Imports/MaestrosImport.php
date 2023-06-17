@@ -24,9 +24,9 @@ class MaestrosImport implements ToModel, WithHeadingRow, WithChunkReading
         $e=Elemento::elementificador($row['ubicacion'],$row['mobiliario'],$row['prop_elemento'],$row['carteleria'],$row['medida'],$row['material'],$row['unit_x_prop']);
         $observaciones="";
         $udxprop=trim($row['unit_x_prop']);
-        if(!is_numeric($udxprop)){
-            $observaciones=$udxprop;
-            $udxprop=0;
+        if(!is_numeric($udxprop || $udxprop=='0')){
+            if(!is_numeric($udxprop)) $observaciones=$udxprop;
+            $udxprop='1';
         }
         return new Maestro([
             'store' => trim($row['store_code']),
