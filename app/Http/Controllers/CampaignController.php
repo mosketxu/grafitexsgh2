@@ -44,8 +44,8 @@ class CampaignController extends Controller{
         ->orderBy('id','DESC')
         ->paginate(15);
 
-        $ancho1= Auth::user()->hasRole('sgh') ? 'w-10/12' : 'w-9/12';
-        $ancho2= Auth::user()->hasRole('sgh') ? 'w-2/12' : 'w-3/12';
+        $ancho1= Auth::user()->hasRole('sgh') ? 'w-10/12' : 'w-8/12';
+        $ancho2= Auth::user()->hasRole('sgh') ? 'w-2/12' : 'w-4/12';
 
         return view('campaign.index',compact('campaigns','busqueda','filtrocampaign','ancho1','ancho2'));
     }

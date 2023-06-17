@@ -48,7 +48,7 @@
     </div>
 </div>
 <div class=" m-2">
-    <x-jet-button type="button" class="py-2 text-gray-400 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.presupuesto',$campaign->id) }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+    <x-button type="button" class="py-2 text-gray-400 border-gray-200 bg-gray-50" onclick="location.href = '{{ route('campaign.presupuesto',$campaign->id) }}'" color="gray" >{{ __('Volver') }}</x-button>
  </div>
 
 @push('scriptchosen')

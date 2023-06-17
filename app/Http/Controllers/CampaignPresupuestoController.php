@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Campaign, CampaignElemento,
     CampaignPresupuesto, CampaignPresupuestoDetalle, CampaignPresupuestoExtra,
-    CampaignPresupuestoPickingtransporte, Elemento, Tarifa, TarifaFamilia,
+    CampaignPresupuestoPickingtransporte, CampaignTienda, Elemento, Tarifa, TarifaFamilia,
     VCampaignPromedio, VCampaignResumenElemento};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -157,7 +157,12 @@ class CampaignPresupuestoController extends Controller
         ->orderBy('campaign_elementos.material','asc')
         ->orderBy('campaign_elementos.medida','asc')
         ->groupBy('campaign_id','elementificador','material','medida','familia')
+        // ->first();
         ->paginate(13);
+
+        // $e=CampaignElemento::where('elementificador','frontdoorthemegogo3cgraphicholderpms152x71mmcouche1')->get();
+        // dd($elementos);
+        // dd($e);
 
 
         // dd($elementos);
@@ -198,28 +203,46 @@ class CampaignPresupuestoController extends Controller
     }
 
     public function updateelemento(Request $request){
-        dd($request);
+        // dd($request);
+        // $request->campaign_id='41';
+        // $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
+        // ->join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
+        // ->where('campaign_id',$request->campaign_id)
+        // ->where('elementificador',$request->elementificador)
+        // ->update([
+            //     'familia'=>$request->familia,
+            //     'precio'=>$precio]
+            // );
+
+        //busco el elemento que tenga ese elementificador
+        $elemento=Elemento::where('elementificador',$request->elementificador)->first();
+        //busco las tiendas que pertenecen a la campaña.
+        $tiendas=CampaignTienda::where('campaign_id',$request->campaign_id)->pluck('id');
+        //busco el precio actual de la familia
         $precio=Tarifa::where('id',$request->familia)->first()->tarifa1;
 
-        $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
-        ->join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
-        ->where('campaign_id',$request->campaign_id)
-        ->where('elementificador',$request->elementificador)
-        ->update([
-            'familia'=>$request->familia,
-            'precio'=>$precio]
-        );
+        //Puedo aplicar la familia a todos los elementos de CampaignElementos o solo a los que corresponden a la campaña actual. Creo que debería ser a todos. Pero lo mismo modifican la familia despues de haber hecho algun presupuesto anterior.
+        //Así que  aplico solo a la actual para hacerlo a la vez que el precio,ya que el precio debe ser solo a los de la campaña actual porque quizas se ha modificado respecto a campañas anteriores y no queremos modificarlo.
 
-        $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
-        ->where('elementificador',$request->elementificador)->first();
+        //busco y actualizo los elementos que pertenecen a esas tiendas y luego que tengan el id del elemento
+        $campaignelems=CampaignElemento::whereIn('tienda_id',$tiendas)->where('elemento_id',$elemento->id)->get();
+        // $campaignelems=CampaignElemento::where('elemento_id',$elemento->id)->get();
+        // dd($campaignelems);
+        $campaignelems->toQuery()->update([
+                'familia'=>$request->familia,
+                'precio'=>$precio]
+            );
+        // //actualizo la familia del elemento y le asigno el valor del precio de la familia solo
+        // $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
+        // ->where('elementificador',$request->elementificador)->first();
 
-        Elemento::where('material',$campaignelem->material)
-        ->where('medida',$campaignelem->medida)
-        ->update(['familia_id'=>$request->familia]);
+        // Elemento::where('material',$campaignelem->material)
+        // ->where('medida',$campaignelem->medida)
+        // ->update(['familia_id'=>$request->familia]);
 
-        TarifaFamilia::where('material',$campaignelem->material)
-        ->where('medida',$campaignelem->medida)
-        ->update(['tarifa_id'=>$request->familia]);
+        // TarifaFamilia::where('material',$campaignelem->material)
+        // ->where('medida',$campaignelem->medida)
+        // ->update(['tarifa_id'=>$request->familia]);
 
         $notification = array(
             'message' => 'Tarifa actualizada satisfactoriamente!',

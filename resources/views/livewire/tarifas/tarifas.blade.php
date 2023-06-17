@@ -42,9 +42,9 @@
                     </div>
                     <div class="">
                         <div class="flex items-center justify-between mt-1 space-x-3 text-right">
-                            @can('tarifa.create')
+                            {{-- @can('tarifa.create')
                             <x-icon.edit-a href="{{ route('tarifa.edit',$detalle->id) }}" class="w-6" title="Edit"/>
-                            @endcan
+                            @endcan --}}
                             @can('tarifa.delete')
                             @if($titulo=='Tarifas materiales')
                                 <form id="form_id" role="form" method="post" action="{{ route('tarifa.destroy',$detalle->id) }}">
