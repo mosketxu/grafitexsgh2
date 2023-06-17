@@ -14,7 +14,7 @@ class Familias extends Component
     public $color='';
     public $colorindex='';
     public $textocolor='';
-    public $colors=array('amber','blue','cyan','emerald','fuchsia','gray','neutral','green','indigo','lime','orange','pink','purple','red','rose','sky','teal','violet','yellow');
+    public $colors=array('amber','blue','cyan','emerald','fuchsia','gray','green','indigo','lime','orange','pink','purple','red','rose','sky','teal','violet','yellow');
     public $familia;
 
     protected $listeners = [ 'refreshfam' => '$refresh'];
@@ -26,7 +26,7 @@ class Familias extends Component
 
     public function mount($familia,$colorindex){
         $this->familia=$familia;
-        $this->colorindex=$this->colorindex>19 ? $colorindex % 19 : $colorindex;
+        $this->colorindex=$this->colorindex>18 ? $colorindex % 18 : $colorindex;
     }
 
     public function render(){
