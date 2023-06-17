@@ -45,7 +45,7 @@ class CampaignPresupuestoController extends Controller
             'version' => 'required',
             'fecha' => 'required|date',
             'estado' => 'required',
-            ]);
+        ]);
 
         // recupero la lista de elementos creada y asigno el precio en función de cuántos hay
         // calculo el total actual de los elementos para insertarlo y mostrarlo en el indice de prepuestos

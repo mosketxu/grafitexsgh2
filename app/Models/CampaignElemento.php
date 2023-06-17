@@ -57,7 +57,7 @@ class CampaignElemento extends Model
 
     static function asignElementosPrecio($campaignId){
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-            ->select('campaign_elementos.id as id','precio','familia')
+            ->select('campaign_elementos.id as id','precio','familia','unitxprop')
             ->where('campaign_id',$campaignId)
             ->get();
 
@@ -66,7 +66,7 @@ class CampaignElemento extends Model
         foreach ($elementos as $elemento){
             $fam=Tarifa::where('id',$elemento->familia)->first();
             $elemento->precio=$fam->tarifa1;
-            $total=$total+$elemento->precio;
+            $total=$total+($elemento->precio*$elemento->unitxprop);
             $elemento->save();
         }
         return $total;
