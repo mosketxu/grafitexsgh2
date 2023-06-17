@@ -56,7 +56,7 @@
             </tr>
       </tbody>
    </table>
-</div>  
+</div>
 <br>
 {{-- Línea numero de tiendas --}}
 <div>
@@ -64,7 +64,7 @@
          <tbody>
             <tr>
                <td>
-                     {{$presupuesto->referencia}}-pt, {{$totalStores}} tiendas, de ellas
+                    Campaña "{{$presupuesto->referencia}}" en Portugal, {{$totalStores}} tiendas, de ellas
                      @foreach($promedios as $promedio)
                         {{$promedio->stores}}
                         @switch($promedio->zona)
@@ -167,7 +167,7 @@
    <table width="100%" style="margin:0 auto" cellspacing="0">
          <thead>
             <tr>
-               <th width="49%" style="text-align: left;padding-left:10px;border:1px solid">Promedios</th>
+               <th width="49%" style="text-align: left;padding-left:10px;border:1px solid">Promedio Coste Materiales</th>
                <th width="25.5%" style="text-align: right;padding-right:10px;border:1px solid">Nº Tiendas</th>
                <th width="25.5%" style="text-align: right;padding-right:10px;border:1px solid"><span style="font-family: sans-serif;">€</span></th>
             </tr>
@@ -175,7 +175,7 @@
          <tbody>
             <tr>
                <td style="text-align: left;padding-left:10px;border:1px solid">Total por tienda (Nacional + Canarias + Portugal</td>
-               <td style="text-align: right;padding-right:10px;border:1px solid">{{$totalStores}}</td> 
+               <td style="text-align: right;padding-right:10px;border:1px solid">{{$totalStores}}</td>
                <td style="text-align: right;padding-right:10px;border:1px solid">{{number_format($totalMateriales/$totalStores,2,',','.')}} <span style="font-family: sans-serif;">€</span></td>
             </tr>
             <tr style="border:1px solid;">
@@ -281,5 +281,4 @@
    </table>
 </div>
 <br>
-   
-   
+

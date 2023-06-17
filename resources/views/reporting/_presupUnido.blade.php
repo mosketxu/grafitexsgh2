@@ -125,7 +125,7 @@
     <table width="100%" style="margin:0 auto" cellspacing="0">
         <thead>
             <tr>
-                <th width="49%" style="text-align: left;padding-left:10px;border:1px solid">Promedios</th>
+                <th width="49%" style="text-align: left;padding-left:10px;border:1px solid">Promedio Coste Materiales</th>
                 <th width="25.5%" style="text-align: right;padding-right:10px;border:1px solid">Nº Tiendas</th>
                 <th width="25.5%" style="text-align: right;padding-right:10px;border:1px solid"><span style="font-family: sans-serif;">€</span></th>
             </tr>
