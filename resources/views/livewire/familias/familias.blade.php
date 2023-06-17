@@ -4,8 +4,8 @@
     <span class="bg-cyan-400"></span>
     <span class="bg-emerald-400"></span>
     <span class="bg-fuchsia-400"></span>
-    <span class="bg-blueGray-400"></span>
-    <span class="bg-coolGray-400"></span>
+    <span class="bg-slate-400"></span>
+    <span class="bg-gray-400"></span>
     <span class="bg-warmGray-400"></span>
     <span class="bg-green-400"></span>
     <span class="bg-indigo-400"></span>

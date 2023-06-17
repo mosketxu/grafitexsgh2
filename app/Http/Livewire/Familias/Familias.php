@@ -14,7 +14,7 @@ class Familias extends Component
     public $color='';
     public $colorindex='';
     public $textocolor='';
-    public $colors=array('amber','blue','cyan','emerald','fuchsia','gray','blueGray','coolGray','trueGray','warmGray','green','indigo','lime','orange','pink','purple','red','rose','sky','teal','violet','yellow');
+    public $colors=array('amber','blue','cyan','emerald','fuchsia','gray','neutral','coolGray','trueGray','warmGray','green','indigo','lime','orange','pink','purple','red','rose','sky','teal','violet','yellow');
     public $familia;
 
     protected $listeners = [ 'refreshfam' => '$refresh'];
