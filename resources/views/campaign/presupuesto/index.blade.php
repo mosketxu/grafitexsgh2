@@ -14,7 +14,7 @@
                     </div>
                     @endcan
                     @can('presupuestos.create')
-                    <div class="">
+                    <div class="ml-1 md:ml-4">
                         @livewire('campaigns.modal-presupuesto-nuevo',['campaign'=>$campaign])
                     </div>
                     @endcan

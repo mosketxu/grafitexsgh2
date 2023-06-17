@@ -57,9 +57,9 @@ class CampaignElemento extends Model
 
     static function asignElementosPrecio($campaignId){
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->select('campaign_elementos.id as id','precio','familia')
-        ->where('campaign_id',$campaignId)
-        ->get();
+            ->select('campaign_elementos.id as id','precio','familia')
+            ->where('campaign_id',$campaignId)
+            ->get();
 
         $total=0;
 

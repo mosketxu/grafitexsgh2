@@ -135,6 +135,7 @@ class CampaignPresupuestoController extends Controller
 
     public function cotizacion($id){
         $campaignpresupuesto=CampaignPresupuesto::find($id);
+        // dd($campaignpresupuesto);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
         return view('campaign.presupuesto.indexcotizacion',compact('campaign','campaignpresupuesto',));
     }
@@ -197,6 +198,7 @@ class CampaignPresupuestoController extends Controller
     }
 
     public function updateelemento(Request $request){
+        dd($request);
         $precio=Tarifa::where('id',$request->familia)->first()->tarifa1;
 
         $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
@@ -227,40 +229,27 @@ class CampaignPresupuestoController extends Controller
     }
 
 
-    public function refresh($campaignId,$presupuestoId)
-    {
-        // elimino los detalles del presupuesto y de picking y trasnporte para poner nuevos precios
+    public function refresh($campaignId,$presupuestoId){
+        // elimino los detalles del presupuesto
         $detallePresup=CampaignPresupuestoDetalle::where('presupuesto_id',$presupuestoId)->count();
-        if ($detallePresup>0)
-            CampaignPresupuestoDetalle::where('presupuesto_id',$presupuestoId)->delete();
-
+        if ($detallePresup>0) CampaignPresupuestoDetalle::where('presupuesto_id',$presupuestoId)->delete();
+        // y de picking y transporte para poner nuevos precios
         $pickingtransp=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)->count();
         if ($pickingtransp>0)
             CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)->delete();
 
         //actualizo los valores de la familia en los elementos de la campaña
-
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
-            ->where('campaign_id',$campaignId)
-            ->get();
-
-            // dd($campaignId);
-
-        $elementos=CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','campaign_elementos.tienda_id')
-            // ->select('campaign_elementos.*')
             ->where('campaign_id',$campaignId)
             ->orderBy('elemento_id')
             ->get();
 
         foreach ($elementos as $elemento){
-            // if($elemento->elemento_id==4061){
             $familia=TarifaFamilia::getFamilia($elemento['material'],$elemento['medida']);
-
-                // dd($familia);
             $fam=$familia['id'];
             $precio=Tarifa::where('id',$fam)->first()->tarifa1;
-            if (is_null($fam))
-                $fam=1;
+            // si no encuentra familia lo ponogo como "sin identificar"! que debe ser el 1 en ña tabla Tarifas
+            if (is_null($fam)) $fam=1;
             CampaignElemento::where('elemento_id',$elemento->elemento_id)
                 ->update([
                     'familia'=>$fam,
@@ -270,15 +259,16 @@ class CampaignPresupuestoController extends Controller
                 ->update([
                     'familia_id'=>$fam,
                 ]);
-            // }
         }
-
 
         $totalpresupuestoMat= CampaignElemento::asignElementosPrecio($campaignId);
 
+        // dd($totalpresupuestoMat);
+
         // guardo los materiales en campaign_presupuestos_detalle para tener historico si se cambian los precios en una segunda versión del presupuesto
-        $materiales=VCampaignResumenElemento::where('campaign_id',$campaignId)
-        ->get();
+        $materiales=VCampaignResumenElemento::where('campaign_id',$campaignId)->get();
+
+        // dd($materiales);
 
         if($materiales->count()>0){
             foreach (array_chunk($materiales->toArray(),500) as $t){
