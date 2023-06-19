@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Campaigns;
 
 // use App\Models\CampaignStore;
+
+use App\Models\CampaignIdioma;
+use App\Models\Idioma;
 use App\Models\StoreElemento;
 use Livewire\Component;
 // use Livewire\WithPagination;
@@ -46,7 +49,7 @@ class CampaignAsociarstores extends Component
     public function cambiavisible(){$this->visible= $this->visible=='0' ? '1' : '0';}
 
     public function asocia($disponible,$unotodos){
-        // dd('asocia');
+
         $existe=$this->model1::where('campaign_id',$this->campaignid)->where($this->model1c1,$disponible['ident'])->first();
         if(!$existe)
             $this->model1::create([
@@ -54,7 +57,6 @@ class CampaignAsociarstores extends Component
                 $this->model1c1=>$disponible['ident'],
                 $this->model1c2=>$disponible['name'],
             ]);
-        // if($unotodos=='1') return redirect()->route('campaign.filtrar');
     }
 
     public function asociartodos(){
@@ -96,13 +98,15 @@ class CampaignAsociarstores extends Component
                     $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%');
                     })
                 ->campstoseg($this->campaignid)
+                ->campstoidiom($this->campaignid)
                 ->campstoubi($this->campaignid)
                 ->campstomob($this->campaignid)
                 ->campstomed($this->campaignid)
                 ->groupBy($this->model1c1)
                 ->orderBy($this->model1c1,'asc')
-                ->get();}
-        else{
+                ->get();
+        }else{
+            // dd($this->model1c1);
             return StoreElemento::join('stores','stores.id','store_id')
             ->join('elementos','elementos.id','elemento_id')
             ->select($this->model1c1.' as ident', $this->model1c1 .' as name')
@@ -114,6 +118,7 @@ class CampaignAsociarstores extends Component
                 })
             ->campstosto($this->campaignid)
             ->when($this->model1c1!='segmento',function($query){$query->campstoseg($this->campaignid);})
+            ->when($this->model1c1!='idioma',function($query){$query->campstoidiom($this->campaignid);})
             ->when($this->model1c1!='ubicacion',function($query){$query->campstoubi($this->campaignid);})
             ->when($this->model1c1!='mobiliario',function($query){$query->campstomob($this->campaignid);})
             ->when($this->model1c1!='medida',function($query){$query->campstomed($this->campaignid);})

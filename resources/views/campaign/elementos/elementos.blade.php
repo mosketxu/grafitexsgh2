@@ -35,35 +35,21 @@
             <div class="m-2">
                 {{ $elementos->appends(request()->except('page'))->links() }}
             </div>
-            <table class="w-full text-xs text-left">
-                <thead class="flex flex-col w-full text-white bg-black">
-                    <tr class="flex w-full">
-                        {{-- <th class="w-1/12">#</th> --}}
-                        <th class="w-16">Store</th>
-                        <th class="w-1/12">Name</th>
-                        <th class="w-1/12">Country</th>
-                        <th class="w-1/12">Area</th>
-                        <th class="w-1/12">Idioma</th>
-                        <th class="w-1/12">Segmento</th>
-                        <th class="w-1/12">Store Concept</th>
-                        <th class="w-1/12">Ubicación</th>
-                        <th class="w-1/12">Mobiliario</th>
-                        <th class="w-1/12">Prop x Elemento</th>
-                        <th class="w-1/12">Carteleria</th>
-                        <th class="w-1/12">Medida</th>
-                        <th class="w-1/12">Material</th>
-                        <th class="w-1/12 text-left">Unit x Prop</th>
-                        {{-- <th class="w-1/12">Observaciones</th> --}}
-                        <th width="150px">Imagen </th>
-                        <th width="w-1/12" class="mr-3">Acción</th>
-                    </tr>
-                </thead>
-                <tbody class="flex flex-col w-full overflow-y-scroll bg-grey-light" style="height: 55vh;">
-                    @foreach ($elementos as $campelemento)
-                        @livewire('campaigns.campaign-elementos',['campelemento'=>$campelemento,'campaign'=>$campaign,'ruta'=>'campaign.elementos'],key($campelemento->id))
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="flex w-full pt-2 pb-0 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-tl-md">
+                <div class="w-2/12 pl-2">Store <br> Name</div>
+                <div class="w-1/12 pl-2">Country/Area/Idioma</div>
+                <div class="w-1/12 pl-2">Segmento <br> St.Concept</div>
+                <div class="w-1/12 pl-2">Ubicación</div>
+                <div class="w-2/12 pl-2">Mobiliario</div>
+                <div class="w-1/12 pl-2">Prop.Elem.</div>
+                <div class="w-1/12 pl-2">Carteleria</div>
+                <div class="w-1/12 pl-2">Medida <br> Material</div>
+                <div class="w-1/12 pl-2">Unit.Prop.</div>
+                <div width="w-1/12 pl-2">Imagen </div>
+            </div>
+            @foreach ($elementos as $campelemento)
+                @livewire('campaigns.campaign-elementos',['campelemento'=>$campelemento,'campaign'=>$campaign,'ruta'=>'campaign.elementos'],key($campelemento->id))
+            @endforeach
         </div>
     </div>
 </div>

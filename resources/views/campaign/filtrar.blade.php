@@ -34,6 +34,7 @@
                     <div class="bg-indigo-500"></div> --}}
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignStore','tabla1'=>'campaign_stores','model1c1'=>'store_id','model1c2'=>'store','titulo'=>'Stores','color'=>'blue-500'])
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignSegmento','tabla1'=>'campaign_segmentos','model1c1'=>'segmento','model1c2'=>'segmento','titulo'=>'Segmentos','color'=>'green-500'])
+                    @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignIdioma','tabla1'=>'campaign_idiomas','model1c1'=>'idioma','model1c2'=>'idioma','titulo'=>'Idiomas','color'=>'red-400'])
                 </div>
                 <div class="w-6/12 py-2 space-y-1 rounded-md shadow-md">
                     @livewire('campaigns.campaign-asociarstores',['campaign'=>$campaign,'model1'=>'App\Models\CampaignUbicacion','tabla1'=>'campaign_ubicacions','model1c1'=>'ubicacion','model1c2'=>'ubicacion','titulo'=>'Ubicaciones','color'=>'yellow-500'])

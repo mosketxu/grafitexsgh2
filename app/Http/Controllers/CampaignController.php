@@ -6,7 +6,9 @@ use App\Models\{Store,StoreElemento,Area,Mobiliario,Campaign,
     CampaignStore,CampaignMedida,CampaignMobiliario,
     CampaignUbicacion,CampaignSegmento,CampaignArea,CampaignElemento,
     CampaignGaleria,
+    CampaignIdioma,
     CampaignTienda,
+    Idioma,
     Medida,Segmento,TarifaFamilia,Ubicacion,
     };
 
@@ -169,6 +171,18 @@ class CampaignController extends Controller{
             Campaign::inserta('campaign_segmentos',$segmentos,'segmento',$id);
         }
 
+        // Si no se ha seleccionado ningun idioma entiendo que los quiero todos
+        if(CampaignIdioma::where('campaign_id','=',$id)->count()==0){
+            $idiomas=Idioma::get();
+            // dd($idiomas);
+            // foreach ($idiomas as $idiom) {
+            //     dd($idiom->id);
+            //     CampaignIdioma::insert(['campaign_id'=>$id,'idioma'=>$idiom->id]);
+            // }
+            // dd($idiomas);
+            Campaign::inserta('campaign_idiomas',$idiomas,'idioma',$id);
+        }
+
         // Si no se ha seleccionado ningun Medida entiendo que los quiero todos
         if(CampaignMedida::where('campaign_id','=',$id)->count()==0){
             $medidas=Medida::select('medida')->get();
@@ -194,6 +208,7 @@ class CampaignController extends Controller{
             ->select('store_id as store')
             ->campstosto($campaign->id)
             ->campstoseg($campaign->id)
+            ->campstoidiom($campaign->id)
             ->campstoubi($campaign->id)
             ->campstomob($campaign->id)
             ->campstomed($campaign->id)
