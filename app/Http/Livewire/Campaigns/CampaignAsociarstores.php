@@ -89,7 +89,7 @@ class CampaignAsociarstores extends Component
         if($this->model1c1=='store_id'){
 
             $a=StoreElemento::join('stores','stores.id','store_id')
-            ->join('elementos','elementos.id','elemento_id')
+            // ->join('elementos','elementos.id','elemento_id')
             ->select('store_elementos.store_id as ident','stores.name as name')
             ->whereNotIn($this->model1c1, function ($query) {
                 $query->select($this->model1c1)->from($this->tabla1)->where('campaign_id', '=', $this->campaignid);
