@@ -90,22 +90,22 @@ class CampaignAsociarstores extends Component
 
             $a=StoreElemento::join('stores','stores.id','store_id')
             // ->join('elementos','elementos.id','elemento_id')
-            ->select('store_elementos.store_id as ident','stores.name as name')
-            ->whereNotIn($this->model1c1, function ($query) {
-                $query->select($this->model1c1)->from($this->tabla1)->where('campaign_id', '=', $this->campaignid);
-            })
-            ->when($this->searchdisponibles!='', function ($query){
-                // $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere($this->model1c2,'like','%'.$this->searchdisponibles.'%');
-                $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%');
-                })
-            ->campstoseg($this->campaignid)
-            ->campstoidiom($this->campaignid)
-            ->campstoubi($this->campaignid)
-            ->campstomob($this->campaignid)
-            ->campstomed($this->campaignid)
-            ->groupBy($this->model1c1)
-            ->orderBy($this->model1c1,'asc')
-            ->where('store_elementos.store_id','2428')
+            // ->select('store_elementos.store_id as ident','stores.name as name')
+            // ->whereNotIn($this->model1c1, function ($query) {
+            //     $query->select($this->model1c1)->from($this->tabla1)->where('campaign_id', '=', $this->campaignid);
+            // })
+            // ->when($this->searchdisponibles!='', function ($query){
+            //     // $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere($this->model1c2,'like','%'.$this->searchdisponibles.'%');
+            //     $query->where($this->model1c1,'like','%'.$this->searchdisponibles.'%')->orWhere('name','like','%'.$this->searchdisponibles.'%');
+            //     })
+            // ->campstoseg($this->campaignid)
+            // ->campstoidiom($this->campaignid)
+            // ->campstoubi($this->campaignid)
+            // ->campstomob($this->campaignid)
+            // ->campstomed($this->campaignid)
+            // ->groupBy($this->model1c1)
+            // ->orderBy($this->model1c1,'asc')
+            ->where('store_id','2428')
             ->first();
 
             dd($a);
