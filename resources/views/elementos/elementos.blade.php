@@ -35,17 +35,19 @@
                     <div class="w-1/12">{{$elemento->material}}</div>
                     <div class="w-1/12 text-center">{{$elemento->unitxprop}}</div>
                     <div class="w-2/12">{{$elemento->observaciones}}</div>
-                    <div  class="flex w-1/12">
+                    <div  class="flex flex-row w-1/12">
                         @can('elemento.edit')
-                        <div class="">
-                            <a href="{{route('elemento.edit',$elemento->id)}}" title="Editar"><x-icon.edit class="pb-1 text-blue-600"></x-icon.edit></a>
+                        <div class="w-5">
+                            <x-icon.edit-a href="{{route('elemento.edit',$elemento->id)}}" title="Editar" class="w-5 text-blue-600" />
                         </div>
-                        @endcan
-                        @can('elemento.delete')
-                        <div class="">
+                        <div class="w-5 pt-0 mt-0">
                             @livewire('elementos.elemento-eliminar',['elemento'=>$elemento],key($elemento->id))
                         </div>
                         @endcan
+                        {{-- @can('elemento.delete') --}}
+                        {{-- <div class="w-5"> --}}
+                        {{-- </div> --}}
+                        {{-- @endcan --}}
                     </div>
                 </div>
             @endforeach

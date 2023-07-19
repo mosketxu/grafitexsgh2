@@ -27,6 +27,7 @@ class CampaignUpdateRequest extends FormRequest
             'campaign_name' => 'required',
             'campaign_initdate' => 'date|required',
             'campaign_enddate' => 'date|required',
+            'fechaentregatienda' => 'date',
             'campaign_state' => 'required',
             // 'fechainstal1'=>['nullable','date',Rule::requiredIf($request->montaje1!='')],
             // 'fechainstal2'=>['nullable','date',Rule::requiredIf($request->montaje2!='')],

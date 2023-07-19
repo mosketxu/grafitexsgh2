@@ -1,63 +1,44 @@
 <div class="">
     <div class="p-1 mx-2">
         <div class="flex w-full p-1 space-x-2 text-gray-500 bg-gray-100 border border-blue-300 rounded-md shadow-md">
-            <div class="w-4/12 rounded-md ">
-                <label for="campaign_name">Campaña</label>
-                <input type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
-                    name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
-                    disabled />
+            <div class="w-7/12">
+                @include('campaign.campaigncabecera')
             </div>
-            <div class="flex w-3/12 space-x-2">
-                <div class="w-6/12">
-                    <label for="campaign_initdate">Fecha Inicio</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
-                    name="campaign_initdate"
-                    value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
-                    disabled />
-                </div>
-                <div class="w-6/12">
-                    <label for="campaign_enddate">Fecha Finalización</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
-                        name="campaign_enddate"
-                        value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
-                        disabled />
-                </div>
-            </div>
-            <div class="flex w-5/12 space-x-2">
-                <div class="w-4/12">
+            <div class="flex w-5/12 text-gray-500 border border-blue-300 rounded shadow-md">
+                <div class="w-4/12 mx-1">
                     <div class="text-center"><label for="fechainstal1">Fecha Montaje 1</label></div>
                     <div class="flex">
-                        <input type="date" class="w-9/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="fechainstal1"
+                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal1"
                         name="fechainstal1"
                         value="{{ old('fechainstal1',$campaign->fechainstal1) }}"
                         disabled />
-                        <input type="text" class="w-3/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="montaje1"
+                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje1"
                         name="montaje1"
                         value="{{ old('montaje1',$campaign->montaje1) }}"
                         disabled />
                     </div>
                 </div>
-                <div class="w-4/12">
+                <div class="w-4/12 mx-1">
                     <div class="text-center"><label for="fechainstal2">Fecha Montaje 2</label></div>
                     <div class="flex">
-                        <input type="date" class="w-9/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="fechainstal2"
+                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal2"
                         name="fechainstal2"
                         value="{{ old('fechainstal2',$campaign->fechainstal2) }}"
                         disabled />
-                        <input type="text" class="w-3/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="montaje2"
+                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje2"
                         name="montaje2"
                         value="{{ old('montaje2',$campaign->montaje2) }}"
                         disabled />
                     </div>
                 </div>
-                <div class="w-4/12">
+                <div class="w-4/12 mx-1">
                     <div class="text-center"><label for="fechainstal1">Fecha Montaje 3</label></div>
                     <div class="flex">
-                        <input type="date" class="w-9/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="fechainstal3"
+                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal3"
                         name="fechainstal3"
                         value="{{ old('fechainstal3',$campaign->fechainstal3) }}"
                         disabled />
-                        <input type="text" class="w-3/12 py-1 bg-gray-100 rounded-md form-control form-control-sm" id="montaje3"
+                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje3"
                         name="montaje3"
                         value="{{ old('montaje3',$campaign->montaje3) }}"
                         disabled />

@@ -22,25 +22,26 @@
                 <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
                     {{-- <div class="w-1/12 pl-2">#</div> --}}
                     <div class="w-3/12 pl-2 ">Campaña</div>
-                    <div class="w-2/12 flex-none lg:flex ">
+                    <div class="flex-none w-2/12 lg:flex ">
                         <div class="w-full text-center lg:w-6/12">F.Inicio</div>
                         <div class="w-full text-center lg:w-6/12">F.Fin</div>
+                        <div class="w-full text-center lg:w-6/12">F.Tienda</div>
                     </div>
-                    <div class="w-3/12 flex-none lg:flex ">
+                    <div class="flex-none w-3/12 lg:flex ">
                         <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 1">F.Mon.1</div>
                         <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 2">F.Mon.2</div>
                         <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 2">F.Mon.3</div>
                     </div>
                     <div class="w-1/12 text-center ">nº Elementos</div>
-                    <div class="w-3/12 text-center flex-none lg:flex  ">
-                        <div class="w-full flex ml-2">
+                    <div class="flex-none w-3/12 text-center lg:flex ">
+                        <div class="flex w-full ml-2">
                             <x-icon.question class="w-2 mb-1 text-black "/>
                         </div>
-                        <div class="w-full flex ml-2">
+                        <div class="flex w-full ml-2">
                             <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
                             <input type="checkbox" {{ $ok=="1" ? 'checked' : '' }} name="ok" value="ok" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
                         </div>
-                        <div class="w-full flex ml-2">
+                        <div class="flex w-full ml-2">
                             <x-icon.thumbs-down class="w-4 mb-1 text-red-500"/>
                             <input type="checkbox" {{ $ko=="1" ? 'checked' : '' }} name="ko" value="ko" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
                         </div>
@@ -55,11 +56,12 @@
             @endcan
                 {{-- <div class="w-1/12 pl-2 text-left">{{$campaign->campaign->id}}</div> --}}
                 <div class="w-3/12 pl-2 text-left ">{{$campaign->campaign->campaign_name}}</div>
-                <div class="w-2/12 flex-none lg:flex  ">
-                    <div class="w-full text-center lg:w-6/12">{{$campaign->campaign->campaign_initdate}}</div>
-                    <div class="w-full text-center lg:w-6/12">{{$campaign->campaign->campaign_enddate}}</div>
+                <div class="flex-none w-2/12 lg:flex ">
+                    <div class="w-full text-center text-blue-500 lg:w-6/12">{{$campaign->campaign->campaign_initdate}}</div>
+                    <div class="w-full text-center text-green-500 lg:w-6/12">{{$campaign->campaign->campaign_enddate}}</div>
+                    <div class="w-full text-center text-orange-500 lg:w-6/12">{{$campaign->campaign->fechaentregatienda}}</div>
                 </div>
-                <div class="w-3/12 text-center flex-none lg:flex  ">
+                <div class="flex-none w-3/12 text-center lg:flex ">
                     <div class="w-full text-center lg:w-4/12">
                         <div class="text-center ">{{$campaign->campaign->fechainstal1}}</div>
                         <div class="text-center ">{{ $campaign->campaign->montaje1  }}</div>
@@ -74,10 +76,10 @@
                     </div>
                 </div>
                 <div class="w-1/12 text-center ">{{$campaign->elementos_count}}</div>
-                <div class="w-3/12 text-center flex-none lg:flex  ">
-                    <div class="w-full flex ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$campaign->elementos_count-$campaign->elementosok_count-$campaign->elementosko_count}}</div>
-                    <div class="w-full flex ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$campaign->elementosok_count}}</div>
-                    <div class="w-full flex ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$campaign->elementosko_count}}</div>
+                <div class="flex-none w-3/12 text-center lg:flex ">
+                    <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$campaign->elementos_count-$campaign->elementosok_count-$campaign->elementosko_count}}</div>
+                    <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$campaign->elementosok_count}}</div>
+                    <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$campaign->elementosko_count}}</div>
                 </div>
             </div>
             @endforeach

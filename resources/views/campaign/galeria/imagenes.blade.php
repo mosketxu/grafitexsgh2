@@ -1,31 +1,12 @@
 <div class="">
     <div class="p-1 mx-2">
-        <div class="text-gray-500 border border-blue-300 rounded shadow-md">
-            <div class="flex w-full p-1 bg-gray-100 rounded-md">
-                <div class="w-6/12 rounded-md">
-                    <label for="campaign_name">Campaña</label>
-                    <input type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
-                        name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
-                        disabled />
-                </div>
-                <div class="w-2/12">
-                    <label for="campaign_initdate">Fecha Inicio</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
-                        name="campaign_initdate"
-                        value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
-                        disabled />
-                </div>
-                <div class="w-2/12">
-                    <label for="campaign_enddate">Fecha Finalización</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
-                        name="campaign_enddate"
-                        value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
-                        disabled />
-                </div>
-                <div class="w-2/12 text-center">
-                    <div class="text-center">
-                        <label for="xls">Hay {{$totalGaleria}} imágenes.</label>
-                    </div>
+        <div class="flex w-full ">
+            <div class="w-11/12">
+                @include('campaign.campaigncabecera')
+            </div>
+            <div class="w-1/12 text-center">
+                <div class="text-center">
+                    <label for="xls">Hay {{$totalGaleria}} imágenes.</label>
                 </div>
             </div>
         </div>

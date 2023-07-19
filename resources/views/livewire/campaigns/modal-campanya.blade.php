@@ -25,11 +25,15 @@
                             <x-jet-label for="campaign_enddate">Fecha Finalización</x-jet-label>
                             <x-input.text type="date" wire:model.defer="campaign_enddate" class="w-full " id="campaign_enddate" name="campaign_enddate" :value="old('campaign_enddate') "/>
                         </div>
+                        <div class="w-full">
+                            <x-jet-label for="fechaentregatienda">Fecha Tienda</x-jet-label>
+                            <x-input.text type="date" wire:model.defer="fechaentregatienda" class="w-full " id="fechaentregatienda" name="fechaentregatienda" :value="old('campaign_enddate') "/>
+                        </div>
                     </div>
                 </div>
-                <div class="text-sm space-y-1">
-                    <div class="text-blue-900 my-2 text-base underline">Fechas Montaje</div>
-                    <div class="w-full flex items-center space-x-2 ">
+                <div class="space-y-1 text-sm">
+                    <div class="my-2 text-base text-blue-900 underline">Fechas Montaje</div>
+                    <div class="flex items-center w-full space-x-2 ">
                         <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
                         <x-input.text type="date" wire:model.defer="fechainstal1" class="w-7/12 py-1" id="fechainstal1" name="fechainstal1" :value="old('fechainstal1') "/>
                         <x-select  selectname="montaje1" wire:model.defer="montaje1" class="w-4/12 py-1.5 border-blue-300" id="montaje1">
@@ -38,7 +42,7 @@
                             <option value="D">Desmontaje</option>
                         </x-select>
                     </div>
-                    <div class="w-full flex items-center space-x-2 ">
+                    <div class="flex items-center w-full space-x-2 ">
                         <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
                         <x-input.text type="date" wire:model.defer="fechainstal2" class="w-7/12 py-1" id="fechainstal2" name="fechainstal2" :value="old('fechainstal2') "/>
                         <x-select  selectname="montaje2"  wire:model.defer="montaje2" class="w-4/12 py-1.5 border-blue-300" id="montaje2">
@@ -47,7 +51,7 @@
                             <option value="D">Desmontaje</option>
                         </x-select>
                     </div>
-                    <div class="w-full flex items-center space-x-2 ">
+                    <div class="flex items-center w-full space-x-2 ">
                         <x-jet-label for="campaign_name" class="w-1/12">Fecha</x-jet-label>
                         <x-input.text type="date" wire:model.defer="fechainstal3" class="w-7/12 py-1" id="fechainstal3" name="fechainstal3" :value="old('fechainstal3') "/>
                         <x-select  selectname="montaje3"  wire:model.defer="montaje3" class="w-4/12 py-1.5 border-blue-300" id="montaje3">
@@ -70,7 +74,7 @@
             </form>
         </x-slot>
         <x-slot name="footer">
-            <div class="text-left mt-2">
+            <div class="mt-2 text-left">
                 @include('errores')
             </div>
         </x-slot>

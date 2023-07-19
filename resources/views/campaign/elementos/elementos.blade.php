@@ -1,34 +1,17 @@
 <div class="">
     <div class="p-1 mx-2">
-        <div class="text-gray-500 border border-blue-300 rounded shadow-md">
-            <div class="flex w-full p-1 bg-gray-100 rounded-md">
-                <div class="w-6/12 rounded-md">
-                    <label for="campaign_name">Campaña</label>
-                    <input type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
-                        name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
-                        disabled />
+        {{-- <div class="text-gray-500 border border-blue-300 rounded shadow-md"> --}}
+            <div class="flex w-full ">
+                <div class="w-11/12">
+                    @include('campaign.campaigncabecera')
                 </div>
-                <div class="w-2/12">
-                    <label for="campaign_initdate">Fecha Inicio</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
-                        name="campaign_initdate"
-                        value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
-                        disabled />
-                </div>
-                <div class="w-2/12">
-                    <label for="campaign_enddate">Fecha Finalización</label>
-                    <input type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
-                        name="campaign_enddate"
-                        value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
-                        disabled />
-                </div>
-                <div class="w-2/12 text-center">
-                    <div class="w-6 mx-auto mt-2 text-center">
+                <div class="w-1/12 text-center">
+                    <div class="w-6 mx-auto text-center">
                         <x-icon.xls-a id="xls" href="{{route('campaign.elementos.export',$campaign->id)}}" class="w-6 mt-5 text-green-700" title="Exporta Excel"/>
                     </div>
                 </div>
             </div>
-        </div>
+        {{-- </div> --}}
     </div>
     <div class="">
         <div class="w-full px-2">

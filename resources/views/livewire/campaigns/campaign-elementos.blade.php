@@ -1,9 +1,9 @@
 <div class="flex ">
     @can('campaign.edit')
     <div onclick="location.href = '{{ route('campaign.elemento.editelemento',[$campaign->id,$campelemento->id]) }}'"
-        class="w-full flex py-0 mt-2  text-sm tracking-tighter text-gray-500 border-b border-1 items-center cursor-pointer hover:bg-gray-200">
+        class="flex items-center w-full py-0 mt-2 text-sm tracking-tighter text-gray-500 border-b cursor-pointer border-1 hover:bg-gray-200">
     @else
-        <div class="w-full flex py-0 mt-2  text-sm tracking-tighter text-gray-500 border-b border-1 items-center hover:bg-gray-200">
+        <div class="flex items-center w-full py-0 mt-2 text-sm tracking-tighter text-gray-500 border-b border-1 hover:bg-gray-200">
     @endcan
         <input type="hidden" name="elementoId" value="{{$campelemento->id}}"/>
         <div class="w-2/12 pl-2">{{$campelemento->store_id}} <br> {{$campelemento->name}}</div>

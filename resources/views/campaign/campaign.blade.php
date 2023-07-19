@@ -29,6 +29,12 @@
                     class="block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                     {{ $deshabilitado }}/>
                 </div>
+                <div class="w-full rounded-md">
+                    <x-jet-label class="ml-1 text-base" for="fechaentregatienda">F.Tienda</x-jet-label>
+                    <input type="date"  id="fechaentregatienda" name="fechaentregatienda" value="{{ old('fechaentregatienda',$campaign->fechaentregatienda) }}"
+                    class="block w-full p-1 pl-2 transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
+                    {{ $deshabilitado }}/>
+                </div>
             </div>
             <div class="ml-2 text-base text-blue-900 underline">Fechas de instalación previstas</div>
             <div class="flex-none space-y-2 text-base md:flex md:justify-between md:space-y-0">

@@ -13,18 +13,25 @@
                             disabled />
                     </div>
                     <div class="flex space-x-2">
-                        <div class="w-6/12">
+                        <div class="w-4/12">
                             <label for="campaign_initdate">F.Ini.Prod.</label>
                             <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
                                 name="campaign_initdate"
                                 value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
                                 disabled />
                         </div>
-                        <div class="w-6/12">
+                        <div class="w-4/12">
                             <label for="campaign_enddate">F.Fin.Prod.</label>
                             <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
                                 name="campaign_enddate"
                                 value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
+                                disabled />
+                        </div>
+                        <div class="w-4/12">
+                            <label for="fechaentregatienda">F.Tienda</label>
+                            <input type="date" class="w-full py-1 text-sm bg-gray-100 rounded-md form-control form-control-sm" id="fechaentregatienda"
+                                name="fechaentregatienda"
+                                value="{{ old('fechaentregatienda',$campaign->fechaentregatienda) }}"
                                 disabled />
                         </div>
                     </div>

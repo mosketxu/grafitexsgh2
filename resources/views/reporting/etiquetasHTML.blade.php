@@ -31,8 +31,9 @@
                                 Grafitex Servicios Digitales, S.A.
                             </th>
                             <th style="color:#ffffff;text-align:center;font-size:0.9em;"  width="25%">
-                                Fecha prevista: <br>
-                                {{$etiquetas->campaign_enddate}}
+                                F.Prevista: {{$etiquetas->campaign_enddate}} <br>
+                                F.Tienda: {{$etiquetas->fechaentregatienda}}
+                                <br>
                             </th>
                         </tr>
                     </thead>

@@ -1,20 +1,5 @@
 <div class="h-full p-1 ">
-    <div class="text-gray-500 border border-blue-300 rounded shadow-md">
-        <div class="flex items-center w-full p-1">
-            <div class="flex w-6/12">
-                <x-jet-label class="mx-2 mt-1" for="campaign_name">Campaña </x-jet-label>
-                <input type="text" class="w-full py-1 bg-gray-100 rounded-md" value="{{ $campaign->campaign_name }}" disabled />
-            </div>
-            <div class="flex w-3/12 pl-2">
-                <x-jet-label for="campaign_initdate">Fecha Inicio </x-jet-label>
-                <input type="date" class="w-full py-1 bg-gray-100 rounded-md" value="{{ $campaign->campaign_initdate }}"disabled />
-            </div>
-            <div class="flex w-3/12 pl-2">
-                <x-jet-label for="campaign_enddate">Fecha Finalización </x-jet-label>
-                <input type="date" class="w-full py-1 bg-gray-100 rounded-md" value="{{ $campaign->campaign_enddate }}" disabled />
-            </div>
-        </div>
-    </div>
+    @in
     <div class="">
         @include('errores')
     </div>

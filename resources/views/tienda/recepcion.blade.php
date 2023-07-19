@@ -18,6 +18,7 @@
             <div class="flex-none w-2/12 lg:flex ">
                 <div class="w-full text-center lg:w-6/12">F.Inicio</div>
                 <div class="w-full text-center lg:w-6/12">F.Fin</div>
+                <div class="w-full text-center lg:w-6/12">F.Tienada</div>
             </div>
             <div class="flex-none w-4/12 lg:flex ">
                 <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 1">F.Mon.1</div>
@@ -35,8 +36,9 @@
             @endcan
             <div class="w-3/12 pl-2 text-left ">{{$campaign->campaign_name}}</div>
             <div class="flex-none w-2/12 lg:flex ">
-                <div class="w-full text-center lg:w-6/12">{{$campaign->campaign_initdate}}</div>
-                <div class="w-full text-center lg:w-6/12">{{$campaign->campaign_enddate}}</div>
+                <div class="w-full text-center text-blue-500 lg:w-4/12">{{$campaign->campaign_initdate}}</div>
+                <div class="w-full text-center text-green-500 lg:w-4/12">{{$campaign->campaign_enddate}}</div>
+                <div class="w-full text-center text-orange-500 lg:w-4/12">{{$campaign->fechaentregatienda}}</div>
             </div>
             <div class="flex-none w-4/12 text-center lg:flex ">
                 <div class="w-full text-center lg:w-4/12">

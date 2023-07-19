@@ -6,33 +6,10 @@
     @csrf
         <input type="hidden" id="campaigngaleria" name="campaigngaleria" value="{{$campaigngaleria}}">
         <div class="p-1 mx-2">
-            <div class="text-gray-500 border border-blue-300 rounded shadow-md">
-                <div class="flex w-full p-1 bg-gray-100 rounded-md">
-                    <div class="w-6/12 rounded-md">
-                        <x-jet-label for="campaign_name">Campaña</x-jet-label>
-                        <x-input.text type="text" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_name"
-                            name="campaign_name" value="{{ old('campaign_name',$campaign->campaign_name) }}"
-                            disabled />
-                    </div>
-                    <div class="w-3/12">
-                        <x-jet-label for="campaign_initdate">Fecha Inicio</x-jet-label>
-                        <x-input.text type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_initdate"
-                            name="campaign_initdate"
-                            value="{{ old('campaign_initdate',$campaign->campaign_initdate) }}"
-                            disabled />
-                    </div>
-                    <div class="w-3/12">
-                        <x-jet-label for="campaign_enddate">Fecha Finalización</x-jet-label>
-                        <x-input.text type="date" class="w-full py-1 bg-gray-100 rounded-md form-control form-control-sm" id="campaign_enddate"
-                            name="campaign_enddate"
-                            value="{{ old('campaign_enddate',$campaign->campaign_enddate) }}"
-                            disabled />
-                    </div>
-                </div>
-            </div>
+            @include('campaign.campaigncabecera')
         </div>
-        <div class="w-full h-1/3 flex my-2">
-            <div class="w-9/12 space-y-2 my-2 ml-4 pr-2 items-center" >
+        <div class="flex w-full my-2 h-1/3">
+            <div class="items-center w-9/12 pr-2 my-2 ml-4 space-y-2" >
                 <div class="flex items-center">
                     <div class="w-2/12">
                         <x-jet-label class="font-bold" for="carteleria">Carteleria</x-jet-label>
@@ -74,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-3/12 mr-4 pl-2">
+            <div class="w-3/12 pl-2 mr-4">
                 @livewire('campaigns.campaign-galeria',['campelemento'=>$campaigngaleria,'campaign'=>$campaign,'ruta'=>'campaign.galeria.edit'],key($campaigngaleria->id))
             </div>
         </div>

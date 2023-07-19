@@ -14,6 +14,7 @@ class ModalCampanya extends Component
     public $campaign_name='';
     public $campaign_initdate='';
     public $campaign_enddate='';
+    public $fechaentregatienda='';
     public $fechainstal1;
     public $fechainstal2;
     public $fechainstal3;
@@ -28,6 +29,7 @@ class ModalCampanya extends Component
             'campaign_name'=>'required|unique:campaigns',
             'campaign_initdate'=>'required',
             'campaign_enddate'=>'required',
+            'fechaentregatienda'=>'date',
             'fechainstal1'=>['nullable','date',Rule::requiredIf($this->montaje1!='')],
             'fechainstal2'=>['nullable','date',Rule::requiredIf($this->montaje2!='')],
             'fechainstal3'=>['nullable','date',Rule::requiredIf($this->montaje3!='')],
@@ -45,6 +47,7 @@ class ModalCampanya extends Component
             'campaign_name.unique' => 'El nombre de la campaña ya existe. Usa otro.',
             'campaign_initdate.required' => 'La fecha Inicio es necesaria.',
             'campaign_enddate.required' => 'La fecha Fin es necesaria.',
+            'fechaentregatienda.date' => 'La fecha entrega tienda debe ser una fecha válida.',
             'fechainstal1.required'=>'La fecha 1 es necesaria si el campo montaje 1 está rellenado',
             'fechainstal2.required'=>'La fecha 2 es necesaria si el campo montaje 2 está rellenado',
             'fechainstal3.required'=>'La fecha 3 es necesaria si el campo montaje 3 está rellenado',
@@ -78,6 +81,7 @@ class ModalCampanya extends Component
             'slug'=>$slug,
             'campaign_initdate'=>$this->campaign_initdate,
             'campaign_enddate'=>$this->campaign_enddate,
+            'fechaentregatienda'=>$this->fechaentregatienda,
             'fechainstal1'=>$this->fechainstal1,
             'fechainstal2'=>$this->fechainstal2,
             'fechainstal3'=>$this->fechainstal3,
@@ -91,6 +95,7 @@ class ModalCampanya extends Component
         $this->campaign_name='';
         $this->campaign_initdate='';
         $this->campaign_enddate='';
+        $this->fechaentregatienda='';
         $this->fechainstal1='';
         $this->fechainstal2='';
         $this->fechainstal3='';
