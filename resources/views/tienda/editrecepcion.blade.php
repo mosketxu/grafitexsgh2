@@ -8,46 +8,8 @@
             <div class="w-7/12">
                 @include('campaign.campaigncabecera')
             </div>
-            <div class="flex w-5/12 text-gray-500 border border-blue-300 rounded shadow-md">
-                <div class="w-4/12 mx-1">
-                    <div class="text-center"><label for="fechainstal1">Fecha Montaje 1</label></div>
-                    <div class="flex">
-                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal1"
-                        name="fechainstal1"
-                        value="{{ old('fechainstal1',$campaign->fechainstal1) }}"
-                        disabled />
-                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje1"
-                        name="montaje1"
-                        value="{{ old('montaje1',$campaign->montaje1) }}"
-                        disabled />
-                    </div>
-                </div>
-                <div class="w-4/12 mx-1">
-                    <div class="text-center"><label for="fechainstal2">Fecha Montaje 2</label></div>
-                    <div class="flex">
-                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal2"
-                        name="fechainstal2"
-                        value="{{ old('fechainstal2',$campaign->fechainstal2) }}"
-                        disabled />
-                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje2"
-                        name="montaje2"
-                        value="{{ old('montaje2',$campaign->montaje2) }}"
-                        disabled />
-                    </div>
-                </div>
-                <div class="w-4/12 mx-1">
-                    <div class="text-center"><label for="fechainstal1">Fecha Montaje 3</label></div>
-                    <div class="flex">
-                        <input type="date" class="w-9/12  py-0.5 bg-gray-100 rounded-md" id="fechainstal3"
-                        name="fechainstal3"
-                        value="{{ old('fechainstal3',$campaign->fechainstal3) }}"
-                        disabled />
-                        <input type="text" class="w-3/12  py-0.5 bg-gray-100 rounded-md" id="montaje3"
-                        name="montaje3"
-                        value="{{ old('montaje3',$campaign->montaje3) }}"
-                        disabled />
-                    </div>
-                </div>
+            <div class="w-5/12">
+                @include('campaign.campaigncabecerafechasmontaje')
             </div>
         </div>
     </div>
@@ -58,11 +20,7 @@
                 <form method="GET" action="{{route('tienda.editrecepcion',[$campaign->id,$store->id]) }}">
                     <x-input.text id="busca" name="busca"  type="search" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
                 </form>
-                {{-- <x-icon.arrows-rotate-a href="{{route('tienda.editrecepcion',[$campaign->id,$store->id])}}" class="text-blue-600"/> --}}
             </div>
-            {{-- <div class="flex flex-row-reverse w-6/12 space-x-2">
-                {{ $elementos->appends(request()->except('page'))->links() }}
-            </div> --}}
         </div>
         <div class="mx-2 my-2 border rounded-md">
             <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">
@@ -79,8 +37,6 @@
                     <div class="flex">
                         <div class="w-7"><x-icon.question class="w-2 text-black"/></div>
                         <div class="w-7">{{$sinvalorar}}</div>
-                        {{-- <input type="checkbox" {{ $nose=="1" ? 'checked' : '' }} name="nose" value="nose" class="" onclick="event.preventDefault(); this.closest('form').submit();"/> --}}
-
                     </div>
                     <div class="flex">
                         <div class="w-7"><x-icon.thumbs-up class="w-4 text-green-500"/></div>
@@ -97,7 +53,6 @@
                 <div class="w-1/12">Estado</div>
                 <div class="w-2/12">Obs.Recep</div>
                 <div class="w-1/12"></div>
-                <div class="w-8"></div>
             </div>
             @foreach ($elementos as $elemento)
                 <form id="form{{$elemento->id}}" role="form" method="post" action="{{route('tienda.update')}}">
@@ -124,7 +79,8 @@
                         @endif
                     </div>
                     <div class="w-1/12 px-1 ">
-                        <select name="estadorecepcion"  id="valorestado{{$elemento->id}}" class = "w-full py-1 pl-1 text-xs text-left border-blue-300 rounded-md form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-xs" >
+                        <select name="estadorecepcion"  id="valorestado{{$elemento->id}}" onchange="event.preventDefault(); this.closest('form').submit();"
+                            class = "w-full py-1 pl-1 text-xs text-left border-blue-300 rounded-md form-select focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-xs" >
                                 <option value="" {{$elemento->estadorecepcion == '' ? 'selected' : ''}}>-- Valorar--</option>
                             @foreach ($estadosrecep as $estado )
                                 <option value="{{ $estado->id }}" {{$elemento->estadorecepcion == $estado->id ? 'selected' : ''}}>{{ $estado->estado }}</option>
@@ -132,13 +88,14 @@
                         </select>
                     </div>
                     <div class="w-2/12 px-1 ">
-                        <textarea rows="3" name="obsrecepcion" class ="flex-1 block w-full py-1.5 text-xs transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
+                        <textarea rows="3" name="obsrecepcion" onchange="event.preventDefault(); this.closest('form').submit();"
+                            class ="flex-1 block w-full py-1.5 text-xs transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                             placeholder="Escribe tus comentarios">{{old('obsrecepcion', $elemento->obsrecepcion)}}</textarea>
                     </div>
-                    <div class="w-8 text-center">
+                    {{-- <div class="w-8 text-center">
                         <button type="submit" class="text-center"><x-icon.save class="w-6 hover:scale-125"/></button>
-                    </div>
-                    <div class="w-1/12 ">
+                    </div> --}}
+                    <div class="w-1/12 cursor-default">
                         @if(file_exists( 'storage/galeria/'.$campaign->id.'/'.$elemento->imagen ))
                             <img src="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}"
                                 alt={{$elemento->imagen}} title={{$elemento->imagen}} id="original"
