@@ -27,10 +27,13 @@ class MaestrosImportSGH implements ToModel, WithHeadingRow, WithChunkReading,Wit
         $observaciones="";
 
         $udxprop=trim($row['unit_x_prop']);
-        if(!is_numeric($udxprop || $udxprop=='0')){
-            if(!is_numeric($udxprop)) $observaciones=$udxprop;
+        // dd(is_numeric($udxprop));
+        if(!is_numeric($udxprop)){
+            $observaciones=$udxprop;
             $udxprop='1';
-        }
+        }elseif($udxprop=='0')
+            $udxprop='1';
+
 
         $mat=!is_null($row['material'])?$row['material']:'';
         $med=!is_null($row['medida'])?$row['medida']:'';

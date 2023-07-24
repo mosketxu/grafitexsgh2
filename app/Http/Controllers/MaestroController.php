@@ -55,14 +55,14 @@ class MaestroController extends Controller
     public function import(Request $request,$origen){
         $request->validate([
             'maestro' => 'required|mimes:xls,xlsx',
-            ]);
+        ]);
 
         DB::table('maestros')->delete();
         try{
-            if($origen=="Grafitex"){
+    if($origen=="Grafitex"){
                 (new MaestrosImport)->import(request()->file('maestro'));
             }else{
-        (new MaestrosImportSGH)->import(request()->file('maestro'));
+                (new MaestrosImportSGH)->import(request()->file('maestro'));
             }
         }catch(\ErrorException $ex){
             // dd($ex->getMessage());
