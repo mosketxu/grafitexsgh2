@@ -26,7 +26,7 @@ class Familias extends Component
 
     public function mount($familia,$colorindex){
         $this->familia=$familia;
-        $this->colorindex=$this->colorindex>18 ? $colorindex % 18 : $colorindex;
+        $this->colorindex=$this->colorindex>17 ? $colorindex % 17 : $colorindex;
     }
 
     public function render(){
