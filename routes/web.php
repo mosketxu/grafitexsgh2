@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, RoleController, SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController, TiendaController, UploadController, UserController};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, ProductoController, RoleController, SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController, TiendaController, UploadController, UserController};
+use App\Models\Producto;
+
 // use HasRoles;
 
 Route::get('/', function () {
@@ -159,6 +161,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::group(['prefix' => 'sgh'], function () {
         Route::resource('/', SghController::class)->names('sgh')->only('index');
     });
+
+    Route::group(['prefix' => 'prod'], function () {
+        Route::get('/producto/{producto}/edit', [ProductoController::class, 'editar'])->name('producto.editar')->middleware('can:producto.edit');;
+        Route::resource('/', ProductoController::class)->names('producto')->except('edit');
+    });
+
 });
 
 

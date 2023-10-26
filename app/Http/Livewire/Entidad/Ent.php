@@ -22,8 +22,7 @@ class Ent extends Component
     public $escontacto='';
     public $ruta='';
 
-    protected function rules()
-    {
+    protected function rules(){
         return [
             'entidad.id'=>'nullable',
             'entidad.entidad'=>'required',
@@ -58,8 +57,7 @@ class Ent extends Component
         ];
     }
 
-    public function messages()
-    {
+    public function messages(){
         return [
             'entidad.entidad.required' => 'El nombre de la entidad es necesario',
             'entidad.nif.max' => 'El Nif debe ser inferior a 12 caracteres',

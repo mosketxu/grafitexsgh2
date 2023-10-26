@@ -49,6 +49,13 @@
                         </x-jet-nav-link>
                     </div>
                 @endcan
+                @can('producto.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link  href="{{route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                            {{ __('Productos') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endcan
                 @can('auxiliares.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
