@@ -35,8 +35,13 @@
                                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 
                                 </div>
-                                <div class="w-3/12 ">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $producto->imagen }}" readonly/>
+                                <div class="w-3/12 m-2">
+                                    @if($producto->imagenes->count()>0)
+                                        <img alt={{$producto->imagenes->first()->imagen}}
+                                        class=" p-2 object-contain w-full border-2 rounded-md shadow-md cursor-pointer max-h-40 md:h-40"
+                                        src="{{asset('storage/producto/'.$producto->id.'/thumbnails/thumb-'.$producto->imagenes->first()->imagen.'?'.time())}}"
+                                        onclick="location.href = '{{ asset('storage/producto/'.$producto->id.'/thumbnails/thumb-'.$producto->imagenes->first()->imagen) }}'" target="_blank"/>
+                                    @endif
                                 </div>
                                 <div class="flex justify-between w-2/12 md:w-1/12">
                                     <div class="w-5"><x-icon.edit-a href="{{ route('producto.editar',$producto) }}" class="w-6"  title="Editar"/></div>

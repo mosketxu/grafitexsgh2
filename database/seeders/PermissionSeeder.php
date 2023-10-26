@@ -170,5 +170,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'peticiondetalle.edit'])->syncRoles($admin, $grafitex,$sgh,$tienda);
         Permission::create(['name'=>'peticiondetalle.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
         Permission::create(['name'=>'peticiondetalle.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+
+        // Procucto Imagenes
+        Permission::create(['name'=>'productoimagen.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        Permission::create(['name'=>'productoimagen.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'productoimagen.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'productoimagen.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'productoimagen.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

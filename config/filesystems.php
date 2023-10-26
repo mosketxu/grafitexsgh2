@@ -56,8 +56,12 @@ return [
             'url' => env('APP_URL').'/plan',
             'visibility' => 'public',
         ],
-
-
+        'producto' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/producto'),
+            'url' => env('APP_URL').'/producto',
+            'visibility' => 'public',
+        ],
 
         'public' => [
             'driver' => 'local',
@@ -97,6 +101,7 @@ return [
         public_path('galeria') => storage_path('app/galeria'),
         public_path('store') => storage_path('app/store'),
         public_path('plan') => storage_path('app/plan'),
+        public_path('producto') => storage_path('app/producto'),
 
     ],
 

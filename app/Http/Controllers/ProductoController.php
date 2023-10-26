@@ -10,8 +10,8 @@ class ProductoController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('can:producto.index')->only('index','show');
-        // $this->middleware('can:producto.edit')->only('show','edit','update','create');
+        $this->middleware('can:producto.index')->only('index','show');
+        $this->middleware('can:producto.edit')->only('show','edit','update','create');
     }
 
     public function index(){

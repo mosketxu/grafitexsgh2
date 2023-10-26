@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
+
 class Prod extends Component
 {
 
@@ -14,7 +15,6 @@ class Prod extends Component
     public $descripcion;
     public $precio='0';
     public $activo=true;
-    public $imagen;
     public $ruta;
 
     protected function rules(){
@@ -23,7 +23,6 @@ class Prod extends Component
             'descripcion'=>'nullable',
             'precio'=>'nullable|numeric',
             'activo'=>'nullable',
-            'imagen'=>'nullable|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',
         ];
     }
 
@@ -31,7 +30,6 @@ class Prod extends Component
         return [
             'producto.required' => 'El nombre del producto es necesario',
             'precio' => 'El Precio debe ser un valor numérico',
-            'imagen.max'=>'El tamaño maximo es 12Mb',
         ];
     }
 
@@ -41,7 +39,6 @@ class Prod extends Component
         $this->descripcion=$producto->descripcion;
         $this->precio=!$producto->precio? '0': $producto->precio ;
         $this->activo=$producto->activo;
-        $this->imagen=$producto->imagen;
         $this->ruta=$ruta;
     }
 
@@ -60,12 +57,6 @@ class Prod extends Component
                 'prod'=>[
                     'required',
                     Rule::unique('productos','producto')->ignore($this->producto->id)],
-                'producto.imagen'=>[
-                    'image',
-                    'mimes:pdf,jpeg,png,jpg,gif,svg',
-                    'max:12288',
-                    'nullable',
-                ]
             ]);
             $mensaje="Producto actualizado satisfactoriamente";
         }else{
@@ -76,8 +67,7 @@ class Prod extends Component
                 'descripcion'=>'nullable',
                 'precio'=>'nullable|numeric',
                 'activo'=>'nullable',
-                'imagen'=>'nullable|image|mimes:pdf,jpeg,png,jpg,gif,svg|max:12288',                ]
-            );
+            ]);
             $i=$this->producto->id;
             $mensaje="Producto creado satisfactoriamente";
         }
@@ -90,7 +80,6 @@ class Prod extends Component
             'descripcion'=>$this->descripcion,
             'precio'=>$this->precio,
             'activo'=>$this->activo,
-            'imagen'=>$this->imagen,
             ]
         );
 

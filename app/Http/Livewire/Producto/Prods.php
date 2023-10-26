@@ -19,12 +19,15 @@ class Prods extends Component
 
     public function render(){
         $productos=Producto::query()
+            ->with('imagenes')
             ->search('producto',$this->search)
             ->when($this->filtroestado!='', function ($query) {
                     $query->where('estado', $this->filtroestado);
                 })
             ->orderBy('producto','asc')
             ->get();
+        // $p=$productos->find('9');
+        // dd($p->imagenes->first()->imagen);
 
         return view('livewire.producto.prods',compact(['productos']));
     }
