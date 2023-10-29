@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController, CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController, MaestroController, MontadorController, ProductoController, ProductoImagenController, RoleController, SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController, TiendaController, UploadController, UserController,ProductoImagen};
+use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,
+    AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController,
+    CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
+    MaestroController, MontadorController, PeticionController, ProductoController, ProductoImagenController, RoleController,
+    SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
+    TiendaController, UploadController, UserController,ProductoImagen};
 
 // use HasRoles;
 
@@ -155,19 +160,31 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
         Route::get('/entidad/{entidad}/contacto/{ruta}', [EntidadController::class, 'editcontacto'])->name('entidad.editcontacto');
         Route::resource('entidad', EntidadController::class)->only('index','show','edit','update','create');
+
     //SGH
-    // route();
     Route::group(['prefix' => 'sgh'], function () {
         Route::resource('/', SghController::class)->names('sgh')->only('index');
     });
 
+    //Productos de peticiones de las tiendas
     Route::group(['prefix' => 'prod'], function () {
         Route::get('/producto/{producto}/edit', [ProductoController::class, 'editar'])->name('producto.editar')->middleware('can:producto.edit');
         Route::delete('/{producto}/deleteimagen/{imagen}', [ ProductoImagenController::class, 'deleteimagen' ])->name('producto.deleteimagen');
-
         Route::resource('/', ProductoController::class)->names('producto')->except('edit');
     });
 
+    // Peticiones
+    Route::group(['prefix' => 'peticiones'], function () {
+    // Route::get('/producto/{producto}/edit', [ProductoController::class, 'editar'])->name('producto.editar')->middleware('can:producto.edit');
+    // Route::delete('/{producto}/deleteimagen/{imagen}', [ ProductoImagenController::class, 'deleteimagen' ])->name('producto.deleteimagen');
+
+        // Route::get('/peticion', [PeticionController::class, 'index'])->name('peticion.index')->middleware('can:peticion.index');
+        Route::get('/peticion/{peticion}/edit', [PeticionController::class, 'editar'])->name('peticion.editar')->middleware('can:peticion.edit');
+        Route::resource('/', PeticionController::class)->names('peticion');
+
+        // Route::get('/peticion', [PeticionController::class, 'index'])->name('peticion.index')->middleware('can:peticion.index');
+
+    });
 });
 
 

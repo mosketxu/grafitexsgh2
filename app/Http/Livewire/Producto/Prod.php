@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Producto;
 
 use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
@@ -16,6 +17,8 @@ class Prod extends Component
     public $precio='0';
     public $activo=true;
     public $ruta;
+
+    public $deshabilitado='';
 
     protected function rules(){
         return [
@@ -40,6 +43,7 @@ class Prod extends Component
         $this->precio=!$producto->precio? '0': $producto->precio ;
         $this->activo=$producto->activo;
         $this->ruta=$ruta;
+        $this->deshabilitado=Auth::user()->hasRole(['tienda','sgh']) ? 'disabled' : '';
     }
 
     public function render(){
@@ -88,7 +92,4 @@ class Prod extends Component
         $this->dispatchBrowserEvent('notify', $mensaje);
         // return redirect()->route('producto.edit',$producto)->with($notification);
     }
-
-
-
 }

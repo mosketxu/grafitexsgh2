@@ -9,10 +9,11 @@ class Peticion extends Model
 {
     use HasFactory;
     protected $table = 'peticiones';
-    protected $fillable=['peticion','fecha','total','observaciones','estado'];
+    protected $fillable=['peticion','peticionario_id','fecha','total','observaciones','peticionestado_id'];
 
     public function peticiondetalles(){return $this->hasMany(PeticionDetalle::class,'peticion_id');}
-
+    public function peticionario(){return $this->belongsTo(User::class,'peticionario_id');}
+    public function estado(){return $this->hasOne(Peticion::class,'peticionario_id');}
 
 
 }

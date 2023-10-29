@@ -3,19 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peticion;
-use App\Http\Requests\StorePeticionRequest;
-use App\Http\Requests\UpdatePeticionRequest;
+
+use Dompdf\Dompdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use \PDF;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class PeticionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:peticion.index')->only('index');;
+        $this->middleware('can:peticion.edit')->only('nuevo','editar','update','delete');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request){
+        return view('peticion.index');
     }
 
     /**
@@ -23,18 +33,17 @@ class PeticionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+        $ruta="peticiones";
+        return view('peticion.create',compact('ruta'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePeticionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePeticionRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -50,16 +59,12 @@ class PeticionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Peticion  $peticion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Peticion $peticion)
+    public function editar(Peticion $peticion)
     {
-        //
+        $ruta='peticion';
+        return view('peticion.edit',compact('peticion','ruta'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -68,7 +73,7 @@ class PeticionController extends Controller
      * @param  \App\Models\Peticion  $peticion
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePeticionRequest $request, Peticion $peticion)
+    public function update(Request $request, Peticion $peticion)
     {
         //
     }

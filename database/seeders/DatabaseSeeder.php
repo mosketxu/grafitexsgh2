@@ -38,5 +38,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(Usuariostiendas::class);
         // $this->call(EstadosRecepcionSeeder::class);
         // $this->call(IdiomasSeeder::class);
+        $this->call(PeticionesEstadoSeeder::class);
     }
 }

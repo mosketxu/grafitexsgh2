@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('peticiones', function (Blueprint $table) {
+        Schema::create('peticiones_estado', function (Blueprint $table) {
             $table->id();
-            $table->string('peticion', 100);
-            $table->date('fecha');
-            $table->decimal('total', 8, 2)->default(0.00);
-            $table->string('observaciones')->nullable();
-            $table->string('estado', 10)->default('Solicitado');
+            $table->string('peticionestado');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('peticiones');
+        Schema::dropIfExists('table_peticiones_estado');
     }
 };

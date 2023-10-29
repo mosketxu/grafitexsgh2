@@ -56,6 +56,13 @@
                         </x-jet-nav-link>
                     </div>
                 @endcan
+                @can('peticion.index')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link  href="{{route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
+                            {{ __('Peticiones') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endcan
                 @can('auxiliares.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
@@ -206,6 +213,16 @@
             @can('elemento.index')
             <x-jet-responsive-nav-link href="{{ route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
                 {{ __('Elementos') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('producto.index')
+            <x-jet-responsive-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
+                {{ __('Productos') }}
+            </x-jet-responsive-nav-link>
+            @endcan
+            @can('peticion.index')
+            <x-jet-responsive-nav-link href="{{ route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
+                {{ __('Peticiones') }}
             </x-jet-responsive-nav-link>
             @endcan
             @can('auxiliares.index')
