@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Peticion;
 
 use App\Models\Peticion;
+use App\Models\PeticionDetalle;
 use App\Models\PeticionEstado;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -19,6 +20,7 @@ class Peti extends Component
     public $observaciones;
     public $estado='';
     public $ruta;
+    public $detalles;
 
     public $deshabilitado='';
 
@@ -53,6 +55,7 @@ class Peti extends Component
         $this->observaciones=$peticion->observaciones;
         $this->estado=$peticion->estado;
         $this->ruta=$ruta;
+        $this->detalles=PeticionDetalle::where('peticion_id',$peticion->id)->get();
         // $this->deshabilitado=Auth::user()->hasRole(['tienda','sgh']) ? 'disabled' : '';
     }
 

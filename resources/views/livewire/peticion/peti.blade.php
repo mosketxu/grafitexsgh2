@@ -104,4 +104,7 @@
             </form>
         </div>
     </div>
+    <div class="">
+        @include('peticiondetalle.index')
+    </div>
 </div>

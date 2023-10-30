@@ -175,14 +175,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     // Peticiones
     Route::group(['prefix' => 'peticiones'], function () {
-    // Route::get('/producto/{producto}/edit', [ProductoController::class, 'editar'])->name('producto.editar')->middleware('can:producto.edit');
-    // Route::delete('/{producto}/deleteimagen/{imagen}', [ ProductoImagenController::class, 'deleteimagen' ])->name('producto.deleteimagen');
-
-        // Route::get('/peticion', [PeticionController::class, 'index'])->name('peticion.index')->middleware('can:peticion.index');
         Route::get('/peticion/{peticion}/edit', [PeticionController::class, 'editar'])->name('peticion.editar')->middleware('can:peticion.edit');
         Route::resource('/', PeticionController::class)->names('peticion');
 
-        // Route::get('/peticion', [PeticionController::class, 'index'])->name('peticion.index')->middleware('can:peticion.index');
+        Route::resource('/detalles/', PeticionDetalleController::class)->names('peticiondetalle');
+
 
     });
 });
