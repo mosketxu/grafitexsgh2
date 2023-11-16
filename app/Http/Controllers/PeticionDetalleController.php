@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PeticionDetalle;
 use App\Http\Requests\StorePeticionDetalleRequest;
 use App\Http\Requests\UpdatePeticionDetalleRequest;
+use App\Models\Peticion;
 
 class PeticionDetalleController extends Controller
 {
@@ -18,26 +19,11 @@ class PeticionDetalleController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function crear(Peticion $peticion){
+        $ruta="peticiones";
+        return view('peticiondetalle.create',compact('ruta','peticion'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePeticionDetalleRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePeticionDetalleRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -61,17 +47,6 @@ class PeticionDetalleController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePeticionDetalleRequest  $request
-     * @param  \App\Models\PeticionDetalle  $peticionDetalle
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePeticionDetalleRequest $request, PeticionDetalle $peticionDetalle)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

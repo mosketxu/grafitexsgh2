@@ -19,6 +19,11 @@ class TiendaController extends Controller
     }
 
     public function index(Request $request){
+        $store=Store::find(auth()->user()->name);
+
+        return view('tienda.index',compact('store'));
+    }
+    public function recepcion(Request $request){
         $busqueda = '';
         if ($request->busca) $busqueda = $request->busca;
 
@@ -37,6 +42,27 @@ class TiendaController extends Controller
             // dd($campaigns);
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
+    }
+    public function peticion(Request $request){
+        dd('peti');
+        $busqueda = '';
+        if ($request->busca) $busqueda = $request->busca;
+
+        $storeId=(auth()->user()->name);
+        $store=Store::find(auth()->user()->name);
+
+        $campaigns=Campaign::search2($request->busca)
+            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
+            ->paginate(15);
+
+        $campaigns=CampaignTienda::with('campaign')
+            ->search2($request->busca)
+            ->where('store_id',$storeId)
+            // ->groupBy('campaign_id')
+            ->paginate(15);
+            // dd($campaigns);
+
+        return view('tienda.indexpeticion',compact('campaigns','store','busqueda'));
     }
 
     public function indexmontador(Request $request, $user){
@@ -116,9 +142,7 @@ class TiendaController extends Controller
         ->when($ko!='',function ($q){$q->where('KO', '1');})
         // ->when($nose!='',function ($q){$q->where('KO','<>','1');})
         ->paginate(15);
-        // ->first();
 
-        // dd($elementos->estadorecep->id);
         $estados=EstadoRecepcion::get();
 
         return view('tienda.indexcampaignelementos', compact('campaigntienda','campaign','store','elementos','busqueda','ok','ko','estados','nose'));

@@ -336,12 +336,18 @@ class CampaignController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        Campaign::where('id',$id)->delete();
+
+        $campaignborrar=Campaign::find($id);
+        if($campaignborrar)
+            $campaignborrar->delete();
 
          $notification = array(
             'message' => '¡Campaña eliminada satisfactoriamente!',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        if(!Auth::user()->hasRole('tienda'))
+            return redirect()->route('campaign.index')->with($notification);
+        else
+            return redirect()->route('tienda.control')->with($notification);
     }
 }

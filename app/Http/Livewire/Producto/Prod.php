@@ -15,7 +15,7 @@ class Prod extends Component
     public $prod;
     public $descripcion;
     public $precio='0';
-    public $activo=true;
+    public $activo='1';
     public $ruta;
 
     public $deshabilitado='';
@@ -38,10 +38,12 @@ class Prod extends Component
 
     public function mount(Producto $producto, $ruta){
         $this->producto=$producto;
-        $this->prod=$producto->producto;
-        $this->descripcion=$producto->descripcion;
-        $this->precio=!$producto->precio? '0': $producto->precio ;
-        $this->activo=$producto->activo;
+        if($producto->id){
+            $this->prod=$producto->producto;
+            $this->descripcion=$producto->descripcion;
+            $this->precio=!$producto->precio? '0': $producto->precio ;
+            $this->activo=$producto->activo;
+        }
         $this->ruta=$ruta;
         $this->deshabilitado=Auth::user()->hasRole(['tienda','sgh']) ? 'disabled' : '';
     }
@@ -54,7 +56,7 @@ class Prod extends Component
     }
 
     public function save(){
-        if(!$this->precio) $this->precio=0;
+        if(!$this->precio) $this->precio='0';
         if($this->producto->id){
             $i=$this->producto->id;
             $this->validate([

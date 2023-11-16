@@ -3,7 +3,7 @@
         <div class="flex">
             <div class="w-full">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Tienda: <span class="text-blue-600"> {{ $store->id }} - {{ $store->name }} </span>. Control recepción de la campaña: <span class="text-green-600"> {{ $campaign->campaign_name }} </span>
+                    Tienda: <span class="text-blue-600"> {{ $store->id }} - {{ $store->name }} </span>. Control recepción de la camspaña: <span class="text-green-600"> {{ $campaign->campaign_name }} </span>
                 </h2>
             </div>
         </div>

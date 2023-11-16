@@ -42,7 +42,7 @@
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->observaciones }}"  readonly/>
                                 </div>
                                 <div class="w-1/12 md:flex md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->estado }}"  readonly/>
+                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->estado->peticionestado ?? '-' }}"  readonly/>
                                 </div>
                                 <div class="flex w-1/12 ml-3 space-x-3 text-right md:w-1/12">
                                     <x-icon.edit-a href="{{ route('peticion.editar',$peticion) }}" class="w-6"  title="Editar"/>

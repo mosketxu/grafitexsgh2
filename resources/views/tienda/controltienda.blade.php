@@ -19,9 +19,9 @@
             <div class="w-3/12">eMail</div>
             <div class="w-1/12 text-center ">nº Elementos</div>
             <div class="flex-none w-3/12 text-center lg:flex ">
-                <div class="flex w-full ml-2">
+                {{-- <div class="flex w-full ml-2">
                     <x-icon.question class="w-2 mb-1 text-black "/>
-                </div>
+                </div> --}}
                 <div class="flex w-full ml-2">
                     <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
                     <input type="checkbox" {{ $ok=="1" ? 'checked' : '' }} name="ok" value="ok" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
@@ -43,7 +43,7 @@
                 <div class="w-3/12"><a href="mailto:{{$store->tienda->email}}"><span class="text-blue-500 underline">{{$store->tienda->email}}</span>  </a></div>
                 <div class="w-1/12 text-center">{{$store->elementos_count}}</div>
                 <div class="flex-none w-3/12 text-center lg:flex ">
-                    <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$store->elementos_count-$store->elementosok_count-$store->elementosko_count}}</div>
+                    {{-- <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$store->elementos_count-$store->elementosok_count-$store->elementosko_count}}</div> --}}
                     <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$store->elementosok_count}}</div>
                     <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$store->elementosko_count}}</div>
                 </div>

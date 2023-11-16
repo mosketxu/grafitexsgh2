@@ -20,7 +20,7 @@
             </div>
             <div class="flex w-full pt-2 pb-0 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-tl-md">
                 <div class="w-2/12 pl-2">Store <br> Name</div>
-                <div class="w-1/12 pl-2">Country/Area/Idioma</div>
+                <div class="w-1/12 pl-2">Country <br> Area <br> Idioma</div>
                 <div class="w-1/12 pl-2">Segmento <br> St.Concept</div>
                 <div class="w-1/12 pl-2">Ubicación</div>
                 <div class="w-2/12 pl-2">Mobiliario</div>

@@ -34,10 +34,10 @@
                 <div class="w-1/12 pt-0 mt-0">
                     <form action="{{ route('tienda.editrecepcion',[$campaign->id,$store->id]) }}" method="GET">
                     @csrf
-                    <div class="flex">
+                    {{-- <div class="flex">
                         <div class="w-7"><x-icon.question class="w-2 text-black"/></div>
                         <div class="w-7">{{$sinvalorar}}</div>
-                    </div>
+                    </div> --}}
                     <div class="flex">
                         <div class="w-7"><x-icon.thumbs-up class="w-4 text-green-500"/></div>
                         <div class="w-7">{{$correctos}}</div>
@@ -58,7 +58,7 @@
                 <form id="form{{$elemento->id}}" role="form" method="post" action="{{route('tienda.update')}}">
                 @method('PUT')
                 @csrf
-                <div class="flex items-center w-full py-1 text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
+                <div class="flex items-center w-full py-1 text-sm text-gray-500 border-t-0 border-b hover:bg-gray-100 ">
                     <input type="hidden" name="storeId" value="{{$store->id}}">
                     <input type="hidden" name="elementoId" value="{{$elemento->id}}">
                     <input type="hidden" name="campaignId" value="{{$campaign->id}}">
@@ -92,16 +92,15 @@
                             class ="flex-1 block w-full py-1.5 text-xs transition duration-150 border border-blue-300 rounded-lg form-input hover:border-blue-300 focus:border-blue-300 active:border-blue-300"
                             placeholder="Escribe tus comentarios">{{old('obsrecepcion', $elemento->obsrecepcion)}}</textarea>
                     </div>
-                    {{-- <div class="w-8 text-center">
-                        <button type="submit" class="text-center"><x-icon.save class="w-6 hover:scale-125"/></button>
-                    </div> --}}
                     <div class="w-1/12 cursor-default">
-                        @if(file_exists( 'storage/galeria/'.$campaign->id.'/'.$elemento->imagen ))
-                            <img src="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}"
-                                alt={{$elemento->imagen}} title={{$elemento->imagen}} id="original"
-                                class="p-1 mx-auto border-2 rounded-md shadow-md" style="height: 60px"/>
+                        @if(file_exists( 'storage/galeria/'.$campaign->id.'/thumbnails/thumb-'.$elemento->imagen ))
+                            <a href="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}" target="_blank" title="Ver producto">
+                                <img src="{{asset('storage/galeria/'.$campaign->id.'/'.$elemento->imagen.'?'.time())}}"
+                                    alt={{$elemento->imagen}} title={{$elemento->imagen}} id="original"
+                                    class="p-1 mx-auto border-2 rounded-md shadow-md cursor-pointer" style="height: 60px" />
+                            </a>
                         @else
-                            <img src="{{asset('storage/pordefecto.jpg')}}" alt={{$elemento->imagen}}
+                            <img src="{{asset('storage/galeria/pordefecto.jpg')}}" alt={{$elemento->imagen}}
                                 title={{$elemento->imagen}} id="original" class="p-1 mx-auto border-2 rounded-md shadow-md"
                                 style="height: 60px"/>
                         @endif

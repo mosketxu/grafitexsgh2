@@ -1,5 +1,5 @@
 <div class="flex ">
-    @can('campaign.edit')
+        @can('campaign.edit')
     <div onclick="location.href = '{{ route('campaign.elemento.editelemento',[$campaign->id,$campelemento->id]) }}'"
         class="flex items-center w-full py-0 mt-2 text-sm tracking-tighter text-gray-500 border-b cursor-pointer border-1 hover:bg-gray-200">
     @else
@@ -27,7 +27,7 @@
                 </label>
                 @else
                 <label for="file{{ $campelemento->id }}" class="cursor-pointer">
-                    <img src="{{asset('storage/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
+                    <img src="{{asset('storage/galeria/pordefecto.jpg')}}" alt={{$campelemento->imagen}} title={{$campelemento->imagen}}
                     class="mx-auto h-11"/>
                 </label>
                 @endif

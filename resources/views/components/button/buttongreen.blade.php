@@ -1,6 +1,5 @@
 <x-button
-    class="text-white bg-green-700 active:bg-green-800 hover:bg_green-800" {{ $attributes }}>
+    class="text-white bg-green-600 border-green-600 active:bg-green-400 hover:bg-green-500" {{ $attributes }}>
     {{ $slot }}
 </x-button>
-
 

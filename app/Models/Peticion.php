@@ -13,7 +13,8 @@ class Peticion extends Model
 
     public function peticiondetalles(){return $this->hasMany(PeticionDetalle::class,'peticion_id');}
     public function peticionario(){return $this->belongsTo(User::class,'peticionario_id');}
-    public function estado(){return $this->hasOne(Peticion::class,'peticionario_id');}
+    public function estado(){return $this->hasOne(PeticionEstado::class,'id','peticionestado_id');}
+    // public function paetiestado(){return $this->hasOne(,'id','peticionestado_id')}
 
 
 }

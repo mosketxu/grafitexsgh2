@@ -22,6 +22,7 @@ class Peticiones extends Component
 
     public function render(){
         $peticiones=Peticion::query()
+            ->with('estado')
             ->search('id',$this->search)
             ->when($this->filtroestado!='', function ($query) {
                 $query->where('estado', $this->filtroestado);
@@ -34,6 +35,7 @@ class Peticiones extends Component
 
         $peticionarios = User::role(['tienda','sgh'])->get();
 
+        // dd($peticiones);
         // orderBy('id')->get();
         if(Auth::user()->hasRole('tienda')){}
             $peticiones=$peticiones->where('peticionario_id',Auth::user()->id);

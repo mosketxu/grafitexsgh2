@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('peticion_id')->constrained('peticiones')->onDelete('cascade');
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->string('comentario', 150);
+            $table->string('comentario', 150)->nullable();
             $table->integer('unidades')->default(0);
             $table->decimal('preciounidad', 8, 2)->default(0.00);
             $table->decimal('total', 8, 2)->default(0.00);

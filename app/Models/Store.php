@@ -17,7 +17,8 @@ class Store extends Model
         'deliverytime','observaciones','montador_id'
     ];
 
-    protected $with=['are','concep','storeelementos'];
+    // CUIDADO IGUAL LO TENGO QUE VOLVER A PONER. LO QUE QUITADO CUANDO ESTABA PROGRAMANDO LA PAGINA DE INICIO DE LAS TIENDAS 2023/11/16
+    // protected $with=['are','concep','storeelementos'];
 
 
     // public function campaignelemen()

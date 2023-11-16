@@ -1,0 +1,2 @@
+{{$details['cuerpo']}}
+{{$details['de']}}

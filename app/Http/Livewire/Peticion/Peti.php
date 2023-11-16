@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire\Peticion;
 
+use App\Http\Livewire\PeticionDetalle\PetiDetalle;
 use App\Models\Peticion;
 use App\Models\PeticionDetalle;
 use App\Models\PeticionEstado;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class Peti extends Component
@@ -41,8 +42,6 @@ class Peti extends Component
             'peticionario_id.required' => 'El  peticionario es necesario',
             'fecha.required' => 'La fecha es necesaria',
         ];
-
-
     }
 
     public function mount(Peticion $peticion, $ruta){
@@ -99,6 +98,7 @@ class Peti extends Component
         );
 
         $this->peticion=$peticion;
+
 
         $this->dispatchBrowserEvent('notify', $mensaje);
         // return redirect()->route('peticion.edit',$peticion)->with($notification);

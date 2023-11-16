@@ -18,7 +18,7 @@
             <div class="flex-none w-2/12 lg:flex ">
                 <div class="w-full text-center lg:w-6/12">F.Inicio</div>
                 <div class="w-full text-center lg:w-6/12">F.Fin</div>
-                <div class="w-full text-center lg:w-6/12">F.Tienada</div>
+                <div class="w-full text-center lg:w-6/12">F.Tienda</div>
             </div>
             <div class="flex-none w-4/12 lg:flex ">
                 <div class="w-full text-center lg:w-4/12" title="Fecha Montaje 1">F.Mon.1</div>

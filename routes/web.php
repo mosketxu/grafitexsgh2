@@ -7,7 +7,9 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
     MaestroController, MontadorController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController};
+use App\Mail\MailControlrecepcion2;
+use Illuminate\Support\Facades\Mail;
 
 // use HasRoles;
 
@@ -33,8 +35,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             return redirect()->route('tienda.index');
         }
         elseif(Auth::user()->hasRole('montador')){
-            // dd('El Montador solo ve sus campañas');
-            // return redirect()->route('tienda.indexmontador',Auth::user());
             return redirect()->route('montador.index');
         }
         else{
@@ -146,6 +146,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('tienda/{campaigntienda}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
         Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
         Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
+        Route::get('tienda/recepcion',[TiendaController::class,'recepcion'])->name('tienda.recepcion')->middleware('can:tiendas.index');
+        Route::get('tienda/peticion',[TiendaController::class,'peticion'])->name('tienda.peticion')->middleware('can:tiendas.index');
         Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
 
     // tienda montador
@@ -178,10 +180,22 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('/peticion/{peticion}/edit', [PeticionController::class, 'editar'])->name('peticion.editar')->middleware('can:peticion.edit');
         Route::resource('/', PeticionController::class)->names('peticion');
 
+        Route::get('/detalles/{peticion}/nueva', [PeticionDetalleController::class, 'crear'])->name('peticiondetalle.crear')->middleware('can:peticion.create');
         Route::resource('/detalles/', PeticionDetalleController::class)->names('peticiondetalle');
-
-
     });
+
+    //Mails
+    Route::get('/mail', function() {
+
+        $details=[
+            'de'=>'alex.arregui@sumaempresa.com',
+            'a'=>'mosketxu@gmail.com',
+            'asunto'=>'definirlo',
+            'cuerpo'=>'Hey ,
+            Can your Laravel app send emails yet? 😉',
+        ];
+        Mail::to($details['a'])->send(new MailControlrecepcion2($details));
+    })->name('maillll');
 });
 
 

@@ -97,7 +97,7 @@ class CampaignElemento extends Model
     }
 
     public function campelementoUrl(){
-        $i= $this->imagen ? Storage::disk('galeria')->url($this->imagen) : Storage::disk('galeria')->url('pordefecto.png');
+        $i= $this->imagen ? Storage::disk('galeria')->url($this->imagen) : Storage::disk('galeria')->url('pordefecto.jpg');
 
         return $i;
     }

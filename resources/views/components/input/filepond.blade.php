@@ -17,6 +17,13 @@
             },
         });
         FilePond.create($refs.input);
+        {{-- var Pond = FilePond.create($refs.input);
+        this.addEventListener('FilePond:processfile', e => {
+            setTimeout(function(){
+                Pond.removeFile(e.detail.file.id);
+            }, 1000);
+        }); --}}
+
     "
 >
 
