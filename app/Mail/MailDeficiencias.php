@@ -6,17 +6,19 @@ use App\Models\CampaignElemento;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MailControlrecepcion2 extends Mailable
+class MailDeficiencias extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $details;
     public $deficiencias;
+    public $campaigntienda;
+
     /**
      * Create a new message instance.
      *
@@ -31,6 +33,8 @@ class MailControlrecepcion2 extends Mailable
         ->where('campaign_elementos.estadorecepcion','<>','1')
         ->with('estadorecep')
         ->get();
+        $this->campaigntienda=$this->deficiencias->first()->tienda_id;
+
     }
 
     /**
@@ -51,20 +55,9 @@ class MailControlrecepcion2 extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
-    public function content()
-    {
-        if($this->details['cuerpo']=='deficiencias')
-            return new Content(
-                view: 'mail.mailcontrolrecepcion',
-                // with:$this->details,
-                );
-            else
-                return new Content(
-                view: 'mail.mailcontrolrecepcion',
-                // with:$this->details,
-                );
-
-    }
+    public function content(){
+            return new Content(markdown: 'mail.deficiencias',);
+}
 
     /**
      * Get the attachments for the message.

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Campaigns\CampaignElementos;
-use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, EstadoRecepcion, Store};
+use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, EstadoRecepcion, Store, User};
 // use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Mail\MailControlrecepcion2;
+use App\Mail\MailDeficiencias;
+use Illuminate\Support\Facades\Mail;
 
 class TiendaController extends Controller
 {
@@ -43,6 +46,7 @@ class TiendaController extends Controller
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
+
     public function peticion(Request $request){
         dd('peti');
         $busqueda = '';
@@ -80,7 +84,7 @@ class TiendaController extends Controller
         // return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
 
-    public function editrecepcion($camp,$sto, Request $request){
+    public function editrecepcion(Campaign $campaign,Store $store, Request $request){
         $busqueda = '';
         $ok='';
         $ko='';
@@ -90,12 +94,10 @@ class TiendaController extends Controller
         if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
         if ($request->nose) $nose= $request->nose=='1' ? '0' : '1';
 
-        $campaign = Campaign::find($camp);
-        $store=Store::find($sto);
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->where('campaign_id',$camp)
-        ->where('campaign_elementos.store_id',$sto)
+        ->where('campaign_id',$campaign->id)
+        ->where('campaign_elementos.store_id',$store->id)
         ->select('campaign_elementos.id as id','estadorecepcion')
         ->get();
 
@@ -106,8 +108,8 @@ class TiendaController extends Controller
 
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->search2($request->busca)
-        ->where('campaign_id',$camp)
-        ->where('campaign_elementos.store_id',$sto)
+        ->where('campaign_id',$campaign->id)
+        ->where('campaign_elementos.store_id',$store->id)
         ->when($ko!='',function ($q){$q->where('KO', '1');})
         ->when($ok!='',function ($q){$q->where('OK', '1');})
         // ->when($nose!='',function ($q){$q->where('OK','');})
@@ -116,7 +118,6 @@ class TiendaController extends Controller
         ->get();
         // ->paginate(10);
         // dd($elementos);
-
 
         $estadosrecep=EstadoRecepcion::get();
 
@@ -167,7 +168,9 @@ class TiendaController extends Controller
         ->groupBy('campaign_id')
         ->paginate(15);
 
-        return view('tienda.index',compact('campaigns','busqueda','ok','ko'));
+
+
+        return view('tienda.indexcontrol',compact('campaigns','busqueda','ok','ko'));
     }
 
     public function controlstores($campaignId,Request $request){
@@ -199,8 +202,7 @@ class TiendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request){
-
+    public function update(Campaign $campaign, Store $store,Request $request){
         $rules=[
             'estadorecepcion'=>'required|integer|min:1',
         ];
@@ -227,7 +229,40 @@ class TiendaController extends Controller
             'alert-type' => 'success',
         );
 
+        if($request->estadorecepcion!='1'){
+            $this->enviamail($campaign,$store);
+        }
+
         return redirect()->route('tienda.editrecepcion',[$request->campaignId,$request->storeId])->with($notification);
+
+    }
+
+    public function enviamail(Campaign $campaign,Store $store){
+        $details=[
+            'de'=>'alex.arregui@sumaempresa.com',
+            'asunto'=>'Deficiencias en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name ,
+            'cuerpo'=>'deficiencias',
+            'campaignId'=>$campaign->id,
+            'campaignname'=>$campaign->campaign_name,
+            'storename'=>$store->name,
+            'storeId'=>$store->id,
+            'cuerpo'=>'Se han reportado las siguientes deficiecnisad en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name
+        ];
+
+        $users=User::whereIn('id',[2])->get();
+
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new MailDeficiencias($details));
+            // Mail::to($user->email)->send(new MailControlrecepcion2($details));
+        }
+
+        $notification = array(
+            'message' => 'Elemento actualizado satisfactoriamente y mail enviado!',
+            'alert-type' => 'success',
+        );
+        return redirect()->back()->with($notification);
+
+
 
     }
 }

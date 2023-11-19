@@ -32,7 +32,7 @@
                 <div class="w-1/12 ">Material</div>
                 <div class="w-1/12">Unit x <br> Prop</div>
                 <div class="w-1/12 pt-0 mt-0">
-                    <form action="{{ route('tienda.editrecepcion',[$campaign->id,$store->id]) }}" method="GET">
+                    <form action="{{ route('tienda.editrecepcion',[$campaign,$store]) }}" method="GET">
                     @csrf
                     {{-- <div class="flex">
                         <div class="w-7"><x-icon.question class="w-2 text-black"/></div>
@@ -55,7 +55,7 @@
                 <div class="w-1/12"></div>
             </div>
             @foreach ($elementos as $elemento)
-                <form id="form{{$elemento->id}}" role="form" method="post" action="{{route('tienda.update')}}">
+                <form id="form{{$elemento->id}}" role="form" method="post" action="{{route('tienda.update',[$campaign,$store])}}">
                 @method('PUT')
                 @csrf
                 <div class="flex items-center w-full py-1 text-sm text-gray-500 border-t-0 border-b hover:bg-gray-100 ">
@@ -70,12 +70,10 @@
                     <div class="w-1/12">{{$elemento->material}}</div>
                     <div class="w-1/12">{{$elemento->unitxprop}}</div>
                     <div class="w-1/12">
-                        @if($elemento->OK=='1')
+                        @if($elemento->estadorecepcion=='1')
                             <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
-                        @elseif($elemento->KO=='1')
-                            <x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>
                         @else
-                            <x-icon.question class="w-2 mb-1 text-black"/>
+                            <x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>
                         @endif
                     </div>
                     <div class="w-1/12 px-1 ">
