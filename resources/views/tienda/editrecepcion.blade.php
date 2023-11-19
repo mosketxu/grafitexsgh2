@@ -21,6 +21,11 @@
                     <x-input.text id="busca" name="busca"  type="search" name="search" value='{{$busqueda}}' placeholder="Search for..."/>
                 </form>
             </div>
+            <div class="flex w-6/12 space-x-2">
+                <form method="GET" action="{{route('tienda.envioincidencias',[$campaign,$store]) }}">
+                <x-button.primary type="submit">Enviar mail de incidencias</x-button.primary>
+                </form>
+            </div>
         </div>
         <div class="mx-2 my-2 border rounded-md">
             <div class="flex w-full pt-2 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md">

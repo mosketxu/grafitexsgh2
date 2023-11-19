@@ -33,7 +33,7 @@
                                 <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" >{{ __($titcampo2) }} </th>
                             @endif
                             @if ($campo3visible==1)
-                                <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" >{{ __($titcampo3) }} </th>
+                                <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" >{{ __($titcampo3) }}</th>
                             @endif
                             <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" ></th>
                         </tr>
@@ -61,9 +61,18 @@
                                 @endif
                                 @if ($campo3visible==1)
                                 <td class="px-1 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap">
+                                    @if($campo3=='empresa')
+                                    <select  selectname="empresa" id="empresa" name="empresa"
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"
+                                        wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"/>
+                                        <option value="Grafitex" {{ $valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
+                                        <option value="SGH" {{ $valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
+                                    <select>
+                                    @else
                                     <input type="text" value="{{ $valor->valorcampo3 }}"
-                                    wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
-                                    class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"/>
+                                        wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"/>
+                                    @endif
                                 </td>
                                 @endif
                                 <td  class="px-4">
@@ -99,8 +108,18 @@
                                 @endif
                                 @if ($campo3visible==1)
                                 <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
+                                    @if($campo3=='empresa')
+                                    <select  selectname="empresa" id="empresa" name="empresa"
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"
+                                        wire:model.defer="valorcampo3"/>
+                                        <option value="" >--Selecciona Empresa--</option>
+                                        <option value="Grafitex" {{ $valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
+                                        <option value="SGH" {{ $valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
+                                    <select>
+                                    @else
                                     <input type="text" wire:model.defer="valorcampo3"
                                     class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                    @endif
                                 </td>
                                 @endif
                                 <td  class="p-2 ">

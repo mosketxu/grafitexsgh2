@@ -24,15 +24,16 @@ class MailDeficiencias extends Mailable
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($details,$deficiencias)
     {
         $this->details=$details;
-        $this->deficiencias= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
-        ->where('campaign_id',$details['campaignId'])
-        ->where('campaign_elementos.store_id',$details['storeId'])
-        ->where('campaign_elementos.estadorecepcion','<>','1')
-        ->with('estadorecep')
-        ->get();
+        $this->deficiencias=$deficiencias;
+        // $this->deficiencias= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
+        // ->where('campaign_id',$details['campaignId'])
+        // ->where('campaign_elementos.store_id',$details['storeId'])
+        // ->where('campaign_elementos.estadorecepcion','<>','1')
+        // ->with('estadorecep')
+        // ->get();
         $this->campaigntienda=$this->deficiencias->first()->tienda_id;
 
     }

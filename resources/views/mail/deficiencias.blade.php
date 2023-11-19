@@ -1,7 +1,8 @@
 <x-mail::message>
 <div class="bg-red-500">
-<h2 class="text-xl font-semibold leading-tight text-gray-800 mt-9">Se han reportado las siguientes deficiencias en la entrega de la campaña: {{$details['campaignname']}}</h2>
-<h2 class="text-xl font-semibold leading-tight text-gray-800 mt-9">Tienda: {{$details['storename']}} ;</h2>
+<h2 >Se han reportado las siguientes deficiencias en una entrega.</h2>
+<h3> Campaña: {{$details['campaignname']}}</h3>
+<h3 >Tienda: {{$details['storename']}} </h3>
 </div>
 
         {{-- @if(file_exists( 'storage/galeria/'.$details['campaignId'].'/thumbnails/thumb-'.$deficiencia->imagen ))
@@ -11,10 +12,10 @@
         @endif --}}
 
 <x-mail::table>
-| Mobiliario    | Prop x Elemento| Carteleria  | Medida      | Material    | Unit x Prop |
-| :------------ |:--------------:| -----------:| -----------:| -----------:| -----------:|
+| Mobiliario    | Prop x Elemento| Carteleria  | Medida      | Material    | Unit x Prop | Incidencia |
+| :------------ |:--------------:| -----------:| -----------:| -----------:| -----------:| ----------:|
 @foreach ($deficiencias as $deficiencia)
-| {{$deficiencia->mobiliario}} | {{$deficiencia->propxelemento}} |{{$deficiencia->carteleria}} | {{$deficiencia->medida}} | {{$deficiencia->material}}  | {{$deficiencia->unitxprop}} |
+| {{$deficiencia->mobiliario}} | {{$deficiencia->propxelemento}} |{{$deficiencia->carteleria}} | {{$deficiencia->medida}} | {{$deficiencia->material}}  | {{$deficiencia->unitxprop}} | {{$deficiencia->estadorecep->estado}} | 
 @endforeach
 
 </x-mail::table>
@@ -23,4 +24,4 @@
 Ver incidencias en la aplicación
 </x-mail::button>
 
-</x-mail::message>  
+</x-mail::message>

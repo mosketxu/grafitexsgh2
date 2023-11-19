@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Campaigns\CampaignElementos;
-use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, EstadoRecepcion, Store, User};
+use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, Destinatario, EstadoRecepcion, Store, User};
 // use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as Builder;
 use Illuminate\Http\Request;
@@ -229,15 +229,16 @@ class TiendaController extends Controller
             'alert-type' => 'success',
         );
 
-        if($request->estadorecepcion!='1'){
-            $this->enviamail($campaign,$store);
-        }
+        // if($request->estadorecepcion!='1'){
+        //     $this->enviamail($campaign,$store);
+        // }
 
         return redirect()->route('tienda.editrecepcion',[$request->campaignId,$request->storeId])->with($notification);
 
     }
 
-    public function enviamail(Campaign $campaign,Store $store){
+    public function envioincidencias(Campaign $campaign,Store $store){
+
         $details=[
             'de'=>'alex.arregui@sumaempresa.com',
             'asunto'=>'Deficiencias en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name ,
@@ -249,17 +250,31 @@ class TiendaController extends Controller
             'cuerpo'=>'Se han reportado las siguientes deficiecnisad en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name
         ];
 
-        $users=User::whereIn('id',[2])->get();
+        $destinatarios=Destinatario::where('empresa','Grafitex')->get();
 
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new MailDeficiencias($details));
-            // Mail::to($user->email)->send(new MailControlrecepcion2($details));
+        $deficiencias= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
+        ->where('campaign_id',$details['campaignId'])
+        ->where('campaign_elementos.store_id',$details['storeId'])
+        ->where('campaign_elementos.estadorecepcion','<>','1')
+        ->get();
+
+        if($deficiencias->count()>0){
+            foreach ($destinatarios as $destinatario) {
+                Mail::to($destinatario->mail)->send(new MailDeficiencias($details,$deficiencias));
+                // Mail::to($user->email)->send(new MailControlrecepcion2($details));
+                $notification = array(
+                    'message' => '¡Mail de incidencias enviado!',
+                    'alert-type' => 'success',
+                );
+            }
         }
+        else
+            $notification = array(
+                'message' => 'No hay incidencias a enviar',
+                'alert-type' => 'alert',
+            );
 
-        $notification = array(
-            'message' => 'Elemento actualizado satisfactoriamente y mail enviado!',
-            'alert-type' => 'success',
-        );
+
         return redirect()->back()->with($notification);
 
 
