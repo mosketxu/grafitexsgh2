@@ -47,21 +47,21 @@ class PetiDetalle extends Component
         ];
     }
 
-    public function mount(Peticion $peticion,PeticionDetalle $petidetalle, $ruta){
+    public function mount(Peticion $peticion,PeticionDetalle $peticiondetalle, $ruta){
         $this->peticion=$peticion;
-        $this->petidetalle=$petidetalle;
-        if($petidetalle->id){
-            $this->peticion_id=$petidetalle->peticion_id;
-            $this->producto_id=$petidetalle->producto_id;
-            $this->comentario=$petidetalle->comentario;
-            $this->unidades=$petidetalle->unidades;
-            $this->preciounidad=$petidetalle->preciounidad;
-            $this->total=$petidetalle->total;
-            $this->observaciones=$petidetalle->observaciones;
-            $this->producto=Producto::find($petidetalle->producto_id);
+        $this->petidetalle=$peticiondetalle;
+        if($peticiondetalle->id){
+            $this->peticion_id=$peticiondetalle->peticion_id;
+            $this->producto_id=$peticiondetalle->producto_id;
+            $this->comentario=$peticiondetalle->comentario;
+            $this->unidades=$peticiondetalle->unidades;
+            $this->preciounidad=$peticiondetalle->preciounidad;
+            $this->total=$peticiondetalle->total;
+            $this->observaciones=$peticiondetalle->observaciones;
+            $this->producto=Producto::find($peticiondetalle->producto_id);
             $this->productodescrip=$this->producto->descripcion;
         }
-        $this->imagenes=ProductoImagen::where('producto_id',$petidetalle->producto_id)->get();
+        $this->imagenes=ProductoImagen::where('producto_id',$peticiondetalle->producto_id)->get();
     }
 
     public function render(){

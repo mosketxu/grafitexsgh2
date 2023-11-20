@@ -7,14 +7,10 @@ use App\Models\Peticion;
 
 class PeticionDetalleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->middleware('can:peticion.edit')->only('crear','edit');
     }
 
     public function crear(Peticion $peticion){
@@ -23,30 +19,13 @@ class PeticionDetalleController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PeticionDetalle  $peticionDetalle
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PeticionDetalle $peticionDetalle)
-    {
-        //
+    public function edit(Peticion $peticion, PeticionDetalle $peticiondetalle){
+        $ruta="peticiones";
+
+        return view('peticiondetalle.edit',compact('peticion','ruta','peticiondetalle'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PeticionDetalle  $peticionDetalle
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PeticionDetalle $peticionDetalle)
-    {
-        //
-    }
-
-
-    /**
+        /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\PeticionDetalle  $peticionDetalle
@@ -54,6 +33,7 @@ class PeticionDetalleController extends Controller
      */
     public function destroy(PeticionDetalle $peticionDetalle)
     {
-        //
+        dd('falta');
     }
+
 }

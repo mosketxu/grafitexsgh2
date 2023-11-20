@@ -5,10 +5,10 @@
                 <div class="flex items-center w-full">
                         <h2 class="text-lg font-semibold leading-tight text-gray-800">Listado Peticiones</h2>
                         @if($peticion->estadopeticion_id=='1' && $peticion->id)
-                            <x-button.buttongreen  onclick="location.href = '{{ route('peticiondetalle.crear',$peticion) }}'" class="ml-4">Nuevo</x-button.buttongreen>
+                            <x-button.buttongreen  onclick="location.href = '{{ route('peticiondetalle.crear',$peticion) }}'" class="py-1 ml-4">Añadir elemento</x-button.buttongreen>
                         @endif
                 </div>
-                <div class="flex w-full py-2 pl-2 text-sm text-gray-500 bg-green-100 rounded-t-md">
+                <div class="flex w-full py-2 pl-2 space-x-2 text-sm text-gray-500 bg-green-100 rounded-t-md">
                     <div class="w-2/12 font-light md:w-2/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-green-100 border-0 rounded-md" value= "{{ __('Producto') }}" /></div>
                     <div class="w-4/12 font-light md:w-4/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-green-100 border-0 rounded-md" value= "{{ __('Comentario') }}" /></div>
                     <div class="w-1/12 font-light md:flex md:w-1/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-green-100 border-0 rounded-md" value= "{{ __('Unidades') }}" /></div>
@@ -19,12 +19,12 @@
                 </div>
                 <div>
                     @forelse ($detalles as $detalle)
-                        <div class="flex items-center w-full pl-2 text-sm border-t-0 border-y" wire:loading.class.delay="opacity-50">
+                        <div class="flex items-center w-full pl-2 space-x-2 text-sm border-t-0 border-y" wire:loading.class.delay="opacity-50">
                             <div class="w-2/12 md:w-2/12 ">
-                                <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $detalle->producto->producto }}" {{$deshabilitado}}/>
+                                <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $detalle->producto->producto }}" readonly/>
                             </div>
                             <div class="w-4/12 md:w-4/12">
-                                <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $detalle->comentario }}" {{$deshabilitado}}/>
+                                <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $detalle->comentario }}" readonly/>
                             </div>
                             <div class="w-1/12 md:flex md:w-1/12">
                                 <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $detalle->unidades }}" readonly/>
@@ -44,8 +44,8 @@
                                 @endif
                             </div>
                             <div class="flex w-1/12 ml-3 space-x-3 text-right md:w-1/12">
-                                @if($peticion->estadopeticion_id=='1')
-                                    <x-icon.edit-a href="{{ route('peticiondetalle.edit',$detalle) }}" class="w-6"  title="Editar"/>
+                                @if($peticion->estadopeticion_id<'2')
+                                    <x-icon.edit-a href="{{ route('peticiondetalle.edit',[$peticion,$detalle]) }}" class="w-6"  title="Editar"/>
                                     <form action="{{route('peticiondetalle.destroy', $detalle->id )}}" method="post">
                                     @csrf
                                     @method('DELETE')

@@ -69,7 +69,7 @@ class Peti extends Component
         }
         else
         $this->solicitadopor=Auth::user()->name;
-        $this->deshabilitado=$this->peticion->estadopeticion_id!='1' ? 'disabled' : '';
+        $this->deshabilitado=$this->peticion->estadopeticion_id>'1' ? 'disabled' : '';
     }
 
     public function render(){

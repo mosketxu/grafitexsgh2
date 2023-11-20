@@ -184,7 +184,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
         //detalles
         Route::get('/detalles/{peticion}/nueva', [PeticionDetalleController::class, 'crear'])->name('peticiondetalle.crear')->middleware('can:peticion.create');
-        Route::resource('/detalles/', PeticionDetalleController::class)->names('peticiondetalle');
+        Route::get('{peticion}/detalle/{peticiondetalle}/edit', [PeticionDetalleController::class, 'edit'])->name('peticiondetalle.edit')->middleware('can:peticion.create');
+        Route::resource('/detalles/', PeticionDetalleController::class)->names('peticiondetalle')->only('destroy');
 
         //historial
         Route::get('/historial/{peticion}/nueva', [PeticionHistorialController::class, 'crear'])->name('peticionhistorial.crear')->middleware('can:peticion.create');

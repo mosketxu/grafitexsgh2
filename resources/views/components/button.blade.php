@@ -8,7 +8,7 @@
 -- Purchase here: https://tailwindui.com/
 --}}
 
-<span class="inline-flex rounded-md shadow-sm">
+<span class="inline-flex rounded-md ">
     <button
         {{ $attributes->merge([
             'type' => 'button',

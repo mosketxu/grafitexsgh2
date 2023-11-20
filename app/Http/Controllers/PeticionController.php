@@ -114,20 +114,21 @@ class PeticionController extends Controller
 
         $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
 
-        if($peticion->estadopeticion_id=='1'){
-            $peticion->estadopeticion_id='2';
-            PeticionHistorial::create([
-                'peticion_id'=>$peticion->id,
-                'user_id'=>$peticion->peticionario_id,
-                'estadopeticion_id'=>'2',
-            ]);
-            $peticion->estadopeticion_id='2';
-            $peticion->enviado='2';
-            $peticion->save();
-        }
-
         $notification='';
         if($elementos->count()>0){
+
+            if($peticion->estadopeticion_id=='1'){
+                $peticion->estadopeticion_id='2';
+                PeticionHistorial::create([
+                    'peticion_id'=>$peticion->id,
+                    'user_id'=>$peticion->peticionario_id,
+                    'estadopeticion_id'=>'2',
+                ]);
+                $peticion->estadopeticion_id='2';
+                $peticion->enviado='2';
+                $peticion->save();
+            }
+
             foreach ($destinatarios as $destinatario) {
                 Mail::to($destinatario->mail)->send(new MailPeticion($details,$elementos,$peticion));
                 // Mail::to($user->email)->send(new MailControlrecepcion2($details));

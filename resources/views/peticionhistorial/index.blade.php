@@ -44,7 +44,13 @@
             </div>
         </div>
         <div class="">
-            @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
+            @if(!is_null($peticion->estado))
+                @if(Auth::user()->hasRole('Tienda'))
+                    @if($peticion->estado>3)
+                        @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
+                    @endif
+                @endif
+            @endif
         </div>
     </div>
 </div>
