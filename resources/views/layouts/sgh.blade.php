@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'GrafitexSgh V2') }}</title>
+        <title>{{ config('app.name', 'GrafitexSgh') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -42,15 +42,7 @@
             <div class="bg-gray-500"></div>
             <div class="bg-orange-500"></div>
 
-            @if(Auth::user()->hasRole('tienda'))
-            @livewire('menu.navigation-menu-tienda')
-            @elseif(Auth::user()->hasRole('sgh'))
-            @livewire('menu.navigation-menu-sgh')
-            @elseif(Auth::user()->hasRole('montador'))
-            @livewire('menu.navigation-menu-montador')
-            @else
             @livewire('navigation-menu')
-            @endif
 
             <!-- Page Heading -->
             @if (isset($header))
