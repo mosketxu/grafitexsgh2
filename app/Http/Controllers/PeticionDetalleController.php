@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\PeticionDetalle;
-use App\Http\Requests\StorePeticionDetalleRequest;
-use App\Http\Requests\UpdatePeticionDetalleRequest;
 use App\Models\Peticion;
 
 class PeticionDetalleController extends Controller

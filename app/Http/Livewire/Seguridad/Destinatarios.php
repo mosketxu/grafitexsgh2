@@ -25,7 +25,7 @@ class Destinatarios extends Component
     public $campo1visible=1;
     public $campo2visible=1;
     public $campo3visible=1;
-    public $editarvisible=1;
+    public $editarvisible=0;
     public $search='';
 
     protected $listeners = [ 'refresh' => '$refresh'];
@@ -33,7 +33,7 @@ class Destinatarios extends Component
     protected function rules()
     {
         return [
-            'valorcampo1'=>'required|unique:users,name',
+            'valorcampo1'=>'required|unique:destinatarios,name',
             'valorcampo2'=>'email|required|unique:destinatarios,mail',
             'valorcampo3'=>'required',
         ];

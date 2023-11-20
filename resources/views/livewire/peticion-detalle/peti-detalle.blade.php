@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="w-6/12 text-right">
-                @can('producto.create')
+                @can('peticion.create')
                     <x-button.button  onclick="location.href = '{{ route('peticiondetalle.crear',$peticion) }}'" color="green">Nuevo</x-button.button>
                 @endcan
             </div>
@@ -74,7 +74,7 @@
                         @can('peticion.edit')
                         <x-jet-button class="bg-blue-600">{{ __('Guardar') }}</x-jet-button>
                         @endcan
-                        <x-jet-secondary-button  onclick="location.href = '{{route('peticion.index' )}}'">{{ __('Volver') }}</x-jet-secondary-button>
+                        <x-jet-secondary-button  onclick="location.href = '{{route('peticion.editar',$peticion )}}'">{{ __('Volver') }}</x-jet-secondary-button>
                     </div>
                 </div>
             </form>
@@ -83,7 +83,7 @@
             <div class="w-full form-item">
                 <x-jet-label class="pl-2" for="descripcion">{{ __('Descripción del producto') }}</x-jet-label>
                 <textarea name="" wire:model.defer="productodescrip" id=""  rows="2"
-                class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+                class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" disabled></textarea>
                 <x-jet-input-error for="descripcion" class="mt-2" />
             </div>
             <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-3 lg:grid-cols-5">

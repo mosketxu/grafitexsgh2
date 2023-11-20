@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PeticionEstado extends Model
+class EstadoPeticion extends Model
 {
     use HasFactory;
 
-    protected $table = 'peticiones_estado';
-    protected $fillable=['peticionestado'];
+    protected $table = 'estados_peticion';
+    protected $fillable=['estadopeticion','validador'];
 
     public function peticion(){ return $this->belongsTo(Peticion::class);}
 

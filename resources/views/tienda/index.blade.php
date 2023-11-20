@@ -12,7 +12,7 @@
             <div class="max-w-full mx-auto">
                 <div class="flex space-x-4">
                     <x-button.primary
-                        onclick="location.href = '{{ route('tienda.peticion' ) }}'">
+                        onclick="location.href = '{{ route('peticion.index' ) }}'">
                         Petición de material
                     </x-button.primary>
 

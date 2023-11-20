@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('peticion', 100);
             $table->foreignId('peticionario_id')->constrained('users');
-            $table->foreignId('peticionestado_id');
+            $table->foreignId('estadopeticion_id')->constrained('estados_peticion');;
             $table->date('fecha');
             $table->decimal('total', 8, 2)->default(0.00);
+            $table->boolean('enviado')->default('0');
             $table->string('observaciones')->nullable();
             $table->timestamps();
         });

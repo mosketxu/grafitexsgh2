@@ -8,63 +8,55 @@
                 @include('peticion.peticionfilters')
             </div>
             {{-- tabla peticions --}}
-            <div class="flex-col space-y-4">
-                <div>
-                    <div class="flex w-full py-2 pl-2 text-sm text-gray-500 bg-blue-100 rounded-t-md">
-                        <div class="w-1/12 font-light md:w-1/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Nº') }}" /></div>
-                        <div class="w-2/12 font-light md:w-2/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Petición') }}" /></div>
-                        <div class="w-1/12 font-light md:w-1/12" ><input type="text" class="w-full py-0 text-sm text-center text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Solicitada por') }}" /></div>
-                        <div class="w-1/12 font-light md:flex md:w-1/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Fecha') }}" /></div>
-                        <div class="w-1/12 font-light md:w-1/12" ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Total') }}" /></div>
-                        <div class="w-4/12 font-light " ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Observaciones') }} " /></div>
-                        <div class="w-1/12 font-light " ><input type="text" class="w-full py-0 text-sm text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Estado') }} " /></div>
-                        <div class="w-1/12 md:w-1/12" ></div>
+            <div class="">
+                <div class="flex">
+                    <div class="flex w-11/12 pl-2 space-x-2 text-sm text-black bg-blue-100 rounded-tl-md">
+                        <div class="w-1/12 font-light md:w-1/12" ><x-input.text class="w-full text-sm text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Nº') }}" disabled/></div>
+                        <div class="w-2/12 font-light md:w-2/12" ><x-input.text class="w-full text-sm text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Petición') }}"  disabled /></div>
+                        <div class="w-1/12 font-light md:w-1/12" ><x-input.text class="w-full text-sm text-center text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Solicitada por') }}"  disabled /></div>
+                        <div class="w-1/12 font-light md:w-1/12" ><x-input.text class="w-full text-sm text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Fecha') }}"  disabled/></div>
+                        <div class="w-1/12 font-light md:w-1/12" ><x-input.text class="w-full text-sm text-right text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Total') }}"  disabled/></div>
+                        <div class="w-4/12 font-light md:w-4/12" ><x-input.text class="w-full text-sm text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Observaciones') }} "  disabled /></div>
+                        <div class="w-2/12 font-light md:w-2/12" ><x-input.text class="w-full text-sm text-gray-500 bg-blue-100 border-blue-100 rounded-md" value="{{ __('Estado') }} "  disabled/></div>
                     </div>
-                    <div>
-                        @forelse ($peticiones as $peticion)
-                            <div class="flex items-center w-full pl-2 text-sm border-t-0 border-y" wire:loading.class.delay="opacity-50">
-                                <div class="w-1/12 md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->id }}" readonly/>
-                                </div>
-                                <div class="w-2/12 md:w-2/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->peticion }}" readonly/>
-                                </div>
-                                <div class="w-1/12 md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->peticionario->name ?? '-' }}" readonly/>
-                                </div>
-                                <div class="w-1/12 md:flex md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->fecha }}"  readonly/>
-                                </div>
-                                <div class="w-1/12 md:flex md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-right text-gray-500 border-0 rounded-md" value="{{ $peticion->total }}"  readonly/>
-                                </div>
-                                <div class="w-4/12 md:flex md:w-4/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->observaciones }}"  readonly/>
-                                </div>
-                                <div class="w-1/12 md:flex md:w-1/12">
-                                    <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $peticion->estado->peticionestado ?? '-' }}"  readonly/>
-                                </div>
-                                <div class="flex w-1/12 ml-3 space-x-3 text-right md:w-1/12">
-                                    <x-icon.edit-a href="{{ route('peticion.editar',$peticion) }}" class="w-6"  title="Editar"/>
-                                    @can('peticion.delete')
-                                        <x-icon.trash-a class="w-5 text-red-500" wire:click.prevent="delete({{ $peticion->id }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()"/>
-                                    @endcan
-                                </div>
-                            </div>
-                        @empty
-                            <div>
-                                <div colspan="10">
-                                    <div class="flex items-center justify-center">
-                                        <x-icon.inbox class="w-8 h-8 text-gray-300"/>
-                                        <span class="py-5 text-xl font-medium text-gray-500">
-                                            No se han encontrado datos...
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforelse
+                    <div class="flex w-1/12 pl-2 text-sm text-black bg-blue-100 rounded-tr-md">
+                        {{-- <div class="">#</div> --}}
                     </div>
                 </div>
+                <div>
+                @forelse ($peticiones as $peticion)
+                <div class="flex items-center " wire:loading.class.delay="opacity-50">
+                    <div onclick="location.href = '{{ route('peticion.editar',$peticion) }}'"
+                        class="flex items-center w-11/12 pl-2 space-x-2 text-sm text-black cursor-pointer">
+                        <div class="w-1/12 cursor-pointer md:w-1/12"><x-input.text class="w-full text-sm font-thin text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->id }}" readonly/></div>
+                        <div class="w-2/12 cursor-pointer md:w-2/12"><x-input.text class="w-full text-sm font-thin text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->peticion }}" readonly/></div>
+                        <div class="w-1/12 cursor-pointer md:w-1/12"><x-input.text class="w-full text-sm font-thin text-center text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->peticionario->name ?? '-' }}" readonly/></div>
+                        <div class="w-1/12 cursor-pointer md:w-1/12"><x-input.text class="w-full text-sm font-thin text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->fechapre }}"  readonly/></div>
+                        <div class="w-1/12 cursor-pointer md:w-1/12"><x-input.text class="w-full text-sm font-thin text-right text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->total }}"  readonly/></div>
+                        <div class="w-4/12 cursor-pointer md:w-4/12"><x-input.text class="w-full text-sm font-thin text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->observaciones }}"  readonly/></div>
+                        <div class="w-2/12 cursor-pointer md:w-2/12"><x-input.text class="w-full text-sm font-thin text-gray-500 border-0 rounded-md cursor-pointer" value="{{ $peticion->estado->estadopeticion ?? '-' }}"  readonly/></div>
+                    </div>
+                    <div class="flex w-1/12 pl-2 text-sm text-center text-black ">
+                        {{-- <x-icon.edit-a href="{{ route('peticion.editar',$peticion) }}" class="w-6"  title="Editar"/> --}}
+                        @can('peticion.delete')
+                        <div class="items-center mx-auto text-center">
+                            <x-icon.trash-a class="w-5 text-red-500" wire:click.prevent="delete({{ $peticion->id }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()"/>
+                            </div>
+                        @endcan
+                    </div>
+                </div>
+                @empty
+                <div>
+                    <div colspan="10">
+                        <div class="flex items-center justify-center">
+                            <x-icon.inbox class="w-8 h-8 text-gray-300"/>
+                            <span class="py-5 text-xl font-medium text-gray-500">
+                                No se han encontrado datos...
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @endforelse
             </div>
         </div>
     </div>

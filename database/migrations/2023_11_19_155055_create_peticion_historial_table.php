@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('peticiones_estado', function (Blueprint $table) {
+        Schema::create('peticion_historial', function (Blueprint $table) {
             $table->id();
-            $table->string('peticionestado');
+            $table->foreignId('peticion_id')->constrained('peticiones')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('estadopeticion_id')->constrained('estados_peticion');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_peticiones_estado');
+        Schema::dropIfExists('peticion_historial');
     }
 };

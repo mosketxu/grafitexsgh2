@@ -22,7 +22,7 @@
                     class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-gray-400 focus:outline-none">
                     <option value="">-- selecciona --</option>
                     @foreach ($estados as $estado)
-                        <option value={{ $estado->id }}>{{ $estado->peticionestado }}</option>
+                        <option value={{ $estado->id }}>{{ $estado->estadopeticion }}</option>
                     @endforeach
                 </select>
                 @if($filtroestado!='')

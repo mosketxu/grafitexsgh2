@@ -7,7 +7,7 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
     MaestroController, MontadorController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController};
 use App\Mail\MailControlrecepcion2;
 use Illuminate\Support\Facades\Mail;
 
@@ -148,7 +148,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
         Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
         Route::get('tienda/recepcion',[TiendaController::class,'recepcion'])->name('tienda.recepcion')->middleware('can:tiendas.index');
-        Route::get('tienda/peticion',[TiendaController::class,'peticion'])->name('tienda.peticion')->middleware('can:tiendas.index');
+        // Route::get('tienda/peticion',[TiendaController::class,'peticion'])->name('tienda.peticion')->middleware('can:tiendas.index');
         Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
 
     // tienda montador
@@ -178,11 +178,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     // Peticiones
     Route::group(['prefix' => 'peticiones'], function () {
+        Route::get  ('peticion/{peticion}/mail',[PeticionController::class,'enviopeticion'])->name('peticion.enviopeticion')->middleware('can:peticion.edit');
         Route::get('/peticion/{peticion}/edit', [PeticionController::class, 'editar'])->name('peticion.editar')->middleware('can:peticion.edit');
         Route::resource('/', PeticionController::class)->names('peticion');
 
+        //detalles
         Route::get('/detalles/{peticion}/nueva', [PeticionDetalleController::class, 'crear'])->name('peticiondetalle.crear')->middleware('can:peticion.create');
         Route::resource('/detalles/', PeticionDetalleController::class)->names('peticiondetalle');
+
+        //historial
+        Route::get('/historial/{peticion}/nueva', [PeticionHistorialController::class, 'crear'])->name('peticionhistorial.crear')->middleware('can:peticion.create');
+        Route::resource('/historial/', PeticionHistorialController::class)->names('peticionhistorial');
     });
 
     //Mails

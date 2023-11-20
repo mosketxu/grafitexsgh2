@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailPeticion;
+use App\Models\Destinatario;
 use App\Models\Peticion;
-
+use App\Models\PeticionDetalle;
+use App\Models\PeticionHistorial;
+use App\Models\Store;
+use App\Models\User;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use \PDF;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -87,5 +93,58 @@ class PeticionController extends Controller
     public function destroy(Peticion $peticion)
     {
         //
+    }
+
+    public function enviopeticion(Peticion $peticion){
+        if(Auth::user()->hasRole('tienda')){
+            $store=Store::where('id',Auth::user()->name)->first();
+        }else{
+            $store="analizar este caso";
+        }
+        $details=[
+            'de'=>'alex.arregui@sumaempresa.com',
+            'asunto'=>'Nueva peticion nº:' .$peticion->id . ' de la Tienda: ' . $store->name ,
+            'cuerpo'=>'peticion',
+            'storename'=>$store->name,
+            'storeId'=>$store->id,
+            'cuerpo'=>'Se han generado una nueva petición'
+        ];
+
+        $destinatarios=Destinatario::where('empresa','SGH')->get();
+
+        $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
+
+        if($peticion->estadopeticion_id=='1'){
+            $peticion->estadopeticion_id='2';
+            PeticionHistorial::create([
+                'peticion_id'=>$peticion->id,
+                'user_id'=>$peticion->peticionario_id,
+                'estadopeticion_id'=>'2',
+            ]);
+            $peticion->estadopeticion_id='2';
+            $peticion->enviado='2';
+            $peticion->save();
+        }
+
+        $notification='';
+        if($elementos->count()>0){
+            foreach ($destinatarios as $destinatario) {
+                Mail::to($destinatario->mail)->send(new MailPeticion($details,$elementos,$peticion));
+                // Mail::to($user->email)->send(new MailControlrecepcion2($details));
+                $notification = array(
+                    'message' => '¡Mail de peticion enviado!',
+                    'alert-type' => 'success',
+                );
+            }
+        }
+        else{
+            $notification = array(
+                'message' => 'No hay elementos en la petición. Debe seleccionar al menos uno para poder enviar la petición',
+                'alert-type' => 'alarm',
+            );
+
+        }
+        return redirect()->back()->with($notification);
+
     }
 }

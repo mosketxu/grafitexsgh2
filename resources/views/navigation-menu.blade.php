@@ -58,15 +58,15 @@
                 @endcan
                 @can('peticion.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        @if(Auth::user()->hasRole('tienda'))
+                        {{-- @if(Auth::user()->hasRole('tienda'))
                         <x-jet-nav-link  href="{{route('tienda.peticion') }}" :active="request()->routeIs('tienda.peticion')">
                             {{ __('Peticiones') }}
                         </x-jet-nav-link>
-                        @else
+                        @else --}}
                         <x-jet-nav-link  href="{{route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
                             {{ __('Peticiones') }}
                         </x-jet-nav-link>
-                        @endif
+                        {{-- @endif --}}
                     </div>
                 @endcan
                 @can('auxiliares.index')
@@ -227,15 +227,16 @@
             </x-jet-responsive-nav-link>
             @endcan
             @can('peticion.index')
+            {{--
                 @if(Auth::user()->hasRole('tienda'))
                 <x-jet-responsive-nav-link href="{{ route('tienda.peticion') }}" :active="request()->routeIs('tienda.peticion')">
                     {{ __('Peticiones') }}
                 </x-jet-responsive-nav-link>
-            @else
+            @else --}}
                 <x-jet-responsive-nav-link href="{{ route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
                     {{ __('Peticiones') }}
                 </x-jet-responsive-nav-link>
-            @endif
+            {{-- @endif --}}
             @endcan
             @can('auxiliares.index')
             <x-jet-responsive-nav-link href="{{ route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">

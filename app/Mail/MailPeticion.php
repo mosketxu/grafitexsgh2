@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\CampaignElemento;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,25 +10,24 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MailDeficiencias extends Mailable
+class MailPeticion extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $details;
-    public $deficiencias;
-    public $campaigntienda;
+    public $elementos;
+    public $peticion;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details,$deficiencias)
+    public function __construct($details,$elementos,$peticion)
     {
         $this->details=$details;
-        $this->deficiencias=$deficiencias;
-        $this->campaigntienda=$this->deficiencias->first()->tienda_id;
-
+        $this->elementos=$elementos;
+        $this->peticion=$peticion;
     }
 
     /**
@@ -50,9 +48,12 @@ class MailDeficiencias extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
-    public function content(){
-            return new Content(markdown: 'mail.deficiencias',);
-}
+    public function content()
+    {
+        return new Content(
+            markdown: 'mail.peticion',
+        );
+    }
 
     /**
      * Get the attachments for the message.

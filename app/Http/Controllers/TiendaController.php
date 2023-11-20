@@ -26,6 +26,7 @@ class TiendaController extends Controller
 
         return view('tienda.index',compact('store'));
     }
+
     public function recepcion(Request $request){
         $busqueda = '';
         if ($request->busca) $busqueda = $request->busca;
@@ -47,26 +48,8 @@ class TiendaController extends Controller
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
 
-    public function peticion(Request $request){
-        dd('peti');
-        $busqueda = '';
-        if ($request->busca) $busqueda = $request->busca;
-
-        $storeId=(auth()->user()->name);
-        $store=Store::find(auth()->user()->name);
-
-        $campaigns=Campaign::search2($request->busca)
-            ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-            ->paginate(15);
-
-        $campaigns=CampaignTienda::with('campaign')
-            ->search2($request->busca)
-            ->where('store_id',$storeId)
-            // ->groupBy('campaign_id')
-            ->paginate(15);
-            // dd($campaigns);
-
-        return view('tienda.indexpeticion',compact('campaigns','store','busqueda'));
+    public function peticion(){
+        return view('peticion.index');
     }
 
     public function indexmontador(Request $request, $user){
@@ -247,7 +230,7 @@ class TiendaController extends Controller
             'campaignname'=>$campaign->campaign_name,
             'storename'=>$store->name,
             'storeId'=>$store->id,
-            'cuerpo'=>'Se han reportado las siguientes deficiecnisad en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name
+            'cuerpo'=>'Se han reportado las siguientes deficiencias en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name
         ];
 
         $destinatarios=Destinatario::where('empresa','Grafitex')->get();

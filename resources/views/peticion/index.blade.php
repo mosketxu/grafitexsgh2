@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-10/12">
-                @can('entidad.create')
+                @can('peticion.create')
                     @include('peticion.menu_peticion')
                 @endcan
             </div>

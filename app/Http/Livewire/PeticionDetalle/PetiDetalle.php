@@ -62,8 +62,8 @@ class PetiDetalle extends Component
             $this->productodescrip=$this->producto->descripcion;
         }
         $this->imagenes=ProductoImagen::where('producto_id',$petidetalle->producto_id)->get();
-        // $this->deshabilitado=Auth::user()->hasRole(['tienda','sgh']) ? 'disabled' : '';
     }
+
     public function render(){
         $productos=Producto::with('imagenes')->where('activo','1')->get();
         return view('livewire.peticion-detalle.peti-detalle',compact(['productos']));
