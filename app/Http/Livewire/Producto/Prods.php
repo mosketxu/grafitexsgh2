@@ -26,8 +26,6 @@ class Prods extends Component
                 })
             ->orderBy('producto','asc')
             ->get();
-        // $p=$productos->find('9');
-        // dd($p->imagenes->first()->imagen);
 
         return view('livewire.producto.prods',compact(['productos']));
     }

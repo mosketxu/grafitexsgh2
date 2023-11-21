@@ -169,6 +169,7 @@ class TiendaController extends Controller
         $ok='';
         $ko='';
 
+
         if ($request->busca) $busqueda = $request->busca;
         if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
         if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
@@ -186,6 +187,7 @@ class TiendaController extends Controller
         // ->first();
         ->get();
 
+        // dd($stores->elementos);
         return view('tienda.indexcontroltienda',compact('campaign','stores','ok','ko'));
     }
 

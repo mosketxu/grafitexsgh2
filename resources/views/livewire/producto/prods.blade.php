@@ -44,7 +44,9 @@
                                     @endif
                                 </div>
                                 <div class="flex w-1/12 ml-3 space-x-3 text-right md:w-1/12">
+                                    @can('producto.edit')
                                         <x-icon.edit-a href="{{ route('producto.editar',$producto) }}" class="w-6"  title="Editar"/>
+                                    @endif
                                     @can('producto.delete')
                                         <x-icon.trash-a class="w-5 text-red-500" wire:click.prevent="delete({{ $producto->id }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()"/>
                                     @endcan

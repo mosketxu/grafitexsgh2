@@ -55,12 +55,12 @@
                 <div class="w-1/12">{{$elemento->material}}</div>
                 <div class="w-1/12">{{$elemento->unitxprop}}</div>
                 <div class="w-1/12">
-                    @if($elemento->OK=='1')
+                    @if($elemento->estadorecepcion=='1')
                         <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
-                    @elseif($elemento->KO=='1')
-                        <x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>
                     @else
-                        <x-icon.question class="w-2 mb-1 text-black"/>
+                        <x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>
+                    {{-- @else
+                        <x-icon.question class="w-2 mb-1 text-black"/> --}}
                     @endif
                 </div>
                 <div class="flex-none w-3/12 lg:flex">
@@ -73,7 +73,7 @@
                             alt={{$elemento->imagen}} title={{$elemento->imagen}} id="original"
                             class="p-1 mx-auto border-2 rounded-md shadow-md" style="height: 60px"/>
                     @else
-                        <img src="{{asset('storage/pordefecto.jpg')}}" alt={{$elemento->imagen}}
+                        <img src="{{asset('storage/galeria/pordefecto.jpg')}}" alt={{$elemento->imagen}}
                             title={{$elemento->imagen}} id="original" class="p-1 mx-auto border-2 rounded-md shadow-md"
                             style="height: 60px"/>
                     @endif

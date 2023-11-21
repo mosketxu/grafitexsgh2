@@ -14,37 +14,8 @@
                     @endcan
                 </div>
                 <!-- Navigation Links -->
-                <div class="relative mt-3 ml-3">
-                    <x-jet-dropdown align="right" >
-                        <x-slot name="trigger">
-                            <span class="inline-flex rounded-md">
-                                <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
-                                    Mantenimiento
-                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </span>
-                        </x-slot>
-                        <x-slot name="content">
-                            @can('stores.index')
-                            <div class="w-44">
-                                <x-jet-nav-link  href="{{route('stores.index') }}" :active="request()->routeIs('stores.index')">
-                                    {{ __('Stores') }}
-                                </x-jet-nav-link>
-                            </div>
-                            @endcan
-                            @can('elemento.index')
-                            <div class="w-44">
-                                <x-jet-nav-link  href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
-                                    {{ __('Elementos') }}
-                                </x-jet-nav-link>
-                            </div>
-                            @endcan
-                        </x-slot>
-                    </x-jet-dropdown>
-                </div>
-                <div class="relative mt-3 ml-3">
+
+                <div class="relative mt-3 ml-12">
                     <x-jet-dropdown align="right" >
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
@@ -58,19 +29,33 @@
                         </x-slot>
                         <x-slot name="content">
                             @can('campaign.index')
-                            <div class="w-44">
+                            <div class="text-right w-44">
                                 <x-jet-nav-link  href="{{route('campaign.index') }}" :active="request()->routeIs('campaign.index')">
                                     {{ __('Campañas') }}
                                 </x-jet-nav-link>
                             </div>
                             @endcan
-                            <div class="w-44">
+                            <div class="text-right w-44 ">
                                 <x-jet-nav-link  href="{{route('tienda.control') }}" :active="request()->routeIs('tienda.control')">
                                     {{ __('Control recepción') }}
                                 </x-jet-nav-link>
                             </div>
+                            @can('stores.index')
+                            <div class="text-right w-44">
+                                <x-jet-nav-link  href="{{route('stores.index') }}" :active="request()->routeIs('stores.index')">
+                                    {{ __('Stores') }}
+                                </x-jet-nav-link>
+                            </div>
+                            @endcan
+                            @can('elemento.index')
+                            <div class="text-right w-44">
+                                <x-jet-nav-link  href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
+                                    {{ __('Elementos') }}
+                                </x-jet-nav-link>
+                            </div>
+                            @endcan
                             @can('auxiliares.index')
-                            <div class="w-44">
+                            <div class="text-right w-44 ">
                                 <x-jet-nav-link  href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
                                     {{ __('Auxiliares') }}
                                 </x-jet-nav-link>
@@ -79,7 +64,7 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
-                <div class="relative mt-3 ml-3">
+                <div class="relative mt-3 ml-6">
                     <x-jet-dropdown align="right" >
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
@@ -93,14 +78,14 @@
                         </x-slot>
                         <x-slot name="content">
                             @can('producto.index')
-                            <div class="w-44">
+                            <div class="text-right w-44">
                                 <x-jet-nav-link  href="{{route('producto.index') }}" :active="request()->routeIs('producto.index')">
                                     {{ __('Productos') }}
                                 </x-jet-nav-link>
                             </div>
                             @endcan
                             @can('peticion.index')
-                            <div class="w-44">
+                            <div class="text-right w-44">
                                 <x-jet-nav-link  href="{{route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
                                     {{ __('Peticiones') }}
                                 </x-jet-nav-link>
@@ -109,6 +94,7 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
