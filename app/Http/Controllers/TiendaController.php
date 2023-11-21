@@ -41,9 +41,7 @@ class TiendaController extends Controller
         $campaigns=CampaignTienda::with('campaign')
             ->search2($request->busca)
             ->where('store_id',$storeId)
-            // ->groupBy('campaign_id')
             ->paginate(15);
-            // dd($campaigns);
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
@@ -99,8 +97,6 @@ class TiendaController extends Controller
         ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion','OK','KO')
         ->get();
-        // ->paginate(10);
-        // dd($elementos);
 
         $estadosrecep=EstadoRecepcion::get();
 
@@ -133,25 +129,38 @@ class TiendaController extends Controller
     }
 
     public function control(Request $request){
-        $busqueda='';
         $ok='';
         $ko='';
-        if ($request->busca) $busqueda = $request->busca;
+        $busqueda = $request->busca ? $request->busca : '';
         if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
         if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
 
 
-        $campaigns=CampaignTienda::with('campaign')
-        ->when($ok!='',function ($q){
-            $q->whereHas('elementos', function ($query) {$query->where('OK', '1');});
-        })
-        ->when($ko!='',function ($q){
-            $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
-        })
-        ->groupBy('campaign_id')
+        // $campaigns=CampaignTienda::with('campaign')
+        // ->search2($request->busca)
+        // ->when($ok!='',function ($q){
+        //     $q->whereHas('elementos', function ($query) {$query->where('OK', '1');});
+        // })
+        // ->when($ko!='',function ($q){
+        //     $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
+        // })
+        // // ->groupBy('campaign_id')
+        // ->paginate(15);
+
+        $campaigns=Campaign::join('campaign_tiendas','campaign_tiendas.campaign_id','campaigns.id')
+        ->join('campaign_elementos','campaign_tiendas.id','campaign_elementos.tienda_id')
+        ->select('campaigns.id as campaignId','campaigns.campaign_name',
+            'campaigns.campaign_initdate','campaigns.campaign_enddate','campaigns.fechaentregatienda',
+            'campaigns.fechainstal1','campaigns.montaje1','campaigns.fechainstal2','campaigns.montaje2','campaigns.fechainstal3','campaigns.montaje3',
+            DB::raw('SUM(campaign_elementos.ok) as tOK'),DB::raw('SUM(campaign_elementos.ko) as tKO'))
+            ->groupBy('campaignId',
+            'campaigns.campaign_initdate','campaigns.campaign_enddate','campaigns.fechaentregatienda',
+            'campaigns.fechainstal1','campaigns.montaje1','campaigns.fechainstal2','campaigns.montaje2','campaigns.fechainstal3','campaigns.montaje3'
+            )
+        ->search2($request->busca)
+        ->when($ok!='',function ($q){$q->having('tOK', '>','0');})
+        ->when($ko!='',function ($q){$q->having('tKO', '>','0');})
         ->paginate(15);
-
-
 
         return view('tienda.indexcontrol',compact('campaigns','busqueda','ok','ko'));
     }
@@ -159,6 +168,7 @@ class TiendaController extends Controller
     public function controlstores($campaignId,Request $request){
         $ok='';
         $ko='';
+
         if ($request->busca) $busqueda = $request->busca;
         if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
         if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
@@ -173,6 +183,7 @@ class TiendaController extends Controller
             $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
         })
         ->where('campaign_id',$campaignId)
+        // ->first();
         ->get();
 
         return view('tienda.indexcontroltienda',compact('campaign','stores','ok','ko'));
@@ -194,13 +205,21 @@ class TiendaController extends Controller
         ];
         $this->validate($request, $rules, $messages);
 
+        if($request->estadorecepcion=='1'){
+            $OK='1';
+            $KO='0';}
+        else{
+            $OK='0';
+            $KO='1';
+        }
+
         CampaignStore::join('campaign_elementos','campaign_elementos.store_id','campaign_stores.store_id')
             ->where('campaign_stores.campaign_id',$request->campaignId)
             ->where('campaign_elementos.id',$request->elementoId)
             ->update([
                 'estadorecepcion'=>$request->estadorecepcion,
-                'OK'=>$request->estadorecepcion==1 ? '1' : '0',
-                'KO'=>$request->estadorecepcion>1 ? '1' : '0',
+                'OK'=>$OK,
+                'KO'=>$KO,
                 'obsrecepcion'=>$request->obsrecepcion,
                 'updated_by'=>auth()->user()->id,
                 'fecharecepcion'=>now(),

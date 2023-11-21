@@ -19,9 +19,6 @@
             <div class="w-3/12">eMail</div>
             <div class="w-1/12 text-center ">nº Elementos</div>
             <div class="flex-none w-3/12 text-center lg:flex ">
-                {{-- <div class="flex w-full ml-2">
-                    <x-icon.question class="w-2 mb-1 text-black "/>
-                </div> --}}
                 <div class="flex w-full ml-2">
                     <x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>
                     <input type="checkbox" {{ $ok=="1" ? 'checked' : '' }} name="ok" value="ok" class="mt-1" onclick="event.preventDefault(); this.closest('form').submit();"/>
@@ -36,6 +33,7 @@
         @foreach ($stores as $store)
         {{-- {{ $store }} --}}
             <div onclick="location.href = '{{ route('tienda.show',[$store]) }}'"
+            {{-- <div onclick="location.href = '{{ route('tienda.show',[$store->camptiendastoreId]) }}'" --}}
                 class="flex w-full py-1 text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
                 <div class="w-1/12 pl-2">{{$store->tienda->luxotica}}</div>
                 <div class="w-1/12">{{$store->tienda->id}}</div>
@@ -44,7 +42,9 @@
                 <div class="w-1/12 text-center">{{$store->elementos_count}}</div>
                 <div class="flex-none w-3/12 text-center lg:flex ">
                     {{-- <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$store->elementos_count-$store->elementosok_count-$store->elementosko_count}}</div> --}}
+                    {{-- <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$store->elementos->sum('OK')}}</div> --}}
                     <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$store->elementosok_count}}</div>
+                    {{-- <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$store->elementos->sum('KO')}}</div> --}}
                     <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$store->elementosko_count}}</div>
                 </div>
                 {{-- <div class="w-1/12 pr-2 text-right">{{$store->elementos_count-$store->elementosok_count-$store->elementosko_count}}</div>

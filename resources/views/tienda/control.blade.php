@@ -50,36 +50,36 @@
             </form>
             @foreach($campaigns as $campaign)
             @can('tiendas.index')
-                <div onclick="location.href = '{{ route('tienda.controlstores',$campaign->campaign) }}'" class="flex w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
+                <div onclick="location.href = '{{ route('tienda.controlstores',$campaign->campaignId) }}'" class="flex w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
             @else
                 <div class="flex w-full text-sm text-gray-500 border-t-0 border-b hover:bg-gray-100 ">
             @endcan
                 {{-- <div class="w-1/12 pl-2 text-left">{{$campaign->campaign->id}}</div> --}}
-                <div class="w-3/12 pl-2 text-left ">{{$campaign->campaign->campaign_name}}</div>
+                <div class="w-3/12 pl-2 text-left ">{{$campaign->campaign_name}}</div>
                 <div class="flex-none w-2/12 lg:flex ">
-                    <div class="w-full text-center text-blue-500 lg:w-6/12">{{$campaign->campaign->campaign_initdate}}</div>
-                    <div class="w-full text-center text-green-500 lg:w-6/12">{{$campaign->campaign->campaign_enddate}}</div>
-                    <div class="w-full text-center text-orange-500 lg:w-6/12">{{$campaign->campaign->fechaentregatienda}}</div>
+                    <div class="w-full text-center text-blue-500 lg:w-6/12">{{$campaign->campaign_initdate}}</div>
+                    <div class="w-full text-center text-green-500 lg:w-6/12">{{$campaign->campaign_enddate}}</div>
+                    <div class="w-full text-center text-orange-500 lg:w-6/12">{{$campaign->fechaentregatienda}}</div>
                 </div>
                 <div class="flex-none w-3/12 text-center lg:flex ">
                     <div class="w-full text-center lg:w-4/12">
-                        <div class="text-center ">{{$campaign->campaign->fechainstal1}}</div>
-                        <div class="text-center ">{{ $campaign->campaign->montaje1  }}</div>
+                        <div class="text-center ">{{$campaign->fechainstal1}}</div>
+                        <div class="text-center ">{{ $campaign->montaje1  }}</div>
                     </div>
                     <div class="w-full text-center lg:w-4/12">
-                        <div class="text-center ">{{$campaign->campaign->fechainstal2}}</div>
-                        <div class="text-center ">{{ $campaign->campaign->montaje2  }}</div>
+                        <div class="text-center ">{{$campaign->fechainstal2}}</div>
+                        <div class="text-center ">{{ $campaign->montaje2  }}</div>
                     </div>
                     <div class="w-full text-center lg:w-4/12">
-                        <div class="text-center ">{{$campaign->campaign->fechainstal3}}</div>
-                        <div class="text-center ">{{ $campaign->campaign->montaje3  }}</div>
+                        <div class="text-center ">{{$campaign->fechainstal3}}</div>
+                        <div class="text-center ">{{ $campaign->montaje3  }}</div>
                     </div>
                 </div>
                 <div class="w-1/12 text-center ">{{$campaign->elementos_count}}</div>
                 <div class="flex-none w-3/12 text-center lg:flex ">
-                    <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$campaign->elementos_count-$campaign->elementosok_count-$campaign->elementosko_count}}</div>
-                    <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$campaign->elementosok_count}}</div>
-                    <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$campaign->elementosko_count}}</div>
+                    {{-- <div class="flex w-full ml-2"><x-icon.question class="w-2 mb-1 text-black "/>{{$campaign->elementos_count-$campaign->elementosok_count-$campaign->elementosko_count}}</div> --}}
+                    <div class="flex w-full ml-2"><x-icon.thumbs-up  class="w-4 mb-1 text-green-500"/>{{$campaign->tOK}}</div>
+                    <div class="flex w-full ml-2"><x-icon.thumbs-down  class="w-4 mb-1 text-red-500"/>{{$campaign->tKO}}</div>
                 </div>
             </div>
             @endforeach

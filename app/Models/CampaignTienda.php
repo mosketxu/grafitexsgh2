@@ -21,8 +21,9 @@ class CampaignTienda extends Model
     public function galeria(){return $this->hasMany(CampaignTiendaGaleria::class, 'campaigntienda_id', 'id');}
 
     protected function getElementosCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count();}
-    protected function getElementosokCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('OK','1');}
-    protected function getElementoskoCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('KO','1');}
+    // protected function getElementosokCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('OK','1');}
+    protected function getElementosokCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->sum('OK');}
+    protected function getElementoskoCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->sum('KO');}
 
     // SCOPES
     public function scopeSearch2($query, $busca){
