@@ -150,6 +150,8 @@ class PermissionSeeder extends Seeder
         // Permission::create(['name'=>'plantienda.update'])->syncRoles($admin, $grafitex,$montador);
         // Permission::create(['name'=>'plantienda.delete'])->syncRoles($admin, $grafitex);
 
+        //
+
         // Productos
         Permission::create(['name'=>'producto.index'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'producto.create'])->syncRoles($admin, $grafitex);
@@ -171,11 +173,18 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'peticiondetalle.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
         Permission::create(['name'=>'peticiondetalle.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
 
-        // Procucto Imagenes
+        // Producto Imagenes
         Permission::create(['name'=>'productoimagen.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
         Permission::create(['name'=>'productoimagen.create'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'productoimagen.edit'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'productoimagen.update'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'productoimagen.delete'])->syncRoles($admin, $grafitex,$sgh);
+
+        // Tienda tipo
+        Permission::create(['name'=>'tiendatipo.index'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'tiendatipo.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'tiendatipo.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'tiendatipo.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'tiendatipo.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

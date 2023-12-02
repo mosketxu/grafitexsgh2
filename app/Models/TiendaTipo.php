@@ -9,5 +9,5 @@ class TiendaTipo extends Model
 {
     use HasFactory;
 
-    protected $fillable=['tiendatipo_id'];
+    protected $fillable=['tiendatipo'];
 }

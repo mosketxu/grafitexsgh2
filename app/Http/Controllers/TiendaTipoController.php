@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\TiendaTipo;
 use App\Http\Requests\StoreTiendaTipoRequest;
 use App\Http\Requests\UpdateTiendaTipoRequest;
+use Illuminate\Http\Request;
 
 class TiendaTipoController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('can:tiendatipo.index')->only('index','show');
+        $this->middleware('can:tiendatipo.edit')->only('create','edit');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        return view('tiendatipo.index');
     }
 
     /**
@@ -25,7 +30,8 @@ class TiendaTipoController extends Controller
      */
     public function create()
     {
-        //
+        $ruta="tiendatiop";
+        return view('tiendatipo.create',compact('ruta'));
     }
 
     /**
@@ -56,9 +62,10 @@ class TiendaTipoController extends Controller
      * @param  \App\Models\TiendaTipo  $tiendaTipo
      * @return \Illuminate\Http\Response
      */
-    public function edit(TiendaTipo $tiendaTipo)
-    {
-        //
+    public function editar(TiendaTipo $tiendatipo){
+        $ruta='tiendatipo';
+        return view('tiendatipo.edit',compact('tiendatipo','ruta'));
+
     }
 
     /**

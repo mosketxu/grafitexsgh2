@@ -7,7 +7,7 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
     MaestroController, MontadorController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
 use Illuminate\Support\Facades\Mail;
 
@@ -158,6 +158,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::put('/montador/{camptienda}/updatefechasmontador/', [MontadorController::class,'updatefechasmontador'])->name('montador.updatefechasmontador')->middleware('can:montador.update');
         Route::put('/montador/{camptienda}/updatemontador/', [MontadorController::class,'updatemontadortienda'])->name('montador.updatemontadortienda')->middleware('can:plan.edit');
         Route::put('/montador/{camptienda}/updatefechasplan/', [MontadorController::class,'updatefechasplan'])->name('montador.updatefechasplan')->middleware('can:plan.edit');
+
     //Entidades-Montadores
         Route::get('/entidad/nuevocontacto/{entidad}', [EntidadController::class, 'createcontacto'])->name('entidad.createcontacto');
         Route::get('/entidad/contactos/{entidad}', [EntidadController::class, 'contactos'])->name('entidad.contactos');
@@ -167,6 +168,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //SGH
     Route::group(['prefix' => 'sgh'], function () {
         Route::resource('/', SghController::class)->names('sgh')->only('index');
+    });
+
+    //Tienda Tipos
+    Route::group(['prefix' => 'tiendatipo'], function () {
+        Route::get('/{tiendatipo}/edit', [TiendaTipoController::class, 'editar'])->name('tiendatipo.editar')->middleware('can:tiendatipo.edit');
+        Route::resource('/', TiendaTipoController::class)->names('tiendatipo')->except('edit');
     });
 
     //Productos de peticiones de las tiendas
