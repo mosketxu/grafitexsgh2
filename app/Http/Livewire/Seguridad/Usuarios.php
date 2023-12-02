@@ -30,11 +30,11 @@ class Usuarios extends Component
     public $campo4visible=1;
     public $campo1disabled='';
     public $campo2disabled='';
-    public $campo3disabled='';
+    public $campo3disabled='disabled';
     public $campo4disabled='disabled';
     public $campo1fondo='bg-white';
     public $campo2fondo='bg-white';
-    public $campo3fondo='bg-white';
+    public $campo3fondo='bg-gray-100';
     public $campo4fondo='bg-gray-100';
     public $editarvisible=1;
     public $search='';
