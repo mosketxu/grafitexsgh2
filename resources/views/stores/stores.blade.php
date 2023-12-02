@@ -13,6 +13,7 @@
                 <div class="flex w-full py-1 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md ">
                     <div class="flex w-11/12 ">
                         <div class="hidden pl-2 text-left md:flex md:w-1/12">Luxottica</div>
+                        <div class="hidden pl-2 text-left md:flex md:w-1/12">Tipo</div>
                         <div class="w-1/12 text-left md:w-1/12">Code</div>
                         @can('montador.index')
                         <div class="w-5/12 text-left md:w-1/12">Store</div>
@@ -45,6 +46,7 @@
                             @endcan
                                 <input type="hidden" name="id" value="{{$store->id}}">
                                 <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->luxotica}}</div>
+                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->tiendatipo->tiendatipo ?? '-'}}</div>
                                 <div class="w-1/12 text-left ">{{$store->id}}</div>
                                 @can('montador.index')
                                 <div class="w-5/12 text-left md:w-1/12">{{$store->name}}</div>

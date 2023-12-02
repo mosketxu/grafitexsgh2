@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use Illuminate\Http\Request;
+use App\Models\Configuracion;
+use App\Http\Requests\StoreConfiguracionRequest;
+use App\Http\Requests\UpdateConfiguracionRequest;
 
-
-class AddressController extends Controller
+class ConfiguracionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,25 +31,21 @@ class AddressController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreConfiguracionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreConfiguracionRequest $request)
     {
-        $addresses = Address::create($request->all());
-
-        $cont = 0;
-
-        return redirect()->route('stores.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\Configuracion  $configuracion
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show(Configuracion $configuracion)
     {
         //
     }
@@ -57,10 +53,10 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\Configuracion  $configuracion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Address $address)
+    public function edit(Configuracion $configuracion)
     {
         //
     }
@@ -68,11 +64,11 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAddressRequest  $request
-     * @param  \App\Models\Address  $address
+     * @param  \App\Http\Requests\UpdateConfiguracionRequest  $request
+     * @param  \App\Models\Configuracion  $configuracion
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAddressRequest $request, Address $address)
+    public function update(UpdateConfiguracionRequest $request, Configuracion $configuracion)
     {
         //
     }
@@ -80,10 +76,10 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\Configuracion  $configuracion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy(Configuracion $configuracion)
     {
         //
     }

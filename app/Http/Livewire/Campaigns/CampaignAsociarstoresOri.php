@@ -53,7 +53,6 @@ class CampaignAsociarstoresOri extends Component
     }
 
     public function asociarselected(){
-        dd('ad');
         $selected = $this->selectedRowsdispQuery->get();
         foreach ($selected as $uno) {
             $this->asocia($uno);

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Producto;
 
 use App\Models\Producto;
+use App\Models\TiendaTipo;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
@@ -13,6 +14,7 @@ class Prod extends Component
 
     public $producto;
     public $prod;
+    public $tiendatipo_id;
     public $descripcion;
     public $precio='0';
     public $activo='1';
@@ -23,6 +25,7 @@ class Prod extends Component
     protected function rules(){
         return [
             'prod'=>'required|unique:productos,producto',
+            'tiendatipo_id'=>'nullable',
             'descripcion'=>'nullable',
             'precio'=>'nullable|numeric',
             'activo'=>'nullable',
@@ -40,6 +43,7 @@ class Prod extends Component
         $this->producto=$producto;
         if($producto->id){
             $this->prod=$producto->producto;
+            $this->tiendatipo_id=$producto->tiendatipo_id;
             $this->descripcion=$producto->descripcion;
             $this->precio=!$producto->precio? '0': $producto->precio ;
             $this->activo=$producto->activo;
@@ -49,10 +53,12 @@ class Prod extends Component
     }
 
     public function render(){
+        // $tiendatipos=TiendaTipo::where('tiendatipo','<>','Grafitex')->orderBy('tiendatipo')->get();
+        $tiendatipos=TiendaTipo::orderBy('tiendatipo')->get();
         if (!$this->activo) $this->activo=false;
         $producto=$this->producto;
 
-        return view('livewire.producto.prod');
+        return view('livewire.producto.prod',compact('tiendatipos'));
     }
 
     public function save(){
@@ -70,6 +76,7 @@ class Prod extends Component
                 'prod'=>[
                     'required',
                     Rule::unique('productos','producto')],
+                'tiendatipo_id'=>'nullable',
                 'descripcion'=>'nullable',
                 'precio'=>'nullable|numeric',
                 'activo'=>'nullable',
@@ -83,6 +90,7 @@ class Prod extends Component
             ],
             [
             'producto'=>$this->prod,
+            'tiendatipo_id'=>$this->tiendatipo_id,
             'descripcion'=>$this->descripcion,
             'precio'=>$this->precio,
             'activo'=>$this->activo,

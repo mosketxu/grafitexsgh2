@@ -2,14 +2,9 @@
 
 namespace App\Http\Livewire\PeticionHistorial;
 
-use App\Models\EstadoPeticion;
+use App\Models\{User,Peticion,EstadoPeticion,PeticionHistorial};
 use Livewire\Component;
-use App\Models\Peticion;
-use App\Models\PeticionHistorial;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use DateTime;
 
 class PetiHistorial extends Component
 {

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('producto_imagenes', function (Blueprint $table) {
+        Schema::create('tienda_tipos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->string('imagen');
+            $table->string('tiendatipo',50);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producto_imagenes');
+        Schema::dropIfExists('tienda_tipos');
     }
 };

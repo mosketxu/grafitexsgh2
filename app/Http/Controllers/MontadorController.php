@@ -33,10 +33,8 @@ class MontadorController extends Controller
         ->where('montador_id',$montador->id)
         ->when($filtroestadomontaje!='t',function($query) use($filtroestadomontaje){
             if($filtroestadomontaje=='3'){
-                // dd('es 3');
                 return $query->where('estadomontaje','<>','2');}
             else{
-                // dd('es menor de 3');
                 return $query->where('estadomontaje','=',$filtroestadomontaje);}
         })
         ->paginate(20);
@@ -83,7 +81,6 @@ class MontadorController extends Controller
     }
 
     public function updatefechasplan(Request $request,CampaignTienda $camptienda){
-        // dd($request);
         $request->validate([
             'fechaprev1'=>'required',
             'fechaprev2'=>'nullable|date',

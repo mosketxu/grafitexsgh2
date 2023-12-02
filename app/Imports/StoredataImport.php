@@ -18,7 +18,6 @@ class StoredataImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row['code']);
         return new Storedata([
             'id'=>$row['code'],
             'luxotica'=>$row['luxottica'],

@@ -46,7 +46,11 @@
         <div class="">
             @if(!is_null($peticion->estado))
                 @if(Auth::user()->hasRole('Tienda'))
-                    @if($peticion->estado>3)
+                    @if($peticion->estado>'3')
+                        @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
+                    @endif
+                @elseif (Auth::user()->hasRole('sgh'))
+                    @if($peticion->estado>'1')
                         @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
                     @endif
                 @endif

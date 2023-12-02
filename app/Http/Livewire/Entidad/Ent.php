@@ -89,7 +89,6 @@ class Ent extends Component
         $paises=Pais::all();
 
         $areasSi=EntidadArea::where('entidad_id',$this->entidad->id)->get();
-        // dd($areasSi->pluck('area_id'));
         $areasNo=Area::whereNotIn('id',$areasSi->pluck('area_id'))->get();
 
 
@@ -204,7 +203,6 @@ class Ent extends Component
         $mailexiste=User::where('email',$this->entidad->useremail)->first();
 
         if($this->entidad->user_id){// tiene user_id asi que existe en USERS y tiene ya un mail
-            // dd('tiene user_id');
             //busco el user con ese user_id
             $userexiste=User::find($this->entidad->user_id);
             //si el nuevo mail no existe actualizo
@@ -228,7 +226,7 @@ class Ent extends Component
             }else{
                 return "Mal";
             }
-        }else{ //dd('no tiene user_id');
+        }else{
             if(!$mailexiste){// como no hay problema lo creo
                 $user=User::create([
                     'name'=>$this->entidad->entidad,

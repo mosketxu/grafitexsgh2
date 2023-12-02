@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use Illuminate\Http\Request;
+use App\Models\TiendaTipo;
+use App\Http\Requests\StoreTiendaTipoRequest;
+use App\Http\Requests\UpdateTiendaTipoRequest;
 
-
-class AddressController extends Controller
+class TiendaTipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,25 +31,21 @@ class AddressController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTiendaTipoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTiendaTipoRequest $request)
     {
-        $addresses = Address::create($request->all());
-
-        $cont = 0;
-
-        return redirect()->route('stores.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\TiendaTipo  $tiendaTipo
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show(TiendaTipo $tiendaTipo)
     {
         //
     }
@@ -57,10 +53,10 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\TiendaTipo  $tiendaTipo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Address $address)
+    public function edit(TiendaTipo $tiendaTipo)
     {
         //
     }
@@ -68,11 +64,11 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAddressRequest  $request
-     * @param  \App\Models\Address  $address
+     * @param  \App\Http\Requests\UpdateTiendaTipoRequest  $request
+     * @param  \App\Models\TiendaTipo  $tiendaTipo
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAddressRequest $request, Address $address)
+    public function update(UpdateTiendaTipoRequest $request, TiendaTipo $tiendaTipo)
     {
         //
     }
@@ -80,10 +76,10 @@ class AddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Address  $address
+     * @param  \App\Models\TiendaTipo  $tiendaTipo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy(TiendaTipo $tiendaTipo)
     {
         //
     }

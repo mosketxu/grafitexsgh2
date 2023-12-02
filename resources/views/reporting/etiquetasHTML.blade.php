@@ -16,7 +16,6 @@
         </footer>
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
-            {{-- // dd($etiquetas->tiendaselementos->elementos); --}}
             @foreach($etiquetas->tiendaselementos as $campaignstore)
 
             <div class="">

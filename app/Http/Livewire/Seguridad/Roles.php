@@ -16,15 +16,27 @@ class Roles extends Component
     public $valorcampo1='web';
     public $valorcampo2='';
     public $valorcampo3='';
+    public $valorcampo4='';
     public $titcampo1='';
     public $titcampo2='Rol';
     public $titcampo3='';
+    public $titcampo4='';
     public $campo1='';
     public $campo2='name';
     public $campo3='';
     public $campo1visible=0;
     public $campo2visible=1;
     public $campo3visible=0;
+    public $campo4visible=0;
+    public $campo1disabled='';
+    public $campo2disabled='';
+    public $campo3disabled='';
+    public $campo4disabled='';
+    public $campo1fondo='bg-white';
+    public $campo2fondo='bg-white';
+    public $campo3fondo='bg-white';
+    public $campo4fondo='bg-white';
+
     public $editarvisible=1;
     public $search='';
 

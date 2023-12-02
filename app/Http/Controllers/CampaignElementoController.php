@@ -60,7 +60,6 @@ class CampaignElementoController extends Controller{
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * dd(@param);
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){

@@ -22,14 +22,86 @@
                     </x-jet-nav-link>
                 </div>
                 @endcan
-                @can('stores.index')
+
+                {{-- Campañas --}}
+                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10 ">
+                    <x-jet-dropdown  align="left"  >
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                    Campañas
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
+                        <x-slot name="content">
+                            @can('campaign.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('campaign.index') }}" :active="request()->routeIs('campaign.index')" class="text-left">
+                                {{ __('Campañas') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('tiendas.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('tienda.control') }}" :active="request()->routeIs('tiendas.control')" class="text-left">
+                                {{ __('Control recepcion') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('maestro.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('maestro.index') }}" :active="request()->routeIs('maestro.index')" class="text-left">
+                                {{ __('Maestro') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                        </x-slot>
+                    </x-jet-dropdown>
+                </div>
+                {{-- Peticiones --}}
+                @can('peticion.index')
+                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10 ">
+                    <x-jet-dropdown  align="left"  >
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                    Peticiones
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
+                        <x-slot name="content">
+                            @can('peticion.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('peticion.index') }}" :active="request()->routeIs('peticion.index')" class="text-left">
+                                {{ __('Peticiones') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('producto.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('producto.index') }}" :active="request()->routeIs('producto.index')" class="text-left">
+                                {{ __('Productos') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                        </x-slot>
+                    </x-jet-dropdown>
+                </div>
+                @endcan
+                {{-- @can('stores.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('stores.index') }}" :active="request()->routeIs('stores.index')">
                             {{ __('Stores') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
-                @can('tiendas.index')
+                @endcan --}}
+                {{-- @can('tiendas.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         @if(Auth::user()->hasRole('tienda'))
                         <x-jet-nav-link href="{{route('tienda.recepcion') }}" :active="request()->routeIs('tienda.recepcion')">
@@ -41,48 +113,42 @@
                         </x-jet-nav-link>
                         @endif
                     </div>
-                @endcan
-                @can('elemento.index')
+                @endcan --}}
+                {{-- @can('elemento.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
                             {{ __('Elementos') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
-                @can('producto.index')
+                @endcan --}}
+                {{-- @can('producto.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('producto.index') }}" :active="request()->routeIs('producto.index')">
                             {{ __('Productos') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
-                @can('peticion.index')
+                @endcan --}}
+                {{-- @can('peticion.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        {{-- @if(Auth::user()->hasRole('tienda'))
-                        <x-jet-nav-link  href="{{route('tienda.peticion') }}" :active="request()->routeIs('tienda.peticion')">
-                            {{ __('Peticiones') }}
-                        </x-jet-nav-link>
-                        @else --}}
                         <x-jet-nav-link  href="{{route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
                             {{ __('Peticiones') }}
                         </x-jet-nav-link>
-                        {{-- @endif --}}
                     </div>
-                @endcan
-                @can('auxiliares.index')
+                @endcan --}}
+                {{-- @can('auxiliares.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
                             {{ __('Auxiliares') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
-                @can('campaign.index')
+                @endcan --}}
+                {{-- @can('campaign.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{route('campaign.index') }}" :active="request()->routeIs('campaign.index')">
                             {{ __('Campañas') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
+                @endcan --}}
                 @can('tarifa.index')
                 <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10 ">
                     <x-jet-dropdown  align="left"  >
@@ -111,20 +177,67 @@
                     </x-jet-dropdown>
                 </div>
                 @endcan
-                @can('maestro.index')
+                {{-- Mantenimiento general --}}
+                @can('campaign.index')
+                <div class="hidden pt-2 text-left sm:flex lg:flex lg:ml-10 ">
+                    <x-jet-dropdown  align="left"  >
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                    Mantenimiento
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
+                        <x-slot name="content">
+                            @can('stores.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('stores.index') }}" :active="request()->routeIs('stores.index')" class="text-left">
+                                {{ __('Stores') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('elemento.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('elemento.index') }}" :active="request()->routeIs('elemento.index')" class="text-left">
+                                {{ __('Elementos') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('entidad.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('entidad.index') }}" :active="request()->routeIs('entidad.index')" class="text-left">
+                                {{ __('Montadores') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                            @can('auxiliares.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')" class="text-left">
+                                {{ __('Auxiliares') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
+                        </x-slot>
+                    </x-jet-dropdown>
+                </div>
+                @endcan
+                {{-- @can('maestro.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
                             {{ __('Maestro') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
-                @can('entidad.index')
+                @endcan --}}
+                {{-- @can('entidad.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{route('entidad.index') }}" :active="request()->routeIs('entidad.index')">
                             {{ __('Montadores') }}
                         </x-jet-nav-link>
                     </div>
-                @endcan
+                @endcan --}}
                 @can('seguridad.index')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{ route('seguridad') }}" :active="request()->routeIs('seguridad')">
@@ -198,13 +311,83 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             @endcan
-            @can('stores.index')
+            @can('campaign.index')
+            <div class="relative mt-3 ml-3">
+                <x-jet-dropdown align="right" >
+                    <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                            <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                Campañas
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </span>
+                    </x-slot>
+                    <x-slot name="content">
+                        @can('campaign.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('campaign.index') }}" class="text-right">
+                                {{ __('Campañas') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
+                        @can('tiendas.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('tienda.control') }}" class="text-right">
+                                {{ __('Control Recepcion') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
+                        @can('maestro.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('maestro.index') }}" class="text-right">
+                                {{ __('Maestro') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
+                    </x-slot>
+                </x-jet-dropdown>
+            </div>
+            @endcan
+            @can('peticion.index')
+            <div class="relative mt-3 ml-3">
+                <x-jet-dropdown align="right" >
+                    <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                            <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                Peticiones
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </span>
+                    </x-slot>
+                    <x-slot name="content">
+                        @can('peticion.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('peticion.index') }}" class="text-right">
+                                {{ __('Peticiones') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
+                        @can('producto.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('producto.index') }}" class="text-right">
+                                {{ __('Productos') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
+                    </x-slot>
+                </x-jet-dropdown>
+            </div>
+            @endcan
+            {{-- @can('stores.index')
             <x-jet-responsive-nav-link href="{{ route('stores.index') }}" :active="request()->routeIs('stores.index')">
                 {{ __('Stores') }}
             </x-jet-responsive-nav-link>
-            @endcan
-            @can('tiendas.index')
-            {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"> --}}
+            @endcan --}}
+            {{-- @can('tiendas.index')
                 @if(Auth::user()->hasRole('tienda'))
                     <x-jet-responsive-nav-link href="{{ route('tienda.recepcion') }}" :active="request()->routeIs('tiendas.recepcion')">
                         {{ __('Control recepción') }}
@@ -214,31 +397,30 @@
                         {{ __('Control recepción') }}
                     </x-jet-responsive-nav-link>
                 @endif
-            {{-- </div> --}}
-            @endcan
-            @can('elemento.index')
+            @endcan --}}
+            {{-- @can('elemento.index')
             <x-jet-responsive-nav-link href="{{ route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
                 {{ __('Elementos') }}
             </x-jet-responsive-nav-link>
-            @endcan
-            @can('producto.index')
+            @endcan --}}
+            {{-- @can('producto.index')
             <x-jet-responsive-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
                 {{ __('Productos') }}
             </x-jet-responsive-nav-link>
-            @endcan
-            @can('peticion.index')
+            @endcan --}}
+            {{-- @can('peticion.index') --}}
             {{--
                 @if(Auth::user()->hasRole('tienda'))
                 <x-jet-responsive-nav-link href="{{ route('tienda.peticion') }}" :active="request()->routeIs('tienda.peticion')">
                     {{ __('Peticiones') }}
                 </x-jet-responsive-nav-link>
             @else --}}
-                <x-jet-responsive-nav-link href="{{ route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
+                {{-- <x-jet-responsive-nav-link href="{{ route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
                     {{ __('Peticiones') }}
-                </x-jet-responsive-nav-link>
+                </x-jet-responsive-nav-link> --}}
             {{-- @endif --}}
-            @endcan
-            @can('auxiliares.index')
+            {{-- @endcan --}}
+            {{-- @can('auxiliares.index')
             <x-jet-responsive-nav-link href="{{ route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
                 {{ __('Auxiliares') }}
             </x-jet-responsive-nav-link>
@@ -252,7 +434,7 @@
             <x-jet-responsive-nav-link href="{{ route('entidad.index') }}" :active="request()->routeIs('entidad.index')">
                 {{ __('Montadores') }}
             </x-jet-responsive-nav-link>
-            @endcan
+            @endcan --}}
             @can('tarifa.index')
             <div class="relative mt-3 ml-3">
                 <x-jet-dropdown align="right" >
@@ -279,10 +461,50 @@
                 </x-jet-dropdown>
             </div>
             @endcan
-            @can('maestro.index')
+            {{-- @can('maestro.index')
             <x-jet-responsive-nav-link href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
                 {{ __('Maestro') }}
             </x-jet-responsive-nav-link>
+            @endcan --}}
+            @can('campaign.index')
+            <div class="relative mt-3 ml-3">
+                <x-jet-dropdown align="right" >
+                    <x-slot name="trigger">
+                        <span class="inline-flex rounded-md">
+                            <button type="button" class="inline-flex items-center px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md bg-blu hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-blue-700">
+                                Mantenimiento
+                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </span>
+                    </x-slot>
+                    <x-slot name="content">
+                        <div class="w-44">
+                            @can('stores.index')
+                            <x-jet-dropdown-link href="{{ route('stores.index') }}" class="text-right">
+                                {{ __('Stores') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('elemento.index')
+                            <x-jet-dropdown-link href="{{ route('elemento.index') }}" class="text-right">
+                                {{ __('Elemento') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('entidad.index')
+                            <x-jet-dropdown-link href="{{ route('entidad.index') }}" class="text-right">
+                                {{ __('Montadores') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('auxiliares.index')
+                            <x-jet-dropdown-link href="{{ route('auxiliares.index') }}" class="text-right">
+                                {{ __('Auxiliares') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                        </div>
+                    </x-slot>
+                </x-jet-dropdown>
+            </div>
             @endcan
             @can('seguridad.index')
             <x-jet-responsive-nav-link href="{{ route('seguridad') }}" :active="request()->routeIs('seguridad')">

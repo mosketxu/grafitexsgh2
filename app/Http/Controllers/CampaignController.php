@@ -33,7 +33,6 @@ class CampaignController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        // dd($request->filtrocampaign);
         $busqueda = '';
         $filtrocampaign = '';
         if ($request->search) $busqueda = $request->search;
@@ -176,12 +175,6 @@ class CampaignController extends Controller{
         // Si no se ha seleccionado ningun idioma entiendo que los quiero todos
         if(CampaignIdioma::where('campaign_id','=',$id)->count()==0){
             $idiomas=Idioma::get();
-            // dd($idiomas);
-            // foreach ($idiomas as $idiom) {
-            //     dd($idiom->id);
-            //     CampaignIdioma::insert(['campaign_id'=>$id,'idioma'=>$idiom->id]);
-            // }
-            // dd($idiomas);
             Campaign::inserta('campaign_idiomas',$idiomas,'idioma',$id);
         }
 
@@ -298,7 +291,7 @@ class CampaignController extends Controller{
         //relleno la tabla imagenes
         // $imagenes=VCampaignGaleria::getGaleria($id);
         $imagenes=CampaignElemento::getGaleria($id);
-        // dd($imagenes);
+
         foreach (array_chunk($imagenes->toArray(),1000) as $t){
             $dataSet = [];
             foreach ($t as $gen) {

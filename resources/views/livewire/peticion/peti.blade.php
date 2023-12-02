@@ -18,6 +18,13 @@
                     </form>
                     @endif
                 @endif
+                @if(Auth::user()->hasRole('sgh'))
+                    @if($peticion->estadopeticion_id>'2')
+                    <form method="GET" action="{{route('peticion.enviopeticion',[$peticion]) }}">
+                    <x-button.primary type="submit">Enviar mail de confirmación</x-button.primary>
+                    </form>
+                    @endif
+                @endif
             </div>
             <div class="w-4/12 text-right">
                 @if($estado=='1')

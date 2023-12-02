@@ -81,6 +81,7 @@ class Peti extends Component
 
     public function save(){
 
+
         if(!$this->total) $this->total=0;
         if($this->peticion->id){
             $i=$this->peticion->id;
@@ -114,13 +115,12 @@ class Peti extends Component
             ]
         );
 
+        $fijopeticion=PeticionDetalle::where('peticion_id',$pet->id)->count();
+
         $notification = array(
             'message' => 'Petición creada. Seleccione los productos.',
             'alert-type' => 'success'
         );
-        // $peti=Peticion::find($pet->id);
-        // dd($peti);
-        // route('peticion.editar',$peticion)
         return redirect()->route('peticion.editar',$pet)->with($notification);
     }
 }

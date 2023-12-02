@@ -23,7 +23,6 @@ class Medidas extends Component
         ->groupBy('medida')
         ->get();
 
-        // dd($medidas);
         return view('livewire.campaigns.conteos.medidas',compact('medidas'));
     }
 

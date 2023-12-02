@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('producto', 100);
+            $table->foreignId('tiendatipo_id')->constrained('tienda_tipos');
             $table->string('descripcion')->nullable();
             $table->decimal('precio', 8, 2)->default(0.00);
             $table->boolean('activo')->default('1');

@@ -65,7 +65,6 @@ class MaestroController extends Controller
                 (new MaestrosImportSGH)->import(request()->file('maestro'));
             }
         }catch(\ErrorException $ex){
-            // dd($ex->getMessage());
             return back()->withError($ex->getMessage());
         }
 
@@ -87,8 +86,6 @@ class MaestroController extends Controller
         //Inserto actualizo Ubicaciones
         $ubicaciones=Maestro::select('ubicacion')->distinct('ubicacion')->get()->toArray();
         foreach ($ubicaciones as $ubicacion){
-            // dd($ubicacion['ubicacion']);
-            // if($ubicacion['ubicacion']=='' || isNull($ubicacion['ubicacion'])) $ubicacion['ubicacion']="FRONT DOOR";
             Ubicacion::firstOrCreate($ubicacion);}
 
         //Inserto actualizo Areas

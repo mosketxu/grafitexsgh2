@@ -25,7 +25,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         if (Auth::user()->hasRole('admin')) {
             return redirect()->route('seguridad');
         } elseif(Auth::user()->hasRole('grafitex')){
-            dd('2');
             return redirect()->route('campaign.index');
         }
         elseif(Auth::user()->hasRole('sgh')){
@@ -38,7 +37,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
             return redirect()->route('montador.index');
         }
         else{
-            dd(Auth::user());
+            dd('no tiene rol');
+            // dd(Auth::user());
         }
     })->name('dashboard');
 

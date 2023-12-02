@@ -40,5 +40,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(IdiomasSeeder::class);
         $this->call(EstadosPeticionSeeder::class);
         $this->call(DestinatarioSeeder::class);
+        $this->call(TiendaTipoSeeder::class);
     }
 }

@@ -35,6 +35,9 @@
                             @if ($campo3visible==1)
                                 <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" >{{ __($titcampo3) }}</th>
                             @endif
+                            @if ($campo4visible==1)
+                                <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" >{{ __($titcampo4) }}</th>
+                            @endif
                             <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" ></th>
                         </tr>
                     </thead>
@@ -49,29 +52,53 @@
                                 <td class="px-1 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
                                     <input type="text" value="{{ $valor->valorcampo1 }}"
                                     wire:change="changeCampo({{ $valor }},'{{ $campo1 }}',$event.target.value)"
-                                    class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"/>
+                                    class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo1fondo}}"
+                                    {{$campo1disabled}}/>
                                 </td>
                                 @endif
                                 @if ($campo2visible==1)
                                 <td class="px-1 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap">
                                     <input type="text" value="{{ $valor->valorcampo2 }}"
                                     wire:change="changeCampo({{ $valor }},'{{ $campo2 }}',$event.target.value)"
-                                    class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"/>
+                                    class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo2fondo}}"
+                                    {{$campo2disabled}}/>
                                 </td>
                                 @endif
                                 @if ($campo3visible==1)
                                 <td class="px-1 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap">
                                     @if($campo3=='empresa')
                                     <select  selectname="empresa" id="empresa" name="empresa"
-                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"
-                                        wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"/>
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo3fondo}}"
+                                        wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
+                                        {{$campo3disabled}}>
                                         <option value="Grafitex" {{ $valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
                                         <option value="SGH" {{ $valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
                                     <select>
+                                    @elseif($campo3='password')
+                                        <input type="password" value="{{ $valor->valorcampo3 }}"
+                                            wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
+                                            class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo3fondo}}"
+                                            {{$campo3disabled}}/>
                                     @else
                                     <input type="text" value="{{ $valor->valorcampo3 }}"
                                         wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
-                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"/>
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo3fondo}}"
+                                        {{$campo3disabled}}/>
+                                    @endif
+                                </td>
+                                @endif
+                                @if ($campo4visible==1)
+                                <td class="px-1 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap">
+                                    @if($titcampo4='Rol')
+                                    <input type="text" value="{{ $valor->getRoleNames() }}"
+                                        wire:change="changeCampo({{ $valor }},'{{ $campo4 }}',$event.target.value)"
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo4fondo}}"
+                                        {{$campo4disabled}}/>
+                                    @else
+                                    <input type="text" value="{{ $valor->valorcampo4 }}"
+                                        wire:change="changeCampo({{ $valor }},'{{ $campo4 }}',$event.target.value)"
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo4fondo}}"
+                                        {{$campo4disabled}}/>
                                     @endif
                                 </td>
                                 @endif
@@ -97,31 +124,41 @@
                                 @if ($campo1visible==1)
                                 <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
                                     <input type="text" wire:model.defer="valorcampo1"
-                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo1fondo}}" {{$campo1disabled}}/>
                                 </td>
                                 @endif
                                 @if ($campo2visible==1)
                                 <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
                                     <input type="text" wire:model.defer="valorcampo2"
-                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo2fondo}}" {{$campo2disabled}}/>
                                 </td>
                                 @endif
                                 @if ($campo3visible==1)
                                 <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
                                     @if($campo3=='empresa')
                                     <select  selectname="empresa" id="empresa" name="empresa"
-                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md"
-                                        wire:model.defer="valorcampo3"/>
+                                        class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo3fondo}}"
+                                        wire:model.defer="valorcampo3" {{$campo3disabled}}>
                                         <option value="" >--Selecciona Empresa--</option>
                                         <option value="Grafitex" {{ $valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
                                         <option value="SGH" {{ $valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
                                     <select>
+                                    @elseif($campo3=='password')
+                                        <input type="password" wire:model.defer="valorcampo3"
+                                        class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo3fondo}}" {{$campo3disabled}}/>
                                     @else
-                                    <input type="text" wire:model.defer="valorcampo3"
-                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                                        <input type="text" wire:model.defer="valorcampo3"
+                                        class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo3fondo}}" {{$campo3disabled}}/>
                                     @endif
                                 </td>
                                 @endif
+                                @if ($campo4visible==1)
+                                <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
+                                    <input type="text" wire:model.defer="valorcampo4"
+                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo4fondo}}" {{$campo4disabled}}/>
+                                </td>
+                                @endif
+
                                 <td  class="p-2 ">
                                     <button type="submit" class="items-center pl-1 mx-0 mt-2 text-center w-7 "><x-icon.save-a class="text-blue"></x-icon.save-a></button>
                                 </td>

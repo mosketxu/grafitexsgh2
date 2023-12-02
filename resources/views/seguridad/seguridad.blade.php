@@ -13,6 +13,7 @@
                     @livewire('seguridad.destinatarios')
                     @livewire('seguridad.roles')
                     @livewire('seguridad.permisos')
+                    @livewire('seguridad.configuracion')
                 </div>
             </div>
         </div>

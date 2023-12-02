@@ -38,6 +38,17 @@
                                         <option value="Sunglass Hut" {{old('country','PT'==$store->country) ? 'selected' : ''}}>Sunglass Hut</option>
                                     </x-select>
                                 </div>
+                                {{-- tipo --}}
+                                <div class="w-full form-item">
+                                    {{-- <x-jet-label for="country">Luxottica</x-jet-label> --}}
+                                    <x-jet-label for="tipo">Tienda Tipo</x-jet-label>
+                                    <x-select class="w-full py-1.5 border-blue-300"  id="tiendatipo_id" selectname="tiendatipo_id" name="tiendatipo_id" >
+                                        <option value="">-- Selecciona --</option>
+                                        @foreach ($tiendatipos as $tipo )
+                                            <option value="{{$tipo->id}}" {{$store->tiendatipo_id==$tipo->id ? 'selected' : ''}}>{{$tipo->tiendatipo}}</option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
                                 {{-- country --}}
                                 <div class="w-full form-item">
                                     <x-jet-label for="country">Country</x-jet-label>

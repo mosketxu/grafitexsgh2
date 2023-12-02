@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, Storeconcept};
+use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, Storeconcept, TiendaTipo};
 use App\Imports\StoreaddressesImport;
 use App\Exports\StoreExport;
 use Illuminate\Support\Facades\DB;
@@ -143,8 +143,8 @@ class StoreController extends Controller
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
         $montadores=Entidad::orderBy('entidad')->get();
-
-        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores'));
+        $tiendatipos=TiendaTipo::where('tiendatipo','<>','Grafitex')->orderBy('tiendatipo')->get();
+        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores','tiendatipos'));
     }
 
     /**
@@ -155,6 +155,8 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Store $store){
+
+        // dd($request);
         $request->validate([
             'name'=>'required',
             'country'=>'required',
@@ -174,12 +176,12 @@ class StoreController extends Controller
         $z=$request->country;
 
         $imagen=$request->imagen;
-        // dd($request->file('photo'));
         if($request->file('photo'))
             $imagen = Store::subirImagen($request->id,$request->file('photo'));
 
         DB::table('stores')->where('id',$store->id)->update([
             'luxotica'=>$request->luxotica,
+            'tiendatipo_id'=>$request->tiendatipo_id,
             'name'=>$request->name,
             'country'=>$request->country,
             'idioma'=>$request->idioma,

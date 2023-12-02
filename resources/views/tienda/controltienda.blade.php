@@ -31,8 +31,9 @@
         </div>
         </form>
         @foreach ($stores as $store)
-        {{-- {{ $store }} --}}
-            <div onclick="location.href = '{{ route('tienda.show',[$store]) }}'"
+            {{-- <div onclick="location.href = '{{ route('tienda.show',[$store]) }}'"  --}}
+            {{-- {{$campaign->id . '-'.$store->tienda->id}} --}}
+            <div onclick="location.href = '{{ route('tienda.editrecepcion', [$campaign,$store->tienda->id] ) }}'"
             {{-- <div onclick="location.href = '{{ route('tienda.show',[$store->camptiendastoreId]) }}'" --}}
                 class="flex w-full py-1 text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100 ">
                 <div class="w-1/12 pl-2">{{$store->tienda->luxotica}}</div>

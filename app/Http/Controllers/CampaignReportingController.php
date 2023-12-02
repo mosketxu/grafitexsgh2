@@ -44,7 +44,6 @@ class CampaignReportingController extends Controller
 
         $promedios=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)
         ->get();
-        // dd($promedios->first());
 
         $totalPickingEs=CampaignPresupuestoPickingtransporte::where('presupuesto_id',$presupuestoId)
         ->where('zona','!=','PT')

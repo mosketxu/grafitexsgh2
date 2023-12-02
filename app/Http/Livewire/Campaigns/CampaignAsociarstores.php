@@ -69,10 +69,8 @@ class CampaignAsociarstores extends Component
     }
 
     public function disocia($asociada,$unotodos){
-        // dd('disocia');
         $borrar=$this->model1::find($asociada);
         if($borrar) $borrar->delete();
-        // if($unotodos=='1') return redirect()->route('campaign.filtrar',$this->campaign);
     }
 
     public function disociartodos(){
@@ -106,7 +104,6 @@ class CampaignAsociarstores extends Component
                 ->orderBy($this->model1c1,'asc')
                 ->get();
         }else{
-            // dd($this->model1c1);
             return StoreElemento::join('stores','stores.id','store_id')
             ->join('elementos','elementos.id','elemento_id')
             ->select($this->model1c1.' as ident', $this->model1c1 .' as name')

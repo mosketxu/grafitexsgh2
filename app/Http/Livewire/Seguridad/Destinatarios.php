@@ -16,15 +16,27 @@ class Destinatarios extends Component
     public $valorcampo1='';
     public $valorcampo2='';
     public $valorcampo3='';
+    public $valorcampo4='';
     public $titcampo1='Nombre';
     public $titcampo2='Email';
     public $titcampo3='Empresa';
+    public $titcampo4='';
     public $campo1='name';
     public $campo2='mail';
     public $campo3='empresa';
+    public $campo4='';
     public $campo1visible=1;
     public $campo2visible=1;
     public $campo3visible=1;
+    public $campo4visible=0;
+    public $campo1disabled='';
+    public $campo2disabled='';
+    public $campo3disabled='';
+    public $campo4disabled='';
+    public $campo1fondo='bg-white';
+    public $campo2fondo='bg-white';
+    public $campo3fondo='bg-white';
+    public $campo4fondo='bg-white';
     public $editarvisible=0;
     public $search='';
 
@@ -47,7 +59,7 @@ class Destinatarios extends Component
             'valorcampo2.required' => 'El mail es necesario.',
             'valorcampo2.email' => 'El mail debe ser válido.',
             'valorcampo2.unique' => 'El mail ya existe.',
-            'valorcampo3.requiered' => 'La empresa en necesaria.',
+            'valorcampo3.required' => 'La empresa en necesaria.',
 
         ];
     }

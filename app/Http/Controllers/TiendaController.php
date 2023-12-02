@@ -52,17 +52,6 @@ class TiendaController extends Controller
 
     public function indexmontador(Request $request, $user){
         dd('montador');
-        // $busqueda = '';
-        // if ($request->busca) $busqueda = $request->busca;
-
-        // $storeId=(auth()->user()->name);
-        // $store=Store::find(auth()->user()->name);
-
-        // $campaigns=Campaign::search2($request->busca)
-        //     ->whereHas('campstores', function ($query) use($storeId){$query->where('store_id', 'like', $storeId);})
-        //     ->paginate(10);
-
-        // return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
 
     public function editrecepcion(Campaign $campaign,Store $store, Request $request){
@@ -135,18 +124,6 @@ class TiendaController extends Controller
         if ($request->ok) $ok= $request->ok=='1' ? '0' : '1';
         if ($request->ko) $ko= $request->ko=='1' ? '0' : '1';
 
-
-        // $campaigns=CampaignTienda::with('campaign')
-        // ->search2($request->busca)
-        // ->when($ok!='',function ($q){
-        //     $q->whereHas('elementos', function ($query) {$query->where('OK', '1');});
-        // })
-        // ->when($ko!='',function ($q){
-        //     $q->whereHas('elementos', function ($query) {$query->where('KO', '1');});
-        // })
-        // // ->groupBy('campaign_id')
-        // ->paginate(15);
-
         $campaigns=Campaign::join('campaign_tiendas','campaign_tiendas.campaign_id','campaigns.id')
         ->join('campaign_elementos','campaign_tiendas.id','campaign_elementos.tienda_id')
         ->select('campaigns.id as campaignId','campaigns.campaign_name',
@@ -187,7 +164,6 @@ class TiendaController extends Controller
         // ->first();
         ->get();
 
-        // dd($stores->elementos);
         return view('tienda.indexcontroltienda',compact('campaign','stores','ok','ko'));
     }
 

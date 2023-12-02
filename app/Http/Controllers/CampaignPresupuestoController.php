@@ -135,20 +135,11 @@ class CampaignPresupuestoController extends Controller
 
     public function cotizacion($id){
         $campaignpresupuesto=CampaignPresupuesto::find($id);
-        // dd($campaignpresupuesto);
         $campaign=Campaign::find($campaignpresupuesto->campaign_id);
         return view('campaign.presupuesto.indexcotizacion',compact('campaign','campaignpresupuesto',));
     }
 
     public function elementosfamilia($campaignId,$familiaId,$presupuestoId){
-
-        // $elementos=CampaignElemento::join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
-        // ->where('campaign_id',$campaignId)
-        // ->where('familia',$familiaId)
-        // ->orderBy('material','asc')
-        // ->orderBy('medida','asc')
-        // ->paginate(13);
-
         $elementos=CampaignElemento::join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
         ->join('elementos','campaign_elementos.elemento_id','elementos.id')
         ->where('campaign_id',$campaignId)
@@ -157,23 +148,13 @@ class CampaignPresupuestoController extends Controller
         ->orderBy('campaign_elementos.material','asc')
         ->orderBy('campaign_elementos.medida','asc')
         ->groupBy('campaign_id','elementificador','material','medida','familia')
-        // ->first();
         ->paginate(13);
 
-        // $e=CampaignElemento::where('elementificador','frontdoorthemegogo3cgraphicholderpms152x71mmcouche1')->get();
-        // dd($elementos);
-        // dd($e);
-
-
-        // dd($elementos);
-
         $presupuesto=CampaignPresupuesto::find($presupuestoId);
-
         $tarifas=Tarifa::where('tipo','0')->orderBy('familia')->get();
         $campaign=Campaign::find($campaignId);
 
         return view('campaign.presupuesto.indexelementosfamilia',compact('campaign','elementos','presupuesto','tarifas'));
-
     }
 
     /**
@@ -203,17 +184,6 @@ class CampaignPresupuestoController extends Controller
     }
 
     public function updateelemento(Request $request){
-        // dd($request);
-        // $request->campaign_id='41';
-        // $campaignelem=CampaignElemento::join('elementos','elementos.id','campaign_elementos.elemento_id')
-        // ->join('campaign_tiendas','campaign_elementos.tienda_id','campaign_tiendas.id')
-        // ->where('campaign_id',$request->campaign_id)
-        // ->where('elementificador',$request->elementificador)
-        // ->update([
-            //     'familia'=>$request->familia,
-            //     'precio'=>$precio]
-            // );
-
         //busco el elemento que tenga ese elementificador
         $elemento=Elemento::where('elementificador',$request->elementificador)->first();
         //busco las tiendas que pertenecen a la campaña.
@@ -227,7 +197,6 @@ class CampaignPresupuestoController extends Controller
         //busco y actualizo los elementos que pertenecen a esas tiendas y luego que tengan el id del elemento
         $campaignelems=CampaignElemento::whereIn('tienda_id',$tiendas)->where('elemento_id',$elemento->id)->get();
         // $campaignelems=CampaignElemento::where('elemento_id',$elemento->id)->get();
-        // dd($campaignelems);
         $campaignelems->toQuery()->update([
                 'familia'=>$request->familia,
                 'precio'=>$precio]
@@ -286,12 +255,8 @@ class CampaignPresupuestoController extends Controller
 
         $totalpresupuestoMat= CampaignElemento::asignElementosPrecio($campaignId);
 
-        // dd($totalpresupuestoMat);
-
         // guardo los materiales en campaign_presupuestos_detalle para tener historico si se cambian los precios en una segunda versión del presupuesto
         $materiales=VCampaignResumenElemento::where('campaign_id',$campaignId)->get();
-
-        // dd($materiales);
 
         if($materiales->count()>0){
             foreach (array_chunk($materiales->toArray(),500) as $t){
@@ -321,7 +286,6 @@ class CampaignPresupuestoController extends Controller
         $dataSet=[];
 
         foreach($stores as $store){
-            // dd($store);
             $pick=Tarifa::where('tipo',1)
                 ->where('zona',$store['zona'])
                 ->first();

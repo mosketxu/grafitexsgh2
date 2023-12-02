@@ -40,10 +40,8 @@ class CampaignPresupuestoDetalleController extends Controller
             'unidades' => 'required|numeric',
             'preciounidad' => 'required|numeric',
             ]);
-        // dd($request);
 
         $detalle = new CampaignPresupuestoDetalle;
-
         $detalle->presupuesto_id = $request->presupuesto_id;
         $detalle->concepto = $request->concepto;
         $detalle->tipo = $request->tipo;
@@ -55,18 +53,12 @@ class CampaignPresupuestoDetalleController extends Controller
 
         $detalle->save();
 
-        // return response()->json([
-        //     "mensaje" => $request->all(),
-        //     'notification'=> '¡Línea añadida satisfactoriamente!',
-        //     ]);
-
         $notification = array(
             'message' => '¡Concepto añadido satisfactoriamente!',
             'alert-type' => 'success'
         );
 
         return redirect()->back()->with($notification);
-
     }
 
     /**
@@ -120,7 +112,6 @@ class CampaignPresupuestoDetalleController extends Controller
         $totalDetalles = CampaignPresupuestoDetalle::where('presupuesto_id',$request->presupuesto_id)
         ->where('tipo',$request->tipo)
         ->sum('total');
-            // dd($totalMateriales);
 
         $campPresu=CampaignPresupuesto::where('id',$request->presupuesto_id)
             ->first();

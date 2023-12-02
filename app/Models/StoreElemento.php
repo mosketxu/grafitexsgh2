@@ -44,13 +44,6 @@ class StoreElemento extends Model
     }
 
     public function scopeCampstoseg($query,$campaignId){
-        // $a=CampaignIdioma::where('campaign_id',$campaignId)->count();
-        // dd($campaignId);
-
-        // if (CampaignIdioma::where('campaign_id',$campaignId)->count()>0){
-        //     return $query->whereIn('id',function($q) use($campaignId){
-        //         $q->select('id')->from('campaign_idiomas')->where('campaign_id',$campaignId);
-        //     });}
         if (CampaignSegmento::where('campaign_id',$campaignId)->count()>0){
             return $query->whereIn('segmento',function($q) use($campaignId){
                 $q->select('segmento')->from('campaign_segmentos')->where('campaign_id',$campaignId);
@@ -58,7 +51,6 @@ class StoreElemento extends Model
     }
 
     public function scopeCampstoidiom($query,$campaignId){
-        // dd('asd');
         if (CampaignIdioma::where('campaign_id',$campaignId)->count()>0){
             return $query->whereIn('idioma',function($q) use($campaignId){
                 $q->select('idioma')->from('campaign_idiomas')->where('campaign_id',$campaignId);

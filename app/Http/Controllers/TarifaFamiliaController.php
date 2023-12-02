@@ -13,33 +13,11 @@ class TarifaFamiliaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        // if ($request->busca) {
-        //     $busqueda = $request->busca;
-        // } else {
-        //     $busqueda = '';
-        // }
-        // $tarifas = Tarifa::search2($request->busca)
-        // ->where('tipo',0)
-        // ->where('id','<>','1')
-        // ->orderBy('familia')
-        // ->paginate(25);
-
-        // $familias = Tarifa::where('tipo',0)
-        // ->orderBy('familia')
-        // ->get();
-
-        //separo sin identificar del resto para que esté siempre arriba sin iddentificar
+        //separo sin identificar del resto para que esté siempre arriba sin identificar
         $sinidentificar=Tarifa::where('id',1)->first();
+
         $tarifas=Tarifa::where('tipo',0)
         ->where('id','<>','1')->orderBy('familia')->get();
-        // ->paginate(25);
-
-        // $colors = array('primary','secondary','info','success', 'danger', 'warning',
-        //     'gray', 'indigo', 'navy', 'purple', 'fuchsia',
-        //     'pink', 'maroon', 'orange', 'lime', 'teal', 'olive');
-        // $colors=array('amber','blue','cyan','emerald','fuchsia','gray','blueGray','coolGray','trueGray','warmGray','green','indigo','lime','orange','pink','purple','red','rose','sky','teal','violet','yellow');
-        //     $a=array_rand($colors,1);
-        // dd($a);
         return view('tarifa.familia.index', compact('tarifas','sinidentificar'));
     }
 
@@ -82,7 +60,6 @@ class TarifaFamiliaController extends Controller
                 'message' => 'Esta familia ya existe!',
                 'alert-type' => 'alert'
             );
-            // dd('asd');
             return redirect()->back()->with($notification);
         }
 
@@ -133,7 +110,6 @@ class TarifaFamiliaController extends Controller
      */
     public function update(Request $request)
     {
-    //    dd($request);
         $request->validate([
             'material' => 'required',
             'medida' => 'required',
@@ -141,21 +117,13 @@ class TarifaFamiliaController extends Controller
         ]);
 
         TarifaFamilia::find($request->id)->update($request->all());
-        // dd(TarifaFamilia::find($id));
 
         $notification = array(
             'message' => 'Tarifa actualizada satisfactoriamente!',
             'alert-type' => 'success'
         );
 
-        // return response()->json([
-        //     "mensaje" => $request->all(),
-        //     'notification'=> '¡Línea actualizada satisfactoriamente!',
-        //     ]);
         return redirect()->back()->with($notification);
-
-
-
     }
 
     /**

@@ -116,7 +116,6 @@ class Maestro extends Model
             $dataSet = [];
             foreach ($t as $elemento) {
                 $e=Elemento::where('elementificador',$elemento['elementificador'])->count();
-                dd($e);
                 if($e=='0')
                     $dataSet[] = [
                         'elementificador'=>$elemento['elementificador'],
@@ -280,18 +279,14 @@ class Maestro extends Model
     }
 
     static function insertStoreElementos(){
-        // dd(Maestro::get()->count());
         Maestro::chunk(100, function ($maestros) {
             $dataSet = [];
             foreach ($maestros as $elemento) {
-                // $existe=StoreElemento::where('store_id',$elemento['store'])->where('elementificador',$elemento['elementificador'])->count();
-                // if($existe==0){
-                    $dataSet[] = [
-                    'store_id'=>$elemento['store'],
-                    'elemento_id'=>Elemento::where('elementificador',$elemento['elementificador'])->first()['id'],
-                    'elementificador'=>$elemento['elementificador'],
-                    ];
-                // };
+                $dataSet[] = [
+                'store_id'=>$elemento['store'],
+                'elemento_id'=>Elemento::where('elementificador',$elemento['elementificador'])->first()['id'],
+                'elementificador'=>$elemento['elementificador'],
+                ];
             }
             DB::table('store_elementos')->insertOrIgnore($dataSet);
         });

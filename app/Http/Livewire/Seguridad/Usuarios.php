@@ -15,15 +15,27 @@ class Usuarios extends Component
     public $valorcampo1='';
     public $valorcampo2='';
     public $valorcampo3='';
+    public $valorcampo4='';
     public $titcampo1='Usuario';
-    public $titcampo2='email';
-    public $titcampo3='password';
+    public $titcampo2='Email';
+    public $titcampo3='Password';
+    public $titcampo4='Rol';
     public $campo1='name';
     public $campo2='email';
     public $campo3='password';
+    public $campo4='rol';
     public $campo1visible=1;
     public $campo2visible=1;
-    public $campo3visible=0;
+    public $campo3visible=1;
+    public $campo4visible=1;
+    public $campo1disabled='';
+    public $campo2disabled='';
+    public $campo3disabled='';
+    public $campo4disabled='disabled';
+    public $campo1fondo='bg-white';
+    public $campo2fondo='bg-white';
+    public $campo3fondo='bg-white';
+    public $campo4fondo='bg-gray-100';
     public $editarvisible=1;
     public $search='';
 
@@ -56,7 +68,6 @@ class Usuarios extends Component
             ->select('id','name as valorcampo1','email as valorcampo2','password as valorcampo3')
             ->orderBy('name')
             ->paginate(10);
-        // dd('sdf222');
         return view('livewire.auxiliarcard',compact('valores'));
     }
 
@@ -88,7 +99,7 @@ class Usuarios extends Component
         User::create([
             'name'=>$this->valorcampo1,
             'email'=>$this->valorcampo2,
-            'password'=>'',
+            'password'=>bcrypt($this->valorcampo3),
         ]);
 
         $this->dispatchBrowserEvent('notify', 'Usuario añadido con éxito');

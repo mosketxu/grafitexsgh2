@@ -24,7 +24,6 @@ class ProductoController extends Controller
     }
 
     public function show($id){
-        dd('show');
         $ruta='producto';
         if(Auth::user()->can('producto.edit')) $producto=producto::find($id);
         return view('producto.edit',compact('producto','ruta'));

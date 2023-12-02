@@ -32,10 +32,21 @@
                 <div class="pl-2 mx-2 space-y-4">
                     <div class="w-full form-item">
                         <x-jet-label class="pl-2" for="prod">Producto</x-jet-label>
-                        <input wire:model.defer="prod" type="text" id="prod" name="prod" value="old('prod') "
+                        <input wire:model.defer="prod" type="text" id="prod" name="prod" value=""
                         class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         {{ $deshabilitado }}/>
                         <x-jet-input-error for="prod" class="mt-2" />
+                    </div>
+                    <div class="w-full form-item">
+                        <x-jet-label class="pl-2" for="tiendatiop_id">{{ __('Tipo Tienda') }}</x-jet-label>
+                        <select  selectname="montaje1" wire:model.lazy="tiendatipo_id" id="tiendatiop_id"
+                        class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="">-Selecciona-</option>
+                            @foreach ($tiendatipos as $tipo )
+                                <option value="{{$tipo->id}}">{{$tipo->tiendatipo}}</option>
+                            @endforeach
+                        <select>
+                        <x-jet-input-error for="tiendatipo_id   " class="mt-2" />
                     </div>
                     <div class="w-full form-item">
                         <x-jet-label class="pl-2" for="descripcion">{{ __('Descripción') }}</x-jet-label>
@@ -69,7 +80,13 @@
             </form>
         </div>
         <div class="w-8/12">
+            @if($producto->id)
             @livewire('producto.upload-image',['producto'=>$producto],key($producto->id))
+            @else
+            <div class="text-center">
+                <p class="">Debe guardar el producto antes de poder añadir imágenes</p>
+            </div>
+            @endif
         </div>
     </div>
 </div>
