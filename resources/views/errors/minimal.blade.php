@@ -57,6 +57,12 @@
             <div class="message" style="padding: 10px;">
                 @yield('message')
             </div>
+            <div class="message" style="padding: 10px;">
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                @csrf
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }}</a>
+                </form>
+            </div>
         </div>
     </body>
 </html>

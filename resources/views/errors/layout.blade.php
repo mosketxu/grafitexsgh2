@@ -50,6 +50,8 @@
             <div class="content">
                 <div class="title">
                     @yield('message')
+                    <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 underline" onclick="event.preventDefault(); this.closest('form').submit();"> {{ __('Log Out') }} </a> --}}
+
                 </div>
             </div>
         </div>

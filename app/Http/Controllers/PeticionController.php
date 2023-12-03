@@ -119,7 +119,6 @@ class PeticionController extends Controller
 
             if($peticion->peticionestado_id=='1'){
                 $peticion->peticionestado_id='2';
-                // dd($peticion->peticionestado_id);
                 PeticionHistorial::create([
                     'peticion_id'=>$peticion->id,
                     'user_id'=>$peticion->peticionario_id,
@@ -149,4 +148,5 @@ class PeticionController extends Controller
         return redirect()->back()->with($notification);
 
     }
+
 }
