@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="flex w-4/12 space-x-2 text-center">
-                @if($peticion->id && $peticion->estadopeticion_id=='1')
-                    @if($peticion->estadopeticion_id=='1')
+                @if($peticion->id && $peticion->peticionestado_id=='1')
+                    @if($peticion->peticionestado_id=='1')
                     <form method="GET" action="{{route('peticion.enviopeticion',[$peticion]) }}">
                     <x-button.primary type="submit">Enviar mail de petición</x-button.primary>
                     </form>
@@ -52,6 +52,14 @@
             </div>
         </div>
         <div class="w-full m-2 text-gray-500 lg:w-5/12 ">
+            <div class="flex items-center w-full py-2">
+                <div class="">
+                    <x-jet-label class="pl-2" for="total">{{ __('Estado') }}</x-jet-label>
+                </div>
+                <div class="mx-2">
+                    <input type="text" value="{{ $estadotexto }}" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" disabled>
+                </div>
+            </div>
             @include('peticionhistorial.index')
         </div>
     </div>

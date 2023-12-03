@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\PeticionDetalle;
 
+use App\Http\Livewire\TiendaTipo\TiendaTipo;
 use App\Models\Peticion;
 use App\Models\PeticionDetalle;
 use App\Models\Producto;
 use App\Models\ProductoImagen;
+use App\Models\Store;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -65,7 +67,13 @@ class PetiDetalle extends Component
     }
 
     public function render(){
-        $productos=Producto::with('imagenes')->where('activo','1')->get();
+        $estienda=Auth::user()->hasRole('tienda')==true ? '1' : '';
+        $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id;
+
+        $productos=Producto::with('imagenes')
+            ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
+            ->where('activo','1')
+            ->get();
         return view('livewire.peticion-detalle.peti-detalle',compact(['productos']));
     }
 
