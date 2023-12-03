@@ -44,7 +44,7 @@
                                 @endif
                             </div> --}}
                             <div class="flex  py-0.5 items-center w-1/12 ml-3 space-x-3 text-right md:w-1/12">
-                                @if($peticion->estadopeticion_id<'2' && $detalle->producto->tiendatipo_id!='1')
+                                @if($peticion->peticionestado_id<'2' && $detalle->producto->tiendatipo_id!='1')
                                     <x-icon.edit-a href="{{ route('peticiondetalle.edit',[$peticion,$detalle]) }}" class="w-5"  title="Editar"/>
                                     <form action="{{route('peticiondetalle.destroy', $detalle->id )}}" method="post">
                                     @csrf

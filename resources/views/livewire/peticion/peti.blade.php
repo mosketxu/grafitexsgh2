@@ -11,11 +11,13 @@
                 </div>
             </div>
             <div class="flex w-4/12 space-x-2 text-center">
-                @if($peticion->id && $peticion->peticionestado_id=='1')
-                    @if($peticion->peticionestado_id=='1')
+                @if($peticion->id && $peticion->peticionestado_id=='1' )
+                    @if($peticion->peticionestado_id=='1' && $peticion->peticiondetalles->count()>1)
                     <form method="GET" action="{{route('peticion.enviopeticion',[$peticion]) }}">
                     <x-button.primary type="submit">Enviar mail de petición</x-button.primary>
                     </form>
+                    @else
+                        <x-button class="text-red-500 border-red-500" type="button" disabled>Añadir productos antes de enviar la petición</x-button>
                     @endif
                 @endif
                 @if(Auth::user()->hasRole('sgh'))

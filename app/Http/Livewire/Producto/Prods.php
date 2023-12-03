@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Producto;
 
 use Livewire\Component;
 use App\Models\Producto;
+use App\Models\TiendaTipo;
 use Livewire\WithPagination;
 
 class Prods extends Component
@@ -12,6 +13,7 @@ class Prods extends Component
 
     public $search='';
     public $filtroestado='';
+    public $filtrotiendatipo='';
     public $estados='';
 
 
@@ -21,17 +23,22 @@ class Prods extends Component
         $productos=Producto::query()
             ->with('imagenes')
             ->search('producto',$this->search)
+            ->when($this->filtrotiendatipo!='', function ($query) {
+                    $query->where('tiendatipo_id', $this->filtrotiendatipo);
+                })
             ->when($this->filtroestado!='', function ($query) {
-                    $query->where('estado', $this->filtroestado);
+                    $query->where('activo', $this->filtroestado);
                 })
             ->orderBy('producto','asc')
             ->get();
+        $tiendatipos=TiendaTipo::orderBy('tiendatipo')->get();
 
-        return view('livewire.producto.prods',compact(['productos']));
+        return view('livewire.producto.prods',compact(['productos','tiendatipos']));
     }
 
     public function updatingSearch(){$this->resetPage();}
     public function updatingFiltroestado(){$this->resetPage();}
+    public function updatingFiltrotiendatipo(){$this->resetPage();}
 
     public function changeValor(Producto $producto,$campo,$valor)
     {
