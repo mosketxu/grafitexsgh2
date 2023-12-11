@@ -18,7 +18,7 @@
                             {{ $historia->usuario->name ?? '-'}}
                         </div>
                         <div class="w-2/12 md:w-2/12 ">
-                            {{-- <x-input.text type="text" class="w-full text-xs font-thin text-gray-500 bg-gray-100 border-blue-100 rounded-md" value="{{ $historia->estadopeticion_id}} - {{ $historia->estadohistorial->estadopeticion ?? '-' }}" disabled/> --}}
+                            {{-- <x-input.text type="text" class="w-full text-xs font-thin text-gray-500 bg-gray-100 border-blue-100 rounded-md" value="{{ $historia->peticionestado_id}} - {{ $historia->estadohistorial->estadopeticion ?? '-' }}" disabled/> --}}
                             {{ $historia->estadohistorial->estadopeticion ?? '-' }}
                         </div>
                         <div class="w-6/12 md:flex md:w-6/12">
@@ -45,7 +45,7 @@
         </div>
         <div class="">
             @if(!is_null($peticion->estado))
-                @if(Auth::user()->hasRole('Tienda'))
+                @if(Auth::user()->hasRole('tienda'))
                     @if($peticion->estado>'3')
                         @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
                     @endif

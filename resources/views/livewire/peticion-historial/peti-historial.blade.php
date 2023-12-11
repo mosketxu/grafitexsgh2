@@ -7,13 +7,13 @@
             </div>
             <div class="w-2/12 ">
                 <x-jet-label class="pl-2 text-xs" for="prod">Estado</x-jet-label>
-                <select  name="estadopeticion_id" class="w-full py-1 text-xs text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="estadopeticion_id" wire:model.lazy="estadopeticion_id" >
+                <select  name="peticionestado_id" class="w-full py-1 text-xs text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="peticionestado_id" wire:model.lazy="peticionestado_id" >
                     <option value="">--Sel--</option>
                     @foreach ($estados as $estado )
                     <option value="{{ $estado->id }}">{{ $estado->estadopeticion }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="estadopeticion_id" class="mt-2" />
+                <x-jet-input-error for="peticionestado_id" class="mt-2" />
             </div>
             <div class="w-6/12">
                 <x-jet-label class="pl-2 text-xs" for="observaciones">{{ __('Observaciones') }}</x-jet-label>

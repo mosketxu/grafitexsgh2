@@ -12,6 +12,25 @@
             </div>
         </div>
     </div>
+    <div class="flex w-4/12 text-sm">
+        <div class="w-full">
+            <label class="px-1 text-sm text-gray-600">
+                Tipo Tienda
+            </label>
+            <div class="flex">
+                <select wire:model="filtrotiendatipo"
+                class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-gray-400 focus:outline-none">
+                <option value="">-- selecciona --</option>
+                    @foreach ($tiendatipos as $tipo )
+                        <option value="{{ $tipo->id }}">{{ $tipo->tiendatipo }}</option>
+                    @endforeach
+                </select>
+                @if($filtrotiendatipo!='')
+                    <x-icon.filter-slash-a wire:click="$set('filtrotiendatipo', '')" class="pb-1" title="reset filter"/>
+                @endif
+            </div>
+        </div>
+    </div>
     <div class="flex w-2/12">
         <div class="w-full">
             <label class="px-1 text-sm text-gray-600">

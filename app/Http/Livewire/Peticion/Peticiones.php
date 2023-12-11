@@ -26,7 +26,7 @@ class Peticiones extends Component
             ->with('estado')
             ->search('id',$this->search)
             ->when($this->filtroestado!='', function ($query) {
-                $query->where('estadopeticion_id', $this->filtroestado);
+                $query->where('peticionestado_id', $this->filtroestado);
             })
             ->when($this->filtropeticionario!='', function ($query) {
                 $query->where('peticionario_id', $this->filtropeticionario);

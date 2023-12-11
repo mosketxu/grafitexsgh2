@@ -117,14 +117,14 @@ class PeticionController extends Controller
         $notification='';
         if($elementos->count()>0){
 
-            if($peticion->estadopeticion_id=='1'){
-                $peticion->estadopeticion_id='2';
+            if($peticion->peticionestado_id=='1'){
+                $peticion->peticionestado_id='2';
                 PeticionHistorial::create([
                     'peticion_id'=>$peticion->id,
                     'user_id'=>$peticion->peticionario_id,
-                    'estadopeticion_id'=>'2',
+                    'peticionestado_id'=>'2',
                 ]);
-                $peticion->estadopeticion_id='2';
+                $peticion->peticionestado_id='2';
                 $peticion->enviado='2';
                 $peticion->save();
             }
@@ -148,4 +148,5 @@ class PeticionController extends Controller
         return redirect()->back()->with($notification);
 
     }
+
 }

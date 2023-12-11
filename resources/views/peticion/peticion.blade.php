@@ -15,9 +15,9 @@
             disabled/>
             <x-jet-input-error for="peticionario_id" class="mt-2" />
         </div>
-        <div class="w-4/12 form-item">
+        <div class="w-5/12 form-item">
             <x-jet-label class="pl-2" for="peti">Petición</x-jet-label>
-            <input wire:model.defer="peti" type="text" id="peti" name="peti" value="old('peti') "
+            <input wire:model.defer="peti" type="text" id="peti" name="peti" value=""
             class="w-full py-1 text-sm border-blue-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             {{ $deshabilitado }}/>
             <x-jet-input-error for="peti" class="mt-2" />
@@ -29,16 +29,12 @@
             {{ $deshabilitado }}/>
             <x-jet-input-error for="fecha" class="mt-2" />
         </div>
-        <div class="w-1/12 form-item">
+        <div class="w-2/12 form-item">
             <x-jet-label class="pl-2" for="fecha">Total</x-jet-label>
             <input wire:model.defer="total" type="number" id="total" name="total"
             class="w-full py-1 text-sm border-blue-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             disabled/>
             <x-jet-input-error for="total" class="mt-2" />
-        </div>
-        <div class="w-2/12 form-item">
-            <x-jet-label class="pl-2" for="total">{{ __('Estado') }}</x-jet-label>
-            <input type="text" value="{{ $estadotexto }}" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" disabled>
         </div>
     </div>
     <div class="flex w-full p-2 ">

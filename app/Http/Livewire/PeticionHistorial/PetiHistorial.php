@@ -2,16 +2,19 @@
 
 namespace App\Http\Livewire\PeticionHistorial;
 
-use App\Models\{User,Peticion,EstadoPeticion,PeticionHistorial};
+use App\Mail\MailPeticion;
+use App\Mail\MailPeticionSGH;
+use App\Models\{Destinatario, User,Peticion,EstadoPeticion, PeticionDetalle, PeticionHistorial, Store};
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PetiHistorial extends Component
 {
     public $peticion;
     public $petihistorial;
     public $peticion_id;
-    public $estadopeticion_id;
+    public $peticionestado_id;
     public $observaciones;
     public $user_id;
     // public $fecha;
@@ -19,7 +22,7 @@ class PetiHistorial extends Component
 
     protected function rules(){
         return [
-            'estadopeticion_id'=>'required',
+            'peticionestado_id'=>'required',
             // 'fecha'=>'required',
             'user_id'=>'required',
             'observaciones'=>'nullable',
@@ -28,7 +31,7 @@ class PetiHistorial extends Component
 
     public function messages(){
         return [
-            'estadopeticion_id.required' => 'El Estado en necesario',
+            'peticionestado_id.required' => 'El Estado en necesario',
             // 'fecha.required' => 'La fecha es necesaria',
         ];
     }
@@ -56,14 +59,13 @@ class PetiHistorial extends Component
         $petidet=PeticionHistorial::Create([
                 'peticion_id'=>$this->peticion->id,
                 'user_id'=>$this->user_id,
-                'estadopeticion_id'=>$this->estadopeticion_id,
+                'peticionestado_id'=>$this->peticionestado_id,
                 // 'fecha'=>$this->fecha,
                 'observaciones'=>$this->observaciones,
             ]
         );
 
-
-        $this->peticion->estadopeticion_id=$this->estadopeticion_id;
+        $this->peticion->peticionestado_id=$this->peticionestado_id;
         $this->peticion->save();
 
         $notification = array(
@@ -72,8 +74,49 @@ class PetiHistorial extends Component
         );
 
         $this->dispatchBrowserEvent('notify', 'Entrada añadida satisfactoriamente');
+
+        if(Auth::user()->hasRole('sgh'))
+            $this->enviarpeticionSGH($this->peticion,$petidet,$this->peticionestado_id);
+        elseif(Auth::user()->hasRole('grafitex'))
+            $this->enviarpeticionGrafitex($this->peticion,$this->peticionestado_id);
+        // si es tienda se lanza desde el botón
+
         return redirect()->route('peticion.editar',$this->peticion)->with($notification);
-        // route('peticion.editar',$peticion)
+
+    }
+
+    public function enviarpeticionSGH(Peticion $peticion,$petidet,$peticionestado_id){
+        $peticionario=User::where('id',$peticion->peticionario_id)->first();
+        $store=Store::find($peticionario->name);
+        if($peticionestado_id=='4')
+            $cuerpo='Se ha aceptado la petición: '.$peticion->id. ' de la tienda ' . $store->name;
+        elseif($peticionestado_id=='3')
+            $cuerpo='Se ha rechazado la petición: '.$peticion->id. ' de la tienda ' . $store->name;
+        $details=[
+            // 'de'=>'alex.arregui@sumaempresa.com',
+            'asunto'=>'Aceptación de peticion nº:' .$peticion->id ,
+            'cuerpo'=>'peticionSGH',
+            'storename'=>$store->name,
+            'storeId'=>$store->id,
+            'cuerpo'=>$cuerpo,
+            'observaciones'=>$petidet->observaciones,
+
+        ];
+
+        $destinatarios=Destinatario::where('empresa','Grafitex')->get();
+
+        $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
+
+        $notification='';
+
+        foreach ($destinatarios as $destinatario) {
+            Mail::to($destinatario->mail)->send(new MailPeticionSGH($details,$elementos,$peticion));
+            $notification = array(
+                'message' => '¡Mail de peticion enviado!',
+                'alert-type' => 'success',
+            );
+        }
+        return redirect()->back()->with($notification);
     }
 
 }
