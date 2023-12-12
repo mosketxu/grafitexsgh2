@@ -43,7 +43,7 @@ class Prods extends Component
     public function changeValor(Producto $producto,$campo,$valor)
     {
         $producto->update([$campo=>$valor]);
-        $this->dispatchBrowserEvent('notify', 'Actulizado con éxito.');
+        $this->dispatchBrowserEvent('notify', 'Actuliazado con éxito.');
     }
 
     public function delete($productoId)

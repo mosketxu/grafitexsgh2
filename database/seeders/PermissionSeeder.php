@@ -153,45 +153,52 @@ class PermissionSeeder extends Seeder
         //
 
         // Productos
-        Permission::create(['name'=>'producto.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'producto.create'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'producto.edit'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'producto.update'])->syncRoles($admin, $grafitex);
-        Permission::create(['name'=>'producto.delete'])->syncRoles($admin, $grafitex);
+        // Permission::create(['name'=>'producto.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'producto.create'])->syncRoles($admin, $grafitex);
+        // Permission::create(['name'=>'producto.edit'])->syncRoles($admin, $grafitex);
+        // Permission::create(['name'=>'producto.update'])->syncRoles($admin, $grafitex);
+        // Permission::create(['name'=>'producto.delete'])->syncRoles($admin, $grafitex);
 
         // Peticiones
-        Permission::create(['name'=>'peticion.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticion.create'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticion.edit'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticion.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticion.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticion.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticion.create'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticion.edit'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticion.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticion.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
 
         // Peticion Detalles
-        Permission::create(['name'=>'peticiondetalle.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticiondetalle.create'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticiondetalle.edit'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticiondetalle.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'peticiondetalle.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticiondetalle.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticiondetalle.create'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticiondetalle.edit'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticiondetalle.update'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'peticiondetalle.delete'])->syncRoles($admin, $grafitex,$sgh,$tienda);
 
         // Producto Imagenes
-        Permission::create(['name'=>'productoimagen.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
-        Permission::create(['name'=>'productoimagen.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'productoimagen.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'productoimagen.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'productoimagen.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'productoimagen.index'])->syncRoles($admin, $grafitex,$sgh,$tienda);
+        // Permission::create(['name'=>'productoimagen.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'productoimagen.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'productoimagen.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'productoimagen.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Tienda tipo
-        Permission::create(['name'=>'tiendatipo.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'tiendatipo.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'tiendatipo.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'tiendatipo.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'tiendatipo.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'tiendatipo.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'tiendatipo.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'tiendatipo.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'tiendatipo.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'tiendatipo.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Montaje tipo
-        Permission::create(['name'=>'montajetipo.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajetipo.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajetipo.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajetipo.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajetipo.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajetipo.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajetipo.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajetipo.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajetipo.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajetipo.delete'])->syncRoles($admin, $grafitex,$sgh);
+
+        // Montaje tipo
+        Permission::create(['name'=>'escaparate.index'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'escaparate.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'escaparate.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'escaparate.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'escaparate.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,
     AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController,
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
+    EscaparateController,
     MaestroController, MontadorController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
     TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, TiendaTipoController};
@@ -180,6 +181,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::group(['prefix' => 'montajetipo'], function () {
         Route::get('/{montajetipo}/edit', [MontajeTipoController::class, 'editar'])->name('montajetipo.editar')->middleware('can:montajetipo.edit');
         Route::resource('/', MontajeTipoController::class)->names('montajetipo')->except('edit');
+    });
+
+    //Escaparates
+    Route::group(['prefix' => 'escaparate'], function () {
+        Route::get('/{escaparate}/edit', [EscaparateController::class, 'editar'])->name('escaparate.editar')->middleware('can:escaparate.edit');
+        Route::resource('/', EscaparateController::class)->names('escaparate')->except('edit');
     });
 
     //Productos de peticiones de las tiendas

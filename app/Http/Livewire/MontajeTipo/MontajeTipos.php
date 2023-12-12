@@ -26,7 +26,7 @@ class MontajeTipos extends Component
     public function changeValor(MontajeTipo $montajetipo,$campo,$valor)
     {
         $montajetipo->update([$campo=>$valor]);
-        $this->dispatchBrowserEvent('notify', 'Actulizado con éxito.');
+        $this->dispatchBrowserEvent('notify', 'Actuliazado con éxito.');
     }
 
     public function delete($montajetipoId)

@@ -45,7 +45,7 @@ class Ents extends Component
     public function changeValor(Entidad $entidad,$campo,$valor)
     {
         $entidad->update([$campo=>$valor]);
-        $this->dispatchBrowserEvent('notify', 'Actulizada con éxito.');
+        $this->dispatchBrowserEvent('notify', 'Actuliazada con éxito.');
     }
 
     public function delete($entidadId)
