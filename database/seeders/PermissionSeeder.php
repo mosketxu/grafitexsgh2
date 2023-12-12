@@ -209,10 +209,17 @@ class PermissionSeeder extends Seeder
         // Permission::create(['name'=>'storeescaparate.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Montaje Materiales
-        Permission::create(['name'=>'montajematerial.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajematerial.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajematerial.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajematerial.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'montajematerial.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajematerial.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajematerial.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajematerial.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajematerial.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'montajematerial.delete'])->syncRoles($admin, $grafitex,$sgh);
+
+        // Montaje Proporcion
+        Permission::create(['name'=>'montajeproporcion.index'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajeproporcion.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajeproporcion.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajeproporcion.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajeproporcion.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

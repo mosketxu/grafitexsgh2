@@ -6,7 +6,7 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController,
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
     EscaparateController,
-    MaestroController, MontadorController, MontajeMaterialController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
+    MaestroController, MontadorController, MontajeMaterialController, MontajeProporcionController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
     TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, StoreEscaparateController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
@@ -191,6 +191,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::group(['prefix' => 'montajematerial'], function () {
         Route::get('/{montajematerial}/edit', [MontajeMaterialController::class, 'editar'])->name('montajematerial.editar')->middleware('can:montajematerial.edit');
         Route::resource('/', MontajeMaterialController::class)->names('montajematerial')->except('edit');
+    });
+
+    //Montaje Materiales
+    Route::group(['prefix' => 'montajeproporcion'], function () {
+        Route::get('/{montajeproporcion}/edit', [MontajeProporcionController::class, 'editar'])->name('montajeproporcion.editar')->middleware('can:montajeproporcion.edit');
+        Route::resource('/', MontajeProporcionController::class)->names('montajeproporcion')->except('edit');
     });
 
     //Escaparates

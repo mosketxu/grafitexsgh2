@@ -220,6 +220,13 @@
                                     </x-jet-dropdown-link>
                                 </div>
                                 @endcan
+                                @can('montajeproporcion.index')
+                                <div class="w-44">
+                                    <x-jet-dropdown-link href="{{route('montajeproporcion.index') }}" :active="request()->routeIs('montajeproporcion.index')" class="text-left">
+                                    {{ __('Proporción Montaje') }}
+                                    </x-jet-dropdown-link>
+                                </div>
+                                @endcan
                             @endcan
                             @can('elemento.index')
                             <div class="w-44">
@@ -526,6 +533,11 @@
                             @can('montajematerial.index')
                             <x-jet-dropdown-link href="{{ route('montajematerial.index') }}" class="text-right">
                                 {{ __('Montaje Material') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('montajeproporcion.index')
+                            <x-jet-dropdown-link href="{{ route('montajeproporcion.index') }}" class="text-right">
+                                {{ __('Proporcion Montaje') }}
                             </x-jet-dropdown-link>
                             @endcan
                             @can('elemento.index')
