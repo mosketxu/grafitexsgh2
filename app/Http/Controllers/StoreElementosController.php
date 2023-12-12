@@ -133,7 +133,7 @@ class StoreElementosController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Producto añadido satisfactoriamente!',
+            'message' => 'Elemento añadido satisfactoriamente!',
             'alert-type' => 'success'
         );
 

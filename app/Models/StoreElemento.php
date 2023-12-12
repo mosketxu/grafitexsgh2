@@ -10,13 +10,8 @@ class StoreElemento extends Model
     use HasFactory;
     protected $fillable=['id','elemento_id','store_id','elementificador'];
 
-    public function elemento(){
-        return $this->belongsTo(Elemento::class,'elemento_id');
-    }
-
-    public function store(){
-        return $this->belongsTo(Store::class,'store_id');
-    }
+    public function elemento(){return $this->belongsTo(Elemento::class,'elemento_id');}
+    public function store(){return $this->belongsTo(Store::class,'store_id');}
 
     public function scopeSearch2($query, $busca){
         return $query->where('store_id', 'LIKE', "%$busca%")

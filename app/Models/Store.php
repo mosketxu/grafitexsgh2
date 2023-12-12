@@ -28,6 +28,7 @@ class Store extends Model
 
     public function campaigntiendas(){return $this->hasMany(CampaignTienda::class);}
     public function storeelementos(){return $this->hasMany(StoreElemento::class);}
+    public function storeescaparates(){return $this->hasMany(StoreEscaparate::class);}
     public function are(){return $this->belongsTo(Area::class,'area_id');}
     public function concep(){return $this->belongsTo(Storeconcept::class,'concepto_id');}
     public function montador(){return $this->hasOne(Entidad::class,'id','montador_id');}
