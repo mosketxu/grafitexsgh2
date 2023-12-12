@@ -202,10 +202,17 @@ class PermissionSeeder extends Seeder
         // Permission::create(['name'=>'escaparate.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Montaje tipo
-        Permission::create(['name'=>'storeescaparate.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeescaparate.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeescaparate.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeescaparate.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeescaparate.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeescaparate.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeescaparate.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeescaparate.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeescaparate.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeescaparate.delete'])->syncRoles($admin, $grafitex,$sgh);
+
+        // Montaje Materiales
+        Permission::create(['name'=>'montajematerial.index'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajematerial.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajematerial.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajematerial.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajematerial.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

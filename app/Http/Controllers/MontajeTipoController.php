@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\MontajeTipo;
-use App\Http\Requests\StoreMontajeTipoRequest;
-use App\Http\Requests\UpdateMontajeTipoRequest;
 
 class MontajeTipoController extends Controller
 {

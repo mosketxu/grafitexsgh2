@@ -213,6 +213,13 @@
                                 {{ __('Escaparates') }}
                                 </x-jet-dropdown-link>
                             </div>
+                                @can('montajematerial.index')
+                                <div class="w-44">
+                                    <x-jet-dropdown-link href="{{route('montajematerial.index') }}" :active="request()->routeIs('montajematerial.index')" class="text-left">
+                                    {{ __('Material Montaje') }}
+                                    </x-jet-dropdown-link>
+                                </div>
+                                @endcan
                             @endcan
                             @can('elemento.index')
                             <div class="w-44">
@@ -514,6 +521,11 @@
                             @can('escaparate.index')
                             <x-jet-dropdown-link href="{{ route('escaparate.index') }}" class="text-right">
                                 {{ __('Escaparates') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('montajematerial.index')
+                            <x-jet-dropdown-link href="{{ route('montajematerial.index') }}" class="text-right">
+                                {{ __('Montaje Material') }}
                             </x-jet-dropdown-link>
                             @endcan
                             @can('elemento.index')
