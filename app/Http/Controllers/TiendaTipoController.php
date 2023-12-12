@@ -30,7 +30,7 @@ class TiendaTipoController extends Controller
      */
     public function create()
     {
-        $ruta="tiendatiop";
+        $ruta="tiendatipo";
         return view('tiendatipo.create',compact('ruta'));
     }
 

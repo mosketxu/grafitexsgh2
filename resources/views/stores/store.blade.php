@@ -47,6 +47,16 @@
                                         @endforeach
                                     </x-select>
                                 </div>
+                                {{-- montaje --}}
+                                <div class="w-full form-item">
+                                    <x-jet-label for="tipo">Montaje Tipo</x-jet-label>
+                                    <x-select class="w-full py-1.5 border-blue-300"  id="montajetipo_id" selectname="montajetipo_id" name="montajetipo_id" >
+                                        <option value="">-- Selecciona --</option>
+                                        @foreach ($montajetipos as $tipo )
+                                            <option value="{{$tipo->id}}" {{$store->montajetipo_id==$tipo->id ? 'selected' : ''}}>{{$tipo->montajetipo}}</option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
                                 {{-- country --}}
                                 <div class="w-full form-item">
                                     <x-jet-label for="country">Country</x-jet-label>

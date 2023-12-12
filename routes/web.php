@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\{CampaignController, CampaignElementoController, CampaignGaleriaController,
     AuxiliaresController, CampaignPlanController, CampaignPlanGaleriaController, CampaignPresupuestoController,
     CampaignReportingController, CampaignPresupuestoExtraController, ElementoController, EntidadController,
-    MaestroController, MontadorController, PeticionController, ProductoController, ProductoImagenController, RoleController,
+    MaestroController, MontadorController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
     TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
@@ -174,6 +174,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::group(['prefix' => 'tiendatipo'], function () {
         Route::get('/{tiendatipo}/edit', [TiendaTipoController::class, 'editar'])->name('tiendatipo.editar')->middleware('can:tiendatipo.edit');
         Route::resource('/', TiendaTipoController::class)->names('tiendatipo')->except('edit');
+    });
+
+    //Montaje Tipos
+    Route::group(['prefix' => 'montajetipo'], function () {
+        Route::get('/{montajetipo}/edit', [MontajeTipoController::class, 'editar'])->name('montajetipo.editar')->middleware('can:montajetipo.edit');
+        Route::resource('/', MontajeTipoController::class)->names('montajetipo')->except('edit');
     });
 
     //Productos de peticiones de las tiendas

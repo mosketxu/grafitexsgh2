@@ -13,15 +13,15 @@
                 <div class="flex w-full py-1 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md ">
                     <div class="flex w-11/12 ">
                         <div class="hidden pl-2 text-left md:flex md:w-1/12">Luxottica</div>
-                        <div class="hidden pl-2 text-left md:flex md:w-1/12">Tipo</div>
                         <div class="w-1/12 text-left md:w-1/12">Code</div>
                         @can('montador.index')
                         <div class="w-5/12 text-left md:w-1/12">Store</div>
                         @else
                         <div class="w-6/12 text-left md:w-1/12">Store</div>
                         @endcan
-                        <div class="w-2/12 text-left md:w-1/12">Country</div>
-                        <div class="w-2/12 text-left md:w-1/12">Area</div>
+                        <div class="hidden pl-2 text-left md:flex md:w-1/12">T.Tienda</div>
+                        <div class="hidden pl-2 text-left md:flex md:w-1/12">T. Mont</div>
+                        <div class="w-2/12 text-left md:w-1/12">Country/ <br> Area</div>
                         <div class="hidden md:text-left md:w-1/12 md:flex">Segmento</div>
                         <div class="hidden md:text-left md:w-1/12 md:flex">Channel</div>
                         <div class="hidden md:text-left md:w-1/12 md:flex">Cluster</div>
@@ -46,15 +46,15 @@
                             @endcan
                                 <input type="hidden" name="id" value="{{$store->id}}">
                                 <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->luxotica}}</div>
-                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->tiendatipo->tiendatipo ?? '-'}}</div>
                                 <div class="w-1/12 text-left ">{{$store->id}}</div>
                                 @can('montador.index')
                                 <div class="w-5/12 text-left md:w-1/12">{{$store->name}}</div>
                                 @else
                                 <div class="w-6/12 text-left md:w-1/12">{{$store->name}}</div>
                                 @endcan
-                                <div class="w-2/12 text-left md:w-1/12">{{$store->country}}</div>
-                                <div class="w-2/12 text-left md:w-1/12">{{$store->are->area}}</div>
+                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->tiendatipo->tiendatipo ?? '-'}}</div>
+                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->montajetipo->montajetipo ?? '-'}}</div>
+                                <div class="w-2/12 text-left md:w-1/12">{{$store->country}} / {{$store->are->area}}</div>
                                 <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->segmento}}</div>
                                 <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->channel}}</div>
                                 <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->store_cluster}}</div>

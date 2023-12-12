@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, Storeconcept, TiendaTipo};
+use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, MontajeTipo, Storeconcept, TiendaTipo};
 use App\Imports\StoreaddressesImport;
 use App\Exports\StoreExport;
 use Illuminate\Support\Facades\DB;
@@ -144,7 +144,8 @@ class StoreController extends Controller
         $furnitures=Furniture::orderBy('furniture_type')->get();
         $montadores=Entidad::orderBy('entidad')->get();
         $tiendatipos=TiendaTipo::where('tiendatipo','<>','Grafitex')->orderBy('tiendatipo')->get();
-        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores','tiendatipos'));
+        $montajetipos=MontajeTipo::orderBy('montajetipo')->get();
+        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores','tiendatipos','montajetipos'));
     }
 
     /**
@@ -182,6 +183,7 @@ class StoreController extends Controller
         DB::table('stores')->where('id',$store->id)->update([
             'luxotica'=>$request->luxotica,
             'tiendatipo_id'=>$request->tiendatipo_id,
+            'montajetipo_id'=>$request->montajetipo_id,
             'name'=>$request->name,
             'country'=>$request->country,
             'idioma'=>$request->idioma,

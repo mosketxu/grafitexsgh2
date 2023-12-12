@@ -186,5 +186,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name'=>'tiendatipo.edit'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'tiendatipo.update'])->syncRoles($admin, $grafitex,$sgh);
         Permission::create(['name'=>'tiendatipo.delete'])->syncRoles($admin, $grafitex,$sgh);
+
+        // Montaje tipo
+        Permission::create(['name'=>'montajetipo.index'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajetipo.create'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajetipo.edit'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajetipo.update'])->syncRoles($admin, $grafitex,$sgh);
+        Permission::create(['name'=>'montajetipo.delete'])->syncRoles($admin, $grafitex,$sgh);
     }
 }

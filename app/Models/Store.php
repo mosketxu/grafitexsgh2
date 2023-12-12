@@ -10,7 +10,7 @@ class Store extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'id','luxotica','tiendatipo_id','name','address','city','province','cp','phone','email',
+        'id','luxotica','tiendatipo_id','montajetipo_id','name','address','city','province','cp','phone','email',
         'country','zona','area_id','area','idioma','segmento',
         'concepto_id','concepto','imagen',
         'channel','store_cluster','furniture_type','winterschedule','summerschedule',
@@ -32,6 +32,7 @@ class Store extends Model
     public function concep(){return $this->belongsTo(Storeconcept::class,'concepto_id');}
     public function montador(){return $this->hasOne(Entidad::class,'id','montador_id');}
     public function tiendatipo(){return $this->belongsTo(TiendaTipo::class,'tiendatipo_id');}
+    public function montajetipo(){return $this->belongsTo(MontajeTipo::class,'montajetipo_id');}
 
     public function scopeSeg($query,$campaignId){
         if (CampaignSegmento::where('campaign_id',$campaignId)->count()>0){
