@@ -71,8 +71,8 @@
                                         class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo3fondo}}"
                                         wire:change="changeCampo({{ $valor }},'{{ $campo3 }}',$event.target.value)"
                                         {{$campo3disabled}}>
-                                        <option value="Grafitex" {{ $valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
-                                        <option value="SGH" {{ $valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
+                                        <option value="Grafitex" {{ $valor->valorcampo3=='Grafitex' ? 'selected' : '' }}>Grafitex</option>
+                                        <option value="SGH" {{ $valor->valorcampo3=='SGH' ? 'selected' : '' }}>SGH</option>
                                     <select>
                                     @elseif($campo3='password')
                                         <input type="password" value="{{ $valor->valorcampo3 }}"

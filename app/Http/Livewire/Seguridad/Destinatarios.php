@@ -79,6 +79,7 @@ class Destinatarios extends Component
 
     public function changeCampo(Destinatario $valor,$campo,$valorcampo)
     {
+        // dd($valor);
         Validator::make(['valorcampo'=>$valorcampo],[
             'valorcampo'=>'required',
         ])->validate();
