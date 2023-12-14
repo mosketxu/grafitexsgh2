@@ -82,7 +82,10 @@ class PetiHistorial extends Component
         // se decide que grafitex no manda mail una vez aceptada
         // elseif(Auth::user()->hasRole('grafitex'))
         //     $this->enviarpeticionGrafitex($this->peticion,$this->peticionestado_id);
-        // si es tienda se lanza desde el botón
+        // si es la solicitud de la tienda se lanza desde el botón
+        // si la tienda recibe el material mal se lanza mail
+        if(Auth::user()->hasRole('tienda') && $this->peticionestado_id==8)
+            $this->enviarpeticionTiendaKO($this->peticion,$petidet,$this->peticionestado_id);
 
         return redirect()->route('peticion.editar',$this->peticion)->with($notification);
 
@@ -106,6 +109,39 @@ class PetiHistorial extends Component
 
         ];
 
+        $destinatarios=Destinatario::where('empresa','Grafitex')->get();
+
+        $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
+
+        $notification='';
+
+        foreach ($destinatarios as $destinatario) {
+            Mail::to($destinatario->mail)->send(new MailPeticionSGH($details,$elementos,$peticion));
+            $notification = array(
+                'message' => '¡Mail de peticion enviado!',
+                'alert-type' => 'success',
+            );
+        }
+        return redirect()->back()->with($notification);
+    }
+
+    public function enviarpeticionTiendaKO(Peticion $peticion,$petidet,$peticionestado_id){
+        $peticionario=User::where('id',$peticion->peticionario_id)->first();
+        $store=Store::find($peticionario->name);
+        // if($peticionestado_id=='4')
+            $cuerpo='La petición: '.$peticion->id. ' de la tienda ' . $store->name .' ha llegado defectuosa';
+        // elseif($peticionestado_id=='3')
+            // $cuerpo='La petición se ha recibido con defectos: '.$peticion->id. ' de la tienda ' . $store->name;
+        $details=[
+            // 'de'=>'alex.arregui@sumaempresa.com',
+            'asunto'=>'Recepción defectuosa de la peticion nº:' .$peticion->id ,
+            'origen'=>'peticionKO',
+            'storename'=>$store->name,
+            'storeId'=>$store->id,
+            'cuerpo'=>$cuerpo,
+            'observaciones'=>$petidet->observaciones,
+
+        ];
         $destinatarios=Destinatario::where('empresa','Grafitex')->get();
 
         $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
