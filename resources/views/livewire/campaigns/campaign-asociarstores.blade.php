@@ -20,8 +20,9 @@
                 </div>
                 <div class="flex flex-col w-full overflow-hidden overflow-y-scroll bg-grey-light" style="height: 26vh;">
                     @forelse ($disponibles as $disponible)
-                        <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y hover:bg-gray-200" style="cursor: pointer" wire:loading.class.delay="opacity-50">
-                            <div class="w-full pl-2 " wire:click="asocia({{ $disponible }},'1')" >{{ $titulo=='Stores' ? ($disponible->ident . ' ' .$disponible->name) :  $disponible->ident }} </div>
+                        <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y hover:bg-gray-200 focus:bg-gray-100" style="cursor: pointer" wire:loading.class.delay="opacity-50">
+                            {{-- <div class="w-full pl-2 " wire:click="asocia({{ $disponible }},'1')" >{{ $titulo=='Stores' ? ($disponible->ident . ' ' .$disponible->name) :  $disponible->ident }} </div> --}}
+                            <div class="w-full pl-2 " >{{ $titulo=='Stores' ? ($disponible->ident . ' ' .$disponible->name) :  $disponible->ident }} </div>
                             <div class="w-10 pt-1 tex-right"><x-icon.arrow-right-a class="text-green-700" wire:click="asocia({{ $disponible }},'1')"/></div>
                         </div>
                     @empty
@@ -49,7 +50,8 @@
                 <div class="flex flex-col w-full overflow-hidden overflow-y-scroll bg-grey-light" style="height: 26vh;">
                     @forelse ($asociadas as $asociada)
                     <div class="flex w-full space-x-1 text-sm text-gray-500 border-t-0 border-y hover:bg-gray-200" style="cursor: pointer" wire:loading.class.delay="opacity-50">
-                        <div class="w-full pl-2" wire:click="disocia({{ $asociada->id }},'1')">{{ $titulo=='Stores' ? $asociada->campo : '' }}  {{ $asociada->name }}</div>
+                        {{-- <div class="w-full pl-2" wire:click="disocia({{ $asociada->id }},'1')">{{ $titulo=='Stores' ? $asociada->campo : '' }}  {{ $asociada->name }}</div> --}}
+                        <div class="w-full pl-2" >{{ $titulo=='Stores' ? $asociada->campo : '' }}  {{ $asociada->name }}</div>
                         <div class="w-10 pt-1 tex-right"><x-icon.arrow-left-a class="text-red-600" wire:click="disocia({{ $asociada->id }},'1')"/></div>
                     </div>
                     @empty
