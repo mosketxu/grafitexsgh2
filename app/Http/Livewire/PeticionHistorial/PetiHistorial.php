@@ -79,8 +79,9 @@ class PetiHistorial extends Component
 
         if(Auth::user()->hasRole('sgh'))
             $this->enviarpeticionSGH($this->peticion,$petidet,$this->peticionestado_id);
-        elseif(Auth::user()->hasRole('grafitex'))
-            $this->enviarpeticionGrafitex($this->peticion,$this->peticionestado_id);
+        // se decide que grafitex no manda mail una vez aceptada
+        // elseif(Auth::user()->hasRole('grafitex'))
+        //     $this->enviarpeticionGrafitex($this->peticion,$this->peticionestado_id);
         // si es tienda se lanza desde el botón
 
         return redirect()->route('peticion.editar',$this->peticion)->with($notification);
