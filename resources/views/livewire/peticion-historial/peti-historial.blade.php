@@ -1,7 +1,7 @@
-<div class="flex-none lg:flex">
+<div class="flex-none mt-1 lg:flex">
     <form wire:submit.prevent="save" class="w-full">
         <div class="flex w-full space-x-1 text-gray-500">
-            <div class="w-2/12 ">
+            <div class="w-3/12 ">
                 <x-jet-label class="pl-2 text-xs" for="username">Usuario</x-jet-label>
                 <input type="text" id="username" wire:model.lazy="username" class="w-full py-1 text-xs text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" disabled/>
             </div>

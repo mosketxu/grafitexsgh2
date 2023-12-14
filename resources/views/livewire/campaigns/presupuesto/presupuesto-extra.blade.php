@@ -10,22 +10,22 @@
         <div class="">
             @include('errores')
         </div>
-        <div class="flex w-full text-white bg-black px-6 space-x-3">
+        <div class="flex w-full px-6 space-x-3 text-white bg-black">
             <div class="w-3/12">Extra</div>
             <div class="w-1/12">Zona</div>
-            <div class="w-1/12 text-right pr-6">Uds</div>
-            <div class="w-1/12 text-right pr-6">€/ud.</div>
-            <div class="w-1/12 text-right pr-6">Total</div>
+            <div class="w-1/12 pr-6 text-right">Uds</div>
+            <div class="w-1/12 pr-6 text-right">€/ud.</div>
+            <div class="w-1/12 pr-6 text-right">Total</div>
             <div class="w-4/12 text-left">Obs.</div>
             <div class="w-1/12"></div>
         </div>
-        <div class="w-full overflow-y-scroll bg-grey-light items-center" style="height: 40vh;">
+        <div class="items-center w-full overflow-y-scroll bg-grey-light" style="height: 40vh;">
             @forelse($extras as $detalle)
                 {{-- <form id="{{ $extra->id }}extra" method="post" action="{{ route('campaign.presupuesto.extra.delete',$extra->id) }}">
                     <input type="hidden" name="_tokenExtra{{$extra->id}}" value="{{ csrf_token()}}" id="tokenExtra{{$extra->id}}">
                     @csrf
                     @method('DELETE') --}}
-                <div wire:loading.class.delay="opacity-50" class="flex w-full px-6 space-x-3  items-center">
+                <div wire:loading.class.delay="opacity-50" class="flex items-center w-full px-6 space-x-3 ">
                     <div class="w-3/12">
                         <x-input.text  type="text" value="{{$detalle->concepto}}"
                             class="py-1 text-sm border-none shadow-none" name="concepto"
@@ -42,22 +42,22 @@
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="number" name="unidades" value="{{$detalle->unidades}}"
-                            class="py-1  text-sm  text-right border-none shadow-none"
+                            class="py-1 text-sm text-right border-none shadow-none"
                             wire:change="changeCampo({{ $detalle }},'unidades',$event.target.value)"/>
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="text" name="preciounidad" value="{{number_format($detalle->preciounidad,2,',','.')}}"
-                            class="py-1  text-sm text-right border-none shadow-none"
+                            class="py-1 text-sm text-right border-none shadow-none"
                             wire:change="changeCampo({{ $detalle }},'preciounidad',$event.target.value)"/>
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="text" name="total" value="{{ number_format($detalle->total, 2, ',', '.') }}"
-                        class="py-1  text-sm text-right border-none shadow-none bg-blue-200"
+                        class="py-1 text-sm text-right bg-blue-200 border-none shadow-none"
                         disabled/>
                     </div>
                     <div class="w-4/12">
                         <x-input.text type="text" name="observaciones" value="{{$detalle->observaciones}}"
-                        class="py-1  text-sm border-none shadow-none"
+                        class="py-1 text-sm border-none shadow-none"
                         wire:change="changeCampo({{ $detalle }},'observaciones',$event.target.value)"/>
                     </div>
                     <div class="w-1/12 mx-auto space-x-3 text-right">
@@ -90,15 +90,15 @@
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="number" wire:model.lazy="unidades" placeholder="uds"
-                            class="py-1  text-right border-none shadow-none"/>
+                            class="py-1 text-right border-none shadow-none"/>
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="number" step="any" wire:model.lazy="preciounidad" placeholder="€/ud"
-                            class="py-1  text-right border-none shadow-none"/>
+                            class="py-1 text-right border-none shadow-none"/>
                     </div>
                     <div class="w-1/12">
                         <x-input.text type="number" step="any" wire:model.lazy="total" placeholder="total"
-                        class="py-1  text-right border-none shadow-none bg-blue-200"
+                        class="py-1 text-right bg-blue-200 border-none shadow-none"
                         disabled/>
                     </div>
                     <div class="w-4/12">

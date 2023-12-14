@@ -5,18 +5,22 @@
                 <h2 class="text-lg font-semibold leading-tight text-gray-800">Historial</h2>
             </div>
             <div class="flex w-full py-1 text-xs text-gray-500 bg-blue-100 rounded-t-md">
-                <div class="w-6/12 font-light" ><input type="text" class="w-full py-0 text-xs text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Usuario') }}" /></div>
-                <div class="w-3/12 font-light" ><input type="text" class="w-full py-0 text-xs text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Estado') }}" /></div>
+                <div class="w-5/12 font-light" ><input type="text" class="w-full py-0 text-xs text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Usuario') }}" /></div>
+                <div class="w-4/12 font-light" ><input type="text" class="w-full py-0 text-xs text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Estado') }}" /></div>
                 <div class="w-3/12 font-light" ><input type="text" class="w-full py-0 text-xs text-center text-gray-500 bg-blue-100 border-0 rounded-md" value= "{{ __('Fecha') }}" /></div>
             </div>
         <div>
         @forelse ($historial as $historia)
-        <div class="items-center even:bg-gray-50 odd:bg-gray-100 ">
+        @if($loop->even)
+        <div class="items-center bg-yellow-50">
+        @else
+        <div class="items-center bg-white">
+        @endif
             <div class="flex w-full pl-2 space-x-1 py-0.5 text-xs border-t-0 " wire:loading.class.delay="opacity-50">
-                <div class="w-6/12">
-                    {{ $historia->usuario->name ?? '-'}}
+                <div class="w-5/12">
+                    {{ $historia->usuario->store->name ?? $historia->usuario->name ?? '-'}}
                 </div>
-                <div class="w-3/12">
+                <div class="w-4/12 font-bold">
                     {{ $historia->estadohistorial->estadopeticion ?? '-' }}
                 </div>
                 <div class="w-3/12 text-center">
@@ -25,8 +29,8 @@
             </div>
             <div class="flex even:bg-gray-50 odd:bg-gray-100 items-center w-full pl-2 py-0.5 text-xs border-t-0 " wire:loading.class.delay="opacity-50">
                 <div class="flex items-center w-full p-0 m-0">
-                    <div class="items-center w-1/12 p-0 m-0 font-light" ><input type="text" class="w-full py-0 text-xs text-gray-500 bg-transparent border-0 rounded-md" value= "{{ __('Obs:') }}" /></div>
-                    <div class="w-11/12 p-0 m-0">
+                    <div class="items-center w-1/12 p-0 m-0 font-light" ><input type="text" class="w-full py-0 text-xs text-left text-gray-500 bg-transparent border-0 rounded-md" value= "{{ __('Obs:') }}" /></div>
+                    <div class="w-11/12 p-0 mr-1">
                         <textarea rows="1" class="w-full py-1 text-xs font-thin bg-transparent border-gray-300 rounded-md" readonly>{{ $historia->observaciones }}</textarea>
                     </div>
                 </div>
@@ -53,6 +57,10 @@
                 @endif
             @elseif (Auth::user()->hasRole('sgh'))
                 @if($peticion->estado>'1')
+                    @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
+                @endif
+            @elseif (Auth::user()->hasRole('grafitex'))
+                @if($peticion->estado>'3')
                     @livewire('peticion-historial.peti-historial',['peticion'=>$peticion,'ruta'=>$ruta],key($peticion->id))
                 @endif
             @endif

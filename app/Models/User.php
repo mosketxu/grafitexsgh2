@@ -27,6 +27,8 @@ class User extends Authenticatable
      */
     protected $fillable = ['name','email','password',];
 
+    public function store(){return $this->belongsTo(Store::class,'name','id');}
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -65,7 +65,9 @@ class Peti extends Component
         $this->detalles=PeticionDetalle::where('peticion_id',$peticion->id)->get();
         $this->historial=PeticionHistorial::query()
             ->with('usuario','estadohistorial')
+            ->with('usuario.store',)
             ->where('peticion_id',$peticion->id)->get();
+
         if(Auth::user()->hasRole('tienda')){
             $sto=Store::find(Auth::user()->name);
             $this->solicitadopor=$sto->id . '-' . $sto->name;

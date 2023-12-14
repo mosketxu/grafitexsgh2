@@ -39,8 +39,10 @@ class PetiHistorial extends Component
     public function mount(Peticion $peticion){
         $this->peticion=$peticion;
         $this->user_id=Auth::user()->id;
-        $this->username=Auth::user()->name;
-        // $this->fecha=Carbon::now();
+        if(Auth::user()->hasRole('tienda'))
+            $this->username=Store::where('id',Auth::user()->name)->first()->name;
+        else
+            $this->username=Auth::user()->name;
     }
 
     public function render(){
