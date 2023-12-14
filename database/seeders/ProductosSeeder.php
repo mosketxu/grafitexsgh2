@@ -13,7 +13,7 @@ class ProductosSeeder extends Seeder
         DB::table('productos')->delete();
 
         DB::table('productos')->insert([
-            ['producto'=>'FijoPeticion','tiendatipo_id'=>'1','descripcion'=>'FijoPeticion','precio'=>'20','activo'=>'1'],
+            ['producto'=>'Base','tiendatipo_id'=>'1','descripcion'=>'Picking','precio'=>'20','activo'=>'1'],
             ['producto'=>'RAY-BAN 389x140mm (area visible 389x125) vinilo TRANSPARENTE impresión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],
             ['producto'=>'OAKLEY 389x140mm (area visible 389x125) vinilo TRANSPARENTE impresión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],
             ['producto'=>'PRADA 389x140mm (area visible 389x125) vinilo TRANSPARENTE impersión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],

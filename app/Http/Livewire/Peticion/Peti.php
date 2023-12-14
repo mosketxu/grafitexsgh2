@@ -122,7 +122,7 @@ class Peti extends Component
         );
 
         if(PeticionDetalle::where('peticion_id',$pet->id)->count()==0){
-            $productofijo=Producto::where('producto','FijoPeticion')->first();
+            $productofijo=Producto::where('producto','Base')->first();
             PeticionDetalle::create([
                 'peticion_id'=>$pet->id,
                 'producto_id'=>$productofijo->id,
