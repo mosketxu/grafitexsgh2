@@ -74,7 +74,10 @@
                                 <div class="pr-2"><x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600"/></div>
                                 @endcan
                                 @can('storeescaparate.index')
-                                <div class=""><x-icon.person-through-window-solid-a href="{{ route('storeescaparates.escaparates',$store) }}" title="escaparates" class="w-6 text-blue-600"/></div>
+                                <div class=""><x-icon.person-through-window-solid-a href="{{ route('storeescaparates.escaparates',$store) }}" title="Escaparates" class="w-6 text-blue-600"/></div>
+                                @endcan
+                                @can('storeproporcion.index')
+                                <div class=""><x-icon.percent-solid-a href="{{ route('storeproporciones.proporciones',$store) }}" title="Proporciones" class="w-6 text-orange-600"/></div>
                                 @endcan
                             </div>
                         </div>

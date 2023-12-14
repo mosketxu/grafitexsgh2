@@ -102,7 +102,7 @@ class PeticionController extends Controller
             $store="analizar este caso";
         }
         $details=[
-            'de'=>'alex.arregui@sumaempresa.com',
+            'de'=>'grafitex@grafitex.net',
             'asunto'=>'Nueva peticion nº:' .$peticion->id . ' de la Tienda: ' . $store->name ,
             'cuerpo'=>'peticion',
             'storename'=>$store->name,

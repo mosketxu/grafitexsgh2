@@ -26,7 +26,7 @@ class Usuarios extends Component
     public $campo4='rol';
     public $campo1visible=1;
     public $campo2visible=1;
-    public $campo3visible=1;
+    public $campo3visible=0;
     public $campo4visible=1;
     public $campo1disabled='';
     public $campo2disabled='';

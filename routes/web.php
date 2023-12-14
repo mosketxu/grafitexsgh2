@@ -8,7 +8,7 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     EscaparateController,
     MaestroController, MontadorController, MontajeMaterialController, MontajeProporcionController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, StoreEscaparateController, TiendaTipoController};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, StoreEscaparateController, StoreProporcionController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
 use Illuminate\Support\Facades\Mail;
 
@@ -132,6 +132,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     //store escaparates
         Route::post('storeescaparates/add/{escaparate}/to/{store}',[StoreEscaparateController::class,'addtostore'])->name('storeescaparates.addtostore')->middleware('can:storeescaparate.update');
         Route::get('storeescaparates/{store}/escaparate',[StoreEscaparateController::class,'escaparates'])->name('storeescaparates.escaparates')->middleware('can:storeescaparate.index');
+
+    //store proporciones
+        Route::post('storeproporciones/add/{storeproporcion}/to/{store}',[StoreProporcionController::class,'addtostore'])->name('storeproporciones.addtostore')->middleware('can:storeproporcion.update');
+        Route::get('storeproporciones/{storeproporcion}/proporcion',[StoreProporcionController::class,'proporciones'])->name('storeproporciones.proporciones')->middleware('can:storeproporcion.index');
 
     //elemento.php
         Route::resource('elemento', ElementoController::class)->only('index','store','edit','update');

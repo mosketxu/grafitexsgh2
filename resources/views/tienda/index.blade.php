@@ -11,14 +11,13 @@
         <div class="p-2 mb-9">
             <div class="max-w-full mx-auto">
                 <div class="flex space-x-4">
+                    <x-button.buttongreen
+                        onclick="location.href = '{{ route('tienda.recepcion' ) }}'">
+                        Control de recepción
                     <x-button.primary
                         onclick="location.href = '{{ route('peticion.index' ) }}'">
                         Petición de material
                     </x-button.primary>
-
-                    <x-button.buttongreen
-                        onclick="location.href = '{{ route('tienda.recepcion' ) }}'">
-                        Control de recepción
                 </x-button.buttongreen>
                 </div>
             </div>
