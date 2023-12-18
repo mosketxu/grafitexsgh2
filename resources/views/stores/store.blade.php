@@ -13,7 +13,7 @@
                     @csrf
                     @method('PUT')
                     <div class="p-1 rounded-md bg-blue-50">
-                        <h3 class="pl-1 font-semibold">Datos generales</h3>
+                        <h3 class="pl-1 font-semibold">Datos generalses</h3>
                     </div>
                     <div class="flex w-full">
                         <div class="w-9/12 p-1 m-1 space-y-1">
@@ -90,7 +90,7 @@
                                     <x-jet-label for="segmento">Segmento</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="segmento" selectname="segmento" name="segmento" >
                                         @foreach($segmentos as $segmento )
-                                        <option value="{{$segmento->id}}" {{old('segmento',$segmento->id==$store->segmento_id) ? 'selected' : ''}}>{{$segmento->segmento}}</option>
+                                        <option value="{{$segmento->segmento}}" {{old('segmento',$segmento->segmento==$store->segmento) ? 'selected' : ''}}>{{$segmento->segmento}}</option>
                                         @endforeach
                                     </x-select>
                                 </div>
