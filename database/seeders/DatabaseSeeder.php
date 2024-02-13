@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(TarifaSeeder::class);
         // $this->call(MaterialMedidasSeeder::class);
         // $this->call(TarifaFamiliasSeeder::class);
-        $this->call(Usuariostiendas::class);
+        // $this->call(Usuariostiendas::class);
         // $this->call(EstadosRecepcionSeeder::class);
         // $this->call(IdiomasSeeder::class);
 
