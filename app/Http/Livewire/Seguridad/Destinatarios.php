@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Destinatario;
+use Spatie\Permission\Models\Role;
 
 class Destinatarios extends Component
 {
@@ -72,7 +73,9 @@ class Destinatarios extends Component
             ->orderBy('name')
             ->paginate(10);
 
-        return view('livewire.auxiliarcard',compact('valores'));
+        $campo4combo=Role::get();
+
+        return view('livewire.auxiliarcard',compact('valores','campo4combo'));
     }
 
     public function updatingSearch(){$this->resetPage();}

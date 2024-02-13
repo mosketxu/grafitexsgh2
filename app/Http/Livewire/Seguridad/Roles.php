@@ -63,7 +63,10 @@ class Roles extends Component
             ->select('id','name as valorcampo2','guard_name as valorcampo1')
             ->orderBy('name')
             ->paginate(10);
-        return view('livewire.auxiliarcard',compact('valores'));
+
+        $campo4combo=Role::get();
+
+        return view('livewire.auxiliarcard',compact('valores','campo4combo'));
     }
 
     public function updatingSearch(){$this->resetPage();}

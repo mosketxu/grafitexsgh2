@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 class Usuarios extends Component
 {
@@ -31,7 +32,7 @@ class Usuarios extends Component
     public $campo1disabled='';
     public $campo2disabled='';
     public $campo3disabled='disabled';
-    public $campo4disabled='disabled';
+    public $campo4disabled='';
     public $campo1fondo='bg-white';
     public $campo2fondo='bg-white';
     public $campo3fondo='bg-gray-100';
@@ -47,6 +48,7 @@ class Usuarios extends Component
         return [
             'valorcampo1'=>'required|unique:users,name',
             'valorcampo2'=>'email|required|unique:users,email',
+            'valorcampo4'=>'required',
         ];
     }
 
@@ -57,6 +59,7 @@ class Usuarios extends Component
             'valorcampo1.unique' => 'El nombre del usuario ya existe',
             'valorcampo2.required' => 'El mail es necesario.',
             'valorcampo2.email' => 'El mail debe ser válido.',
+            'valorcampo4.required' => 'El Rol es necesario.',
         ];
     }
 
@@ -68,7 +71,10 @@ class Usuarios extends Component
             ->select('id','name as valorcampo1','email as valorcampo2','password as valorcampo3')
             ->orderBy('name')
             ->paginate(10);
-        return view('livewire.auxiliarcard',compact('valores'));
+
+        $campo4combo=Role::get();
+
+        return view('livewire.auxiliarcard',compact('valores','campo4combo'));
     }
 
     public function updatingSearch(){$this->resetPage();}
@@ -92,15 +98,18 @@ class Usuarios extends Component
         return redirect()->route('users.edit',$user);
     }
 
-    public function save()
-    {
+    public function save(){
         $this->validate();
 
         User::create([
             'name'=>$this->valorcampo1,
             'email'=>$this->valorcampo2,
-            'password'=>bcrypt($this->valorcampo3),
-        ]);
+            'password'=>bcrypt($this->valorcampo1),
+        ])->assignRole($this->valorcampo4);
+
+        // User::create(['name' => 'Administrador','email' => 'admin@admin.com','password' => bcrypt('12345678'),
+        // ])->assignRole('admin');
+
 
         $this->dispatchBrowserEvent('notify', 'Usuario añadido con éxito');
 

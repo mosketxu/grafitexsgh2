@@ -6,6 +6,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 class Permisos extends Component
 {
@@ -63,7 +64,10 @@ class Permisos extends Component
         ->orderBy('name')
         ->paginate(10);
 
-        return view('livewire.auxiliarcard',compact('valores'));
+        $campo4combo=Role::get();
+
+
+        return view('livewire.auxiliarcard',compact('valores','campo4combo'));
     }
 
     public function updatingSearch(){$this->resetPage();}

@@ -41,10 +41,6 @@
                             <th class="px-1 py-3 pl-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 bg-blue-50" ></th>
                         </tr>
                     </thead>
-                {{-- </table>
-            </div>
-            <div class="min-w-full overflow-x-auto overflow-y-auto align-middle shadow h-96 sm:rounded-b-lg">
-                <table class="min-w-full divide-y divide-gray-200"> --}}
                     <tbody class="bg-white divide-y divide-gray-200 ">
                         @foreach ($valores as $valor)
                             <tr wire:loading.class.delay="opacity-50">
@@ -113,12 +109,7 @@
                             </tr>
                             @endforeach
                     </tbody>
-
-                        {{-- </table>
-                        </div>
-                        <div class="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg"> --}}
-                            {{-- <table min-w-full divide-y divide-gray-200> --}}
-                                <tfoot class="bg-blue-100">
+                    <tfoot class="bg-blue-100">
                         <form wire:submit.prevent="save">
                             <tr >
                                 @if ($campo1visible==1)
@@ -154,8 +145,20 @@
                                 @endif
                                 @if ($campo4visible==1)
                                 <td class="p-2 text-xs leading-5 tracking-tighter text-gray-600 whitespace-no-wrap" >
-                                    <input type="text" wire:model.defer="valorcampo4"
-                                    class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo4fondo}}" {{$campo4disabled}}/>
+                                    @if(!$titcampo4='Rol')
+                                        <input type="text" wire:model.defer="valorcampo4"
+                                        class="w-full text-xs text-left border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 {{$campo4fondo}}"
+                                        {{$campo4disabled}}/>
+                                    @else
+                                        <select  selectname="valorcampo4" id="empresa" name="valorcampo4"
+                                            class="w-full text-xs font-thin text-gray-500 border-0 rounded-md {{$campo4fondo}}"
+                                            wire:model.defer="valorcampo4" {{$campo4disabled}}>
+                                            <option value="" >--Selecciona Rol--</option>
+                                            @foreach ($campo4combo as $rol )
+                                                <option value="{{ $rol->name }}" >{{ $rol->name }}</option>
+                                            @endforeach
+                                        <select>
+                                    @endif
                                 </td>
                                 @endif
 
@@ -166,7 +169,6 @@
                         </tfoot>
                         <div class="w-full">
                         </div>
-
                     </form>
                 </table>
                 {{ $valores->onEachSide(0)->links() }}
