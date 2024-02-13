@@ -16,8 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(RoleSeeder::class);
         // $this->call(UsersTableSeeder::class);
-        $this->call(PermissionSeeder::class);
+        // $this->call(PermissionSeeder::class);
         // $this->call(ProvinciasTableSeeder::class);
+        // $this->call(Stores2TableSeeder::class);
         // $this->call(StoresTableSeeder::class);
         // $this->call(AddressesTableSeeder::class);
         // $this->call(ElementsTableSeeder::class);
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(TarifaSeeder::class);
         // $this->call(MaterialMedidasSeeder::class);
         // $this->call(TarifaFamiliasSeeder::class);
-        // $this->call(Usuariostiendas::class);
+        $this->call(Usuariostiendas::class);
         // $this->call(EstadosRecepcionSeeder::class);
         // $this->call(IdiomasSeeder::class);
 
