@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Seguridad;
 
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -101,22 +102,23 @@ class Usuarios extends Component
     public function save(){
         $this->validate();
 
-        User::create([
-            'name'=>$this->valorcampo1,
-            'email'=>$this->valorcampo2,
-            'password'=>bcrypt($this->valorcampo1),
-        ])->assignRole($this->valorcampo4);
+        // Me aseguro de que la tienda exista antes de crearla
+        if($this->titcampo4=='Rol' && Store::where('id',$this->valorcampo1)->count()=='0'){
+            $this->dispatchBrowserEvent('notifyred', 'La tienda no existe en el sistema');
+        }else{
+            User::create([
+                'name'=>$this->valorcampo1,
+                'email'=>$this->valorcampo2,
+                'password'=>bcrypt($this->valorcampo1),
+            ])->assignRole($this->valorcampo4);
+            $this->dispatchBrowserEvent('notify', 'Usuario añadido con éxito');
+            $this->emit('refresh');
+            $this->valorcampo1='';
+            $this->valorcampo2='';
+            $this->valorcampo3='';
+            $this->valorcampo4='';
+        }
 
-        // User::create(['name' => 'Administrador','email' => 'admin@admin.com','password' => bcrypt('12345678'),
-        // ])->assignRole('admin');
-
-
-        $this->dispatchBrowserEvent('notify', 'Usuario añadido con éxito');
-
-        $this->emit('refresh');
-        $this->valorcampo1='';
-        $this->valorcampo2='';
-        $this->valorcampo3='';
     }
 
     public function delete($valorId)
