@@ -67,13 +67,15 @@ class PetiDetalle extends Component
     }
 
     public function render(){
+        $tiendatipo='';
         $estienda=Auth::user()->hasRole('tienda')==true ? '1' : '';
-        $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id;
-
+        if($estienda)
+            $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id ?? '';
         $productos=Producto::with('imagenes')
             ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
             ->where('activo','1')
             ->get();
+
         return view('livewire.peticion-detalle.peti-detalle',compact(['productos']));
     }
 

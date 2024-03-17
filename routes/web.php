@@ -152,12 +152,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get  ('tienda/{campaign}/incidencias/{store}',[TiendaController::class,'envioincidencias'])->name('tienda.envioincidencias')->middleware('can:tiendas.edit');
         Route::put('tienda/{campaign}/update/{store}',[TiendaController::class,'update'])->name('tienda.update')->middleware('can:tiendas.edit');
         Route::get('tienda/{campaign}/controlstores',[TiendaController::class,'controlstores'])->name('tienda.controlstores')->middleware('can:tiendas.index');
-        // Route::get('tienda/{campaign}/{store}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
         Route::get('tienda/{campaigntienda}/show',[TiendaController::class,'show'])->name('tienda.show')->middleware('can:tiendas.index');
         Route::get('tienda/{campaign}/{store}/edit',[TiendaController::class,'editrecepcion'])->name('tienda.editrecepcion')->middleware('can:tiendas.edit');
         Route::get('tienda/control',[TiendaController::class,'control'])->name('tienda.control')->middleware('can:tiendas.index');
         Route::get('tienda/recepcion',[TiendaController::class,'recepcion'])->name('tienda.recepcion')->middleware('can:tiendas.index');
-        // Route::get('tienda/peticion',[TiendaController::class,'peticion'])->name('tienda.peticion')->middleware('can:tiendas.index');
         Route::get('tienda',[TiendaController::class,'index'])->name('tienda.index')->middleware('can:tiendas.index');
 
     // tienda montador
@@ -218,6 +216,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     // Peticiones
     Route::group(['prefix' => 'peticiones'], function () {
+        Route::get('/etiquetas/pdf/{peticion}', [PeticionController::class,'pdf'])->name('peticion.etiquetas.pdf')->middleware('can:peticion.index');
         Route::get  ('peticion/{peticion}/mail',[PeticionController::class,'enviopeticion'])->name('peticion.enviopeticion')->middleware('can:peticion.edit');
         Route::get('/peticion/{peticion}/edit', [PeticionController::class, 'editar'])->name('peticion.editar')->middleware('can:peticion.edit');
         Route::resource('/', PeticionController::class)->names('peticion');

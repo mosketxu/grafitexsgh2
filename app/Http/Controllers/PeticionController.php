@@ -8,7 +8,7 @@ use App\Models\Peticion;
 use App\Models\PeticionDetalle;
 use App\Models\PeticionHistorial;
 use App\Models\Store;
-use App\Models\User;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,56 +43,10 @@ class PeticionController extends Controller
         $ruta="peticiones";
         return view('peticion.create',compact('ruta'));
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePeticionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Peticion  $peticion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Peticion $peticion)
-    {
-        //
-    }
-
-    public function editar(Peticion $peticion)
-    {
+    public function editar(Peticion $peticion){
         $ruta='peticion';
         return view('peticion.edit',compact('peticion','ruta'));
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePeticionRequest  $request
-     * @param  \App\Models\Peticion  $peticion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Peticion $peticion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Peticion  $peticion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Peticion $peticion)
-    {
-        //
     }
 
     public function enviopeticion(Peticion $peticion){
@@ -111,12 +65,9 @@ class PeticionController extends Controller
         ];
 
         $destinatarios=Destinatario::where('empresa','SGH')->get();
-
         $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
-
         $notification='';
         if($elementos->count()>0){
-
             if($peticion->peticionestado_id=='1'){
                 $peticion->peticionestado_id='2';
                 PeticionHistorial::create([
@@ -128,10 +79,8 @@ class PeticionController extends Controller
                 $peticion->enviado='2';
                 $peticion->save();
             }
-
             foreach ($destinatarios as $destinatario) {
                 Mail::to($destinatario->mail)->send(new MailPeticion($details,$elementos,$peticion));
-                // Mail::to($user->email)->send(new MailControlrecepcion2($details));
                 $notification = array(
                     'message' => '¡Mail de peticion enviado!',
                     'alert-type' => 'success',
@@ -143,10 +92,20 @@ class PeticionController extends Controller
                 'message' => 'No hay elementos en la petición. Debe seleccionar al menos uno para poder enviar la petición',
                 'alert-type' => 'alarm',
             );
-
         }
         return redirect()->back()->with($notification);
-
     }
+
+
+    public function pdf($peticionId){
+        $today=Carbon::now()->format('d/m/Y');
+        $peticion=Peticion::with('peticiondetalles','peticionario','peticiondetalles.producto')->where('id',$peticionId)->first();
+        $pdf = \PDF::loadView('peticion.etiquetasHTML',compact('peticion','today'));
+        // $pdf->setPaper('a4','landscape');
+        $pdf->setPaper('a4','portrait');
+        // return $pdf->download('etiquetas.pdf'); //así lo descarga
+        return $pdf->stream(); // así lo muestra en pantalla
+    }
+
 
 }

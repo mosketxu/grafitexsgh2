@@ -36,6 +36,14 @@
                     @endif
                 @endif --}}
             </div>
+            <div class="">
+                <div class="w-5">
+                    @if($peticion->id)
+                    <x-icon.tags-a href="{{route('peticion.etiquetas.pdf', $peticion->id ) }}" title="Etiquetas PDF" class="mr-1 text-pink-700 transform w-7 hover:text-pink-900 hover:scale-125"/>
+                    @endif
+                </div>
+
+            </div>
             <div class="w-2/12 text-right">
                 @if($estado=='1')
                 @can('peticion.create')
