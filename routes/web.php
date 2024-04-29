@@ -232,17 +232,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     });
 
     //Mails
-    Route::get('/mail', function() {
+    // Route::get('/mail', function() {
 
-        $details=[
-            'de'=>'alex.arregui@sumaempresa.com',
-            'a'=>'mosketxu@gmail.com',
-            'asunto'=>'definirlo',
-            'cuerpo'=>'Hey ,
-            Can your Laravel app send emails yet? 😉',
-        ];
-        Mail::to($details['a'])->send(new MailControlrecepcion2($details));
-    })->name('maillll');
+    //     $details=[
+    //         'de'=>'alex.arregui@sumaempresa.com',
+    //         'a'=>'mosketxu@gmail.com',
+    //         'asunto'=>'definirlo',
+    //         'cuerpo'=>'Hey ,
+    //         Can your Laravel app send emails yet? 😉',
+    //     ];
+    //     Mail::to($details['a'])->send(new MailControlrecepcion2($details));
+    // })->name('maillll');
 });
 
 

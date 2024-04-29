@@ -4,11 +4,11 @@
     </div>
 
     <div class="p-1 mx-2">
-        <div class="flex w-full p-1 space-x-2 text-gray-500 bg-gray-100 border border-blue-300 rounded-md shadow-md">
-            <div class="w-7/12">
+        <div class="flex-none w-full p-1 space-x-0 space-y-1 text-gray-500 bg-gray-100 border border-blue-300 rounded-md shadow-md md:flex md:space-y-0 md:space-x-1">
+            <div class="w-full md:w-7/12">
                 @include('campaign.campaigncabecera')
             </div>
-            <div class="w-5/12">
+            <div class="w-full md:w-5/12">
                 @include('campaign.campaigncabecerafechasmontaje')
             </div>
         </div>

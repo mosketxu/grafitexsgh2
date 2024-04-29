@@ -41,7 +41,10 @@ class TiendaController extends Controller
         $campaigns=CampaignTienda::with('campaign')
             ->search2($request->busca)
             ->where('store_id',$storeId)
+            ->orderBy('campaign_id','DESC')
+            // ->get();
             ->paginate(15);
+        // dd($campaigns);
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }
@@ -220,7 +223,7 @@ class TiendaController extends Controller
     public function envioincidencias(Campaign $campaign,Store $store){
 
         $details=[
-            'de'=>'alex.arregui@sumaempresa.com',
+            'de'=>'grafitex@grafitex.net',
             'asunto'=>'Deficiencias en la entrega de la campaña: ' . $campaign->campaign_name . ' Tienda: ' . $store->name ,
             'cuerpo'=>'deficiencias',
             'campaignId'=>$campaign->id,
