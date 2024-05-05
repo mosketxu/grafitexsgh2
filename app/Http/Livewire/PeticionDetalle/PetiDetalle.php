@@ -114,7 +114,11 @@ class PetiDetalle extends Component
 
         $this->peticion->total=$totpeticion;
         $this->peticion->save();
-        $this->dispatchBrowserEvent('notify', 'Producto añadido satisfactoriamente');
-        // return redirect()->route('producto.edit',$producto)->with($notification);
+        // $this->dispatchBrowserEvent('notify', 'Producto añadido satisfactoriamente');
+        $notification = array(
+            'message' => 'Producto añadido satisfactoriamente',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('peticion.editar',$this->peticion)->with($notification);
     }
 }
