@@ -29,6 +29,7 @@ class Peti extends Component
     public $detalles;
     public $historial;
     public $solicitadopor;
+    public $storearea='';
 
     public $deshabilitado='';
 
@@ -71,6 +72,7 @@ class Peti extends Component
         if(Auth::user()->hasRole('tienda')){
             $sto=Store::find(Auth::user()->name);
             $this->solicitadopor=$sto->id . '-' . $sto->name;
+            $this->storearea=$sto->area;
         }
         else
         $this->solicitadopor=Auth::user()->name;
@@ -124,17 +126,33 @@ class Peti extends Component
         );
 
         if(PeticionDetalle::where('peticion_id',$pet->id)->count()==0){
-            $productofijo=Producto::where('producto','Base')->first();
+            $productopicking=Producto::where('producto','Base')->first();
             PeticionDetalle::create([
                 'peticion_id'=>$pet->id,
-                'producto_id'=>$productofijo->id,
-                'comentario'=>$productofijo->descripcion,
+                'producto_id'=>$productopicking->id,
+                'comentario'=>$productopicking->descripcion,
                 'unidades'=>'1',
-                'preciounidad'=>$productofijo->precio,
-                'preciounidad'=>$productofijo->precio,
-                'total'=>$productofijo->precio,
+                'preciounidad'=>$productopicking->precio,
+                'total'=>$productopicking->precio,
             ]);
-            $pet->total=$pet->total+$productofijo->precio;
+
+            if($this->storearea=='Portugal')
+                $envio="EnvioPortugal";
+            elseif($this->storearea=='Canarias')
+                $envio="EnvioCanarias";
+            else
+                $envio="EnvíoNacionalPenínsula";
+
+    $productoenvio=Producto::where('producto',$envio)->first();
+            PeticionDetalle::create([
+                'peticion_id'=>$pet->id,
+                'producto_id'=>$productoenvio->id,
+                'comentario'=>$productoenvio->descripcion,
+                'unidades'=>'1',
+                'preciounidad'=>$productoenvio->precio,
+                'total'=>$productoenvio->precio,
+            ]);
+            $pet->total=$pet->total+$productopicking->precio+$productoenvio->precio;
             $pet->save();
         }
 
