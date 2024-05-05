@@ -68,17 +68,17 @@ class PeticionController extends Controller
         $elementos= PeticionDetalle::where('peticion_id',$peticion->id)->get();
         $notification='';
         if($elementos->count()>0){
-            // if($peticion->peticionestado_id=='1'){
-            //     $peticion->peticionestado_id='2';
-            //     PeticionHistorial::create([
-            //         'peticion_id'=>$peticion->id,
-            //         'user_id'=>$peticion->peticionario_id,
-            //         'peticionestado_id'=>'2',
-            //     ]);
-            //     $peticion->peticionestado_id='2';
-            //     $peticion->enviado='2';
-            //     $peticion->save();
-            // }
+            if($peticion->peticionestado_id=='1'){
+                $peticion->peticionestado_id='2';
+                PeticionHistorial::create([
+                    'peticion_id'=>$peticion->id,
+                    'user_id'=>$peticion->peticionario_id,
+                    'peticionestado_id'=>'2',
+                ]);
+                $peticion->peticionestado_id='2';
+                $peticion->enviado='2';
+                $peticion->save();
+            }
             foreach ($destinatarios as $destinatario) {
                 Mail::to($destinatario->mail)->send(new MailPeticion($details,$elementos,$peticion));
                 $notification = array(
