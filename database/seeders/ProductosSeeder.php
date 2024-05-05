@@ -13,14 +13,14 @@ class ProductosSeeder extends Seeder
         // DB::table('productos')->delete();
 
         DB::table('productos')->insert([
-            ['producto'=>'EnvíoNacionalPenínsula','tiendatipo_id'=>'1','descripcion'=>'Envío Nacional Penínsulas','precio'=>'15','activo'=>'1'],
-            ['producto'=>'EnvíoCanarias','tiendatipo_id'=>'1','descripcion'=>'Envío Canarias','precio'=>'30','activo'=>'1'],
-            ['producto'=>'EnvíoPortugal','tiendatipo_id'=>'1','descripcion'=>'Envío Canarias','precio'=>'20','activo'=>'1'],
         ]);
 
 
         // DB::table('productos')->insert([
         //     ['producto'=>'Base','tiendatipo_id'=>'1','descripcion'=>'Picking','precio'=>'20','activo'=>'1'],
+        //     ['producto'=>'EnvíoNacionalPenínsula','tiendatipo_id'=>'1','descripcion'=>'Envío Nacional Penínsulas','precio'=>'15','activo'=>'1'],
+        //     ['producto'=>'EnvíoCanarias','tiendatipo_id'=>'1','descripcion'=>'Envío Canarias','precio'=>'30','activo'=>'1'],
+        //     ['producto'=>'EnvíoPortugal','tiendatipo_id'=>'1','descripcion'=>'Envío Canarias','precio'=>'20','activo'=>'1'],
         //     ['producto'=>'RAY-BAN 389x140mm (area visible 389x125) vinilo TRANSPARENTE impresión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],
         //     ['producto'=>'OAKLEY 389x140mm (area visible 389x125) vinilo TRANSPARENTE impresión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],
         //     ['producto'=>'PRADA 389x140mm (area visible 389x125) vinilo TRANSPARENTE impersión en espejo','tiendatipo_id'=>'2','descripcion'=>'','precio'=>'20','activo'=>'1'],
