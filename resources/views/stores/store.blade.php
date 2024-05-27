@@ -32,9 +32,10 @@
                                 <div class="w-full form-item">
                                     <x-jet-label for="country">Luxottica</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="luxotica" selectname="luxotica" name="luxotica" >
-                                        <option value="Oliver Peoples" {{old('luxotica','ES'==$store->luxotica) ? 'selected' : ''}}>Oliver Peoples</option>
-                                        <option value="Ray-Ban Store" {{old('country','PT'==$store->country) ? 'selected' : ''}}>Ray-Ban Store</option>
-                                        <option value="Sunglass Hut" {{old('country','PT'==$store->country) ? 'selected' : ''}}>Sunglass Hut</option>
+                                        <option value="">No definido</option>
+                                        <option value="Oliver Peoples" {{$store->luxotica =="Oliver Peoples" ? 'selected' : ''}}>Oliver Peoples</option>
+                                        <option value="Ray-Ban Store" {{$store->luxotica =="Ray-Ban Store" ? 'selected' : ''}}>Ray-Ban Store</option>
+                                        <option value="Sunglass Hut" {{$store->luxotica =="Sunglass Hut" ? 'selected' : ''}}>Sunglass Hut</option>
                                     </x-select>
                                 </div>
                                 {{-- tipo --}}
