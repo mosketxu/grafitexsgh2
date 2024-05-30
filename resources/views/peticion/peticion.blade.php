@@ -27,10 +27,14 @@
             <input wire:model.defer="fecha" type="date" id="fecha" name="fecha"
             class="w-full py-1 text-xs border-blue-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             {{ $deshabilitado }}/>
+
+
+
+
             <x-jet-input-error for="fecha" class="mt-2" />
         </div>
         <div class="w-2/12 form-item">
-            <x-jet-label class="pl-2" for="fecha">Total</x-jet-label>
+            <x-jet-label class="pl-2" for="total">Total</x-jet-label>
             <input wire:model.defer="total" type="number" id="total" name="total"
             class="w-full py-1 text-xs border-blue-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             disabled/>

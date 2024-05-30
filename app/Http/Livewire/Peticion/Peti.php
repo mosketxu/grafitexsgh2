@@ -10,6 +10,7 @@ use App\Models\PeticionHistorial;
 use App\Models\Producto;
 use App\Models\Store;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -62,6 +63,8 @@ class Peti extends Component
         $this->peticionestado_id=$peticion->peticionestado_id;
         $this->peticionario_id=!$peticion->peticionario_id ? Auth::user()->id : $peticion->peticionario_id ;
         $this->fecha=$peticion->fecha;
+        if($this->fecha=='')
+            $this->fecha = Carbon::now()->format('Y-m-d');
         $this->total=!$peticion->total? '0': $peticion->total ;
         $this->observaciones=$peticion->observaciones;
         $this->estado=$peticion->peticionestado_id;
@@ -89,7 +92,7 @@ class Peti extends Component
 
     public function render(){
         if (!$this->estado) $this->estado=1;
-        if (!$this->fecha) $this->fecha=now();
+        if (!$this->fecha) $this->fecha=Carbon::now()->format('Y-m-d');
         $peticion=$this->peticion;
         $vista='livewire.peticion.peti';
 
