@@ -30,8 +30,10 @@ class MailDeficiencias extends Mailable
         $this->details=$details;
         $this->deficiencias=$deficiencias;
         $this->faltantes=$faltantes;
-        $this->campaigntienda=$this->deficiencias->first()->tienda_id;
-
+        if($this->deficiencias->count()>0)
+            $this->campaigntienda=$this->deficiencias->first()->tienda_id;
+        if($this->faltantes->count()>0)
+            $this->campaigntienda=$this->faltantes->first()->campaigntienda_id;
     }
 
     /**
