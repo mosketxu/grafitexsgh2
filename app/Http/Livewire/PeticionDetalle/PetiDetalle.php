@@ -6,6 +6,7 @@ use App\Http\Livewire\TiendaTipo\TiendaTipo;
 use App\Models\Peticion;
 use App\Models\PeticionDetalle;
 use App\Models\Producto;
+use App\Models\ProductoCategoria;
 use App\Models\ProductoImagen;
 use App\Models\Store;
 use Livewire\Component;
@@ -20,6 +21,8 @@ class PetiDetalle extends Component
     public $petidetalle;
     public $peticion_id;
     public $producto_id;
+    public $productos;
+    public $categoria_id='';
     public $comentario;
     public $unidades='1';
     public $preciounidad='0';
@@ -34,6 +37,7 @@ class PetiDetalle extends Component
     protected function rules(){
         return [
             'producto_id'=>'required',
+            'categoria_id'=>'required',
             'unidades'=>'numeric|required',
             'preciounidad'=>'nullable|numeric',
             'total'=>'nullable|numeric',
@@ -45,6 +49,7 @@ class PetiDetalle extends Component
         return [
             'peticion_id.required' => 'El detalle debe pertenecer a una petición',
             'producto_id.required' => 'Deber seleccionar un producto',
+            'categoria_id.required' => 'Deber seleccionar una categoria',
             'unidades_id.required' => 'Deber seleccionar las unidades',
         ];
     }
@@ -71,12 +76,18 @@ class PetiDetalle extends Component
         $estienda=Auth::user()->hasRole('tienda')==true ? '1' : '';
         if($estienda)
             $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id ?? '';
-        $productos=Producto::with('imagenes')
+
+        $productocategorias= ProductoCategoria::where('id','>','1')->orderBy('productocategoria')->get();
+
+        $this->productos=Producto::with('imagenes')
+            ->where('productocategoria_id',$this->categoria_id)
             ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
             ->where('activo','1')
+            ->orderBy('producto')
             ->get();
 
-        return view('livewire.peticion-detalle.peti-detalle',compact(['productos']));
+
+        return view('livewire.peticion-detalle.peti-detalle',compact('productocategorias'));
     }
 
     public function updatedProductoId() {
@@ -86,6 +97,23 @@ class PetiDetalle extends Component
         $this->preciounidad=$producto->precio;
         $this->total=round($this->preciounidad * $this->unidades,2);
     }
+
+    public function updatedCategoriaId() {
+        $tiendatipo='';
+        $estienda=Auth::user()->hasRole('tienda')==true ? '1' : '';
+        if($estienda)
+            $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id ?? '';
+
+
+        $this->productos=Producto::with('imagenes')
+        ->where('productocategoria_id',$this->categoria_id)
+        ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
+        ->where('activo','1')
+        ->orderBy('producto')
+        ->get();
+    }
+
+
     public function updatedPreciounidad() {$this->total=round($this->preciounidad * $this->unidades,2);}
     public function updatedUnidades() {$this->total=round($this->preciounidad * $this->unidades,2);
     }

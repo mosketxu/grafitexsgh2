@@ -28,13 +28,6 @@
                         <x-button class="text-red-500 border-red-500" type="button" disabled>Añadir productos antes de enviar la petición</x-button>
                     @endif
                 @endif
-                {{-- @if(Auth::user()->hasRole('sgh'))
-                    @if($peticion->peticionestado_id>'2')
-                    <form method="GET" action="{{route('peticion.enviopeticionSGH',[$peticion]) }}">
-                    <x-button.primary type="submit">Enviar mail de confirmación</x-button.primary>
-                    </form>
-                    @endif
-                @endif --}}
             </div>
             <div class="">
                 <div class="w-5">

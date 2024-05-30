@@ -26,7 +26,17 @@
         <div class="flex w-6/12 space-y-2 text-gray-500 ">
             <form wire:submit.prevent="save" class="w-full">
                 <div class="flex w-full pl-2 space-x-2 ">
-                    <div class="w-6/12 ">
+                    <div class="w-2/12 ">
+                        <x-jet-label class="pl-2" for="categoria_id">Categoria</x-jet-label>
+                        <select  name="categoria_id" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="categoria_id" wire:model.lazy="categoria_id" >
+                            <option value="">--Selecciona la categoria--</option>
+                            @foreach ($productocategorias as $productocategoria )
+                            <option value="{{ $productocategoria->id }}">{{ $productocategoria->productocategoria }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="categoria_id" class="mt-2" />
+                    </div>
+                    <div class="w-4/12 ">
                         <x-jet-label class="pl-2" for="prod">Producto</x-jet-label>
                         <select  name="producto_id" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="producto_id" wire:model.lazy="producto_id" >
                             <option value="">--Selecciona el producto--</option>
