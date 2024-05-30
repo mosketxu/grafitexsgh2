@@ -16,6 +16,7 @@ class UpdatePlan extends Component
     use WithFileUploads;
 
     public $imagen;
+    public $ruta;
     public $imagenes=[];
     public $campaigntienda;
     public $fechamontador1;
@@ -40,11 +41,12 @@ class UpdatePlan extends Component
 
     protected $listeners = [ 'refreshupdateplan' => '$refresh'];
 
-    public function mount(CampaignTienda $campaigntienda){
+    public function mount(CampaignTienda $campaigntienda,$ruta){
         $this->campaigntienda=$campaigntienda;
         $this->fechamontador1=$campaigntienda->fechamontador1;
         $this->fechamontador2=$campaigntienda->fechamontador2;
         $this->fechamontador3=$campaigntienda->fechamontador3;
+        $this->ruta=$ruta;
     }
 
     public function render(){
@@ -69,6 +71,7 @@ class UpdatePlan extends Component
     }
 
     public function save(){
+
         foreach ($this->imagenes as $imagen) {
             $this->imagen=$imagen;
             $this->saveimagen();
@@ -87,8 +90,10 @@ class UpdatePlan extends Component
         $mensaje="Actualizado";
         $this->dispatchBrowserEvent('notify', $mensaje);
 
-        return redirect()->route('montador.edittienda',$this->campaigntienda)->with($notification);
-        // $this->emit('refreshupdateplan');
+        if($this->ruta=='plan.index')
+            return redirect()->route('plan.edit',$this->campaigntienda);
+        else
+            return redirect()->route('montador.edittienda',$this->campaigntienda)->with($notification);
     }
 
     public function saveimagen(){

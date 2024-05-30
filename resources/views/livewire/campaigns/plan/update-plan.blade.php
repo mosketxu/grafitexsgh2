@@ -21,15 +21,12 @@
         </div>
         @endif
     </div>
-    {{-- @if($deshabilitado!='disabled') --}}
+    @can('plan.update')
     <div class="w-full p-2">
-        {{-- <button type="submit" class="items-center w-full px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-blue-800 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25">{{ __('Guardar') }}</button> --}}
         <button type="button" wire:click="save" class="items-center w-full px-4 py-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition bg-blue-800 border border-transparent rounded-md hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring focus:ring-blue-300 disabled:opacity-25" >Guardar</button>
     </div>
-    {{-- @endif --}}
-
     <x-input.filepond wire:model="imagenes" multiple/>
-
+    @endcan
     <div class="grid grid-cols-1 gap-2 m-2 md:grid-cols-3 lg:grid-cols-5">
         @foreach ($galeria as $imagen )
             <form action="{{ route('plan.deleteimagentienda', [$campaigntienda,$imagen]) }}" method ="POST" >
@@ -44,7 +41,4 @@
             </form>
         @endforeach
     </div>
-
-        {{-- <input type="file" wire:model="imagenes" multiple> --}}
-
 </div>

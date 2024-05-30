@@ -12,7 +12,7 @@
                 @include('campaign.plan.campaigntiendas')
             </div>
             <div class="m-1">
-                <x-jet-button type="button" class="py-2 text-gray-800 border-gray-200 bg-gray-50 hover:text-white" onclick="location.href = '{{ route('campaign.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
+                <x-jet-button type="button" class="py-2 text-white border-gray-200 bg-gray-50 hover:bg-gray-600" onclick="location.href = '{{ route('campaign.index') }}'" color="gray" >{{ __('Volver') }}</x-jet-button>
             </div>
         </div>
     </div>

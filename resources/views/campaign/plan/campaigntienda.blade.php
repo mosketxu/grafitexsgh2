@@ -95,7 +95,7 @@
     </div>
     @endcan
     {{-- @can('plantienda.update') --}}
-        @livewire('campaigns.plan.update-plan',['campaigntienda'=>$camptienda])
+        @livewire('campaigns.plan.update-plan',['campaigntienda'=>$camptienda,'ruta'=>$ruta])
     {{-- @endcan --}}
     <div class="my-2">
         <button type="button" onclick="location.href = '{{ route($ruta,$camptienda->campaign_id) }}'"
@@ -118,30 +118,6 @@ var select = document.getElementById('filtroarea');
 select.onchange = function(){
     this.form.submit();
 };
-
-// var select = document.getElementById('preciomontador');
-// select.onchange = function(){
-//     this.form.submit();
-// };
-
-// var select = document.getElementById('montador_id');
-// select.onchange = function(){
-//     this.form.submit();
-// };
-
-
-</script>
-
-<script>
-// Dropzone.options.myAwesomeDropzone = {
-//     headers:{
-//         'X-CSRF-TOKEN' : "{{ csrf_token() }}"
-//     },
-//     paramName: "imagen", // The name that will be used to transfer the file
-//     maxFilesize: 4, // MB
-//     dictDefaultMessage:"Arrastra tus archivos aqui o haz clic para subir",
-//     acceptedFiles:"image/*",
-//   };
 
 </script>
 
