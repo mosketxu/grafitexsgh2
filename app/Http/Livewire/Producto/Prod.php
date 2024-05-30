@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Producto;
 
 use App\Models\Producto;
+use App\Models\ProductoCategoria;
 use App\Models\TiendaTipo;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -15,6 +16,7 @@ class Prod extends Component
     public $producto;
     public $prod;
     public $tiendatipo_id;
+    public $productocategoria_id;
     public $descripcion;
     public $precio='0';
     public $activo='1';
@@ -26,6 +28,7 @@ class Prod extends Component
         return [
             'prod'=>'required|unique:productos,producto',
             'tiendatipo_id'=>'nullable',
+            'productocategoria_id'=>'required',
             'descripcion'=>'nullable',
             'precio'=>'nullable|numeric',
             'activo'=>'nullable',
@@ -35,6 +38,7 @@ class Prod extends Component
     public function messages(){
         return [
             'producto.required' => 'El nombre del producto es necesario',
+            'productocategoria_id.required' => 'La categoria del producto es necesaria',
             'precio' => 'El Precio debe ser un valor numérico',
         ];
     }
@@ -44,6 +48,7 @@ class Prod extends Component
         if($producto->id){
             $this->prod=$producto->producto;
             $this->tiendatipo_id=$producto->tiendatipo_id;
+            $this->productocategoria_id=$producto->productocategoria_id;
             $this->descripcion=$producto->descripcion;
             $this->precio=!$producto->precio? '0': $producto->precio ;
             $this->activo=$producto->activo;
@@ -55,10 +60,11 @@ class Prod extends Component
     public function render(){
         // $tiendatipos=TiendaTipo::where('tiendatipo','<>','Grafitex')->orderBy('tiendatipo')->get();
         $tiendatipos=TiendaTipo::orderBy('tiendatipo')->get();
+        $productocategorias=ProductoCategoria::orderBy('productocategoria')->where('id','>','1')->get();
         if (!$this->activo) $this->activo=false;
         $producto=$this->producto;
 
-        return view('livewire.producto.prod',compact('tiendatipos'));
+        return view('livewire.producto.prod',compact('tiendatipos','productocategorias'));
     }
 
     public function save(){
@@ -77,6 +83,7 @@ class Prod extends Component
                     'required',
                     Rule::unique('productos','producto')],
                 'tiendatipo_id'=>'nullable',
+                'productocategoria_id'=>'required',
                 'descripcion'=>'nullable',
                 'precio'=>'nullable|numeric',
                 'activo'=>'nullable',
@@ -91,6 +98,7 @@ class Prod extends Component
             [
             'producto'=>$this->prod,
             'tiendatipo_id'=>$this->tiendatipo_id,
+            'productocategoria_id'=>$this->productocategoria_id,
             'descripcion'=>$this->descripcion,
             'precio'=>$this->precio,
             'activo'=>$this->activo,

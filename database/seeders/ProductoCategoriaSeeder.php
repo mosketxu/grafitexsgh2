@@ -19,10 +19,10 @@ class ProductoCategoriaSeeder extends Seeder
 
 
         DB::table('producto_categorias')->insert([
-            ['id'=>'1','productocategoria'=>'Brand Images'],
-            ['id'=>'2','productocategoria'=>'Logos'],
-            ['id'=>'3','productocategoria'=>'Varios'],
-            ['id'=>'4','productocategoria'=>'Borrar'],
+            ['id'=>'1','productocategoria'=>'Grafitex'],
+            ['id'=>'2','productocategoria'=>'Brand Images'],
+            ['id'=>'3','productocategoria'=>'Logos'],
+            ['id'=>'4','productocategoria'=>'Varios'],
         ]);
     }
 }

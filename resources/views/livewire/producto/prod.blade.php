@@ -38,15 +38,26 @@
                         <x-jet-input-error for="prod" class="mt-2" />
                     </div>
                     <div class="w-full form-item">
-                        <x-jet-label class="pl-2" for="tiendatiop_id">{{ __('Tipo Tienda') }}</x-jet-label>
-                        <select  selectname="montaje1" wire:model.lazy="tiendatipo_id" id="tiendatiop_id"
+                        <x-jet-label class="pl-2" for="tiendatipo_id">{{ __('Tipo Tienda') }}</x-jet-label>
+                        <select  selectname="tiendatipo_id" wire:model.lazy="tiendatipo_id" id="tiendatiop_id"
                         class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="">-Selecciona-</option>
                             @foreach ($tiendatipos as $tipo )
                                 <option value="{{$tipo->id}}">{{$tipo->tiendatipo}}</option>
                             @endforeach
                         <select>
-                        <x-jet-input-error for="tiendatipo_id   " class="mt-2" />
+                        <x-jet-input-error for="productocategoria_id" class="mt-2" />
+                    </div>
+                    <div class="w-full form-item">
+                        <x-jet-label class="pl-2" for="productocategoria_id">{{ __('Categoria Producto') }}</x-jet-label>
+                        <select  selectname="productocategoria_id" wire:model.lazy="productocategoria_id" id="productocategoria_id"
+                        class="w-full py-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="">-Selecciona-</option>
+                            @foreach ($productocategorias as $productocategoria )
+                                <option value="{{$productocategoria->id}}">{{$productocategoria->productocategoria}}</option>
+                            @endforeach
+                        <select>
+                        <x-jet-input-error for="productocategoria_id" class="mt-2" />
                     </div>
                     <div class="w-full form-item">
                         <x-jet-label class="pl-2" for="descripcion">{{ __('Descripción') }}</x-jet-label>
