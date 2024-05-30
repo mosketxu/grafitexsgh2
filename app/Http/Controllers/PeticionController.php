@@ -49,6 +49,8 @@ class PeticionController extends Controller
         return view('peticion.edit',compact('peticion','ruta'));
     }
 
+
+
     public function enviopeticion(Peticion $peticion){
         if(Auth::user()->hasRole('tienda')){
             $store=Store::where('id',Auth::user()->name)->first();

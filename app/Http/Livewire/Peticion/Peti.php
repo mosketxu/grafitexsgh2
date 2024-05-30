@@ -9,6 +9,7 @@ use App\Models\EstadoPeticion;
 use App\Models\PeticionHistorial;
 use App\Models\Producto;
 use App\Models\Store;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -19,6 +20,7 @@ class Peti extends Component
     public $peticion;
     public $peti;
     public $peticionario_id;
+    public $peticionario;
     public $fecha;
     public $total='0';
     public $observaciones;
@@ -30,6 +32,8 @@ class Peti extends Component
     public $historial;
     public $solicitadopor;
     public $storearea='';
+    public $peticionpendiente;
+    public $saltarctrolnuevo;
 
     public $deshabilitado='';
 
@@ -52,7 +56,7 @@ class Peti extends Component
         ];
     }
 
-    public function mount(Peticion $peticion, $ruta){
+    public function mount(Peticion $peticion, $ruta,$saltarctrolnuevo ){
         $this->peticion=$peticion;
         $this->peti=$peticion->peticion;
         $this->peticionestado_id=$peticion->peticionestado_id;
@@ -63,6 +67,7 @@ class Peti extends Component
         $this->estado=$peticion->peticionestado_id;
         $this->estadotexto=$peticion->estado->estadopeticion ?? 'Pendiente Solicitud';
         $this->ruta=$ruta;
+        $this->saltarctrolnuevo=$saltarctrolnuevo;
         $this->detalles=PeticionDetalle::where('peticion_id',$peticion->id)->get();
         $this->historial=PeticionHistorial::query()
             ->with('usuario','estadohistorial')
@@ -73,6 +78,9 @@ class Peti extends Component
             $sto=Store::find(Auth::user()->name);
             $this->solicitadopor=$sto->id . '-' . $sto->name;
             $this->storearea=$sto->area;
+            $this->peticionario=User::where('name',$sto->id)->first();
+            $this->peticionpendiente=Peticion::where('peticionario_id',$this->peticionario->id)->where('peticionestado_id','<','7')->count();
+            if($saltarctrolnuevo=='si') $this->peticionpendiente='0';
         }
         else
         $this->solicitadopor=Auth::user()->name;
@@ -83,7 +91,13 @@ class Peti extends Component
         if (!$this->estado) $this->estado=1;
         if (!$this->fecha) $this->fecha=now();
         $peticion=$this->peticion;
-        return view('livewire.peticion.peti');
+        $vista='livewire.peticion.peti';
+
+        if($this->peticionpendiente>0){
+            $this->peticion=Peticion::where('peticionario_id',$this->peticionario->id)->where('peticionestado_id','<','7')->first();
+            $vista='livewire.peticion.peticionpendiente';
+        }
+        return view($vista);
     }
 
     public function save(){

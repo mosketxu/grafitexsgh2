@@ -52,7 +52,7 @@
                             <div class="w-2/12"><x-input.checkbox wire:model="selected" value="{{ $peticion->id }}" /></div>
                             <div class="w-10/12 pl-2">{{ $peticion->id }}</div>
                         </div>
-                        <div onclick="location.href = '{{ route('peticion.editar',$peticion) }}'"
+                        <div onclick="location.href = '{{ route('peticion.editar',[$peticion]) }}'"
                             class="flex items-center w-10/12 py-1 pl-2 space-x-2 text-sm text-black cursor-pointer hover:bg-gray-100">
                             <div class="w-2/12 cursor-pointer md:w-2/12">{{ $peticion->peticion }}</div>
                             <div class="w-1/12 cursor-pointer md:w-1/12">{{ $peticion->peticionario->name ?? '-' }}</div>
@@ -62,7 +62,6 @@
                             <div class="w-2/12 cursor-pointer md:w-2/12">{{ $peticion->estado->estadopeticion ?? '-' }}</div>
                         </div>
                         <div class="flex w-1/12 pl-2 text-sm text-center text-black ">
-                            {{-- <x-icon.edit-a href="{{ route('peticion.editar',$peticion) }}" class="w-6"  title="Editar"/> --}}
                             @can('peticion.delete')
                             <div class="items-center mx-auto text-center">
                                 <x-icon.trash-a class="w-5 text-red-500" wire:click.prevent="delete({{ $peticion->id }})" onclick="confirm('¿Estás seguro?') || event.stopImmediatePropagation()"/>
