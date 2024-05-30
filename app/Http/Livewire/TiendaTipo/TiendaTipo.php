@@ -21,8 +21,8 @@ class TiendaTipo extends Component
 
     public function messages(){
         return [
-            'tiendatipo.required' => 'El tipo de la tienda es necesario',
-            'tiendatipo.unique' => 'El tipo ya existe',
+            'tiendatipo.required' => 'El tipo de la tienda es necesario.',
+            'tiendatipo.unique' => 'El tipo ya existe.',
         ];
     }
 

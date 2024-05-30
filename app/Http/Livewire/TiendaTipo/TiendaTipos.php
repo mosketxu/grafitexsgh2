@@ -26,7 +26,7 @@ class TiendaTipos extends Component
     public function changeValor(TiendaTipo $tiendaTipo,$campo,$valor)
     {
         $tiendaTipo->update([$campo=>$valor]);
-        $this->dispatchBrowserEvent('notify', 'Actuliazado con éxito.');
+        $this->dispatchBrowserEvent('notify', 'Actualizado con éxito.');
     }
 
     public function delete($tiendaTipoId)

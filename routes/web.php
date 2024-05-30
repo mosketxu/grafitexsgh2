@@ -8,7 +8,7 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     EscaparateController,
     MaestroController, MontadorController, MontajeMaterialController, MontajeProporcionController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, StoreEscaparateController, StoreProporcionController, TiendaTipoController};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, ProductoCategoriaController, StoreEscaparateController, StoreProporcionController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
 use Illuminate\Support\Facades\Mail;
 
@@ -183,6 +183,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::resource('/', TiendaTipoController::class)->names('tiendatipo')->except('edit');
     });
 
+    //Categorias Productos de peticiones de las tiendas
+        Route::group(['prefix' => 'catprod'], function () {
+            Route::get('/{productocategoria}/edit', [ProductoCategoriaController::class, 'editar'])->name('productocategoria.editar')->middleware('can:productocategoria.edit');
+            Route::resource('/', ProductoCategoriaController::class)->names('productocategoria')->except('edit');
+        });
+
     //Montaje Tipos
     Route::group(['prefix' => 'montajetipo'], function () {
         Route::get('/{montajetipo}/edit', [MontajeTipoController::class, 'editar'])->name('montajetipo.editar')->middleware('can:montajetipo.edit');
@@ -206,6 +212,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::get('/{escaparate}/edit', [EscaparateController::class, 'editar'])->name('escaparate.editar')->middleware('can:escaparate.edit');
         Route::resource('/', EscaparateController::class)->names('escaparate')->except('edit');
     });
+
+
 
     //Productos de peticiones de las tiendas
     Route::group(['prefix' => 'prod'], function () {

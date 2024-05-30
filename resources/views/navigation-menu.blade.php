@@ -90,6 +90,13 @@
                                 </x-jet-dropdown-link>
                             </div>
                             @endcan
+                            @can('productocategoria.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('productocategoria.index') }}" :active="request()->routeIs('productocategoria.index')" class="text-left">
+                                {{ __('Categoria Productos') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
@@ -201,6 +208,11 @@
                             <div class="w-44">
                                 <x-jet-dropdown-link href="{{route('tiendatipo.index') }}" :active="request()->routeIs('tiendatipo.index')" class="text-left">
                                 {{ __('Tipos Tienda') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('productocategoria.index') }}" :active="request()->routeIs('productocategoria.index')" class="text-left">
+                                {{ __('Categoria Productos') }}
                                 </x-jet-dropdown-link>
                             </div>
                             <div class="w-44">
@@ -407,63 +419,17 @@
                             </x-jet-dropdown-link>
                         </div>
                         @endcan
+                        @can('productocategoria.index')
+                        <div class="w-44">
+                            <x-jet-dropdown-link href="{{ route('productocategoria.index') }}" class="text-right">
+                                {{ __('Categoria Productos') }}
+                            </x-jet-dropdown-link>
+                        </div>
+                        @endcan
                     </x-slot>
                 </x-jet-dropdown>
             </div>
             @endcan
-            {{-- @can('stores.index')
-            <x-jet-responsive-nav-link href="{{ route('stores.index') }}" :active="request()->routeIs('stores.index')">
-                {{ __('Stores') }}
-            </x-jet-responsive-nav-link>
-            @endcan --}}
-            {{-- @can('tiendas.index')
-                @if(Auth::user()->hasRole('tienda'))
-                    <x-jet-responsive-nav-link href="{{ route('tienda.recepcion') }}" :active="request()->routeIs('tiendas.recepcion')">
-                        {{ __('Control recepción') }}
-                    </x-jet-responsive-nav-link>
-                @else
-                    <x-jet-responsive-nav-link href="{{ route('tienda.control') }}" :active="request()->routeIs('tiendas.control')">
-                        {{ __('Control recepción') }}
-                    </x-jet-responsive-nav-link>
-                @endif
-            @endcan --}}
-            {{-- @can('elemento.index')
-            <x-jet-responsive-nav-link href="{{ route('elemento.index') }}" :active="request()->routeIs('elemento.index')">
-                {{ __('Elementos') }}
-            </x-jet-responsive-nav-link>
-            @endcan --}}
-            {{-- @can('producto.index')
-            <x-jet-responsive-nav-link href="{{ route('producto.index') }}" :active="request()->routeIs('producto.index')">
-                {{ __('Productos') }}
-            </x-jet-responsive-nav-link>
-            @endcan --}}
-            {{-- @can('peticion.index') --}}
-            {{--
-                @if(Auth::user()->hasRole('tienda'))
-                <x-jet-responsive-nav-link href="{{ route('tienda.peticion') }}" :active="request()->routeIs('tienda.peticion')">
-                    {{ __('Peticiones') }}
-                </x-jet-responsive-nav-link>
-            @else --}}
-                {{-- <x-jet-responsive-nav-link href="{{ route('peticion.index') }}" :active="request()->routeIs('peticion.index')">
-                    {{ __('Peticiones') }}
-                </x-jet-responsive-nav-link> --}}
-            {{-- @endif --}}
-            {{-- @endcan --}}
-            {{-- @can('auxiliares.index')
-            <x-jet-responsive-nav-link href="{{ route('auxiliares.index') }}" :active="request()->routeIs('auxiliares.index')">
-                {{ __('Auxiliares') }}
-            </x-jet-responsive-nav-link>
-            @endcan
-            @can('campaign.index')
-            <x-jet-responsive-nav-link href="{{ route('campaign.index') }}" :active="request()->routeIs('campaign.index')">
-                {{ __('Campañas') }}
-            </x-jet-responsive-nav-link>
-            @endcan
-            @can('campaign.index')
-            <x-jet-responsive-nav-link href="{{ route('entidad.index') }}" :active="request()->routeIs('entidad.index')">
-                {{ __('Montadores') }}
-            </x-jet-responsive-nav-link>
-            @endcan --}}
             @can('tarifa.index')
             <div class="relative mt-3 ml-3">
                 <x-jet-dropdown align="right" >
@@ -490,11 +456,6 @@
                 </x-jet-dropdown>
             </div>
             @endcan
-            {{-- @can('maestro.index')
-            <x-jet-responsive-nav-link href="{{ route('maestro.index') }}" :active="request()->routeIs('maestro.index')">
-                {{ __('Maestro') }}
-            </x-jet-responsive-nav-link>
-            @endcan --}}
             @can('campaign.index')
             <div class="relative mt-3 ml-3">
                 <x-jet-dropdown align="right" >
@@ -519,6 +480,13 @@
                             <x-jet-dropdown-link href="{{ route('tiendatipo.index') }}" class="text-right">
                                 {{ __('Tipos Tienda') }}
                             </x-jet-dropdown-link>
+                            @endcan
+                            @can('productocategoria.index')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{ route('productocategoria.index') }}" class="text-right">
+                                    {{ __('Categoria Productos') }}
+                                </x-jet-dropdown-link>
+                            </div>
                             @endcan
                             @can('montajetipo.index')
                             <x-jet-dropdown-link href="{{ route('montajetipo.index') }}" class="text-right">
