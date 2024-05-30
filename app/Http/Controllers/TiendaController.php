@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Campaigns\CampaignElementos;
-use App\Models\{Campaign,CampaignElemento, CampaignStore, CampaignTienda, Destinatario, EstadoRecepcion, Store, User};
+use App\Models\{Campaign,CampaignElemento, CampaignElementoFaltante, CampaignStore, CampaignTienda, Destinatario, EstadoRecepcion, Store, User};
 // use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as Builder;
 use Illuminate\Http\Request;
@@ -58,6 +58,7 @@ class TiendaController extends Controller
     }
 
     public function editrecepcion(Campaign $campaign,Store $store, Request $request){
+
         $busqueda = '';
         $ok='';
         $ko='';
@@ -73,6 +74,7 @@ class TiendaController extends Controller
         ->where('campaign_elementos.store_id',$store->id)
         ->select('campaign_elementos.id as id','estadorecepcion')
         ->get();
+
 
         $total=$elementos->count();
         $sinvalorar=$elementos->where('estadorecepcion','0')->count();
@@ -90,9 +92,11 @@ class TiendaController extends Controller
             'material','familia','unitxprop','imagen','observaciones','estadorecepcion','obsrecepcion','OK','KO')
         ->get();
 
+        $campaigntienda=CampaignTienda::where(['campaign_id'=>$campaign->id,'store_id'=>$store->id])->first();
+
         $estadosrecep=EstadoRecepcion::get();
 
-        return view('tienda.indexeditrecepcion', compact('campaign','store','elementos','busqueda','total','incidencias','correctos','sinvalorar','estadosrecep','ok','nose','ko'));
+        return view('tienda.indexeditrecepcion', compact('campaign','store','campaigntienda','elementos','busqueda','total','incidencias','correctos','sinvalorar','estadosrecep','ok','nose','ko'));
     }
 
     public function show(CampaignTienda $campaigntienda,Request $request){
@@ -241,9 +245,15 @@ class TiendaController extends Controller
         ->where('campaign_elementos.estadorecepcion','<>','1')
         ->get();
 
-        if($deficiencias->count()>0){
+
+        $campaigntienda=CampaignTienda::where(['campaign_id'=>$campaign->id,'store_id'=>$store->id])->first();
+        $faltantes=CampaignElementoFaltante::query()
+        ->where('campaigntienda_id',$campaigntienda->id)
+        ->get();
+
+        if($deficiencias->count()>0 || $faltantes->count()>0){
             foreach ($destinatarios as $destinatario) {
-                Mail::to($destinatario->mail)->send(new MailDeficiencias($details,$deficiencias));
+                Mail::to($destinatario->mail)->send(new MailDeficiencias($details,$deficiencias,$faltantes));
                 // Mail::to($user->email)->send(new MailControlrecepcion2($details));
                 $notification = array(
                     'message' => '¡Mail de incidencias enviado!',

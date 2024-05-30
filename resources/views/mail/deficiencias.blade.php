@@ -15,7 +15,16 @@
 | Mobiliario    | Prop x Elemento| Carteleria  | Medida      | Material    | Unit x Prop | Incidencia |
 | :------------ |:--------------:| -----------:| -----------:| -----------:| -----------:| ----------:|
 @foreach ($deficiencias as $deficiencia)
-| {{$deficiencia->mobiliario}} | {{$deficiencia->propxelemento}} |{{$deficiencia->carteleria}} | {{$deficiencia->medida}} | {{$deficiencia->material}}  | {{$deficiencia->unitxprop}} | {{$deficiencia->estadorecep->estado}} | 
+| {{$deficiencia->mobiliario}} | {{$deficiencia->propxelemento}} |{{$deficiencia->carteleria}} | {{$deficiencia->medida}} | {{$deficiencia->material}}  | {{$deficiencia->unitxprop}} | {{$deficiencia->estadorecep->estado}} |
+@endforeach
+
+</x-mail::table>
+
+<x-mail::table>
+| Elem.Faltante | Cantidad       | Observaciones  |
+| :------------ |:--------------:| :------------- |
+@foreach ($faltantes as $faltante)
+| {{$faltante->elementofaltante}} | {{$faltante->cantidad}} |{{$faltante->observaciones}} |
 @endforeach
 
 </x-mail::table>

@@ -19,6 +19,7 @@ class CampaignTienda extends Model
     public function montador(){ return $this->belongsTo(Entidad::class, 'montador_id');}
     public function elementos(){return $this->hasMany(CampaignElemento::class, 'tienda_id');}
     public function galeria(){return $this->hasMany(CampaignTiendaGaleria::class, 'campaigntienda_id', 'id');}
+    public function elemfaltantes(){return $this->hasMany(CampaignElementoFaltante::class, 'campaigntienda_id', 'id');}
 
     protected function getElementosCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count();}
     // protected function getElementosokCountAttribute($value){return $value ?? $this->elementos_count = $this->elementos()->count('OK','1');}

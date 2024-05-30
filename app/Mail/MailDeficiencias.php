@@ -17,6 +17,7 @@ class MailDeficiencias extends Mailable
 
     public $details;
     public $deficiencias;
+    public $faltantes;
     public $campaigntienda;
 
     /**
@@ -24,10 +25,11 @@ class MailDeficiencias extends Mailable
      *
      * @return void
      */
-    public function __construct($details,$deficiencias)
+    public function __construct($details,$deficiencias,$faltantes)
     {
         $this->details=$details;
         $this->deficiencias=$deficiencias;
+        $this->faltantes=$faltantes;
         $this->campaigntienda=$this->deficiencias->first()->tienda_id;
 
     }

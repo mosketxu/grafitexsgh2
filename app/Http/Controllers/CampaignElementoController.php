@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Campaign,CampaignElemento, CampaignTienda};
+use App\Models\{Campaign,CampaignElemento, CampaignElementoFaltante, CampaignTienda};
 use Illuminate\Http\Request;
 use App\Exports\{CampaignElemenIdiMatMedMobExport, CampaignElementosExport,CampaignElemenMatExport,CampaignElemenMatMedExport};
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,7 +29,6 @@ class CampaignElementoController extends Controller{
         ->orderBy('store_id')
         ->paginate(10);
 
-
         return view('campaign.elementos.index', compact('campaign','elementos','busqueda'));
     }
 
@@ -43,7 +42,6 @@ class CampaignElementoController extends Controller{
     public function edit($campaignId,$elementoId){
         $campaign=Campaign::find($campaignId);
         $campaignelemento=CampaignElemento::where('id',$elementoId)->first();
-
         return view('campaign.elementos.edit',compact('campaign','campaignelemento'));
     }
 

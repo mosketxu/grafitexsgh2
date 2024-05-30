@@ -12,9 +12,12 @@ class CampaignElemento extends Model
     use HasFactory;
     public $timestamps = true;
 
-    protected $fillable=['campaign_id','tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',
+    protected $fillable=['tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',
         'propxlemento','carteleria','medida','material','familia','matmed','unitxprop','imagen','observaciones','precio','validado','motivo','otros','updated_by'
     ];
+    // protected $fillable=['campaign_id','tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',
+    //     'propxlemento','carteleria','medida','material','familia','matmed','unitxprop','imagen','observaciones','precio','validado','motivo','otros','updated_by'
+    // ];
 
     public function tarifa(){return $this->belongsTo(Tarifa::class,'familia');}
     public function elemento(){return $this->belongsTo(Elemento::class,'elemento_id','id');}
