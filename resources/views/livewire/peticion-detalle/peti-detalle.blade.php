@@ -37,7 +37,12 @@
                         <x-jet-input-error for="categoria_id" class="mt-2" />
                     </div>
                     <div class="w-4/12 ">
-                        <x-jet-label class="pl-2" for="prod">Producto</x-jet-label>
+                        <x-jet-label class="pl-2" for="prod">
+                            Producto
+                            @if($categoria_id=='')
+                                <span class="text-xs text-red-500">Selecciona una categoria para poder elegir el producto</span>
+                            @endif
+                        </x-jet-label>
                         <select  name="producto_id" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="producto_id" wire:model.lazy="producto_id" >
                             <option value="">--Selecciona el producto--</option>
                             @foreach ($productos as $producto )
