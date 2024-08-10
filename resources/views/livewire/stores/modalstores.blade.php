@@ -1,6 +1,6 @@
 <div>
     <div class="flex space-x-3">
-        @can('store.create')
+        @can('stores.create')
         <button wire:click="cambiamodalstores()"
             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="defaultModal">
             Nueva store
@@ -79,7 +79,7 @@
                 <x-jet-secondary-button wire:click="cambiamodalstores()">
                     {{ __('Cancelar') }}
                 </x-jet-secondary-button>
-                @can('store.create')
+                @can('stores.create')
                 <x-jet-button type="submit" class="bg-blue-700 hover:bg-blue-900" >
                     {{ __('Guardar') }}
                 </x-jet-button>

@@ -7,9 +7,9 @@
                 </h2>
             </div>
             <div class="flex flex-row-reverse w-full">
-                {{-- @can('store.create')
+                @can('stores.create')
                     @include('stores.menu_stores')
-                @endcan --}}
+                @endcan
             </div>
         </div>
     </x-slot>
