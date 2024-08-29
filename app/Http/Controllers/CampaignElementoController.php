@@ -23,7 +23,7 @@ class CampaignElementoController extends Controller{
         $elementos= CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->search2($request->busca)
         ->where('campaign_id',$campaignId)
-        ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','name','country','idioma','area','segmento','storeconcept',
+        ->select('campaign_elementos.id as id','campaign_elementos.store_id as store_id','name','country','idioma','area','segmento','storeconcept','store_cluster',
             'ubicacion','mobiliario','propxelemento','carteleria','medida',
             'material','familia','precio','unitxprop','imagen','observaciones')
         ->orderBy('store_id')

@@ -46,6 +46,14 @@
                 </div>
                 <div class="flex ml-2">
                     <div class="w-3/12">
+                        <x-jet-label class="" for="store_cluster">Store Cluster</x-jet-label>
+                    </div>
+                    <div class="w-9/12">
+                        <x-input.text class="py-1 bg-gray-100 border-none" type="text" readonly   id="store_cluster" name="store_cluster" value="{{$campelemento->store_cluster}}"/>
+                    </div>
+                </div>
+                <div class="flex ml-2">
+                    <div class="w-3/12">
                         <x-jet-label class="" for="observaciones">Observaciones</x-jet-label>
                     </div>
                     <div class="w-9/12">

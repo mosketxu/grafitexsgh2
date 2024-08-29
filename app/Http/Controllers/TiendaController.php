@@ -42,9 +42,7 @@ class TiendaController extends Controller
             ->search2($request->busca)
             ->where('store_id',$storeId)
             ->orderBy('campaign_id','DESC')
-            // ->get();
             ->paginate(15);
-        // dd($campaigns);
 
         return view('tienda.indexrecepcion',compact('campaigns','store','busqueda'));
     }

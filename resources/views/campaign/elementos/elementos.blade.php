@@ -19,14 +19,30 @@
                 {{ $elementos->appends(request()->except('page'))->links() }}
             </div>
             <div class="flex w-full pt-2 pb-0 text-sm font-bold tracking-tighter text-black bg-blue-100 rounded-tl-md">
-                <div class="w-2/12 pl-2">Store <br> Name</div>
-                <div class="w-1/12 pl-2">Country <br> Area <br> Idioma</div>
-                <div class="w-1/12 pl-2">Segmento <br> St.Concept</div>
-                <div class="w-1/12 pl-2">Ubicación</div>
+                <div class="w-2/12 pl-2">
+                    <div class="">Store</div>
+                    <div class="">Name</div>
+                </div>
+                <div class="w-1/12 pl-2">
+                    <div class="">Country</div>
+                    <div class="">Area</div>
+                    <div class="">Idioma</div>
+                </div>
+                <div class="w-1/12 pl-2">
+                    <div class="">Segmento</div>
+                    <div class="">St.Concept</div>
+                </div>
+                <div class="w-1/12 pl-2">
+                    <div class="">Ubicación</div>
+                    <div class="">St.Cluster</div>
+                </div>
                 <div class="w-2/12 pl-2">Mobiliario</div>
                 <div class="w-1/12 pl-2">Prop.Elem.</div>
                 <div class="w-1/12 pl-2">Carteleria</div>
-                <div class="w-1/12 pl-2">Medida <br> Material</div>
+                <div class="w-1/12 pl-2">
+                    <div class="">Medida</div>
+                    <div class="">Material</div>
+                </div>
                 <div class="w-1/12 pl-2">Unit.Prop.</div>
                 <div width="w-1/12 pl-2">Imagen </div>
             </div>

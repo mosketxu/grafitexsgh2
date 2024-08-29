@@ -20,17 +20,13 @@ class Idiomamaterialmedidas extends Component
     }
 
     public function render(){
-        $idiomamatmobmedidas=CampaignElemento::tienda($this->campaign->id)
-        // ->select('idioma','material','medida','mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
-        // ->groupBy('idioma','material','medida','mobiliario')
-        ->paginate(10);
-        dd($idiomamatmobmedidas->first());
 
-        $idiomamatmobmedidas=CampaignElemento::tienda($this->campaign->id)
-        ->select('idioma','material','medida','mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
-        ->groupBy('idioma','material','medida','mobiliario')
-        ->paginate(10);
 
+        $idiomamatmobmedidas=CampaignElemento::query()
+        ->tienda($this->campaign->id)
+        ->select('idioma','material','medida','mobiliario','store_cluster',DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
+        ->groupBy('idioma','material','medida','mobiliario','store_cluster')
+        ->paginate();
 
         return view('livewire.campaigns.conteos.idiomamaterialmedidas',compact('idiomamatmobmedidas'));
     }

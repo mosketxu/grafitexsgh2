@@ -272,6 +272,7 @@ class CampaignController extends Controller{
                     'zona'  => $zona,
                     'segmento'  => $gen['segmento'],
                     'storeconcept'  => $gen['concepto'],
+                    'store_cluster'  => $gen['store_cluster'],
                     'ubicacion'  => $gen['ubicacion'],
                     'mobiliario'  => $gen['mobiliario'],
                     'propxelemento'  => $gen['propxelemento'],

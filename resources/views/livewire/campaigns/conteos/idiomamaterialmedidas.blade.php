@@ -18,6 +18,7 @@
                 <div class="w-3/12">Material</div>
                 <div class="w-3/12">Medida</div>
                 <div class="w-3/12">Mobiliario</div>
+                <div class="w-3/12">St.Cluster</div>
                 <div class="w-1/12">Totales</div>
                 <div class="w-1/12">Unidades</div>
             </div>
@@ -28,6 +29,7 @@
                     <div class="w-3/12 ">{{$detalle->material}}</div>
                     <div class="w-3/12">{{$detalle->medida}}</div>
                     <div class="w-3/12">{{$detalle->mobiliario}}</div>
+                    <div class="w-3/12">{{$detalle->store_cluster}}</div>
                     <div class="w-1/12">{{$detalle->totales}}</div>
                     <div class="w-1/12">{{$detalle->unidades}}</div>
                 </div>

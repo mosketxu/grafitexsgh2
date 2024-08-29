@@ -12,7 +12,7 @@ class CampaignElemento extends Model
     use HasFactory;
     public $timestamps = true;
 
-    protected $fillable=['tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',
+    protected $fillable=['tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','store_cluster','ubicacion','mobiliario',
         'propxlemento','carteleria','medida','material','familia','matmed','unitxprop','imagen','observaciones','precio','validado','motivo','otros','updated_by'
     ];
     // protected $fillable=['campaign_id','tienda_id', 'store_id','country','idioma','name','area','segmento','storeconcept','ubicacion','mobiliario',

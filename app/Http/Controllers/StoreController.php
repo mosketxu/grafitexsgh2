@@ -165,8 +165,6 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Store $store){
-
-        // dd($request);
         $request->validate([
             'name'=>'required',
             'country'=>'required',
