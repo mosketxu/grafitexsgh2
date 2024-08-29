@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Segmento;
+use App\Models\Channel;
 use Illuminate\Http\Request;
 
-class SegmentoController extends Controller
+class ChannelController extends Controller
 {
 
     /**
@@ -15,65 +15,64 @@ class SegmentoController extends Controller
      */
     public function create()
     {
-        $campo='segmento';
-        $route='segmento.store';
+        $campo='channel';
+        $route='channel.store';
         return view('auxiliares.createaux',compact('campo','route'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreChannelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChannelRequest $request)
     {
         $request->validate([
-            'segmento'=>'required|unique:segmentos'
+            'channel'=>'required|unique:channels'
         ]);
 
-        Segmento::create($request->all());
+        Channel::create($request->all());
 
         $notification = array(
-            'message' => 'Segmento creado satisfactoriamente!',
+            'message' => 'Channel creado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
         return redirect('auxiliares')->with($notification);
     }
 
-       /**
+        /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Channel  $channel
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Channel $id)
     {
-        $datos=Segmento::find($id);
-        $campo='segmento';
-        $route='segmento.update';
+        $datos=Channel::find($id);
+        $campo='channel';
+        $route='channel.update';
         return view('auxiliares.edit',compact('datos','campo','route'));
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateChannelRequest  $request
+     * @param  \App\Models\Channel  $channel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateChannelRequest $request, $id)
     {
         $request->validate([
-            'segmento'=>'required|unique:segmentos'
+            'channel'=>'required|unique:channels'
         ]);
 
-        Segmento::where('id',$id)->update(['segmento'=>$request->segmento]);
+        Channel::where('id',$id)->update(['channel'=>$request->channel]);
 
         $notification = array(
-            'message' => 'Segmento actualizado satisfactoriamente!',
+            'message' => 'Channel actualizado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
@@ -83,19 +82,17 @@ class SegmentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Channel  $channel
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Segmento::destroy($id);
+    public function destroy($id){
+        Channel::destroy($id);
 
         $notification = array(
-            'message' => 'Segmento eliminada satisfactoriamente!',
+            'message' => 'Channel eliminado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
         return redirect()->back()->with($notification);
-
     }
 }

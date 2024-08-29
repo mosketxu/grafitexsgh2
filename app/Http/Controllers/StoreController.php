@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Area,Country,Segmento, Store, StoreElemento, Elemento, Entidad, Furniture, MontajeTipo, Storeconcept, TiendaTipo};
+use App\Models\{Area,Country,Segmento,Channel,StoreCluster, Store, StoreElemento, Elemento, Entidad, Furniture, MontajeTipo, Storeconcept, TiendaTipo};
 use App\Imports\StoreaddressesImport;
 use App\Exports\StoreExport;
 use Illuminate\Support\Facades\DB;
@@ -55,14 +55,17 @@ class StoreController extends Controller
         $storestodoscode=Store::orderby('id')->get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
+        $channels=Channel::orderBy('channel')->get();
+        $storeclusters=StoreCluster::orderBy('store_cluster')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
+        // ::orderBy('furniture_type')->get();
 
         if($request->submit=="excel")
             return Excel::download(new StoreExport($lux,$sto,$nam,$coun,$are,$segmen,$cha,$clu,$conce,$fur),'stores.xlsx');
         else
             return view('stores.index',
-                    compact('stores','storestodos','storestodoscode','areas','segmentos','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
+                    compact('stores','storestodos','storestodoscode','areas','segmentos','channels','storeclusters','conceptos','furnitures','lux','sto','nam','coun','are','segmen','cha','clu','conce','fur'));
 
     }
 
@@ -116,6 +119,8 @@ class StoreController extends Controller
             'area_id'=>$request->area_id,
             'area'=>$a,
             'segmento'=>$request->segmento,
+            'channel'=>$request->channel,
+            'store_cluster'=>$request->store_cluster,
             'concepto_id'=>$request->concepto_id,
             'concepto'=>$c,
             'imagen'=>$imagen,
@@ -142,12 +147,14 @@ class StoreController extends Controller
         $countries=Country::get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
+        $channels=Channel::orderBy('channel')->get();
+        $storeclusters=StoreCluster::orderBy('store_cluster')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
         $montadores=Entidad::orderBy('entidad')->get();
         $tiendatipos=TiendaTipo::where('tiendatipo','<>','Grafitex')->orderBy('tiendatipo')->get();
         $montajetipos=MontajeTipo::orderBy('montajetipo')->get();
-        return view('stores.edit', compact('store','countries','areas','segmentos','conceptos','furnitures','montadores','tiendatipos','montajetipos'));
+        return view('stores.edit', compact('store','countries','areas','segmentos','channels','storeclusters','conceptos','furnitures','montadores','tiendatipos','montajetipos'));
     }
 
     /**
@@ -194,8 +201,6 @@ class StoreController extends Controller
             'area'=>$a,
             'segmento'=>$request->segmento,
             'channel'=>$request->channel,
-            'channel'=>$request->channel,
-            'store_cluster'=>$request->store_cluster,
             'store_cluster'=>$request->store_cluster,
             'concepto_id'=>$request->concepto_id,
             'concepto'=>$c,

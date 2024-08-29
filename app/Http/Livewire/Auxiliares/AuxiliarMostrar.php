@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Auxiliares;
 
-use App\Models\{Area,Carteleria,Country,Furniture,Material,Medida,Mobiliario,Propxelemento,Segmento,Storeconcept,Ubicacion};
+use App\Models\{Area,Carteleria,Country,Furniture,Material,Medida,Mobiliario,Propxelemento,Segmento,StoreCluster,Channel, Store, Storeconcept,Ubicacion};
 
 use Livewire\Component;
 
@@ -18,6 +18,9 @@ class AuxiliarMostrar extends Component
     public $valorcampo='';
     public $country='';
     public $segmento='';
+    public $area='';
+    public $channel='';
+    public $store_cluster='';
     public $furniture;
     public $concept;
     public $ubicacion;
@@ -32,6 +35,8 @@ class AuxiliarMostrar extends Component
             'valorcampo'=>'required_if:vista,country|unique:countries,country',
             'valorcampo'=>'required_if:vista,area|unique:areas,area',
             'valorcampo'=>'required_if:vista,segmento|unique:segmentos,segmento',
+            'valorcampo'=>'required_if:vista,channel|unique:channels,channel',
+            'valorcampo'=>'required_if:vista,store_cluster|unique:store_clusters,cluster',
             'valorcampo'=>'required_if:vista,furniture|unique:furnitures,furniture_type',
             'valorcampo'=>'required_if:vista,concept|unique:storeconcepts,storeconcept',
             'valorcampo'=>'required_if:vista,ubicacion|unique:ubicacions,ubicacion',
@@ -64,6 +69,16 @@ class AuxiliarMostrar extends Component
         }elseif($this->vista=='segmento'){
             $this->titulo='Segmento';$this->campo='segmento';$this->tabla='segmentos';
             $this->valores=Segmento::select('id as ide','segmento as valor')
+                ->when($this->search!='',function($query) {return $query->where($this->campo,'like','%'.$this->search.'%');})
+                ->get();
+        }elseif($this->vista=='channel'){
+            $this->titulo='Channel';$this->campo='channel';$this->tabla='channels';
+            $this->valores=Channel::select('id as ide','channel as valor')
+                ->when($this->search!='',function($query) {return $query->where($this->campo,'like','%'.$this->search.'%');})
+                ->get();
+        }elseif($this->vista=='storecluster'){
+            $this->titulo='storecluster';$this->campo='store_cluster';$this->tabla='store_clusters';
+            $this->valores=StoreCluster::select('id as ide','store_cluster as valor')
                 ->when($this->search!='',function($query) {return $query->where($this->campo,'like','%'.$this->search.'%');})
                 ->get();
         }elseif($this->vista=='furniture'){
@@ -131,6 +146,12 @@ class AuxiliarMostrar extends Component
         }elseif($this->vista=='segmento') {
             $p=Segmento::find($valor['ide']);
             // $this->segmento=$v;
+        }elseif($this->vista=='channel') {
+            $p=Channel::find($valor['ide']);
+            // $this->channel=$v;
+        }elseif($this->vista=='storecluster') {
+            $p=StoreCluster::find($valor['ide']);
+            // $this->store_cluster=$v;
         }elseif($this->vista=='furniture') {
             $p=Furniture::find($valor['ide']);
             // $this->furniture=$v;
@@ -175,6 +196,12 @@ class AuxiliarMostrar extends Component
         }elseif($this->vista=='segmento'){
             $p=new Segmento;
             $this->segmento=$this->valorcampo;
+        }elseif($this->vista=='channel'){
+            $p=new Channel();
+            $this->channel=$this->valorcampo;
+        }elseif($this->vista=='storecluster'){
+            $p=new StoreCluster();
+            $this->store_cluster=$this->valorcampo;
         }elseif($this->vista=='furniture'){
             $p=new Furniture;
             $this->furniture=$this->valorcampo;

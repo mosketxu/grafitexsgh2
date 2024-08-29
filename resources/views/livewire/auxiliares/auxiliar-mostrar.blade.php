@@ -14,6 +14,14 @@
                 class="w-full text-sm font-medium text-center text-white rounded-lg bg-rose-700 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 " type="button" data-modal-toggle="defaultModal">
                 Segmento
             </button>
+            <button wire:click="cambiatabla('channel')"
+                class="w-full text-sm font-medium text-center text-white rounded-lg bg-rose-100 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 " type="button" data-modal-toggle="defaultModal">
+                Channel
+            </button>
+            <button wire:click="cambiatabla('storecluster')"
+                class="w-full text-sm font-medium text-center text-white rounded-lg bg-zinc-100 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 " type="button" data-modal-toggle="defaultModal">
+                Cluster
+            </button>
             <button wire:click="cambiatabla('furniture')"
                 class="w-full text-sm font-medium text-center text-white rounded-lg bg-zinc-700 hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 " type="button" data-modal-toggle="defaultModal">
                 Furniture Type

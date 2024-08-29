@@ -47,6 +47,10 @@
                 </div>
                 <div class="w-full">
                     <select class="" id="cha" name="cha[]" data-placeholder="channel" multiple>
+                        @foreach ($channels as $channel )
+                            <option value="{{$channel->channel}}" {{ empty($cha) ? "" : (in_array($channel->channel, $cha) ? "selected" : "")}}>{{$channel->channel}}</option>
+                        @endforeach
+
                         <option value="Airport" {{ empty($cha) ? "" : (in_array("Airport", $cha) ? "selected" : "")}}>Airport</option>
                         <option value="Dpt.Store" {{ empty($cha) ? "" : (in_array("Dpt.Store", $cha) ? "selected" : "")}}>Dpt.Store</option>
                         <option value="Mall" {{ empty($cha) ? "" : (in_array("Mall", $cha) ? "selected" : "")}}>Mall</option>
@@ -56,10 +60,9 @@
                 </div>
                 <div class="w-full">
                     <select class="" id="clu" name="clu[]" data-placeholder="cluster" multiple>
-                        <option value="Basic">Basic</option>
-                        <option value="ECI">ECI</option>
-                        <option value="INLINE">INLINE</option>
-                        <option value="OPEN AIR">OPEN AIR</option>
+                        @foreach ($storeclusters as $storecluster )
+                            <option value="{{$storecluster->store_cluster}}" {{ empty($clu) ? "" : (in_array($storecluster->store_cluster, $clu) ? "selected" : "")}}>{{$storecluster->store_cluster}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-full">

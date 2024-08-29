@@ -21,7 +21,7 @@
             <div class="text-sm">
                 <div class="flex">
                     <div class="w-3/12 form-item">
-                        <x-jet-label for="id">Store</x-jet-label>
+                        <x-jet-label for="id">Stores</x-jet-label>
                         <x-input.text class="w-full py-1" id="idstore" name="id" value="{{old('id')}}"/>
                     </div>
                     <div class="w-9/12">
@@ -53,6 +53,24 @@
                             <option value="">Selecciona</option>
                             @foreach($segmentos as $segmento )
                             <option value="{{$segmento->segmento}}" {{old('segmento')==$segmento->segmento ? 'selected' : ''}}>{{$segmento->segmento}}</option>
+                            @endforeach
+                        </x-select>
+                    </div>
+                    <div class="w-3/12">
+                        <x-jet-label for="channel">Channel</x-jet-label>
+                        <x-select  selectname="channel" class="w-full py-1.5 border-blue-300" id="channel" name="channel" >
+                            <option value="">Selecciona</option>
+                            @foreach($channels as $channel )
+                            <option value="{{$channel->channel}}" {{old('channel')==$channel->channel ? 'selected' : ''}}>{{$channel->channel}}</option>
+                            @endforeach
+                        </x-select>
+                    </div>
+                    <div class="w-3/12">
+                        <x-jet-label for="cluster">Cluster</x-jet-label>
+                        <x-select  selectname="store_cluster" class="w-full py-1.5 border-blue-300" id="cluster" name="store_cluster" >
+                            <option value="">Selecciona</option>
+                            @foreach($storeclusters as $store_cluster )
+                            <option value="{{$store_cluster->store_cluster}}" {{old('store_cluster')==$store_cluster->store_cluster ? 'selected' : ''}}>{{$store_cluster->store_cluster}}</option>
                             @endforeach
                         </x-select>
                     </div>

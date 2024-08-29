@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Stores;
 
-use App\Models\{Area,Country,Segmento,Storeconcept,Furniture};
+use App\Models\{Area, Country,Segmento,Channel,StoreCluster,Storeconcept,Furniture};
 use Livewire\Component;
 
 class Modalstores extends Component
@@ -14,9 +14,11 @@ class Modalstores extends Component
         $countries=Country::get();
         $areas=Area::orderBy('area')->get();
         $segmentos=Segmento::orderBy('segmento')->get();
+        $channels=Channel::orderBy('channel')->get();
+        $storeclusters=StoreCluster::orderBy('store_cluster')->get();
         $conceptos=Storeconcept::orderBy('storeconcept')->get();
         $furnitures=Furniture::orderBy('furniture_type')->get();
-        return view('livewire.stores.modalstores',compact('areas','countries','segmentos','conceptos','furnitures'));
+        return view('livewire.stores.modalstores',compact('areas','countries','segmentos','channels','storeclusters','conceptos','furnitures'));
     }
 
     public function cambiamodalstores(){$this->muestramodalstores= $this->muestramodalstores==false ? true : false;}

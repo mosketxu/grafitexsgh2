@@ -99,23 +99,18 @@
                                 <div class="w-full form-item">
                                     <x-jet-label for="channel">Channel</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="channel" selectname="channel" name="channel" >
-                                        <option value="{{$store->channel}}" selected>{{$store->channel}}</option>
-                                        <option value="Airport">Airport</option>
-                                        <option value="Dpt.Store">Dpt.Store</option>
-                                        <option value="Mall">Mall</option>
-                                        <option value="Outlet">Outlet</option>
-                                        <option value="Street">Street</option>
+                                        @foreach($channels as $channel )
+                                        <option value="{{$channel->channel}}" {{old('channel',$channel->channel==$store->channel) ? 'selected' : ''}}>{{$channel->channel}}</option>
+                                        @endforeach
                                     </x-select>
                                 </div>
                                 {{-- cluster --}}
                                 <div class="w-full form-item">
                                     <x-jet-label for="store_cluster">Cluster</x-jet-label>
                                     <x-select class="w-full py-1.5 border-blue-300"  id="store_cluster" selectname="store_cluster" name="store_cluster" >
-                                        <option value="{{$store->store_cluster}}" selected>{{$store->store_cluster}}</option>
-                                        <option value="Basic">Basic</option>
-                                        <option value="ECI">ECI</option>
-                                        <option value="INLINE">INLINE</option>
-                                        <option value="OPEN AIR">OPEN AIR</option>
+                                        @foreach($storeclusters as $store_cluster )
+                                            <option value="{{$store_cluster->store_cluster}}" {{old('store_cluster',$store_cluster->store_cluster==$store->store_cluster) ? 'selected' : ''}}>{{$store_cluster->store_cluster}}</option>
+                                        @endforeach
                                     </x-select>
                                 </div>
                                 {{-- concepto --}}

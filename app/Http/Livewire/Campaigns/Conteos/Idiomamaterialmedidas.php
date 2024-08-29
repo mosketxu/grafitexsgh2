@@ -13,7 +13,7 @@ class Idiomamaterialmedidas extends Component
 
     public $campaign;
     public $visible=false;
-    public $titulo='Por Idioma Material Medida Mobiliario';
+    public $titulo='Por Idioma Material Medida Mobiliario Cluster';
 
     public function mount($campaign){
         $this->campaign=$campaign;
@@ -21,9 +21,16 @@ class Idiomamaterialmedidas extends Component
 
     public function render(){
         $idiomamatmobmedidas=CampaignElemento::tienda($this->campaign->id)
+        // ->select('idioma','material','medida','mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
+        // ->groupBy('idioma','material','medida','mobiliario')
+        ->paginate(10);
+        dd($idiomamatmobmedidas->first());
+
+        $idiomamatmobmedidas=CampaignElemento::tienda($this->campaign->id)
         ->select('idioma','material','medida','mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
         ->groupBy('idioma','material','medida','mobiliario')
         ->paginate(10);
+
 
         return view('livewire.campaigns.conteos.idiomamaterialmedidas',compact('idiomamatmobmedidas'));
     }

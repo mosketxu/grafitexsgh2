@@ -24,6 +24,8 @@ class CampaignElementosExport implements FromCollection,WithHeadings
             'Area',
             'Zona',
             'Segmento',
+            'Canal',
+            'Cluster',
             'Concept',
             'Ubicacion',
             'Mobiliario',
@@ -47,7 +49,7 @@ class CampaignElementosExport implements FromCollection,WithHeadings
 
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->where('campaign_id',$this->id)
-        ->select('campaign_elementos.store_id','name','country','area','zona','segmento',
+        ->select('campaign_elementos.store_id','name','country','area','zona','segmento','channel','store_cluster',
                 'storeconcept','ubicacion','mobiliario','propxelemento',
                 'carteleria','medida','material','unitxprop','imagen',
                 'observaciones','precio','campaign_elementos.created_at','campaign_elementos.updated_at')

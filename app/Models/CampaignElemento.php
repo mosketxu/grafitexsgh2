@@ -26,21 +26,21 @@ class CampaignElemento extends Model
 
 
     public function scopeSearch2($query, $busca){
-      return $query->where('campaign_elementos.store_id', 'LIKE', "%$busca%")
-      ->orWhere('name', 'LIKE', "%$busca%")
-      ->orWhere('country', 'LIKE', "%$busca%")
-      ->orWhere('idioma', 'LIKE', "%$busca%")
-      ->orWhere('area', 'LIKE', "%$busca%")
-      ->orWhere('segmento', 'LIKE', "%$busca%")
-      ->orWhere('storeconcept', 'LIKE', "%$busca%")
-      ->orWhere('ubicacion', 'LIKE', "%$busca%")
-      ->orWhere('mobiliario', 'LIKE', "%$busca%")
-      ->orWhere('propxelemento', 'LIKE', "%$busca%")
-      ->orWhere('carteleria', 'LIKE', "%$busca%")
-      ->orWhere('medida', 'LIKE', "%$busca%")
-      ->orWhere('material', 'LIKE', "%$busca%")
-      ->orWhere('observaciones', 'LIKE', "%$busca%")
-      ;
+        return $query->where('campaign_elementos.store_id', 'LIKE', "%$busca%")
+        ->orWhere('name', 'LIKE', "%$busca%")
+        ->orWhere('country', 'LIKE', "%$busca%")
+        ->orWhere('idioma', 'LIKE', "%$busca%")
+        ->orWhere('area', 'LIKE', "%$busca%")
+        ->orWhere('segmento', 'LIKE', "%$busca%")
+        ->orWhere('storeconcept', 'LIKE', "%$busca%")
+        ->orWhere('ubicacion', 'LIKE', "%$busca%")
+        ->orWhere('mobiliario', 'LIKE', "%$busca%")
+        ->orWhere('propxelemento', 'LIKE', "%$busca%")
+        ->orWhere('carteleria', 'LIKE', "%$busca%")
+        ->orWhere('medida', 'LIKE', "%$busca%")
+        ->orWhere('material', 'LIKE', "%$busca%")
+        ->orWhere('observaciones', 'LIKE', "%$busca%")
+        ;
     }
 
     public function scopeTienda($query, $campaignid){

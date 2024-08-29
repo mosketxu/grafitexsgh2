@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Segmento;
+use App\Models\StoreCluster;
 use Illuminate\Http\Request;
 
-class SegmentoController extends Controller
+class StoreClusterController extends Controller
 {
 
-    /**
+       /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $campo='segmento';
-        $route='segmento.store';
+        $campo='store_cluster';
+        $route='storecluster.store';
         return view('auxiliares.createaux',compact('campo','route'));
     }
 
@@ -29,13 +29,13 @@ class SegmentoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'segmento'=>'required|unique:segmentos'
+            'store_cluster'=>'required|unique:store_clusters'
         ]);
 
-        Segmento::create($request->all());
+        StoreCluster::create($request->all());
 
         $notification = array(
-            'message' => 'Segmento creado satisfactoriamente!',
+            'message' => 'Cluster creado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
@@ -50,9 +50,9 @@ class SegmentoController extends Controller
      */
     public function edit($id)
     {
-        $datos=Segmento::find($id);
-        $campo='segmento';
-        $route='segmento.update';
+        $datos=StoreCluster::find($id);
+        $campo='store_cluster';
+        $route='storecluster.update';
         return view('auxiliares.edit',compact('datos','campo','route'));
 
     }
@@ -67,13 +67,13 @@ class SegmentoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'segmento'=>'required|unique:segmentos'
+            'store_cluster'=>'required|unique:store_clusters'
         ]);
 
-        Segmento::where('id',$id)->update(['segmento'=>$request->segmento]);
+        StoreCluster::where('id',$id)->update(['store_cluster'=>$request->storecluster]);
 
         $notification = array(
-            'message' => 'Segmento actualizado satisfactoriamente!',
+            'message' => 'Cluster actualizado satisfactoriamente!',
             'alert-type' => 'success'
         );
 
@@ -88,10 +88,10 @@ class SegmentoController extends Controller
      */
     public function destroy($id)
     {
-        Segmento::destroy($id);
+        StoreCluster::destroy($id);
 
         $notification = array(
-            'message' => 'Segmento eliminada satisfactoriamente!',
+            'message' => 'Cluster eliminada satisfactoriamente!',
             'alert-type' => 'success'
         );
 

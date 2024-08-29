@@ -90,6 +90,13 @@
                                 </x-jet-dropdown-link>
                             </div>
                             @endcan
+                            @can('stores.edit')
+                            <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('storespeticiones.index') }}" :active="request()->routeIs('storespeticiones.index')" class="text-left">
+                                {{ __('Stores Peticiones') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            @endcan
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
