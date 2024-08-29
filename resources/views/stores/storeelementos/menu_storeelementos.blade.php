@@ -5,7 +5,7 @@
                 <div class="flex text-xs">
                     <div class="hidden space-x-2 sm:-my-px sm:m-2 sm:flex">
                         <div class="col-auto mr-auto">
-                            <x-button.primary onclick="location.href = '{{route('storeelementos.edit',$store->id)}}'" >Añadir Elemento</x-button.primary>
+                            <x-button.primary onclick="location.href = '{{route('storeelementos.elementos',$store->id)}}'" >Añadir Elemento</x-button.primary>
                         </div>
                     </div>
                 </div>
