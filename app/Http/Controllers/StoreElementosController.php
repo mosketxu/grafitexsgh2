@@ -16,7 +16,6 @@ class StoreElementosController extends Controller
     }
 
     public function elementos($storeId, Request $request){
-
         $ubi=$request->ubi;
         $mobi=$request->mobi;
         $prop=$request->prop;

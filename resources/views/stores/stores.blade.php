@@ -71,7 +71,7 @@
                             <div class="flex flex-row-reverse items-center w-1/12 pr-2 space-x-4 text-center">
                                 @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
                                 @can('storeelementos.index')
-                                <div class="pr-2"><x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600"/></div>
+                                <div class="pr-2"><x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600 "/></div>
                                 @endcan
                                 @can('storeescaparate.index')
                                 <div class=""><x-icon.person-through-window-solid-a href="{{ route('storeescaparates.escaparates',$store) }}" title="Escaparates" class="w-6 text-blue-600"/></div>
