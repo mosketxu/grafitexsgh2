@@ -1,9 +1,8 @@
-<form method="GET" action="{{route('stores.index') }}">
-    <div class="grid grid-cols-12 space-y-1 gap2 ">
-        <div class="w-full col-span-11 space-y-1 ">
-            <div class="flex space-x-1 text-xs">
+<div class="flex ">
+    <form method="GET" action="{{route('stores.index') }}" class="flex w-11/12" >
+        <div class="w-full">
+            <div class="flex w-full space-x-2">
                 <div class="w-full">
-                    {{-- <select class="" id="lux" name="lux[]" data-placeholder="Luxottica" multiple> --}}
                     <select class="" id="lux" name="lux[]" data-placeholder="Luxottica" multiple>
                         <option value="Oliver Peoples" {{ empty($lux) ? "" : (in_array("Oliver Peoples", $lux) ? "selected" : "")}}>Oliver Peoples</option>
                         <option value="Ray-Ban Store" {{ empty($lux) ? "" : (in_array("Ray-Ban Store", $lux) ? "selected" : "")}}>Ray-Ban Store</option>
@@ -38,7 +37,7 @@
                     </select>
                 </div>
             </div>
-            <div class="flex space-x-1 text-xs">
+            <div class="flex w-full my-2 space-x-2">
                 <div class="w-full">
                     <select class="" id="segmen" name="segmen[]" data-placeholder="segmento" multiple>
                         @foreach ($segmentos as $segmento )
@@ -79,10 +78,9 @@
                 </div>
             </div>
         </div>
-            <div class="col-span-1 ml-8">
-                <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button></div>
-                <a class="text-blue-700 underline" href='{{route('stores.index')}}'  title="Borrar Filtro"><x-icon.filter-slash></x-icon.filter-slash></a>
-            </div>
+        <div class="w-1/12 text-center">
+            <div class="w-full py-0 "><button type="submit" class="bg-white border-none shadow-none " ><x-icon.filter class="text-blue-500 transform hover:text-blue-700 hover:scale-125"/></button></div>
+            <x-icon.filter-slash-a href="{{ route('stores.index') }}" title="Borrar filtros " class=""/>
         </div>
-    </div>
-</form>
+    </form>
+</div>

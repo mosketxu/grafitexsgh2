@@ -127,7 +127,9 @@ class StoreController extends Controller
             'message' => 'Elemento creado satisfactoriamente!',
             'alert-type' => 'success'
         );
-        return redirect('store')->with($notification);
+
+        return redirect()->route('stores.index')->with($notification);
+
     }
 
     /**
