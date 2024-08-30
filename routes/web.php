@@ -8,8 +8,9 @@ use App\Http\Controllers\{CampaignController, CampaignElementoController, Campai
     EscaparateController,
     MaestroController, MontadorController, MontajeMaterialController, MontajeProporcionController, MontajeTipoController, PeticionController, ProductoController, ProductoImagenController, RoleController,
     SghController, StoreController, StoredataController, StoreElementosController, TarifaController, TarifaFamiliaController,
-    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, ProductoCategoriaController, StoreEscaparateController, StoreProporcionController, StoresPeticionesController, TiendaTipoController};
+    TiendaController, UploadController, UserController,ProductoImagen, PeticionDetalleController,PeticionHistorialController, ProductoCategoriaController, StoreEscaparateController, StorePeticionesProductoController, StoreProporcionController, StoresPeticionesController, TiendaTipoController};
 use App\Mail\MailControlrecepcion2;
+use App\Models\StorePeticionesProducto;
 use Illuminate\Support\Facades\Mail;
 
 // use HasRoles;
@@ -222,9 +223,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         Route::resource('/', ProductoController::class)->names('producto')->except('edit');
     });
 
-    //Stores de peticiones de las tiendas
+    //Stores de peticiones de las tiendas y sus productos
     Route::group(['prefix' => 'storespeticiones'], function () {
-        Route::get('/{store}/edit', [StoresPeticionesController::class, 'editar'])->name('storespeticiones.editar')->middleware('can:stores.edit');
+        Route::get('/{store}/productos',[StorePeticionesProductoController::class,'productos'])->name('storespeticiones.productos')->middleware('can:storeelementos.index');
         Route::resource('/', StoresPeticionesController::class)->names('storespeticiones')->only('index');
     });
 

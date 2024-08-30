@@ -12,7 +12,7 @@
             <div>
                 <div class="flex w-full py-1 text-sm font-bold text-gray-500 bg-blue-100 rounded-t-md ">
                     <div class="flex w-11/12 ">
-                        {{-- <div class="hidden pl-2 text-left md:flex md:w-1/12">Luxottica</div> --}}
+                        <div class="hidden pl-2 text-left md:flex md:w-1/12">Luxottica</div>
                         <div class="w-1/12 text-left md:w-1/12">Code</div>
                         <div class="w-6/12 text-left md:w-1/12">Store</div>
                         <div class="hidden pl-2 text-left md:flex md:w-1/12">T.Tienda</div>
@@ -63,13 +63,7 @@
                             <div class="flex flex-row-reverse items-center w-1/12 pr-2 space-x-4 text-center">
                                 @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
                                 @can('storeelementos.index')
-                                <div class="pr-2"><x-icon.cubes-a href="{{ route('storeelementos.elementos',$store) }}" title="Elementos" class="w-6 text-green-600 "/></div>
-                                @endcan
-                                @can('storeescaparate.index')
-                                <div class=""><x-icon.person-through-window-solid-a href="{{ route('storeescaparates.escaparates',$store) }}" title="Escaparates" class="w-6 text-blue-600"/></div>
-                                @endcan
-                                @can('storeproporcion.index')
-                                <div class=""><x-icon.percent-solid-a href="{{ route('storeproporciones.proporciones',$store) }}" title="Proporciones" class="w-6 text-orange-600"/></div>
+                                <div class="pr-2"><x-icon.cubes-a href="{{ route('storespeticiones.productos',$store) }}" title="Elementos" class="w-6 text-green-600 "/></div>
                                 @endcan
                             </div>
                         </div>
@@ -77,26 +71,10 @@
                     @endforeach
                 </div>
                 <div class="col-10 row">
-                {{ $stores->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+                    {{ $stores->links() }}
             </div>
         </div>
     </div>
 </div>
 
-@push('scriptchosen')
 
-<script>
-    new TomSelect('#lux', {maxItems: 10,});
-    new TomSelect('#sto', {maxItems: 10,});
-    new TomSelect('#nam', {maxItems: 10,});
-    new TomSelect('#coun', {maxItems: 10,});
-    new TomSelect('#are', {maxItems: 10,});
-    new TomSelect('#segmen', {maxItems: 10,});
-    new TomSelect('#cha', {maxItems: 10,});
-    new TomSelect('#clu', {maxItems: 10,});
-    new TomSelect('#conce', {maxItems: 10,});
-    new TomSelect('#fur', {maxItems: 10,});
-</script>
-
-
-@endpush

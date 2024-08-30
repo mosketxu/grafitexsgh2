@@ -228,6 +228,7 @@
                         @endcan
                         <x-button.button  class="py-2" onclick="location.href = '{{ route('stores.addresses') }}'" color="green" >{{ __('Volver a direcciones') }}</x-button.button>
                         <x-button.button  class="py-2 text-black" onclick="location.href = '{{ route('stores.index') }}'" color="gray" >{{ __('Volver a stores') }}</x-button.button>
+                        <x-button.button  class="py-2 text-black" onclick="location.href = '{{ route('storespeticiones.index') }}'" color="yellow" >{{ __('Volver a stores peticiones') }}</x-button.button>
                     </div>
                 </form>
             </div>

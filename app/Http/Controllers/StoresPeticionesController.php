@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\Carteleria;
+use App\Models\Material;
+use App\Models\Medida;
+use App\Models\Mobiliario;
+use App\Models\Propxelemento;
 use App\Models\Store;
+use App\Models\StoreElemento;
+use App\Models\Ubicacion;
 use Illuminate\Http\Request;
 
 class StoresPeticionesController extends Controller
@@ -18,8 +26,7 @@ class StoresPeticionesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $stores=Store::orderby('name')->get();
-        return view('storespeticiones.index',compact(['stores']);
+        return view('storespeticiones.index');
 
     }
 
@@ -78,14 +85,6 @@ class StoresPeticionesController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
+
 }
