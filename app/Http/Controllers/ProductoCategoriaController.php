@@ -37,7 +37,7 @@ class ProductoCategoriaController extends Controller
    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TiendaTipo  $tiendaTipo
+     * @param  \App\Models\ProductoCategoria  $productocategoria
      * @return \Illuminate\Http\Response
      */
     public function editar(ProductoCategoria $productocategoria){
@@ -45,26 +45,5 @@ class ProductoCategoriaController extends Controller
         return view('productocategoria.edit',compact('productocategoria','ruta'));
 
     }
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \App\Http\Requests\UpdateProductoCategoriaRequest  $request
-    //  * @param  \App\Models\ProductoCategoria  $productoCategoria
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(UpdateProductoCategoriaRequest $request, ProductoCategoria $productoCategoria)
-    // {
-    //     //
-    // }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  \App\Models\ProductoCategoria  $productoCategoria
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy(ProductoCategoria $productoCategoria)
-    // {
-    //     //
-    // }
 }

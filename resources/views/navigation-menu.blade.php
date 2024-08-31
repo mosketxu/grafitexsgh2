@@ -151,6 +151,11 @@
                                 </x-jet-dropdown-link>
                             </div>
                             <div class="w-44">
+                                <x-jet-dropdown-link href="{{route('marca.index') }}" :active="request()->routeIs('marca.index')" class="text-left">
+                                {{ __('Marcas') }}
+                                </x-jet-dropdown-link>
+                            </div>
+                            <div class="w-44">
                                 <x-jet-dropdown-link href="{{route('tiendatipo.index') }}" :active="request()->routeIs('tiendatipo.index')" class="text-left">
                                 {{ __('Tipos Tienda') }}
                                 </x-jet-dropdown-link>
@@ -398,6 +403,11 @@
                             @can('stores.index')
                             <x-jet-dropdown-link href="{{ route('stores.index') }}" class="text-right">
                                 {{ __('Stores') }}
+                            </x-jet-dropdown-link>
+                            @endcan
+                            @can('marcas.index')
+                            <x-jet-dropdown-link href="{{ route('marca.index') }}" class="text-right">
+                                {{ __('Marcas') }}
                             </x-jet-dropdown-link>
                             @endcan
                             @can('tiendatipo.index')
