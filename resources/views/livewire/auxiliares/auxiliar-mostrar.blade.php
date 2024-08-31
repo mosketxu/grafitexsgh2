@@ -23,7 +23,7 @@
                 Cluster
             </button>
             <button wire:click="cambiatabla('furniture')"
-                class="w-full text-sm font-medium text-center text-white rounded-lg bg-zinc-700 hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 " type="button" data-modal-toggle="defaultModal">
+                class="w-full text-sm font-medium text-center text-white bg-teal-700 rounded-lg hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 " type="button" data-modal-toggle="defaultModal">
                 Furniture Type
             </button>
             <button wire:click="cambiatabla('concept')"
