@@ -6,6 +6,7 @@ use App\Http\Livewire\TiendaTipo\TiendaTipo;
 use App\Models\Peticion;
 use App\Models\PeticionDetalle;
 use App\Models\Producto;
+use App\Models\Marca;
 use App\Models\ProductoCategoria;
 use App\Models\ProductoImagen;
 use App\Models\Store;
@@ -22,7 +23,9 @@ class PetiDetalle extends Component
     public $petidetalle;
     public $peticion_id;
     public $producto_id;
+    public $marca_id;
     public $productos;
+    public $marcas;
     public $categoria_id='';
     public $comentario;
     public $unidades='1';
@@ -33,11 +36,13 @@ class PetiDetalle extends Component
     public $deshabilitado='';
     public $imagenes;
     public $producto;
+    public $marca;
     public $productodescrip;
 
     protected function rules(){
         return [
             'producto_id'=>'required',
+            'marca_id'=>'required',
             // 'categoria_id'=>'required',
             'unidades'=>'numeric|required',
             'preciounidad'=>'nullable|numeric',
@@ -50,6 +55,7 @@ class PetiDetalle extends Component
         return [
             'peticion_id.required' => 'El detalle debe pertenecer a una petición',
             'producto_id.required' => 'Deber seleccionar un producto',
+            'marca_id.required' => 'Deber seleccionar una marca',
             // 'categoria_id.required' => 'Deber seleccionar una categoria',
             'unidades_id.required' => 'Deber seleccionar las unidades',
         ];
@@ -61,12 +67,14 @@ class PetiDetalle extends Component
         if($peticiondetalle->id){
             $this->peticion_id=$peticiondetalle->peticion_id;
             $this->producto_id=$peticiondetalle->producto_id;
+            $this->marca_id=$peticiondetalle->marca_id;
             $this->comentario=$peticiondetalle->comentario;
             $this->unidades=$peticiondetalle->unidades;
             $this->preciounidad=$peticiondetalle->preciounidad;
             $this->total=$peticiondetalle->total;
             $this->observaciones=$peticiondetalle->observaciones;
             $this->producto=Producto::find($peticiondetalle->producto_id);
+            $this->marca=Marca::find($peticiondetalle->marca_id);
             $this->productodescrip=$this->producto->descripcion;
         }
         $this->imagenes=ProductoImagen::where('producto_id',$peticiondetalle->producto_id)->get();
@@ -86,6 +94,7 @@ class PetiDetalle extends Component
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->get();
 
+        $this->marcas=Marca::orderBy('marcaname')->get();
 
         return view('livewire.peticion-detalle.peti-detalle',compact('productocategorias'));
     }
@@ -128,6 +137,7 @@ class PetiDetalle extends Component
             [
                 'peticion_id'=>$this->peticion->id,
                 'producto_id'=>$this->producto_id,
+                'marca_id'=>$this->marca_id,
                 'comentario'=>$this->comentario,
                 'unidades'=>$this->unidades,
                 'preciounidad'=>$this->preciounidad,

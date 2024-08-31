@@ -100,6 +100,7 @@ class Peti extends Component
     }
 
     public function render(){
+
         if (!$this->estado) $this->estado=1;
         if (!$this->fecha) $this->fecha=Carbon::now()->format('Y-m-d');
         $peticion=$this->peticion;

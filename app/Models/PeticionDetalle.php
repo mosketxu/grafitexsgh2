@@ -9,10 +9,11 @@ class PeticionDetalle extends Model
 {
     use HasFactory;
 
-    protected $fillable=['peticion_id','producto_id','comentario','unidades','preciounidad','total','observaciones'];
+    protected $fillable=['peticion_id','producto_id','marca_id','comentario','unidades','preciounidad','total','observaciones'];
 
     public function peticion(){return $this->belongsTo(PeticionDetalle::class,'peticion_id');}
 
     public function producto(){return $this->belongsTo(Producto::class,'producto_id');}
+    public function marca(){return $this->belongsTo(Marca::class,'marca_id');}
 
 }
