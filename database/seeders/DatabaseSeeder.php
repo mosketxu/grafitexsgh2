@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductosSeeder::class);
         // $this->call(EscaparateSeeder::class);
         // $this->call(EscaparateSeeder::class);
-        $this->call(ChannelSeeder::class);
-        $this->call(StoreClusterSeeder::class);
-        $this->call(MarcaSeeder::class);
+        // $this->call(ChannelSeeder::class);
+        // $this->call(StoreClusterSeeder::class);
+        // $this->call(MarcaSeeder::class);
     }
 }
