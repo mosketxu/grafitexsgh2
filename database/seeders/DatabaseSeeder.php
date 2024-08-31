@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         //  $this->call(EstadosPeticionSeeder::class);
         //  $this->call(DestinatarioSeeder::class);
         //  $this->call(TiendaTipoSeeder::class);
-         $this->call(ProductoCategoriaSeeder::class);
+        //  $this->call(ProductoCategoriaSeeder::class);
         // $this->call(ProductosSeeder::class);
         // $this->call(EscaparateSeeder::class);
         // $this->call(EscaparateSeeder::class);
