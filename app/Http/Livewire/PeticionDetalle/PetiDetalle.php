@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\ProductoImagen;
 use App\Models\Store;
+use App\Models\StorePeticionesProducto;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -37,7 +38,7 @@ class PetiDetalle extends Component
     protected function rules(){
         return [
             'producto_id'=>'required',
-            'categoria_id'=>'required',
+            // 'categoria_id'=>'required',
             'unidades'=>'numeric|required',
             'preciounidad'=>'nullable|numeric',
             'total'=>'nullable|numeric',
@@ -49,7 +50,7 @@ class PetiDetalle extends Component
         return [
             'peticion_id.required' => 'El detalle debe pertenecer a una petición',
             'producto_id.required' => 'Deber seleccionar un producto',
-            'categoria_id.required' => 'Deber seleccionar una categoria',
+            // 'categoria_id.required' => 'Deber seleccionar una categoria',
             'unidades_id.required' => 'Deber seleccionar las unidades',
         ];
     }
@@ -79,11 +80,10 @@ class PetiDetalle extends Component
 
         $productocategorias= ProductoCategoria::where('id','>','1')->orderBy('productocategoria')->get();
 
-        $this->productos=Producto::with('imagenes')
-            ->where('productocategoria_id',$this->categoria_id)
-            ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
-            ->where('activo','1')
-            ->orderBy('producto')
+        $this->productos=Producto::query()
+            ->whereHas('storepeticionesproductos', function ($query) {
+                $query->where('store_id', $this->peticion->store_id);})
+            ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->get();
 
 

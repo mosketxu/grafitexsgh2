@@ -7,12 +7,23 @@
             disabled/>
             <x-jet-input-error for="id" class="mt-2" />
         </div>
+
         <div class="w-3/12 form-item">
-            <x-jet-label class="pl-2" for="peticionario_id">Solicitada por</x-jet-label>
-            <input type="text"
-            value="{{ $solicitadopor }}"
-            class="w-full py-1 text-xs text-gray-600 bg-blue-100 border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none"
-            disabled/>
+            @if($estienda)
+                <x-jet-label class="pl-2" for="peticionario_id">Solicitada por</x-jet-label>
+                <input type="text"
+                value="{{ $solicitadopor }}"
+                class="w-full py-1 text-xs text-gray-600 bg-blue-100 border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none"
+                disabled/>
+            @else
+                <x-jet-label class="pl-2" for="peticionario_id">Store: <span class="text xs italic text-gray-400">Solicitado por: {{ $solicitadopor }}</span></x-jet-label>
+                <x-selectcolor selectname="store_id" color="blue" wire:model='store_id' class="w-full text-xm pl-2 ">
+                    <option value="" >Selecciona la tienda</option>
+                    @foreach($stores as $store)
+                        <option value="{{$store->id}}" >{{$store->name}}</option>
+                    @endforeach
+                </x-selectcolor>
+            @endif
             <x-jet-input-error for="peticionario_id" class="mt-2" />
         </div>
         <div class="w-4/12 form-item">

@@ -10,12 +10,13 @@ class Peticion extends Model
 {
     use HasFactory;
     protected $table = 'peticiones';
-    protected $fillable=['peticion','peticionario_id','fecha','total','observaciones','peticionestado_id'];
+    protected $fillable=['peticion','peticionario_id','store_id','fecha','total','observaciones','peticionestado_id'];
 
     public function peticiondetalles(){return $this->hasMany(PeticionDetalle::class,'peticion_id');}
     public function peticionhistorial(){return $this->hasMany(PeticionHistorial::class,'peticion_id');}
     public function peticionario(){return $this->belongsTo(User::class,'peticionario_id');}
     public function estado(){return $this->belongsTo(EstadoPeticion::class,'peticionestado_id','id');}
+    public function store(){return $this->belongsTo(Store::class,'store_id','id');}
 
     public function getFechapreAttribute(){
         if ($this->fecha) {

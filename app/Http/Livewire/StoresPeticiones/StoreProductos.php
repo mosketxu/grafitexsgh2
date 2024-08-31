@@ -48,7 +48,6 @@ class StoreProductos extends Component
 
         $storeproductos=StorePeticionesProducto::with('producto')
         ->join('productos','productos.id','store_peticiones_productos.producto_id')
-        // ->join('productos','productos.id','store_peticiones_productos.producto_id')
         ->select('store_peticiones_productos.*','productos.producto as prod','productos.tiendatipo_id','productos.productocategoria_id','productos.descripcion')
         ->when($this->searchasociada!='',function($query) {return $query->where('producto','like','%'.$this->searchasociada.'%');})
         ->when($this->filtrotiendatipoasociada!='',function($query) {return $query->where('tiendatipo_id',$this->filtrotiendatipoasociada);})

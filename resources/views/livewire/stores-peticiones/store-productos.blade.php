@@ -103,7 +103,7 @@
         </div>
     </div>
     <div class="">
-        <x-button.primary class="m-2" onclick="location.href = '{{route('stores.index') }}'">Volver</x-button.primary>
+        <x-button.primary class="m-2" onclick="location.href = '{{route('storespeticiones.index') }}'">Volver</x-button.primary>
     </div>
 </div>
 

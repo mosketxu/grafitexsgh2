@@ -21,6 +21,7 @@ class Peti extends Component
     public $peticion;
     public $peti;
     public $peticionario_id;
+    public $store_id;
     public $peticionario;
     public $fecha;
     public $total='0';
@@ -36,12 +37,14 @@ class Peti extends Component
     public $peticionpendiente;
     public $saltarctrolnuevo;
 
+    public $estienda='';
     public $deshabilitado='';
 
     protected function rules(){
         return [
             'peti'=>'required|unique:peticiones,id',
             'peticionario_id'=>'required',
+            'store_id'=>'required',
             'estado'=>'nullable',
             'fecha'=>'date|required',
             'total'=>'nullable|numeric',
@@ -53,15 +56,18 @@ class Peti extends Component
         return [
             'peti.required' => 'Una breve descripción de la petición es necesario',
             'peticionario_id.required' => 'El  peticionario es necesario',
+            'store_id.required' => 'La store es necesaria',
             'fecha.required' => 'La fecha es necesaria',
         ];
     }
 
     public function mount(Peticion $peticion, $ruta,$saltarctrolnuevo ){
+
         $this->peticion=$peticion;
         $this->peti=$peticion->peticion;
         $this->peticionestado_id=$peticion->peticionestado_id;
         $this->peticionario_id=!$peticion->peticionario_id ? Auth::user()->id : $peticion->peticionario_id ;
+        $this->store_id=$peticion->store_id;
         $this->fecha=$peticion->fecha;
         if($this->fecha=='')
             $this->fecha = Carbon::now()->format('Y-m-d');
@@ -77,9 +83,12 @@ class Peti extends Component
             ->with('usuario.store',)
             ->where('peticion_id',$peticion->id)->get();
 
+        $this->estienda=Auth::user()->hasRole('tienda')==true ? '1' : '';
+
         if(Auth::user()->hasRole('tienda')){
             $sto=Store::find(Auth::user()->name);
             $this->solicitadopor=$sto->id . '-' . $sto->name;
+            $this->store_id=$sto->id;
             $this->storearea=$sto->area;
             $this->peticionario=User::where('name',$sto->id)->first();
             $this->peticionpendiente=Peticion::where('peticionario_id',$this->peticionario->id)->where('peticionestado_id','<','7')->count();
@@ -94,13 +103,14 @@ class Peti extends Component
         if (!$this->estado) $this->estado=1;
         if (!$this->fecha) $this->fecha=Carbon::now()->format('Y-m-d');
         $peticion=$this->peticion;
+        $stores=Store::orderBy('name')->get();
         $vista='livewire.peticion.peti';
 
         if($this->peticionpendiente>0){
             $this->peticion=Peticion::where('peticionario_id',$this->peticionario->id)->where('peticionestado_id','<','7')->first();
             $vista='livewire.peticion.peticionpendiente';
         }
-        return view($vista);
+        return view($vista,compact('stores'));
     }
 
     public function save(){
@@ -135,6 +145,7 @@ class Peti extends Component
             [
             'peticion'=>$this->peti,
             'peticionario_id'=>$this->peticionario_id,
+            'store_id'=>$this->store_id,
             'peticionestado_id'=>$this->estado,
             'total'=>$this->total,
             'fecha'=>$this->fecha,
