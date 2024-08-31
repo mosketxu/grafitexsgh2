@@ -32,7 +32,7 @@
                     @csrf
                         <div class="flex items-center w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100" wire:loading.class.delay="opacity-50">
                             @can('stores.edit')
-                            <div class="flex items-center w-11/12 "  onclick="location.href = '{{ route('stores.edit',$store) }}'">
+                            <div class="flex items-center w-11/12 "  onclick="location.href = '{{ route('storespeticiones.productos',$store) }}'" title="Asociar productos">
                             @else
                             <div class="flex items-center w-11/12 " >
                             @endcan
@@ -63,7 +63,7 @@
                             <div class="flex flex-row-reverse items-center w-1/12 pr-2 space-x-4 text-center">
                                 @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
                                 @can('storeelementos.index')
-                                <div class="pr-2"><x-icon.cubes-a href="{{ route('storespeticiones.productos',$store) }}" title="Elementos" class="w-6 text-green-600 "/></div>
+                                <div class="pr-2"><x-icon.edit-a href="{{ route('stores.edit',$store) }}" title="Editar store" class="w-6 text-green-600 "/></div>
                                 @endcan
                             </div>
                         </div>
