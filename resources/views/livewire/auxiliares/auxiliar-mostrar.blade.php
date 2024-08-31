@@ -15,11 +15,11 @@
                 Segmento
             </button>
             <button wire:click="cambiatabla('channel')"
-                class="w-full text-sm font-medium text-center text-white rounded-lg bg-rose-100 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 " type="button" data-modal-toggle="defaultModal">
+                class="w-full text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 " type="button" data-modal-toggle="defaultModal">
                 Channel
             </button>
             <button wire:click="cambiatabla('storecluster')"
-                class="w-full text-sm font-medium text-center text-white rounded-lg bg-zinc-100 hover:bg-rose-800 focus:ring-4 focus:outline-none focus:ring-rose-300 " type="button" data-modal-toggle="defaultModal">
+                class="w-full text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 " type="button" data-modal-toggle="defaultModal">
                 Cluster
             </button>
             <button wire:click="cambiatabla('furniture')"
