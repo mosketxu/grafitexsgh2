@@ -230,11 +230,11 @@ class PermissionSeeder extends Seeder
         // Permission::create(['name'=>'montajeproporcion.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Montaje Proporcion
-        Permission::create(['name'=>'storeproporcion.index'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeproporcion.create'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeproporcion.edit'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeproporcion.update'])->syncRoles($admin, $grafitex,$sgh);
-        Permission::create(['name'=>'storeproporcion.delete'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeproporcion.index'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeproporcion.create'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeproporcion.edit'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeproporcion.update'])->syncRoles($admin, $grafitex,$sgh);
+        // Permission::create(['name'=>'storeproporcion.delete'])->syncRoles($admin, $grafitex,$sgh);
 
         // Marcas
         Permission::create(['name'=>'marcas.index'])->syncRoles($admin, $grafitex,$sgh);
