@@ -5,8 +5,13 @@
                 @include('errores')
             </div>
         </div>
-        <div class="">
-            {{-- @include('stores.storesfilters') --}}
+        <div class="flex">
+            <div class="w-3/12">
+                <x-input.text type="searchcode" class="py-1 mx-1 my-1 text-xs" placeholder="Busqueda por code de tienda" wire:model="searchcode"/>
+            </div>
+            <div class="w-4/12">
+                <x-input.text type="search" class="py-1 mx-1 my-1 text-xs" placeholder="Busqueda por nombre de tienda" wire:model="search"/>
+            </div>
         </div>
         <div class="flex-col space-y-4">
             <div>
@@ -27,47 +32,27 @@
                     </div>
                 </div>
                 <div class="">
-                    @foreach ($stores as $store)
-                    <form id="form{{$store->id}}" role="form" method="post" action="javascript:void(0)" enctype="multipart/form-data">
-                    @csrf
-                        <div class="flex items-center w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100" wire:loading.class.delay="opacity-50">
-                            @can('stores.edit')
-                            <div class="flex items-center w-11/12 "  onclick="location.href = '{{ route('storespeticiones.productos',$store) }}'" title="Asociar productos">
-                            @else
-                            <div class="flex items-center w-11/12 " >
-                            @endcan
-                                <input type="hidden" name="id" value="{{$store->id}}">
-                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->luxotica}}</div>
-                                <div class="w-1/12 text-left ">{{$store->id}}</div>
-                                @can('montador.index')
-                                <div class="w-5/12 text-left md:w-1/12">{{$store->name}}</div>
-                                @else
-                                <div class="w-6/12 text-left md:w-1/12">{{$store->name}}</div>
-                                @endcan
-                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->tiendatipo->tiendatipo ?? '-'}}</div>
-                                <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$store->montajetipo->montajetipo ?? '-'}}</div>
-                                <div class="w-2/12 text-left md:w-1/12">{{$store->country}} / {{$store->are->area}}</div>
-                                <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->segmento}}</div>
-                                <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->channel}}</div>
-                                <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->store_cluster}}</div>
-                                <div class="hidden md:text-left md:w-2/12 md:flex">{{$store->concep->storeconcept ?? '-'}}</div>
-                                <div class="hidden md:text-left md:w-1/12 md:flex">{{$store->furniture_type}}</div>
-                                @can('montador.index')
-                                <div class="w-1/12 text-left ">
-                                    @if($store->montador_id)
-                                    <a href="{{ route('entidad.show',$store->montador_id) }}" class="text-blue-600 underline">{{$store->montador->entidad}}</a>
-                                    @endif
-                                </div>
-                                @endcan
-                            </div>
-                            <div class="flex flex-row-reverse items-center w-1/12 pr-2 space-x-4 text-center">
-                                @livewire('stores.store-eliminar',['store'=>$store],key($store->id))
-                                @can('storeelementos.index')
-                                <div class="pr-2"><x-icon.edit-a href="{{ route('stores.edit',$store) }}" title="Editar store" class="w-6 text-green-600 "/></div>
-                                @endcan
-                            </div>
+                    @foreach ($stores as $sto )
+                    <div class="flex items-center w-full text-sm text-gray-500 border-t-0 border-b cursor-pointer hover:bg-gray-100"
+                        wire:loading.class.delay="opacity-50">
+                        <div class="flex items-center w-11/12 "  onclick="location.href = '{{ route('storespeticiones.productos',$sto) }}'" title="Asociar productos">
+                            <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$sto->luxotica}}</div>
+                            <div class="w-1/12 text-left ">{{$sto->id}}</div>
+                            <div class="w-6/12 text-left md:w-1/12">{{$sto->name}}</div>
+                            <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$sto->tiendatipo->tiendatipo ?? '-'}}</div>
+                            <div class="hidden pl-2 overflow-hidden text-left md:flex md:w-1/12">{{$sto->montajetipo->montajetipo ?? '-'}}</div>
+                            <div class="w-2/12 text-left md:w-1/12">{{$sto->country}} / {{$sto->are->area}}</div>
+                            <div class="hidden md:text-left md:w-1/12 md:flex">{{$sto->segmento}}</div>
+                            <div class="hidden md:text-left md:w-1/12 md:flex">{{$sto->channel}}</div>
+                            <div class="hidden md:text-left md:w-1/12 md:flex">{{$sto->store_cluster}}</div>
+                            <div class="hidden md:text-left md:w-2/12 md:flex">{{$sto->concep->storeconcept ?? '-'}}</div>
+                            <div class="hidden md:text-left md:w-1/12 md:flex">{{$sto->furniture_type}}</div>
                         </div>
-                    </form>
+                        <div class="flex flex-row-reverse items-center w-1/12 pr-2 space-x-4 text-center">
+                            @livewire('stores.store-eliminar',['store'=>$sto],key($sto->id))
+                            <div class="pr-2"><x-icon.edit-a href="{{ route('stores.edit',$sto) }}" title="Editar store" class="w-6 text-green-600 "/></div>
+                        </div>
+                    </div>
                     @endforeach
                 </div>
                 <div class="col-10 row">
