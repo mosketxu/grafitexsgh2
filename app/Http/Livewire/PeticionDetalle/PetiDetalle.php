@@ -89,8 +89,9 @@ class PetiDetalle extends Component
         $productocategorias= ProductoCategoria::where('id','>','1')->orderBy('productocategoria')->get();
 
         $this->productos=Producto::query()
-            ->whereHas('storepeticionesproductos', function ($query) {
-                $query->where('store_id', $this->peticion->store_id);})
+            ->whereHas('storepeticionesproductos', function ($query) {$query->where('store_id', $this->peticion->store_id);})
+            ->where('activo','1')
+            ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->get();
 
@@ -115,8 +116,8 @@ class PetiDetalle extends Component
             $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id ?? '';
 
         $this->productos=Producto::query()
-            ->whereHas('storepeticionesproductos', function ($query) {
-                $query->where('store_id', $this->peticion->store_id);})
+            ->whereHas('storepeticionesproductos', function ($query) {$query->where('store_id', $this->peticion->store_id);})
+            ->where('activo','1')
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->get();
 
