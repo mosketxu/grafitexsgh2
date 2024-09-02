@@ -37,6 +37,7 @@
                         <x-jet-input-error for="categoria_id" class="mt-2" />
                     </div>
                     <div class="w-3/12 ">
+                        {{$productos}}
                         <x-jet-label class="pl-2" for="producto_id">Producto</x-jet-label>
                         <select  name="producto_id" class="w-full py-1 text-sm text-gray-600 bg-white border-blue-300 rounded-md shadow-sm appearance-none hover:border-blue-400 focus:outline-none" id="producto_id" wire:model.lazy="producto_id" >
                             <option value="">--Selecciona el producto--</option>
