@@ -9,5 +9,5 @@ class Marca extends Model
 {
     use HasFactory;
 
-    protected $fillable=['siglasmarca','marcaname'];
+    protected $fillable=['siglasmarca','marcaname','activa'];
 }

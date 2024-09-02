@@ -24,14 +24,18 @@
                     <div>
                         @forelse ($marcas as $marca)
                             <div class="flex items-center w-full pl-2 text-sm border-t-0 border-y" wire:loading.class.delay="opacity-50">
-                                <div class="w-11 md:w-11">
+                                <div class="w-10">
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $marca->id }}" />
                                 </div>
-                                <div class="w-1/12 px-2 md:w-5/12">
+                                <div class="w-1/12 px-2">
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $marca->siglasmarca }}" />
                                 </div>
-                                <div class="w-5/12 px-2 md:w-5/12">
+                                <div class="w-4/12 px-2">
                                     <input type="text" class="w-full text-sm font-thin text-gray-500 border-0 rounded-md" value="{{ $marca->marcaname }}" />
+                                </div>
+                                <div class="w-1/12 px-2 md:w-5/12">
+                                    {{-- <x-input.checkbox class=""  />{{ $marca->activa }} --}}
+                                    <input type="checkbox" {{ $marca->activa=="1" ? 'checked' : '' }} name="activa"  class="mt-1" />
                                 </div>
                                 <div class="flex w-1/12 ml-3 space-x-3 text-right md:w-1/12">
                                     @can('marcas.edit')

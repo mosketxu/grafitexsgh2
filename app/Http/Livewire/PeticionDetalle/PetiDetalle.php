@@ -94,7 +94,7 @@ class PetiDetalle extends Component
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->get();
 
-        $this->marcas=Marca::orderBy('marcaname')->get();
+        $this->marcas=Marca::orderBy('marcaname')->where('activa','1')->get();
 
         return view('livewire.peticion-detalle.peti-detalle',compact('productocategorias'));
     }

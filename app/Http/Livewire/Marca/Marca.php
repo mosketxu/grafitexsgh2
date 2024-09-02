@@ -11,6 +11,7 @@ class Marca extends Component
     public $marca;
     public $siglasmarca;
     public $marcaname;
+    public $activa=true;
     public $ruta;
     public $deshabilitado='';
 
@@ -35,6 +36,7 @@ class Marca extends Component
         if($marca->id){
             $this->siglasmarca=$marca->siglasmarca;
             $this->marcaname=$marca->marcaname;
+            $this->activa=$marca->activa;
         }
         $this->ruta=$ruta;
     }
@@ -71,12 +73,15 @@ class Marca extends Component
             $mensaje="Marca creada satisfactoriamente";
         }
 
+        $this->activa=$this->activa='' ? true : $this->activa;
+
         $marca=ModelsMarca::updateOrCreate([
             'id'=>$i
             ],
             [
             'siglasmarca'=>$this->siglasmarca,
             'marcaname'=>$this->marcaname,
+            'activa'=>$this->activa,
             ]
         );
 
