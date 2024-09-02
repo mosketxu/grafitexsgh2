@@ -93,6 +93,7 @@ class PetiDetalle extends Component
             ->where('activo','1')
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
             ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
+            ->where('productocategoria_id','<>','1') //no aparece la cat Grafitex
             ->get();
 
 
