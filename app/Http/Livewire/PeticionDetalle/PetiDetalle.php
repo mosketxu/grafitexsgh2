@@ -114,13 +114,18 @@ class PetiDetalle extends Component
         if($estienda)
             $tiendatipo=Store::find(Auth::user()->name)->tiendatipo_id ?? '';
 
+        $this->productos=Producto::query()
+            ->whereHas('storepeticionesproductos', function ($query) {
+                $query->where('store_id', $this->peticion->store_id);})
+            ->when(!empty($this->categoria_id),function($query) {return $query->where('productocategoria_id',$this->categoria_id);})
+            ->get();
 
-        $this->productos=Producto::with('imagenes')
-        ->where('productocategoria_id',$this->categoria_id)
-        ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
-        ->where('activo','1')
-        ->orderBy('producto')
-        ->get();
+        // $this->productos=Producto::with('imagenes')
+        // ->where('productocategoria_id',$this->categoria_id)
+        // ->when(!empty($estienda),function($query) use($tiendatipo){return $query->where('tiendatipo_id',$tiendatipo);})
+        // ->where('activo','1')
+        // ->orderBy('producto')
+        // ->get();
     }
 
 
