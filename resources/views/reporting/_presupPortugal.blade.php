@@ -46,7 +46,8 @@
             <tr>
                <td width="49%" ><span style="font-size: small">Presupuesto tiendas Portugal</span></td>
                <td width="25%" style="padding-left:10px; border:1px solid"><span style="font-size: small">Fecha</span></td>
-               <td width="25%" style="padding-left:10px; border:1px solid"><span style="font-size: small">{{$presupuesto->fecha->format('d-m-Y')}}</span></td>
+               {{-- <td width="25%" style="padding-left:10px; border:1px solid"><span style="font-size: small">{{$presupuesto->fecha->format('d-m-Y')}}</span></td> --}}
+               <td width="25%" style="padding-left:10px; border:1px solid"><span style="font-size: small">{{$presupuesto->fecha}}</span></td>
                {{-- para que funcione la fecha he tenido que poner en el modelo: protected $dates = ['fecha']; --}}
             </tr>
             <tr>
