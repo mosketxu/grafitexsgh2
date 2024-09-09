@@ -26,16 +26,16 @@ class CampaignElemenIdiMatMedMobExport implements FromCollection,WithHeadings
             'Material',
             'Medidas',
             'Mobiliarios',
+            'Cluster',
             'Totales',
             'Unidades',
         ];
     }
-    public function collection()
-    {
+    public function collection()    {
         return CampaignElemento::join('campaign_tiendas','campaign_tiendas.id','tienda_id')
         ->where('campaign_id',$this->id)
-        ->select('idioma','material','medida','mobiliario', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
-        ->groupBy('idioma','material','medida','mobiliario')
+        ->select('idioma','material','medida','mobiliario','store_cluster', DB::raw('count(*) as totales'),DB::raw('SUM(unitxprop) as unidades'))
+        ->groupBy('idioma','material','medida','mobiliario','store_cluster')
         ->get();
     }
 }
