@@ -166,13 +166,14 @@ class Peti extends Component
             ]);
 
             if($this->storearea=='Portugal')
-                $envio="EnvioPortugal";
+                $envio="Envio Portugal";
             elseif($this->storearea=='Canarias')
-                $envio="EnvioCanarias";
+                $envio="Envio Canarias";
             else
-                $envio="EnvíoNacionalPenínsula";
+                $envio="Envío Nacional Península";
 
-    $productoenvio=Producto::where('producto',$envio)->first();
+            $productoenvio=Producto::where('producto',$envio)->first();
+            dd($productoenvio);
             PeticionDetalle::create([
                 'peticion_id'=>$pet->id,
                 'producto_id'=>$productoenvio->id,
