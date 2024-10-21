@@ -173,7 +173,6 @@ class Peti extends Component
                 $envio="Envío Nacional Península";
 
             $productoenvio=Producto::where('producto',$envio)->first();
-            dd($productoenvio);
             PeticionDetalle::create([
                 'peticion_id'=>$pet->id,
                 'producto_id'=>$productoenvio->id,
